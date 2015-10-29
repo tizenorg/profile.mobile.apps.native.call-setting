@@ -1,0 +1,77 @@
+#!/bin/bash
+
+usage()
+{
+    echo "Usage: `basename $0` [-h|--help] [-e|--emulator] | [-d|--device] [-2|--tizen2] | [-3|--tizen3] [-i|--init] [-t|--test]
+    -h, --help      Show this message.
+    -e, --emulator  Build for emulator (default).
+    -d, --device    Build for device.
+    -2, --tizen2    Build for Tizen 2.x (32-bit)
+    -3, --tizen3    Build for Tizen 3.0 (64-bit, default)
+    -i, --init      Build online (without --noinit).
+    -t, --test      Build with tests."
+}
+
+TARGET="e"
+TIZEN="3"
+NOINIT="--noinit"
+OPTS=$(getopt -o "edith23" -l "emulator,device,tizen2,tizen3,init,test,help" -- "$@" 2> /dev/null)
+
+if [ $? -ne 0 ]
+then
+    usage
+    exit 1
+fi
+
+for opt in $OPTS
+do
+    case $opt in
+        -e|--emulator)
+        TARGET="e"
+        ;;
+        -d|--device)
+        TARGET="d"
+        ;;
+        -2|--tizen2)
+        TIZEN="2"
+        ;;
+        -3|--tizen3)
+        TIZEN="3"
+        ;;
+        -i|--init)
+        NOINIT=""
+        ;;
+        -t|--test)
+        TEST=1
+        ;;
+        -h|--help)
+        usage
+        exit 1
+        ;;
+    esac
+done
+
+if [ $TIZEN = "2" ]
+then
+    if [ $TARGET = "e" ]
+    then
+        ARCH="i586"
+    else
+        ARCH="armv7l"
+    fi
+else
+    if [ $TARGET = "e" ]
+    then
+        ARCH="x86_64"
+    else
+        ARCH="aarch64"
+    fi
+fi
+
+if [ -z $TEST ]
+then
+    gbs build -A $ARCH --include-all --keep-packs $NOINIT
+else
+    gbs build -A $ARCH --include-all --keep-packs $NOINIT --define 'TEST ON'
+fi
+

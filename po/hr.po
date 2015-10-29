@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "Uključeno"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "Telefon"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "Video poziv"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "Govorna pošta"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "Gumb za uključivanje/isključivanje"
+
+msgid "IDS_COM_SK_OK"
+msgstr "U redu"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "Dodaj"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "Nepoznata radnja."
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "Deblokiraj PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2 deblokiran."
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "PIN2 blokiran."
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "%d pokušaja preostalo."
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "Neispravan PIN2."
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d odabrano"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "Vibracije"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "Bešumno"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "Nedodijeljeno"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "Novi PIN2"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "Neispravna lozinka. Ponovite"
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "FDN biranje"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "Potvrdite novi PIN2"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "Promijenite PIN2"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Sakrij"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "Unesite lozinku."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "Domaća"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "Odaberite stavke"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ODUSTANI"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "GOTOVO"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "Nazad"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "Imenik"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "Šifra"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "Tonovi zvona"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Odaberi sve"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "Obrisano."
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "Obrisati?"
+
+msgid "IDS_COM_SK_SET"
+msgstr "Postavi"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "Spremi"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "Zahtijevanje..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Učitavanje..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Umetni SIM."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "Isključeno."
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "Problem s vezom ili neispravan MMI kod."
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "Novi kontakt"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "Poziv"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "Video"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Nepoznato"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "%d odabrano"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "Isključeno"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "Ime"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Telefonski broj"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "FDN uključeno."
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "1 kontakt uklonjen."
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "FDN kontakt"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "Nemoguće spremiti zbog SIM greške."
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "Aplikacija nije instalirana."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "Unijeli ste neispravan broj."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "IZBRIŠI"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "Neuspjeh"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "Nemoguće promijeniti broj govorne pošte. Obratite se davatelju ako se problem ponovi."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "Na SIM kartici nema FDN kontakata"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "FDN kontakti"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "Učitavanje sa SIM kartice..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "Nema promjena."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "Više"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "Kada nema odgovora"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "%d brojeva uklonjeno."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "%d poruka izbrisano."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "Broj uklonjenih kontakata: %d."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "1 broj uklonjen."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "1 poruka izbrisana."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Žao mi je, trenutno vozim."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Ne mogu razgovarati. Što ima?"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "Kriteriji za blokiranje"
+
+msgid "IDS_CST_SK_OK"
+msgstr "U redu"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "Prom. sliku"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Novi"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "Postavite alternativnu sliku ili videozapis koji će se prikazati na zaslonu druge osobe tijekom video poziva."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Odbijte pozive s brojeva na popisu za blokiranje poziva."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "Odbijte sve dolazne pozive."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Primajte dojave poziva tijekom poziva."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Upravljajte brojevima na popisu za blokiranje poziva."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Napišite ili uredite poruke kao odgovore koji će se poslati kod odbijanja dolaznih poziva."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "Dopustite da se alarmi i obavijesti oglase zvukom tijekom poziva."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "Automatski dodaj %s na zaslon s prikazom broja."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "Automatski dodajte brojeve u popis za blokiranje poruka kada ih dodate u popis za blokiranje poziva."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "Aktualiziranje postavki..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Usluga nedostupna."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Mreža odbija."
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "Maks. br. kontakata."
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "Neispravan PIN2. SIM kartica je zaključana. Unesite PUK2 za otključavanje."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Unesite poruku."
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "Isključeno"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "Svi dolazni pozivi"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "Fotografiranje"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Prikaz"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "Ukloni"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "Ništa"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "Točno podudaranje"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "Nema blokiranih brojeva"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Nema poruka"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "Nema kontakata"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "Glasovni pozivi"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "Videopozivi"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "Vibracija dok zvoni"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Zauzet/a sam. Nazvat ću kasnije."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "Tonovi zvona"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "Obavijesti tijekom poziva"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Moj ID pozivatelja"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Prosl. kada je nedostup."
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Preusmjeri kad je zauzeto"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "Dojave poziva"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "Blok. por. s istih brojeva"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "Prosljeđivanje glasovnih poziva"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "Govorna pošta"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "Unesite PIN2"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Obriši"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "Promijeni zadanu sliku"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Postavke poziva"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Poruke za odbijanje poziva"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "Odbijanje poziva"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "Popis blok. poziva"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "Auto. odbijanje poziva"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Preuzimanje/prekidanje poziva"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "Dodatne postavke"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Uključi"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Prekid"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Vrijeme čekanja"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "Broj govorne pošte promijenjen."
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "Broj govorne pošte"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "Slika za video poziv"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "Prosljeđivanje videopoziva"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "Tipka uključ. prekida pozive"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "Pomoću početne tipke odgovarate na poziv"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "Započni s"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Imam posla. Pošaljite mi SMS."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "Postavljene slike"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d sekundi"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "Broj"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "Ime"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "Maksimalan broj znakova (%d)."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "Upravljanje postavkama odgovaranja/prekida poziva."
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "Sadrži"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Na sastanku sam."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "Slika"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "FDN brojevi"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "Završi s"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Uredi"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Poziv na čekanju"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Prosljeđivanje poziva"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Po mreži"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "Popis blokiranja"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "Auto. poziv.br."
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Prosljeđivanje uvijek"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "Obavijesti tijekom poziva"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Nakon što stvorite poruke za odbijanje poziva, prikazat će se ovdje."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Nakon što dodate brojeve na popis za blokiranje poziva, prikazat će se ovdje."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "Nakon što dodate kontakte, FDN kontakti prikazat će se ovdje."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "Dodaj"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "Dosegnut je maksimalni broj znamenki (%d)."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "Od ureda do kuće"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "Od kuće do ureda"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "Odaberite SIM kartice za korištenje s uslugom Pametni dual SIM."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "Isključit će se funkcija Pametni dual SIM. Dok je ova funkcija uključena, nećete moći uređivati postavke."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "Netočan PIN2. Preostala 2 pokušaja."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "Netočan PIN2. Preostao 1 pokušaj."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "Uključen je poziv na čekanju. Ako je vaša mreža %1$s izvan dosega, dolazni će se pozivi proslijediti na vaš %2$s telefonski broj."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "Uključen je poziv na čekanju."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "Isključen je poziv na čekanju."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "Uključeno je prosljeđivanje poziva."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "Isključeno je prosljeđivanje poziva."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "Već u upotrebi."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s do %2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "Obje SIM kartice"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "Pametni dual SIM"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "SIM kartica"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "Odabir SIM kartice"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "Tonovi tipkovnice"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "Dvije SIM kart. uv. uklj."
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "OK"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "Zvukovi"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "Pametni dual SIM"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "PUK blokiran."
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "Nije postavljeno"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "Tipke"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "Dvije SIM kartice uvijek uključene"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "Još 1 pokušaj."
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "FDN nepodržan."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "Blagi zvuk"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "Jasan zvuk"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "Smanjenje buke"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "Prosljeđivanje"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "Opće postavke"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "Isključite profil Bez mreže za korištenje mrežnih usluga."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "Svi dolazni pozivi"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "Svi odlazni pozivi"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "Preuzmite poziv glasovnom naredbom."
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "Zabrana poziva"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "Trenutna lozinka"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "Unesite broj."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "Povećaj glasn. u džepu"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "Međunarodni pozivi"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "Međun. osim za matičnu mrežu"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "Nova lozinka"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "Uredi zvuk poziva"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "Glasnoća zvona se povećava kada je uređaj u džepu ili torbi."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "Postavite postavke dodatne opreme kod poziva."
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "Postavi zadanu sliku za skrivanje."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "Zvuk"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "Prigušuje pozadinsku buku s vaše strane tijekom poziva."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "Uključi senzor blizine kod poziva."
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "Neispravan broj za auto. odbijanje."
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "Proslijedi"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "Poruka odbijanja"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "Zabrana glasovnih poziva"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "Poruke odbijanja"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "Da biste mogli koristiti ovu funkciju, morate pronaći najbolji ekvilajzer za sebe. Pronaći sad?"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "Potvrdite lozinku"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "Dolazni u inozemstvu"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "Već postoji."
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "Lozinka blokirana."
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "Lozinka promijenjena."
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "Opet provjeri Adapt Sound"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "Promijeni lozinku"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "Prikaži lozinku."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "Zvuk"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Preuzimanje poziva s"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Pritiskanje početne tipke"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Prekidanje poziva s"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Pritisk. tipke uključ."
+

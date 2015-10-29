@@ -1,0 +1,634 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+#include "../ColorClasses.h"
+
+#define MAIN_W 720
+#define DIALOGUEGROUP_ITEM_TOP_TEXT_COLOR_1_INC 0 0 0 255
+#define DIALOGUEGROUP_ITEM_BOTTOM_TEXT_COLOR_1_INC 213 129 31 255
+#define DIALOGUEGROUP_ITEM_BOTTOM_TEXT_DISABLED_COLOR_1_INC 147 120 98 255
+#define DIALOGUEGROUP_ITEM_PRESSED_TEXT_COLOR_INC 255 255 255 255
+#define DIALOGUEGROUP_ITEM_PRESSED_TEXT_COLOR_INC 255 255 255 255
+
+#define DIALOGUEGROUP_ITEM_SINGLE_TEXT_COLOR_INC 0 0 0 255
+#define DIALOGUEGROUP_ITEM_DISABLED_TEXT_COLOR_INC 163 157 138 255
+
+#define EDITFIELD_TITLE_SIZE_INC 32
+#define EDITFIELD_ENTRY_SIZE 164
+#define EDITFIELD_TITLE_COLOR_INC 73 73 73 255
+#define EDITFIELD_GUIDE_TEXT_COLOR_INC 189 189 189 255
+#define ENTRY_TEXT_SIZE_INC 44
+#define EDITFIELD_DEFAULT_MINH_INC 112
+#define EDITFIELD_DEFAULT_TOP1_MULTI_INC 45
+#define EDITFIELD_DEFAULT_TOP2_INC 6
+#define EDITFIELD_DEFAULT_LEFT1_INC 0
+#define EDITFIELD_DEFAULT_LEFT2_INC 0
+#define EDITFIELD_DEFAULT_RIGHT1_ERASER_SHOW_INC 56
+#define EDITFIELD_DEFAULT_RIGHT2_INC 0
+#define EDITFIELD_DEFAULT_BOTTOM1_MULTI_INC 5
+#define EDITFIELD_DEFAULT_BOTTOM2_MULTI_INC 12
+#define EDITFIELD_DEFAULT_ERASER_MINW_INC 48
+#define EDITFIELD_DEFAULT_ERASER_MINH_INC 48
+#define EDITFIELD_DEFAULT_ERASER_EVENT_MINW_INC 48
+#define EDITFIELD_DEFAULT_ERASER_EVENT_MINH_INC 70
+
+#define EDITFIELD_COUNT_ENTRY_LEFT_RIGHT_PADDING 32
+#define EDITFIELD_COUNT_ENTRY_HEIGHT 80
+#define EDITFIELD_COUNT_ENTRY_FONT_SIZE 38
+#define EDITFIELD_COUNT_ENTRY_LEFT_PADDING_REL (EDITFIELD_COUNT_ENTRY_LEFT_RIGHT_PADDING / MAIN_W)
+#define EDITFIELD_COUNT_ENTRY_RIGHT_PADDING_REL (1 - EDITFIELD_COUNT_ENTRY_LEFT_PADDING_REL)
+
+#define EDITFIELD_COUNT_ENTRY_TEXT_COLOR_INC 188 188 188 255
+#define EDITFIELD_BG_COLOR_INC 243 248 247 255
+#define EDITFIELD_ENTRY_BG_COLOR_INC 250 250 250 255
+
+#define CST_IMG_ICON_SIM_CALL "logs_icon_sim_tab_phone.png"
+#define CST_IMG_ICON_SIM_DATA "logs_icon_sim_tab_data.png"
+#define CST_IMG_ICON_SIM_HEART "logs_icon_sim_tab_heart.png"
+#define CST_IMG_ICON_SIM_HOME "logs_icon_sim_tab_home.png"
+#define CST_IMG_ICON_SIM_INTERNET "logs_icon_sim_tab_internet.png"
+#define CST_IMG_ICON_SIM_MESSAGES "logs_icon_sim_tab_messages.png"
+#define CST_IMG_ICON_SIM_OFFICE "logs_icon_sim_tab_office.png"
+#define CST_IMG_ICON_SIM1 "logs_icon_sim_tab_1.png"
+#define CST_IMG_ICON_SIM2 "logs_icon_sim_tab_2.png"
+#define CONTAINER "contacts_icon_sim_container.png"
+
+#define CST_SIM_IMAGE(LAYOUT_NAME, IMAGE_NAME, MID_IMAGE_COLOR_CODE, IMAGE_COLOR_CODE ) \
+	group { \
+		images { \
+			image: IMAGE_NAME COMP; \
+		} \
+		name: LAYOUT_NAME; \
+		parts { \
+			part { name: "image"; \
+				description { \
+					state: "default" 0.0; \
+					min: 32 32;;\
+					max: 32 32;;\
+					color_class:IMAGE_COLOR_CODE;\
+					image.normal: IMAGE_NAME; \
+					aspect: 1 1; \
+					align: 1 0.5;\
+					aspect_preference: BOTH; \
+				} \
+			} \
+		} \
+	}
+
+collections {
+	base_scale: 2.6;
+	group {
+		name: "nocontents";
+		parts {
+			part { name: "bg";
+				mouse_events: 0;
+				type: RECT;
+				description { state: "default" 0.0;
+					visible: 1;
+					rel1 { relative: 0.0 0.0;}
+					rel2 { relative: 1.0 1.0;}
+					color: 0 0 0 0;
+				}
+			}
+
+			part {
+				name: "contents";
+				type: SWALLOW;
+				mouse_events: 1;
+				description {
+					state: "default" 0.0;
+				}
+			}
+		}
+	}
+
+	group {
+		name: "toolbar";
+		parts {
+			part {
+				name: "background";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 0 0 0 0;
+				}
+			}
+
+			part {
+				name: "elm.swallow.contents";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 1;
+					rel1 { relative: 0.0 0.0; to:"background"; }
+					rel2 { relative: 1.0 0.0; to_x: "background"; to_y:"bottom_padding"; }
+				}
+				description {
+					state: "show_content2" 0.0;
+					visible: 0;
+					rel1 { relative: 0.0 0.0; to:"background"; }
+					rel2 { relative: 1.0 0.0; to_x: "background"; to_y:"bottom_padding"; }
+				}
+			}
+
+			part {
+				name: "elm.swallow.contents2";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 0;
+					rel1 { relative: 0.0 0.0; to:"background"; }
+					rel2 { relative: 1.0 0.0; to_x: "background"; to_y:"bottom_padding"; }
+				}
+				description {
+					state: "show_content2" 0.0;
+					visible: 1;
+					rel1 { relative: 0.0 0.0; to:"background"; }
+					rel2 { relative: 1.0 0.0; to_x: "background"; to_y:"bottom_padding"; }
+				}
+			}
+
+			part {
+				name: "bottom_padding";
+				type: SPACER;
+				mouse_events: 0;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 0;
+					fixed: 0 1;
+					align: 0.5 1.0;
+					rel1 { relative: 0.0 1.0; to: "background"; }
+					rel2 { relative: 1.0 1.0; to: "background"; }
+				}
+
+				description {
+					state: "padding" 0.0;
+					inherit: "default" 0.0;
+					min: 0 82;
+				}
+			}
+
+			part {
+				name: "elm.swallow.toolbar";
+				type: SWALLOW;
+				mouse_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 86;
+					fixed: 0 1;
+					align: 0.5 1.0;
+					rel1 { relative: 0.0 1.0; }
+					rel2 { relative: 1.0 1.0; }
+				}
+			}
+			part {
+				name: "swallow.btn.call";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					fixed: 1 1;
+					align: 0.5 0.5;
+					rel1 { relative: 0.0 0.85; }
+					rel2 { relative: 1.0 1.0; }
+				}
+			}
+		}
+
+		programs {
+		        program {
+				name: "bottom_padding_content_area";
+				signal: "elm,layout,content,bottom_padding";
+				source: "layout";
+				action: STATE_SET "padding" 0.0;
+				target: "bottom_padding";
+			}
+
+			program {
+				name: "default_content_area";
+				signal: "elm,layout,content,default";
+				source: "layout";
+				action: STATE_SET "default" 0.0;
+				target: "bottom_padding";
+			}
+
+			program {
+				name: "show_contents1";
+				signal: "show,content1";
+				source: "code";
+				action: STATE_SET "default" 0.0;
+				target: "elm.swallow.contents";
+				target: "elm.swallow.contents2";
+			}
+
+			program {
+				name: "show_contents2";
+				signal: "show,content2";
+				source: "code";
+				action: STATE_SET "show_content2" 0.0;
+				target: "elm.swallow.contents";
+				target: "elm.swallow.contents2";
+			}
+		}
+	}
+
+	group {
+		name: "divider";
+		parts {
+			part {
+				name: "divider_rect";
+				mouse_events: 0;
+				type: RECT;
+				scale: 1;
+				description {
+				   align: 0.85 0;
+	               min: 1 100;
+	               max: 1 100;
+	               fixed: 1 0;
+	               rel1.offset: -1 0;
+	               color: 65 66 73 255;
+				}
+			}
+		}
+	}
+	group {
+		name: "video_call_image";
+		parts {
+			part {
+				name: "background";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					color: 237 242 242 100;
+				}
+			}
+			part {
+				name: "def_image";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					fixed: 1 1;
+					min: 480 394;
+					max: 480 394;
+					rel1 {
+						relative: 0 0;
+						to: background;
+					}
+					rel2 {
+						relative: 1 1;
+						to: background;
+					}
+					align: 0.0 0.0;
+					visible: 1;
+				}
+			}
+			part {
+				name: "change_image_rect";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 1;
+					rel1{ relative: 0 1; to: "background";}
+					rel2{ relative: 1 1; to: "background";}
+					min: 480 108;
+					max: 480 108;
+					color: 255 255 255 255;
+					align: 0.5 1.0;
+				}
+			}
+			part {
+				name: "change_image";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 1;
+					rel1{ relative: 0 0; to: "change_image_rect";}
+					rel2{ relative: 1 1; to: "change_image_rect";}
+					align: 0.5 0.5;
+				}
+			}
+		}
+	}
+	group {
+		name: "entry_margin";
+		parts {
+			part {
+				name: "rect";
+				type: RECT;
+				scale: 1;
+				description {
+					visible: 0;
+					state: "default" 0.0;
+					min: 0 8;
+				}
+			}
+		}
+	}
+
+	group { name: "editfield_bg";
+		parts {
+			part { name: "bg";
+				type: RECT;
+				description { state: "default" 0.0;
+					color: EDITFIELD_ENTRY_BG_COLOR_INC;
+				}
+			}
+			part { name: "editfield";
+				type: SWALLOW;
+				description { state: "default" 0.0;
+				}
+			}
+		}
+	}
+
+	group { name: "editfield_layout";
+		parts {
+			part { name: "bg";
+				type: RECT;
+				description { state: "default" 0.0;
+					color: EDITFIELD_BG_COLOR_INC;
+				}
+			}
+
+			part { name: "entry_count_bg";
+				type: RECT;
+				scale: 1;
+				description { state: "default" 0.0;
+					rel1{ relative: 0 0; to: "bg";}
+					rel2{ relative: 1 0; to: "bg";}
+					align: 1 0.0;
+					min: 0 EDITFIELD_COUNT_ENTRY_HEIGHT;
+					color: EDITFIELD_ENTRY_BG_COLOR_INC;
+				}
+			}
+			part { name: "entry_count";
+				type: TEXT;
+				scale: 1;
+				description { state: "default" 0.0;
+					rel1{ relative: EDITFIELD_COUNT_ENTRY_LEFT_PADDING_REL 0; to: "bg";}
+					rel2{ relative: EDITFIELD_COUNT_ENTRY_RIGHT_PADDING_REL 0; to: "bg";}
+					align: 1 0.0;
+					min: 0 EDITFIELD_COUNT_ENTRY_HEIGHT;
+					text {
+						font: "Tizen:style=Regular";
+						size: EDITFIELD_COUNT_ENTRY_FONT_SIZE;
+						align: 1.0 0.5;
+						text_class: "tizen";
+						ellipsis: -1;
+					}
+					color: EDITFIELD_COUNT_ENTRY_TEXT_COLOR_INC;
+				}
+			}
+			part { name: "entry_part";
+				type: SWALLOW;
+				description { state: "default" 0.0;
+					rel1{ relative: 0 1; to_x: "bg"; to_y: "entry_count";}
+					rel2{ relative: 1 0; to: "bg";}
+					align: 0 0;
+				}
+			}
+		}
+	}
+
+	group {
+		name: "top_margin";
+		parts {
+			part {
+				name: "rect";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 98;
+				}
+			}
+		}
+	}
+
+	group {
+		name: "mid_margin";
+		parts {
+			part {
+				name: "rect";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 40;
+				}
+			}
+		}
+	}
+
+	group {
+		name: "hideme_image_help_txt";
+		parts {
+			part {
+				name: "rect/padding/top";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 0;
+					align: 0.0 0.0;
+					fixed: 1 1;
+					rel1{relative:0.0 0.0;}
+					rel2{relative:1.0 0.0;}
+				}
+			}
+			part {
+				name: "rect/padding/bottom";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 0;
+					align: 0.0 1.0;
+					fixed: 1 1;
+					rel1{relative:0.0 1.0;}
+					rel2{relative:1.0 1.0;}
+				}
+			}
+			part {
+				name: "rect/padding/left";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 32 0;
+					align: 0.0 0.0;
+					fixed: 1 1;
+					rel1{relative:0.0 0.0;}
+					rel2{relative:0.0 1.0;}
+				}
+			}
+			part {
+				name: "rect/padding/right";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 32 0;
+					align: 1.0 0.0;
+					fixed: 1 1;
+					rel1{relative:1.0 0.0;}
+					rel2{relative:1.0 1.0;}
+				}
+			}
+			part {
+				name: "box";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					visible: 1;
+					state: "default" 0.0;
+					rel1 {relative: 1.0 1.0; to_x: "rect/padding/left";  to_y: "rect/padding/top";}
+					rel2 {relative: 0.0 0.0; to_x: "rect/padding/right";  to_y: "rect/padding/bottom";}
+				}
+			}
+		}
+	}
+
+	CST_SIM_IMAGE("SIM1_CARD", CST_IMG_ICON_SIM1, "A02O012", "A02O004");
+	CST_SIM_IMAGE("SIM2_CARD", CST_IMG_ICON_SIM2, "A02O013", "A02O004");
+	CST_SIM_IMAGE("SIM_OFFICE", CST_IMG_ICON_SIM_OFFICE, "A02O014", "A02O004");
+	CST_SIM_IMAGE("SIM_MESSAGES", CST_IMG_ICON_SIM_MESSAGES, "A02O015", "A02O004");
+	CST_SIM_IMAGE("SIM_DATA", CST_IMG_ICON_SIM_DATA, "A02O016", "A02O004");
+	CST_SIM_IMAGE("SIM_INTERNET", CST_IMG_ICON_SIM_INTERNET, "A02O017", "A02O004");
+	CST_SIM_IMAGE("SIM_HOME", CST_IMG_ICON_SIM_HOME, "A02O018", "A02O004");
+	CST_SIM_IMAGE("SIM_HEART", CST_IMG_ICON_SIM_HEART, "A02O019", "A02O004");
+	CST_SIM_IMAGE("SIM_CALL", CST_IMG_ICON_SIM_CALL, "A02O020", "A02O004");
+
+#define CONTACT_BTN_IMG "01_controlbar_icon_contacts.png"
+#define CONTACT_BTN_IMG_PRESS  "01_controlbar_icon_contacts_press.png"
+	group { name: "elm/button/base/editfield/contact_btn";
+		images {
+			image: CONTACT_BTN_IMG COMP;
+			image: CONTACT_BTN_IMG_PRESS COMP;
+		}
+		parts {
+			part { name: "button_image";
+				type: IMAGE;
+				scale: 1;
+				description { state: "default" 0.0;
+					image {
+						normal: CONTACT_BTN_IMG;
+					}
+				}
+				description { state: "clicked" 0.0;
+					image.normal: CONTACT_BTN_IMG_PRESS;
+				}
+				description { state: "disabled" 0.0;
+					inherit: "default" 0.0;
+				}
+			}
+			part { name: "over2";
+				type: RECT;
+				repeat_events: 1;
+				ignore_flags: ON_HOLD;
+				description { state: "default" 0.0;
+					color: 0 0 0 0;
+				}
+			}
+			part { name: "over3";
+				type: RECT;
+				repeat_events: 1;
+				description { state: "default" 0.0;
+					color: 0 0 0 0;
+				}
+			}
+			part { name: "disabler";
+				type: RECT;
+				description { state: "default" 0.0;
+				   color: 0 0 0 0;
+				   visible: 0;
+				}
+				description { state: "disabled" 0.0;
+				   inherit: "default" 0.0;
+				   visible: 1;
+				}
+			}
+		}
+		programs {
+			program { name: "button_click";
+				signal: "mouse,down,1";
+				source: "over2";
+				action: SIGNAL_EMIT "elm,action,press" "";
+				after: "button_click_anim";
+			}
+			program { name: "button_click_anim";
+				action: STATE_SET "clicked" 0.0;
+				target: "button_image";
+			}
+			program { name: "button_unpress";
+				action: SIGNAL_EMIT "elm,action,unpress" "";
+			}
+			program { name: "button_mouseout_clicked";
+				signal: "mouse,up,1";
+				source: "over3";
+				action: STATE_SET "default" 0.0;
+				target: "button_image";
+				after: button_unpress;
+			}
+			program { name: "touch_snd";
+				signal: "mouse,clicked,1";
+				source: "over2";
+				after: button_unclick3;
+			}
+			program { name: "button_unclick3";
+				action: SIGNAL_EMIT "elm,action,click" "";
+			}
+			program { name: "icon_show";
+				signal: "elm,state,icon,visible";
+				source: "elm";
+				action: STATE_SET "visible" 0.0;
+				target: "button_image";
+			}
+			program { name: "icon_hide";
+				signal: "elm,state,icon,hidden";
+				source: "elm";
+				action: STATE_SET "default" 0.0;
+				target: "button_image";
+			}
+			program { name: "disable";
+				signal: "elm,state,disabled";
+				source: "elm";
+				action: STATE_SET "disabled" 0.0;
+				target: "button_image";
+				target: "disabler";
+			}
+			program { name: "enable";
+				signal: "elm,state,enabled";
+				source: "elm";
+				action: STATE_SET "default" 0.0;
+				target: "button_image";
+				target: "disabler";
+			}
+		}
+	}
+}
+

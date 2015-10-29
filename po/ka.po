@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "ჩართვა"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "ტელეფონი"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "ვიდეოზარი"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "ხმოვანი წერილი"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "ჩართვა-გამორთვის ღილაკი"
+
+msgid "IDS_COM_SK_OK"
+msgstr "კი"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "დამატება"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "უცნობი ოპერაცია."
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "განიბლოკოს PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2 განიბლოკა."
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "დაბლოკილია PIN2-ით."
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "%d ცდა დარჩა."
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "არასწორი PIN2."
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d არჩეულია"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "ვიბრაციები"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "ჩუმი"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "არ არის მინიჭებული"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "ახალი PIN2"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "პაროლი არასწორია. ისევ ცადეთ"
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "გამავალი ზარების ნომრის დაფიქსირების რეჟიმი"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "ახალი PIN2-ის დადასტურება"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "PIN2-ის შეცვლა"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "დამალვა"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "პაროლის შეყვანა."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "საწყისი გვერდი"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "ელემენტების არჩევა"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "გაუქმება"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "მზადაა"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "დაბრუნება"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "კონტაქტები"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "პაროლი"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "ზარის მელოდიები"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "ყველას არჩევა"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "წაშლილია."
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "წაიშალოს?"
+
+msgid "IDS_COM_SK_SET"
+msgstr "დაყენება"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "შენახვა"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "იგზავნება მოთხოვნა..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "იტვირთება..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "ჩადეთ SIM ბარათი."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "დეაქტივირებულია."
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "დაკავშირების პრობლემაა, ან MMI კოდი არასწორია."
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "კონტაქტის შექმნა"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "ხმოვანი ზარი"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "ვიდეოები"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "უცნობი"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "%d არჩეულია"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "გამორთ."
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "სახელი"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "ტელეფონის ნომერი"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "FDN რეჟიმი აქტივირებულია."
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "წაიშალა 1 კონტაქტი."
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "FDN კონტაქტი"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "ვერ შეინახება SIM-ის შეცდომის გამო."
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "პროგრამა არაა დაინსტალირებული."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "შეყვანილი ნომერი არასწორია."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "წაშლა"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "არ შესრ."
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "ხმოვანი ფოსტის ნომრის შეცვლა შეუძლებელია. დაუკავშირდით გადამტანს, თუ ეს პრობლემა ვერ გვარდება."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "FDN კონტაქტები არ არის SIM ბარათზე"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "FDN კონტაქტები"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "მიმდინარეობს წაკითხვა SIM ბარათიდან..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "ცვლილებები არ შესრულდა."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "სხვა"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "გადამისამართდეს, როცა არ პასუხობს"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "წაიშალა %d მოწყობილობა."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "წაიშალა %d წერილი."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "მოცილდა %d კონტაქტი."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "წაიშალა 1 ნომერი."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "წაიშალა 1 შეტყობინება."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "უკაცრავად, საჭესთან ვარ."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "ახლა ვერ ვილაპარაკებ. რა ხდება?"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "დაბლოკვის კრიტერიუმები"
+
+msgid "IDS_CST_SK_OK"
+msgstr "კი"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "სურათ. შეცვლა"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "შექმ."
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "დააყენეთ ალტერნატიული სურათი ან ვიდეო, რომელიც გამოჩნდება სხვა აბონენტის ეკრანზე, ვიდეოზარების დროს."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "მოხდეს დაბლოკილი ზარების სიაში მყოფი ნომრებიდან შემოსული ზარების უარყოფა."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "მოხდეს ყველა შემოსული ზარის უარყოფა."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "საუბრის დროს მიიღეთ ზარების შეტყობინება."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "მართეთ ნომრები ზარის დაბლოკვის სიაში."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "შეადგინეთ ან შეასწორეთ პასუხის ტექსტები, რომლებიც იგზავნება ზარის უარყოფის შემთხვევაში."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "სიგნალებისა და შეტყობინებების ხმა ჩაირთოს ზარების დროს."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "%s ავტომატურად დაემატოს ნომრის გამოსაჩენ დაფაზე."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "ავტომატურად დაამატეთ ნომრები შეტყობინებების დაბლოკვის სიაში, როდესაც მათ დაამატებთ ზარის დაბლოკვის სიაში."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "სრულდება პარამეტრების განახლება..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "მომსახურება არ არის."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "უარყო ქსელმა."
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "მიღწეულია კონტაქტების სიების მაქს. რაოდენობა."
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "PIN2 არასწორია. SIM ბარათი დაბლოკილია. ჩაწერეთ PUK2 და განბლოკეთ იგი."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "დაწერეთ წერილი."
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "გამორთვა"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "ყველა შემოსული ზარი"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "სურათის გადაღება"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "ჩვენება"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "წაშლა"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "არც ერთი"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "ზუსტი დამთხვევა"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "ნომრები არ არის დაბლოკილი"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "შეტყობინებები არ არის"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "კონტაქტები არ არის"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "ხმოვანი ზარები"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "ვიდეოზარები"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "ვიბრაცია ზარის დროს"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "დაკავებული ვარ. დაგირეკავ."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "ზარის მელოდიები"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "შემატყობინე ზარების დროს"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "ჩემი აბონენტის ID"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "გაიგზავნოს თუ მიუწვდომელ"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "დაკავებულია, გადაიგზავნოს"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "ზარის სიგნალები"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "დაბლოკეთ წერ. იმავე ნომ."
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "ხმოვანი ზარის გადამისამართება"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "ხმოვანი წერილი"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "შეიყვანეთ PIN2"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "წაშლა"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "დაყენებული სურათის შეცვლა"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "ზარის პარამეტრები"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "ზარის უარყოფის შეტყობინება"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "ზარის უარყოფა"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "დაბლოკილთა სია"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "ავტომატური უარყოფის რეჟიმი"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "ზარზე პასუხი ან ზარის დასრულება"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "დამატებითი პარამეტრები"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "ჩართვა"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "გაუქმება"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "ლოდინის დრო"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "ხმოვანი ფოსტის ნომერი შეიცვალა."
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "ხმოვანი ფოსტის ნომერი"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "ვიდეო ზარის სურათი"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "ვიდეო ზარის გადაგზავნა"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "ჩართვის ღილაკი თიშავს ზარებს"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "ზარებზე პასუხის გაცემა ხდება საწყის ეკრანზე გადასვლის ღილაკით"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "დასაწყისი"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "დაკავებული ვარ. მომწერეთ."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "წინასწარ შერჩეული სურათები"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d წამი"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "რიცხვი"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "სახელი"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "მიღწეულია სიმბოლოების მაქსიმალური რაოდენობა (%d)."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "ზარზე პასუხის/ზარის გათიშვის პარამეტრების შერჩევა."
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "დამატება"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "კრებაზე ვარ."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "სურათი"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "დაფიქსირებული ნომრები"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "დასრულება"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "შეცვლა"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "ზარის დაყოვნება"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "ზარის გადამისამართება"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "ქსელით"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "დაბლოკილთა სია"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "რეგიონის კოდი"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "ყოველთვის გადამისამართდეს"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "სიგნალები ზარის დროს"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "როდესაც ზარის უარყოფის შეტყობინებებს შექმნით, ისინი გამოჩნდება აქ."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "ზარის დაბლოკვის სიაში ნომრების დამატების შემდეგ, ისინი გამოჩნდება აქ."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "მას შემდეგ რაც კონტაქტებს დაამატებთ, FDN კონტაქტები გამოჩნდება აქ."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "დამატება"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "მიღწეულია ციფრების მაქსიმალური რაოდენობა (%d)."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "ოფისიდან სახლში"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "სახლიდან ოფისში"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "აირჩიეთ SIM ბარათი, რომელსაც გამოიყენებთ ორი სმარტ SIM-ის რეჟიმში."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "„ორი სმარტ SIM“ გამოირთვება. სანამ ეს ფუნქცია აქტიურია, ვერ შეძლებთ პარამეტრების შეცვლას."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "PIN2 არასწორია. დარჩენილია 2 ცდა."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "PIN2 არასწორია. დარჩენილია 1 ცდა."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "ზარის დალოდება ჩართულია. თუ თქვენი %1$s ქსელი მიუწვდომელია, შემოსული ზარები გადაიგზავნება თქვენს %2$s ტელეფონის ნომერზე."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "ზარის დალოდება ჩართულია."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "ზარის დალოდება გამორთულია."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "ზარის გადამისამართება ჩართულია."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "ზარის გადამისამართება გამორთულია."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "უკვე გამოყენებაშია."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s–დან %2$s–ზე"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "ორივე SIM ბარათი"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "ორი სმარტ SIM"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "SIM ბარათი"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "აირჩიეთ SIM ბარათი"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "კლავიატურის ხმები"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "ორი SIM მუდამ ჩართული"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "შესრულდა"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "ხმები"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "ორი სმართ SIM"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "PUK2 დაიბლოკა."
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "P I N 2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "არაა დაყენებული"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "კლავიატურა"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "ორი SIM მუდამ ჩართული"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "დარჩა 1 ცდა."
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "FDN არ არის გათვალისწინებული."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "რბილი ხმა"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "ხმის წაშლა"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "ხმაურის შემცირება"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "გადამისამართება"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "ზოგადი პარამეტრ."
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "გამორთეთ ფრენის რეჟიმი, რომ გამოიყენოთ ქსელის სერვისები."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "ყველა შემოსული ზარი"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "ყველა გამავალი ზარი"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "უპასუხეთ ზარებს ხმოვანი ბრძანებებით."
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "ზარის დაბლოკვა"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "ახლანდელი პაროლი"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "ჩაწერეთ ნომერი."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "აპარატის ხმის გაზრდა"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "საერთაშორისო ზარები"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "საერთ.ზრ/შიდას გარდა"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "ახალი პაროლი"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "ზარის ხმის დონის შერჩევა"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "ზარის მელოდიის ხმის სიმაღლე იზრდება, როდესაც აპარატი ჯიბეში ან ჩანთაშია."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "აქსესუარის ოფციების დაყენება ზარებისთვის."
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "საწყისი სურათის არჩევა ვარიანტისთვის „ჩემი დამალვა“."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "ხმა"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "ზარების დროს ამცირებს ფონურ ხმაურს თქვენი მხრიდან."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "ჩართეთ დისტანციურ სენსორი ზარების დროს."
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "ავტომატურად უარყოფილი ნომერი არასწორია."
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "გადაიგზავნოს აბონენტთან:"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "წერილის უარყოფა"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "ხმოვანი ზარის დაბლოკვა"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "უარყოფის შეტყობინებები"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "სანამ შეძლებთ ამ ფუნქციის გამოყენებას, უნდა იპოვნოთ თქვენთვის საუკეთესო ეკვალაიზერი. მოძებნით ახლა?"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "დაადასტურეთ პაროლი"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "როუმინგის დროს შემოსული"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "ნომერი უკვე გამოყენებაშია."
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "დაბლოკილია პაროლით."
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "პაროლი შეცვლილია."
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "ისევ შეამოწმეთ Adapt Sound"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "პაროლის შეცვლა"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "გამოჩნდეს პაროლი."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "ხმის პარამატრები"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "ზარებზე პასუხი"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "საწყისი ეკრანის ღილაკი"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "ზარების დასრულება"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "ჩართვის ღილაკზე დაჭერა"
+
