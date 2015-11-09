@@ -210,7 +210,7 @@ static Evas_Object *__cst_create_bg(Evas_Object *parent)
 	return bg;
 }
 
-static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, service_h service, void *priv)
+static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h app_control, void *priv)
 {
 	WARN(">>");
 	Evas_Object *parent, *content;
@@ -240,8 +240,8 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, service_h servic
 	elm_win_wm_rotation_available_rotations_set(ugd->win_main,
 			rotate_angles, 1);
 
-	if (service) {
-		ugd->ug_req_type = _cst_parse_bundle(service);
+	if (app_control) {
+		ugd->ug_req_type = _cst_parse_bundle(app_control);
 		DBG("ug_req_type=%d", ugd->ug_req_type);
 	} else {
 		ugd->ug_req_type = CST_UG_REQ_MAIN_SCREEN;
@@ -251,7 +251,7 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, service_h servic
 	_cst_register_tel_event(ugd);
 
 	if (ugd->ug_req_type == CST_UG_REQ_VOICE_MAIL) {
-		service_get_extra_data(service, CST_UG_BUNDLE_VOICEMAIL_SIMSLOT, &simslot_id);
+		app_control_get_extra_data(app_control, CST_UG_BUNDLE_VOICEMAIL_SIMSLOT, &simslot_id);
 		if (NULL == simslot_id) {
 			return NULL;
 		}
@@ -283,7 +283,7 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, service_h servic
 
 #ifdef _CALL_SET_DUAL_SIM_ALWAYSON
 	if (ugd->ug_req_type == CST_UG_REQ_DUAL_SIM_ALWAYS_ON) {
-		_cst_get_dual_sim_alwayson_data(ugd, service);
+		_cst_get_dual_sim_alwayson_data(ugd, app_control);
 	}
 #endif
 	if (ugd->base) {
@@ -297,7 +297,7 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, service_h servic
 	return ugd->base;
 }
 
-static void __cst_on_start(ui_gadget_h ug, service_h service, void *priv)
+static void __cst_on_start(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 	ENTER(__cst_on_start);
 	CstUgData_t *ugd = priv;
@@ -309,17 +309,17 @@ static void __cst_on_start(ui_gadget_h ug, service_h service, void *priv)
 	LEAVE();
 }
 
-static void __cst_on_pause(ui_gadget_h ug, service_h service, void *priv)
+static void __cst_on_pause(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 	ENTER(__cst_on_pause);
 }
 
-static void __cst_on_resume(ui_gadget_h ug, service_h service, void *priv)
+static void __cst_on_resume(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 	ENTER(__cst_on_resume);
 }
 
-static void __cst_on_destroy(ui_gadget_h ug, service_h service, void *priv)
+static void __cst_on_destroy(ui_gadget_h ug, app_control_h app_control, void *priv)
 {
 	WARN(">>");
 	CstUgData_t *ugd = priv;
@@ -378,11 +378,11 @@ static void __cst_on_destroy(ui_gadget_h ug, service_h service, void *priv)
 	LEAVE();
 }
 
-static void __cst_on_message(ui_gadget_h ug, service_h msg, service_h service, void *priv)
+static void __cst_on_message(ui_gadget_h ug, app_control_h msg, app_control_h app_control, void *priv)
 {
 }
 
-static void __cst_on_key_event(ui_gadget_h ug, enum ug_key_event event, service_h service, void *priv)
+static void __cst_on_key_event(ui_gadget_h ug, enum ug_key_event event, app_control_h app_control, void *priv)
 {
 	ENTER(__cst_on_key_event);
 	CstUgData_t *ugd = priv;
@@ -409,7 +409,7 @@ static void __cst_on_key_event(ui_gadget_h ug, enum ug_key_event event, service_
 	}
 }
 
-static void __cst_on_event(ui_gadget_h ug, enum ug_event event, service_h service, void *priv)
+static void __cst_on_event(ui_gadget_h ug, enum ug_event event, app_control_h app_control, void *priv)
 {
 	ENTER(__cst_on_event);
 	CstUgData_t *ugd;
@@ -501,7 +501,7 @@ CST_MODULE_EXPORT void UG_MODULE_EXIT(struct ug_module_ops *ops)
 * @param[in] data
 * @param[in] priv
 */
-CST_MODULE_EXPORT int setting_plugin_reset(app_control_h service, void *priv)
+CST_MODULE_EXPORT int setting_plugin_reset(app_control_h app_control, void *priv)
 {
 	ENTER(setting_plugin_reset);
 	int ret = 0;
@@ -523,7 +523,7 @@ CST_MODULE_EXPORT int setting_plugin_reset(app_control_h service, void *priv)
 }
 
 #ifdef _CALL_SET_SEARCH_SUPPORT
-UG_MODULE_API int setting_plugin_search_init(app_control_h service, void *priv,
+UG_MODULE_API int setting_plugin_search_init(app_control_h app_control, void *priv,
 		char **applocale)
 {
 	*applocale = strdup("ug-setting-call-efl");

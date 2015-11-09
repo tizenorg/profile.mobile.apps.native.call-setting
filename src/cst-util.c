@@ -385,25 +385,25 @@ Eina_Bool _cst_set_voice_mail_number(CstUgData_t *ugd, char *vm_num)
 	return ret;
 }
 
-int _cst_parse_bundle(service_h service)
+int _cst_parse_bundle(app_control_h app_control)
 {
 	int type = CST_UG_REQ_MAIN_SCREEN;
 	char *val = NULL;
 	char *viewtype = NULL;
 	char *keyword = NULL;
 
-	if (service) {
-		service_get_extra_data(service, CST_UG_BUNDLE_TYPE, &val);
+	if (app_control) {
+		app_control_get_extra_data(app_control, CST_UG_BUNDLE_TYPE, &val);
 		if (val) {
 			type = atoi(val);
 		}
 
-		service_get_extra_data(service, CST_UG_BUNDLE_VIEWTYPE, &viewtype);	/* viewtype : frontpage*/
+		app_control_get_extra_data(app_control, CST_UG_BUNDLE_VIEWTYPE, &viewtype);	/* viewtype : frontpage*/
 		if (viewtype) {
 			DBG("viewtype = %s ", viewtype);
 		}
 
-		service_get_extra_data(service, CST_UG_BUNDLE_KEYWORD, &keyword); /* keyword : string STMS ID*/
+		app_control_get_extra_data(app_control, CST_UG_BUNDLE_KEYWORD, &keyword); /* keyword : string STMS ID*/
 		if (keyword && viewtype) {
 			DBG("\n\n *** keyword = %s *** \n\n", keyword);
 			if (!strcmp(keyword, "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB")) {
@@ -553,21 +553,21 @@ static void __cst_invoke_contact_single_picker(void *data)
 	ENTER(__cst_invoke_contact_single_picker);
 	ret_if(NULL == data);
 	CstUgData_t *ugd = (CstUgData_t *)data;
-	app_control_h service = NULL;
+	app_control_h app_control = NULL;
 
-	app_control_create(&service);
-	ret_if(NULL == service);
+	app_control_create(&app_control);
+	ret_if(NULL == app_control);
 
-	app_control_set_operation(service, APP_CONTROL_OPERATION_PICK);
-	app_control_set_mime(service, CST_CT_APPCONTROL_MIME_CONTACT);
-	app_control_add_extra_data(service, CST_CT_APPCONTROL_DATA_TYPE,
+	app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
+	app_control_set_mime(app_control, CST_CT_APPCONTROL_MIME_CONTACT);
+	app_control_add_extra_data(app_control, CST_CT_APPCONTROL_DATA_TYPE,
 			CST_CT_APPCONTROL_DATA_PHONE);
 
-	if (APP_CONTROL_ERROR_NONE == app_control_send_launch_request(service,
+	if (APP_CONTROL_ERROR_NONE == app_control_send_launch_request(app_control,
 			__cst_contact_list_view_reply_cb, (void *)ugd)) {
 		ugd->is_app_control_invoked = true;
 	}
-	app_control_destroy(service);
+	app_control_destroy(app_control);
 }
 
 static Eina_Bool __cst_util_contact_ug_create_cb(void *data)

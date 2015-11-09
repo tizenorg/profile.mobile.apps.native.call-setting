@@ -41,7 +41,7 @@ Eina_Bool _cst_check_flight_mode(void);
 Eina_Bool _cst_check_dual_sim_status(CstUgData_t *ugd);
 char *_cst_get_voice_mail_number(CstUgData_t *ugd);
 Eina_Bool _cst_set_voice_mail_number(CstUgData_t *ugd, char *vm_num);
-int _cst_parse_bundle(service_h service);
+int _cst_parse_bundle(app_control_h app_control);
 void _cst_on_click_ime_contact_btn(void *data, Evas_Object *obj, void *event_info);
 void _cst_connect_reject_list_handle(CstUgData_t *ugd);
 void _cst_open_msg_handle(CstUgData_t *ugd);

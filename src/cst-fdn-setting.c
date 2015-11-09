@@ -736,14 +736,14 @@ static void __cst_pin2_unblock_invoke_security_ug_layout_cb(ui_gadget_h ug,
 }
 
 static void __cst_pin2_unblock_invoke_security_ug_result_cb(ui_gadget_h ug,
-		service_h service, void *priv)
+		app_control_h app_control, void *priv)
 {
 	ENTER(__cst_pin2_unblock_invoke_security_ug_result_cb);
 	ret_if(priv == NULL);
 	CstUgData_t *ugd = (CstUgData_t *)priv;
 	char *result = NULL;
 
-	service_get_extra_data(service, "result", &result);
+	app_control_get_extra_data(app_control, "result", &result);
 	if (!result)
 		return;
 
@@ -786,9 +786,9 @@ static void __cst_pin2_unblock_invoke_security_ug(void *data)
 	CstUgData_t *ugd = (CstUgData_t *)data;
 	struct ug_cbs cbs = {0, };
 	ui_gadget_h ug = NULL;
-	service_h svc;
+	app_control_h svc;
 
-	if (service_create(&svc)) {
+	if (app_control_create(&svc)) {
 		return;
 	}
 
@@ -797,12 +797,12 @@ static void __cst_pin2_unblock_invoke_security_ug(void *data)
 	cbs.destroy_cb = __cst_pin2_unblock_invoke_security_ug_destroy_cb;
 	cbs.priv = (void *)data;
 
-	service_add_extra_data(svc, "viewtype", "SETTING_PW_TYPE_PIN2_BLOCKED");
+	app_control_add_extra_data(svc, "viewtype", "SETTING_PW_TYPE_PIN2_BLOCKED");
 	DBG("sel_sim: %d", ugd->sel_sim);
 	if (ugd->sel_sim == 0) {
-		service_add_extra_data(svc, "sim_type", "SIM1");
+		app_control_add_extra_data(svc, "sim_type", "SIM1");
 	} else {
-		service_add_extra_data(svc, "sim_type", "SIM2");
+		app_control_add_extra_data(svc, "sim_type", "SIM2");
 	}
 
 	ug = ug_create((ui_gadget_h)ugd->ug, "setting-password-efl",
@@ -812,7 +812,7 @@ static void __cst_pin2_unblock_invoke_security_ug(void *data)
 		DBG("ug create fail...");
 	}
 
-	service_destroy(svc);
+	app_control_destroy(svc);
 }
 
 void _cst_pin2_blocked_popup_confirm_btn_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1120,7 +1120,7 @@ static void __cst_on_click_change_pin2_cb(void *data, Evas_Object *obj,
 	CstUgData_t *ugd = (CstUgData_t *)data;
 	struct ug_cbs cbs = {0, };
 	ui_gadget_h ug = NULL;
-	service_h svc;
+	app_control_h svc;
 
 	if (ctxpopup) {
 		evas_object_del(ctxpopup);
@@ -1140,7 +1140,7 @@ static void __cst_on_click_change_pin2_cb(void *data, Evas_Object *obj,
 		return;
 	}
 
-	if (service_create(&svc)) {
+	if (app_control_create(&svc)) {
 		return;
 	}
 
@@ -1149,12 +1149,12 @@ static void __cst_on_click_change_pin2_cb(void *data, Evas_Object *obj,
 	cbs.destroy_cb = __cst_pin2_unblock_invoke_security_ug_destroy_cb;
 	cbs.priv = (void *)data;
 
-	service_add_extra_data(svc, "viewtype", "SETTING_PW_TYPE_CHANGE_PIN2");
+	app_control_add_extra_data(svc, "viewtype", "SETTING_PW_TYPE_CHANGE_PIN2");
 	DBG("sel_sim: %d", ugd->sel_sim);
 	if (ugd->sel_sim == 0) {
-		service_add_extra_data(svc, "sim_type", "SIM1");
+		app_control_add_extra_data(svc, "sim_type", "SIM1");
 	} else {
-		service_add_extra_data(svc, "sim_type", "SIM2");
+		app_control_add_extra_data(svc, "sim_type", "SIM2");
 	}
 
 	ug = ug_create((ui_gadget_h)ugd->ug, "setting-password-efl",
@@ -1164,7 +1164,7 @@ static void __cst_on_click_change_pin2_cb(void *data, Evas_Object *obj,
 		DBG("ug create fail...");
 	}
 
-	service_destroy(svc);
+	app_control_destroy(svc);
 }
 
 static void __cst_fdn_setting_popup_resize_more_ctxpopup_cb(void *data, Evas *e,
