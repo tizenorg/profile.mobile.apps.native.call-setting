@@ -32,7 +32,6 @@
 #include "cst-fdn-setting.h"
 #include "cst-fdn-list.h"
 #include "cst-tapi-request.h"
-#include "intl-dial.h"
 #include "cst-intrl-dial-country-code-docomo.h"
 #include "cst-intrl-dial-prefix-docomo.h"
 

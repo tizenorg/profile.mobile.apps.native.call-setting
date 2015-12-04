@@ -31,7 +31,6 @@
 #include "cst-call-setting.h"
 #include "cst-util.h"
 #include "cst-widget.h"
-#include "intl-dial.h"
 #include "cst-reject-msg.h"
 #include "cst-answering.h"
 #include "cst-more-call-setting.h"

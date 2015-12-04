@@ -9,8 +9,6 @@ $1 com.samsung.setting rw
 $1 com.samsung.vtmain x
 $1 csc-manager x
 $1 dbus wx
-$1 intl-dial x
-$1 intl-dial::db rw
 $1 isf wx
 $1 msg-service w
 $1 phone-misc::db rw

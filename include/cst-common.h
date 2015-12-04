@@ -533,10 +533,6 @@ typedef struct {
 	int sim_lock_retry_account;
 	int rej_msg_seg_size;
 
-	void *intl_dial_list;
-	int intl_dial_list_cnt;
-	void *intl_dial_prefix_list;
-	int intl_dial_prefix_list_cnt;
 	Evas_Object *del_btn;
 	Evas_Object *more_btn;
 	Evas_Object *contact_btn;
