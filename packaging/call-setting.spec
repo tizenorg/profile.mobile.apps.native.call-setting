@@ -1,10 +1,10 @@
-Name:	call-setting
-Summary:	Call Settings
-Version:	0.8.8
-Release:	1
-Group:	TBD
-License:	Apache-2.0
-Source0:	%{name}-%{version}.tar.gz
+Name:          call-setting
+Summary:       Call Settings
+Version:       0.8.8
+Release:       1
+Group:         Applications/Core Applications
+License:       Apache-2.0
+Source0:       %{name}-%{version}.tar.gz
 
 %if "%{?tizen_profile_name}" == "wearable" || "%{?tizen_profile_name}" == "tv"
 ExcludeArch: %{arm} %ix86 x86_64
@@ -41,22 +41,6 @@ Requires(postun): /sbin/ldconfig
 %description
 Call Settings.
 
-%package -n intl-dial
-Summary:    International call prefix DB controller (Development files)
-Group:      TBD/TBD
-
-%description -n intl-dial
-Description : International call prefix DB controller Development Package
-
-
-%package -n intl-dial-devel
-Summary:    International call prefix DB controller (Development files)
-Group:      TBD/TBD
-Requires:   intl-dial = %{version}-%{release}
-
-%description -n intl-dial-devel
-Description : International call prefix DB controller Development Package
-
 %prep
 %setup -q
 
@@ -81,11 +65,6 @@ export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-neede
 
 cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 -DSYSLIBDIR=%{_libdir} \
-%if 0%{?sec_product_feature_call_operator_docomo}
--D_ENABLE_CALL_SET_OPERATOR_DOCOMO:BOOL=OFF \
-%else
--D_ENABLE_CALL_SET_OPERATOR_DOCOMO:BOOL=OFF \
-%endif
 %if 0%{?sec_product_feature_app_lite}
 -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
 %else
@@ -127,27 +106,3 @@ mkdir -p %{BINDIR}
 /usr/share/license/%{name}
 
 %postun -p /sbin/ldconfig
-
-
-%post -n intl-dial
-/* This is going into RO partition */
-mkdir -p /usr/etc/call-setting
-chsmack -a 'intl-dial::db' /usr/etc/call-setting/.intl-dial.db*
-chown 0:5000 /usr/etc/call-setting/.intl-dial.db*
-chmod 440 /usr/etc/call-setting/.intl-dial.db*
-
-/* This is going into RW partition */
-chsmack -a 'intl-dial::db' /opt/usr/dbspace/.intl-dial.db*
-chown 0:5000 /opt/usr/dbspace/.intl-dial.db*
-chmod 660 /opt/usr/dbspace/.intl-dial.db*
-
-%files -n intl-dial
-%manifest intl-dial.manifest
-%{_libdir}/libintl-dial.so.*
-/usr/etc/call-setting/.intl-dial.db*
-/opt/usr/dbspace/.intl-dial.db*
-
-%files -n intl-dial-devel
-%{_includedir}/intl-dial/*.h
-%{_libdir}/pkgconfig/*.pc
-%{_libdir}/libintl-dial.so
