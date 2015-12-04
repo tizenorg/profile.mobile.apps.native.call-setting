@@ -55,54 +55,62 @@ export CXXFLAGS+="${CXXFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export FFLAGS+="${FFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-needed,--unresolved-symbols=ignore-in-shared-libs"
 
-%define PREFIX /usr
-%define APPDIR %{PREFIX}/apps
-%define PKGDIR %{APPDIR}/setting-call-efl
-%define BINDIR %{PKGDIR}/bin
-%define LIBDIR %{PKGDIR}/lib/ug
-%define RESDIR %{PKGDIR}/res
-%define DATADIR %{PKGDIR}/shared/trusted
+%define _app_pkg_name             setting-call-efl
+%define _app_lib_name             setting-call-efl
+%define _app_home_dir             %{TZ_SYS_RO_APP}/%{_app_pkg_name}
+%define _app_bin_dir              %{_app_home_dir}/bin
+%define _app_lib_dir              %{_app_home_dir}/lib/ug
+%define _app_res_dir              %{_app_home_dir}/res
+%define _app_data_dir             %{_app_home_dir}/shared/trusted
+%define _app_license_dir          %{TZ_SYS_SHARE}/license
+%define _app_smack_dir            %{TZ_SYS_SMACK}/accesses2.d
+%define _app_share_packages_dir   %{TZ_SYS_RO_PACKAGES}
 
-cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} \
--DSYSLIBDIR=%{_libdir} \
+cmake . \
+        -DCMAKE_PKG_NAME=%{_app_pkg_name} \
+        -DCMAKE_LIB_NAME=%{_app_lib_name} \
+        -DCMAKE_APP_HOME_DIR=%{_app_home_dir} \
+        -DCMAKE_APP_BIN_DIR=%{_app_bin_dir} \
+        -DCMAKE_APP_LIB_DIR=%{_app_lib_dir} \
+        -DCMAKE_APP_RES_DIR=%{_app_res_dir} \
+        -DCMAKE_APP_DATA_DIR=%{_app_data_dir} \
+        -DCMAKE_APP_SMACK_DIR=%{_app_smack_dir} \
+        -DCMAKE_SHARE_PACKAGES_DIR=%{_app_share_packages_dir} \
 %if 0%{?sec_product_feature_app_lite}
--D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
+		-D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
 %else
--D_ENABLE_TIZEN_LITE_CODE:BOOL=ON
+		-D_ENABLE_TIZEN_LITE_CODE:BOOL=ON
 %endif
+
 make %{?jobs:-j%jobs}
 
 %install
 %make_install
 
-mkdir -p %{buildroot}/opt/usr/ug/data/ug-setting-call-efl
-
 #install license file
-mkdir -p %{buildroot}/usr/share/license
-cp LICENSE %{buildroot}/usr/share/license/%{name}
+mkdir -p %{buildroot}%{_app_license_dir}
+cp LICENSE %{buildroot}%{_app_license_dir}/%{name}
 
 %post
 /sbin/ldconfig
-chown -R 5000:5000 /opt/usr/ug/data/ug-setting-call-efl
-mkdir -p %{BINDIR}
+mkdir -p %{_app_bin_dir}
 
 %files
 %manifest call-setting.manifest
 %defattr(-,root,root,-)
-%attr(-,inhouse,inhouse) %{DATADIR}
-%{LIBDIR}/libsetting-call-efl.so
-%{RESDIR}/edje/call-setting-theme.edj
-%{RESDIR}/edje/call-setting.edj
+%attr(-,inhouse,inhouse) %{_app_data_dir}
+%{_app_lib_dir}/lib%{_app_lib_name}.so
+%{_app_res_dir}/edje/call-setting-theme.edj
+%{_app_res_dir}/edje/call-setting.edj
 %if 0%{?sec_product_feature_call_operator_docomo}
-%{RESDIR}/edje/call-setting-docomo.edj
+%{_app_res_dir}/edje/call-setting-docomo.edj
 %endif
-%{RESDIR}/edje/ug_effect.edj
-%{RESDIR}/images/*
-%{RESDIR}/locale/*/LC_MESSAGES/setting-call-efl.mo
-/etc/smack/accesses2.d/ug.setting-call-efl.include
-%dir %{DATADIR}
-%dir /opt/usr/ug/data/ug-setting-call-efl
-/usr/share/packages/setting-call-efl.xml
-/usr/share/license/%{name}
+%{_app_res_dir}/edje/ug_effect.edj
+%{_app_res_dir}/images/*
+%{_app_res_dir}/locale/*/LC_MESSAGES/%{_app_pkg_name}.mo
+%{_app_smack_dir}/ug.%{_app_pkg_name}.include
+%dir %{_app_data_dir}
+%{_app_share_packages_dir}/%{_app_pkg_name}.xml
+%{_app_license_dir}/%{name}
 
 %postun -p /sbin/ldconfig
