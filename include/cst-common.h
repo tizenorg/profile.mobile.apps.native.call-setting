@@ -76,10 +76,6 @@
 #define CST_CTRL_ICON_UPDATE					IMG_DIR"/01_controlbar_icon_update.png"
 #define CST_CTRL_ICON_CONTACTS					IMG_DIR"/01_controlbar_icon_contacts.png"
 #define CST_VIDEO_CALL_IMAGE_DEFAULT_PATH		IMG_DIR"/call_no_video_sim"
-#define CST_VIDEO_CALL_IMAGE_CHANGED_PATH1		"/opt/usr/ug/data/ug-setting-call-efl/.changed_video_call_image.jpg"
-#define CST_VIDEO_CALL_IMAGE_CHANGED_PATH2		"/opt/usr/ug/data/ug-setting-call-efl/.changed_video_call_image_.jpg"
-#define CST_VIDEO_CALL_IMAGE_CHANGED_PATH3		"/opt/usr/ug/data/ug-setting-call-efl/.changed_video_call_image2.jpg"
-#define CST_VIDEO_CALL_IMAGE_CHANGED_PATH4		"/opt/usr/ug/data/ug-setting-call-efl/.changed_video_call_image2_.jpg"
 #define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
 #define CST_NO_CONTENTS_ICON					IMG_DIR"/00_nocontents_text.png"
 
