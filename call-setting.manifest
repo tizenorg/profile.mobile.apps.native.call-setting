@@ -1,17 +1,5 @@
 <manifest>
-	<define>
-		<domain name="ug-setting-call-efl" policy="shared"/>
-		<provide>
-			<label name="ug-setting-call-efl::vconf" />
-		</provide>
-	</define>
-	<assign>
-		<filesystem path="/usr/ug/res/images/ug-setting-call-efl/*" label="_"/>
-		<filesystem path="/usr/ug/res/edje/ug-setting-call-efl/*" label="_"/>
-		<filesystem path="/usr/ug/res/locale/*" label="_"/>
-		<filesystem path="/usr/ug/lib/libug-setting-call-efl.so" label="_"/>
-	</assign>
 	<request>
-		<domain name="ug-setting-call-efl" />
+		<domain name="_" />
 	</request>
 </manifest>

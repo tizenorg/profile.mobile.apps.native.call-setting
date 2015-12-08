@@ -34,6 +34,7 @@ BuildRequires: edje-bin, embryo-bin
 BuildRequires: pkgconfig(capi-content-media-content)
 BuildRequires: pkgconfig(capi-media-metadata-extractor)
 BuildRequires: pkgconfig(capi-system-system-settings)
+BuildRequires: pkgconfig(libtzplatform-config)
 
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -63,7 +64,6 @@ export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-neede
 %define _app_res_dir              %{_app_home_dir}/res
 %define _app_data_dir             %{_app_home_dir}/shared/trusted
 %define _app_license_dir          %{TZ_SYS_SHARE}/license
-%define _app_smack_dir            %{TZ_SYS_SMACK}/accesses2.d
 %define _app_share_packages_dir   %{TZ_SYS_RO_PACKAGES}
 
 cmake . \
@@ -74,7 +74,6 @@ cmake . \
         -DCMAKE_APP_LIB_DIR=%{_app_lib_dir} \
         -DCMAKE_APP_RES_DIR=%{_app_res_dir} \
         -DCMAKE_APP_DATA_DIR=%{_app_data_dir} \
-        -DCMAKE_APP_SMACK_DIR=%{_app_smack_dir} \
         -DCMAKE_SHARE_PACKAGES_DIR=%{_app_share_packages_dir} \
 %if 0%{?sec_product_feature_app_lite}
         -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
@@ -108,7 +107,6 @@ mkdir -p %{_app_bin_dir}
 %{_app_res_dir}/edje/ug_effect.edj
 %{_app_res_dir}/images/*
 %{_app_res_dir}/locale/*/LC_MESSAGES/%{_app_pkg_name}.mo
-%{_app_smack_dir}/ug.%{_app_pkg_name}.include
 %dir %{_app_data_dir}
 %{_app_share_packages_dir}/%{_app_pkg_name}.xml
 %{_app_license_dir}/%{name}
