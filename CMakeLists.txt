@@ -38,6 +38,7 @@ pkg_check_modules(pkgs REQUIRED
 	capi-system-system-settings
 	capi-telephony
 	efl-extension
+	libtzplatform-config
 )
 
 
