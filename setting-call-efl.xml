@@ -75,4 +75,8 @@
 			<operation name="http://tizen.org/appcontrol/operation/setting/call"/>
 		</application-service>
 	</ui-application>
+	<privileges>
+		<privilege>http://tizen.org/privilege/telephony</privilege>
+		<privilege>http://tizen.org/privilege/telephony.admin</privilege>
+	</privileges>
 </manifest>
