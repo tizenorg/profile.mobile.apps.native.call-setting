@@ -77,7 +77,6 @@
 #define CST_CTRL_ICON_CONTACTS					IMG_DIR"/01_controlbar_icon_contacts.png"
 #define CST_VIDEO_CALL_IMAGE_DEFAULT_PATH		IMG_DIR"/call_no_video_sim"
 #define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
-#define CST_NO_CONTENTS_ICON					IMG_DIR"/00_nocontents_text.png"
 
 #define FDN_SIM_PB_FAIL_STR								"SIM Phonebook operation is failed for some unknown reason"
 #define FDN_SIM_PB_INVALID_INDEX_STR					"The index is invalid"

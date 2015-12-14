@@ -962,7 +962,6 @@ static Evas_Object *__cst_create_nocontents_layout(CstUgData_t *ugd)
 	ENTER(__cst_create_nocontents_layout);
 
 	Evas_Object *layout;
-	Evas_Object *icon;
 	layout = elm_layout_add(ugd->nf);
 	if (!layout) {
 		return NULL;
@@ -970,10 +969,6 @@ static Evas_Object *__cst_create_nocontents_layout(CstUgData_t *ugd)
 	elm_layout_theme_set(layout, "layout", "nocontents", "default");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-
-	icon = elm_image_add(layout);
-	elm_image_file_set(icon, CST_NO_CONTENTS_ICON, NULL);
-	elm_object_part_content_set(layout, "nocontents.image", icon);
 
 	cst_util_domain_translatable_part_text_set(layout, "elm.text", I_(CST_STR_NO_REJECTION_MESSAGE));
 	cst_util_domain_translatable_part_text_set(layout, "elm.help.text", I_(CST_STR_MESSAGE_WILL_BE_SHOWN));
