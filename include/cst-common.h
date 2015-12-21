@@ -33,15 +33,15 @@
 #define CST_MODULE_EXPORT __attribute__ ((visibility("default")))
 #endif
 
-#define UGNAME "setting-call-efl"
-#define _EDJ(o)		elm_layout_edje_get(o)
-#define EDJ_DIR "/usr/apps/setting-call-efl/res/edje/"
-#define EDJ_NAME EDJ_DIR"/call-setting.edj"
+#define EDJ_DIR             RES_DIR"/edje/"
+#define IMG_DIR             RES_DIR"/images"
+#define CST_LOCALE          RES_DIR"/locale"
+#define CST_DEBUG_FILE      DATA_DIR"/.tmp/debug/call-setting.log"
 
-#define THEME_NAME EDJ_DIR"/call-setting-theme.edj"
-#define IMG_DIR "/usr/apps/setting-call-efl/res/images"
-#define CST_DEBUG_FILE "/usr/apps/setting-call-efl/shared/trusted/.tmp/debug/call-setting.log"
-#define CST_LOCALE      "/usr/apps/setting-call-efl/res/locale"
+#define EDJ_NAME            EDJ_DIR"/call-setting.edj"
+#define _EDJ(o)             elm_layout_edje_get(o)
+
+#define THEME_NAME          EDJ_DIR"/call-setting-theme.edj"
 
 #define CST_MAX_PASSWORD_LEN		4
 #define CST_MAX_REJECT_NUM		30
@@ -90,7 +90,6 @@
 #define CANCEL_STR	"Cancel"
 #define EQ_PKG		"com.samsung.call-eq-analyzer"
 #define GALLERY_UG	"gallery-efl-lite"
-#define SETTING_ICON_PATH_CFG		"/usr/apps/com.samsung.setting-lite/res/icons/"
 
 /**
  * The key of request bundle for type.

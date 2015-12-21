@@ -40,7 +40,7 @@ Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
 %description
-Call Settings.
+Call Settings
 
 %prep
 %setup -q
@@ -64,17 +64,17 @@ export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-neede
 %define _app_res_dir              %{_app_home_dir}/res
 %define _app_data_dir             %{_app_home_dir}/shared/trusted
 %define _app_license_dir          %{TZ_SYS_SHARE}/license
-%define _app_share_packages_dir   %{TZ_SYS_RO_PACKAGES}
+%define _share_packages_dir       %{TZ_SYS_RO_PACKAGES}
 
 cmake . \
-        -DCMAKE_PKG_NAME=%{_app_pkg_name} \
-        -DCMAKE_LIB_NAME=%{_app_lib_name} \
-        -DCMAKE_APP_HOME_DIR=%{_app_home_dir} \
-        -DCMAKE_APP_BIN_DIR=%{_app_bin_dir} \
-        -DCMAKE_APP_LIB_DIR=%{_app_lib_dir} \
-        -DCMAKE_APP_RES_DIR=%{_app_res_dir} \
-        -DCMAKE_APP_DATA_DIR=%{_app_data_dir} \
-        -DCMAKE_SHARE_PACKAGES_DIR=%{_app_share_packages_dir} \
+        -DPKG_NAME=%{_app_pkg_name} \
+        -DLIB_NAME=%{_app_lib_name} \
+        -DAPP_HOME_DIR=%{_app_home_dir} \
+        -DAPP_BIN_DIR=%{_app_bin_dir} \
+        -DAPP_LIB_DIR=%{_app_lib_dir} \
+        -DAPP_RES_DIR=%{_app_res_dir} \
+        -DAPP_DATA_DIR=%{_app_data_dir} \
+        -DSHARE_PACKAGES_DIR=%{_share_packages_dir} \
 %if 0%{?sec_product_feature_app_lite}
         -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
 %else
@@ -97,7 +97,7 @@ mkdir -p %{_app_bin_dir}
 %files
 %manifest call-setting.manifest
 %defattr(-,root,root,-)
-%attr(-,inhouse,inhouse) %{_app_data_dir}
+%dir %{_app_data_dir}
 %{_app_lib_dir}/lib%{_app_lib_name}.so
 %{_app_res_dir}/edje/call-setting-theme.edj
 %{_app_res_dir}/edje/call-setting.edj
@@ -107,8 +107,7 @@ mkdir -p %{_app_bin_dir}
 %{_app_res_dir}/edje/ug_effect.edj
 %{_app_res_dir}/images/*
 %{_app_res_dir}/locale/*/LC_MESSAGES/%{_app_pkg_name}.mo
-%dir %{_app_data_dir}
-%{_app_share_packages_dir}/%{_app_pkg_name}.xml
+%{_share_packages_dir}/%{_app_pkg_name}.xml
 %{_app_license_dir}/%{name}
 
 %postun -p /sbin/ldconfig

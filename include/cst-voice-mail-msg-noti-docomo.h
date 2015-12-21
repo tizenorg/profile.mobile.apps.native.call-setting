@@ -20,8 +20,6 @@
 
 #include <Elementary.h>
 
-#define CST_SETTING_DEFAULT_MSG_NOTI_SOUND_PATH_DOCOMO	"/opt/usr/share/settings/Alerts"
-
 void _cst_on_click_message_notification_docomo(void *data, Evas *evas,
 		Evas_Object *obj, void *event_info);
 void _cst_voice_mail_service_unlisten_vconf_change_docomo(void);
