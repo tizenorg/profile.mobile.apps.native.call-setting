@@ -525,7 +525,7 @@ CST_MODULE_EXPORT int setting_plugin_reset(app_control_h app_control, void *priv
 UG_MODULE_API int setting_plugin_search_init(app_control_h app_control, void *priv,
 		char **applocale)
 {
-	*applocale = strdup("ug-setting-call-efl");
+	*applocale = strdup("ug-call-setting");
 
     Eina_List **pplist = (Eina_List **)priv;
     int i = 0;
