@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="setting-call-efl" version="0.8.8" install-location="internal-only">
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.call-setting" version="0.8.8" install-location="internal-only">
 	<label>Call setting</label>
-	<author email="jaduk.koo@samsung.com" href="www.samsung.com">Jaduk Koo</author>
-	<author email="jm15.kim@samsung.com" href="www.samsung.com">Jungmin Kim</author>
 	<description>Call setting</description>
-	<ui-application appid="setting-call-efl" exec="/usr/apps/setting-call-efl/bin/setting-call-efl" ui-gadget="true" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true">
+	<ui-application appid="setting-call" exec="/usr/apps/org.tizen.call-setting/bin/setting-call" ui-gadget="true" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true">
 		<icon>com.samsung.call.png</icon>
 		<label>Call setting</label>
 		<label xml:lang="hy-am">Զանգի կայանքներ</label>
@@ -41,7 +39,7 @@
 		<label xml:lang="nb-no">Anropsinnstillinger</label>
 		<label xml:lang="pl-pl">Ustawienia połączeń</label>
 		<label xml:lang="pt-pt">Definições de chamada</label>
-		<label xml:lang="pt-br">Config. de chamadas</label>
+		<label xml:lang="pt-br">Config. de chamadas</label>
 		<label xml:lang="ro-ro">Setări apeluri</label>
 		<label xml:lang="ru-ru">Настройки вызовов</label>
 		<label xml:lang="sr-rs">Podešavanja poziva</label>

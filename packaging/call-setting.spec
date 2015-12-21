@@ -1,4 +1,4 @@
-Name:          call-setting
+Name:          org.tizen.call-setting
 Summary:       Call Settings
 Version:       0.8.8
 Release:       1
@@ -56,9 +56,8 @@ export CXXFLAGS+="${CXXFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export FFLAGS+="${FFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-needed,--unresolved-symbols=ignore-in-shared-libs"
 
-%define _app_pkg_name             setting-call-efl
-%define _app_lib_name             setting-call-efl
-%define _app_home_dir             %{TZ_SYS_RO_APP}/%{_app_pkg_name}
+%define _app_lib_name             setting-call
+%define _app_home_dir             %{TZ_SYS_RO_APP}/%{name}
 %define _app_bin_dir              %{_app_home_dir}/bin
 %define _app_lib_dir              %{_app_home_dir}/lib/ug
 %define _app_res_dir              %{_app_home_dir}/res
@@ -67,7 +66,7 @@ export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-neede
 %define _share_packages_dir       %{TZ_SYS_RO_PACKAGES}
 
 cmake . \
-        -DPKG_NAME=%{_app_pkg_name} \
+        -DPKG_NAME=%{name} \
         -DLIB_NAME=%{_app_lib_name} \
         -DAPP_HOME_DIR=%{_app_home_dir} \
         -DAPP_BIN_DIR=%{_app_bin_dir} \
@@ -95,7 +94,7 @@ cp LICENSE %{buildroot}%{_app_license_dir}/%{name}
 mkdir -p %{_app_bin_dir}
 
 %files
-%manifest call-setting.manifest
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %dir %{_app_data_dir}
 %{_app_lib_dir}/lib%{_app_lib_name}.so
@@ -106,8 +105,8 @@ mkdir -p %{_app_bin_dir}
 %endif
 %{_app_res_dir}/edje/ug_effect.edj
 %{_app_res_dir}/images/*
-%{_app_res_dir}/locale/*/LC_MESSAGES/%{_app_pkg_name}.mo
-%{_share_packages_dir}/%{_app_pkg_name}.xml
+%{_app_res_dir}/locale/*/LC_MESSAGES/%{name}.mo
+%{_share_packages_dir}/%{name}.xml
 %{_app_license_dir}/%{name}
 
 %postun -p /sbin/ldconfig
