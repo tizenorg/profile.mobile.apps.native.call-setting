@@ -18,27 +18,23 @@ MESSAGE("Build type: ${CMAKE_BUILD_TYPE}")
 INCLUDE(FindPkgConfig)
 pkg_check_modules(pkgs REQUIRED
 	appcore-efl
-	elementary
-	tapi
-	vconf
-	eina
-	ecore-imf
-	ecore-file
-	dlog
-	aul
-	db-util
-	ui-gadget-1
-	contacts-service2
-	msg-service
-	capi-appfw-application
 	capi-appfw-app-manager
-	notification
-	capi-content-media-content
+	capi-appfw-application
 	capi-media-metadata-extractor
 	capi-system-system-settings
 	capi-telephony
+	contacts-service2
+	dlog
+	ecore-imf
 	efl-extension
+	eina
+	elementary
 	libtzplatform-config
+	msg-service
+	notification
+	tapi
+	ui-gadget-1
+	vconf
 )
 
 
