@@ -23,17 +23,13 @@ pkg_check_modules(pkgs REQUIRED
 	vconf
 	eina
 	ecore-imf
-	ecore-file
 	dlog
-	aul
-	db-util
 	ui-gadget-1
 	contacts-service2
 	msg-service
 	capi-appfw-application
 	capi-appfw-app-manager
 	notification
-	capi-content-media-content
 	capi-media-metadata-extractor
 	capi-system-system-settings
 	capi-telephony
