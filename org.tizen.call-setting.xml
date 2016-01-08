@@ -2,7 +2,7 @@
 <manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.call-setting" version="0.8.8" install-location="internal-only">
 	<label>Call setting</label>
 	<description>Call setting</description>
-	<ui-application appid="call-setting" exec="/usr/apps/org.tizen.call-setting/bin/call-setting" ui-gadget="true" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true">
+	<ui-application appid="call-setting" exec="/usr/ug/bin/call-setting" ui-gadget="true" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true">
 		<icon>com.samsung.call.png</icon>
 		<label>Call setting</label>
 		<label xml:lang="hy-am">Զանգի կայանքներ</label>

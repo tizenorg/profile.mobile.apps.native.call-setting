@@ -56,22 +56,19 @@ export CXXFLAGS+="${CXXFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export FFLAGS+="${FFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-needed,--unresolved-symbols=ignore-in-shared-libs"
 
-%define _app_lib_name             call-setting
-%define _app_home_dir             %{TZ_SYS_RO_APP}/%{name}
-%define _app_bin_dir              %{_app_home_dir}/bin
-%define _app_lib_dir              %{_app_home_dir}/lib/ug
-%define _app_res_dir              %{_app_home_dir}/res
-%define _app_data_dir             %{_app_home_dir}/shared/trusted
+%define _app_name                 call-setting
+%define _app_lib_name             ug-%{_app_name}
+%define _app_bin_dir              %{TZ_SYS_RO_UG}/bin
+%define _app_lib_dir              %{TZ_SYS_RO_UG}/lib
+%define _app_res_dir              %{TZ_SYS_RO_UG}/res
 %define _share_packages_dir       %{TZ_SYS_RO_PACKAGES}
-
+%define _app_lisene_dir           %{TZ_SYS_SHARE}/license
 cmake . \
         -DPKG_NAME=%{name} \
         -DLIB_NAME=%{_app_lib_name} \
-        -DAPP_HOME_DIR=%{_app_home_dir} \
-        -DAPP_BIN_DIR=%{_app_bin_dir} \
         -DAPP_LIB_DIR=%{_app_lib_dir} \
         -DAPP_RES_DIR=%{_app_res_dir} \
-        -DAPP_DATA_DIR=%{_app_data_dir} \
+        -DAPP_LICENCE_DIR=%{_app_lisene_dir} \
         -DSHARE_PACKAGES_DIR=%{_share_packages_dir} \
 %if 0%{?sec_product_feature_app_lite}
         -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
@@ -83,19 +80,20 @@ make %{?_smp_mflags}
 
 %install
 %make_install
-%find_lang %{name}
+%find_lang %{_app_lib_name}
 
 %post
 /sbin/ldconfig
-mkdir -p %{_app_bin_dir}
 
-%files -f %{name}.lang
-%license LICENSE
+mkdir -p  %{_app_bin_dir}
+ln -sf /usr/bin/ug-client %{TZ_SYS_RO_UG}/bin/%{_app_name}
+
+%files -f %{_app_lib_name}.lang
 %manifest %{name}.manifest
 %{_app_lib_dir}/lib%{_app_lib_name}.so
-%{_app_res_dir}/edje
-%{_app_res_dir}/images
-%dir %{_app_data_dir}
+%{_app_res_dir}/edje/%{_app_lib_name}
+%{_app_res_dir}/images/%{_app_lib_name}
+%{_app_lisene_dir}/%{name}
 %{_share_packages_dir}/%{name}.xml
 
 %postun -p /sbin/ldconfig
