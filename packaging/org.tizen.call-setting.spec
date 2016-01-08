@@ -56,22 +56,24 @@ export CXXFLAGS+="${CXXFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export FFLAGS+="${FFLAGS} -fvisibility-inlines-hidden -fvisibility=hidden"
 export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-needed,--unresolved-symbols=ignore-in-shared-libs"
 
-%define _app_lib_name             call-setting
-%define _app_home_dir             %{TZ_SYS_RO_APP}/%{name}
-%define _app_bin_dir              %{_app_home_dir}/bin
-%define _app_lib_dir              %{_app_home_dir}/lib/ug
-%define _app_res_dir              %{_app_home_dir}/res
-%define _app_data_dir             %{_app_home_dir}/shared/trusted
+%define _app_name                 call-setting
+%define _app_lib_name             ug-%{_app_name}
+%define _app_bin_dir              %{TZ_SYS_RO_UG}/bin
+%define _app_lib_dir              %{TZ_SYS_RO_UG}/lib
+%define _app_res_dir              %{TZ_SYS_RO_UG}/res
+%define _app_res_edje_dir         %{TZ_SYS_RO_UG}/res/edje/%{_app_lib_name}
+%define _app_res_image_dir        %{TZ_SYS_RO_UG}/res/images/%{_app_lib_name}
+%define _app_res_locale_dir       %{TZ_SYS_RO_UG}/res/locale
 %define _share_packages_dir       %{TZ_SYS_RO_PACKAGES}
 
 cmake . \
         -DPKG_NAME=%{name} \
         -DLIB_NAME=%{_app_lib_name} \
-        -DAPP_HOME_DIR=%{_app_home_dir} \
-        -DAPP_BIN_DIR=%{_app_bin_dir} \
         -DAPP_LIB_DIR=%{_app_lib_dir} \
         -DAPP_RES_DIR=%{_app_res_dir} \
-        -DAPP_DATA_DIR=%{_app_data_dir} \
+        -DAPP_RES_EDJE_DIR=%{_app_res_edje_dir} \
+        -DAPP_RES_IMAGE_DIR=%{_app_res_image_dir} \
+        -DAPP_RES_LOCALE_DIR=%{_app_res_locale_dir} \
         -DSHARE_PACKAGES_DIR=%{_share_packages_dir} \
 %if 0%{?sec_product_feature_app_lite}
         -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
@@ -83,19 +85,21 @@ make %{?_smp_mflags}
 
 %install
 %make_install
-%find_lang %{name}
+%find_lang %{_app_lib_name}
 
 %post
 /sbin/ldconfig
-mkdir -p %{_app_bin_dir}
 
-%files -f %{name}.lang
+mkdir -p  %{_app_bin_dir}
+ln -sf %{TZ_SYS_BIN}/ug-client %{_app_bin_dir}/%{_app_name}
+
+%files -f %{_app_lib_name}.lang
 %license LICENSE
+
 %manifest %{name}.manifest
 %{_app_lib_dir}/lib%{_app_lib_name}.so
-%{_app_res_dir}/edje
-%{_app_res_dir}/images
-%dir %{_app_data_dir}
+%{_app_res_edje_dir}
+%{_app_res_image_dir}
 %{_share_packages_dir}/%{name}.xml
 
 %postun -p /sbin/ldconfig
