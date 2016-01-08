@@ -33,10 +33,9 @@
 #define CST_MODULE_EXPORT __attribute__ ((visibility("default")))
 #endif
 
-#define EDJ_DIR             RES_DIR"/edje/"
-#define IMG_DIR             RES_DIR"/images"
-#define CST_LOCALE          RES_DIR"/locale"
-#define CST_DEBUG_FILE      DATA_DIR"/.tmp/debug/call-setting.log"
+#define EDJ_DIR             EDJDIR
+#define IMG_DIR             IMAGEDIR
+#define CST_LOCALE          LOCALEDIR
 
 #define EDJ_NAME            EDJ_DIR"/call-setting.edj"
 #define _EDJ(o)             elm_layout_edje_get(o)
