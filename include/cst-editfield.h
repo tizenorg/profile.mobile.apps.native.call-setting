@@ -30,8 +30,6 @@ typedef enum
 
 Evas_Object *editfield_create(Evas_Object *parent, Editfield_Type type, const char *guide_text);
 
-void editfield_clear_button_disabled_set(Evas_Object *editfield, Eina_Bool set);
-
 Evas_Object *editfield_get_entry(Evas_Object *editfield);
 
 #endif //_CST_EDITFIELD_H_
