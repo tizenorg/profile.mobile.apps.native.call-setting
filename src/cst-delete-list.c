@@ -196,13 +196,6 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 	}
 
 	__cst_on_click_back_button(ugd, NULL);
-	/* _cst_create_indicator_popup(T_(CST_STR_DELETED)); */
-	switch (ugd->kind_of_delete_list) {
-	case CST_DL_REJECT_CALL_WITH_MSG:
-	default:
-		break;
-
-	}
 	return;
 }
 
@@ -956,22 +949,6 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 		delete_list_view->title = NULL;
 	}
 	LEAVE();
-}
-
-void _cst_update_delete_list(void *data)
-{
-	ENTER(_cst_update_delete_list);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	if (ugd->popup) {
-		evas_object_del(ugd->popup);
-		ugd->popup = NULL;
-	}
-
-	if (g_vd) {
-		__cst_on_click_back_button(ugd, NULL);
-		_cst_create_delete_list(ugd, NULL, NULL);
-	}
 }
 
 void _cst_destroy_delete_list(void)

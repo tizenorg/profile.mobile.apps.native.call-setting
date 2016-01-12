@@ -103,7 +103,6 @@ static void __cst_reject_sms_count_changed_cb(keynode_t *node, void *data)
 		elm_genlist_clear(ugd->backup_genlist);
 	}
 
-	_cst_update_delete_list(ugd);
 	_cst_genlist_append_reject_list_item(ugd, ugd->backup_genlist);
 	_cst_set_reject_msg_button_status(_cst_get_num_of_reject_message());
 	LEAVE();
