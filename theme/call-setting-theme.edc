@@ -1,6 +1,11 @@
 #define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 23
 #define POPUP_EDITFIELD_LAYOUT_MINMAX_HEIGHT_INC 154
 #define DEMO_POPUP_PROCESSINGVIEW1BUTTON_CONTENT_MIN 0 144
+#define ENTRY_ITEM_HEIGHT 120
+#define PADDING_LEFT 32
+#define CONTACT_BUTTON_PADDING_RIGHT 17
+#define CONTACT_BUTTON_PADDING_LEFT 17
+#define CONTACT_BUTTON_SIZE 80
 
 /************************* START OF FDN CALL BTN CHANGES **************************/
 
@@ -393,7 +398,6 @@ collections {
 	         scale: 1;
 	         description { state: "default" 0.0;
 	            min: 0 POPUP_EDITFIELD_LAYOUT_MINMAX_HEIGHT_INC;
-	            max: -1 POPUP_EDITFIELD_LAYOUT_MINMAX_HEIGHT_INC;
 	            align: 0.5 0.5;
 	            rel1{
 	               relative: 1.0 0.0 ;
@@ -542,6 +546,95 @@ collections {
 	}
 }
 /*************************************Transparent Contact button view with touch sound END********************/
+
+/*************************************Entry with contact button layout********************/
+group {
+	name: "entry_item_with_contact_btn";
+	parts {
+		part {
+			name: "base";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 0 ENTRY_ITEM_HEIGHT;
+				max: -1 ENTRY_ITEM_HEIGHT;
+			}
+		}
+
+		part {
+			name: "padding_left";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 0 0.5;
+				min: PADDING_LEFT 0;
+				max: PADDING_LEFT -1;
+				rel2.relative: 0.0 1.0;
+			}
+		}
+
+		part {
+			name: "padding_right";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 1 0.5;
+				rel1.relative: 1.0 0.0;
+				min: CONTACT_BUTTON_PADDING_RIGHT 0;
+				max: CONTACT_BUTTON_PADDING_RIGHT -1;
+			}
+		}
+
+		part {
+			name: "elm.swallow.contact_btn";
+			type: SWALLOW;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 1 0.5;
+				min: CONTACT_BUTTON_SIZE CONTACT_BUTTON_SIZE;
+				max: CONTACT_BUTTON_SIZE CONTACT_BUTTON_SIZE;
+				rel1 { relative: 0.0 0.0; to_x: "padding_right"; }
+				rel2 { relative: 0.0 1.0; to_x: "padding_right"; }
+			}
+		}
+
+		part {
+			name: "contact_btn_padding_left";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 1 0.5;
+				min: CONTACT_BUTTON_PADDING_LEFT 0;
+				max: CONTACT_BUTTON_PADDING_LEFT -1;
+				rel1 { relative: 0.0 0.0; to_x: "elm.swallow.contact_btn"; }
+				rel2 { relative: 0.0 1.0; to_x: "elm.swallow.contact_btn"; }
+			}
+		}
+
+		part {
+			name: "elm.swallow.editfield";
+			type: SWALLOW;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				align: 1 0.5;
+				fixed: 1 0;
+				rel1 { relative: 0.0 0.0; to: "base"; }
+				rel2 { relative: 1.0 1.0; to: "contact_btn_padding_left"; }
+			}
+		}
+	}
+}
+/*************************************Entry with contact button layout END********************/
 
 /************************************progressbar*******************************/
 

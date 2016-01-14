@@ -293,10 +293,6 @@ static Evas_Object *__cst_create_genlist_phone(void *data)
 	retv_if(NULL == genlist, NULL);
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 
-#if 0		/* Disable this code to remove the seprator as per Tizen-Lite GUI*/
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
-#endif
-
 	for (i = 0; list_dep1[i].style != CST_GL_ITEM_NONE; ++i) {
 		item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 		retv_if(NULL == item_data, NULL);

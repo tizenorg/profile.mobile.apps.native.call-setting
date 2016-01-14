@@ -201,9 +201,6 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 
 	/* Genlist item append */
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
-#if 0		/* Disable this code to remove the seprator as per Tizen-Lite GUI*/
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
-#endif
 	for (index = 0; list_call_answering[index].style != CST_GL_ITEM_NONE; ++index) {
 
 		item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
@@ -228,8 +225,6 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 			if (CST_STR_PRESSING_THE_HOME_KEY == list_call_answering[index].str_id) {
 				vconf_notify_key_changed(VCONFKEY_CISSAPPL_ANSWERING_KEY_BOOL,
 						_cst_vconfkey_change_notify_cb, item_data->gl_item);
-				/* AS per New GUI Seprator implemented */
-				_cst_create_genlist_separator(genlist, EINA_FALSE);
 			}
 
 			if (CST_STR_PRESSING_THE_POWER_KEY == list_call_answering[index].str_id) {
@@ -244,9 +239,6 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 					NULL, NULL);
 
 			elm_genlist_item_select_mode_set(item_data->gl_item, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
-#if 0		/* Disable this code to remove the seprator as per Tizen-Lite GUI*/
-			_cst_create_genlist_separator(genlist, EINA_FALSE);
-#endif
 		} else {
 			DBG("No style");
 			free(item_data);
@@ -254,9 +246,6 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 			return NULL;
 		}
 	}
-#if 0		/* Disable this code to remove the seprator as per Tizen-Lite GUI*/
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
-#endif
 
 	return genlist;
 }

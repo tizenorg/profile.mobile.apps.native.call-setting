@@ -78,5 +78,6 @@
 		<privilege>http://tizen.org/privilege/message.read</privilege>
 		<privilege>http://tizen.org/privilege/telephony</privilege>
 		<privilege>http://tizen.org/privilege/telephony.admin</privilege>
+		<privilege>http://tizen.org/privilege/contact.read</privilege>
 	</privileges>
 </manifest>
