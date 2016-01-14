@@ -418,9 +418,6 @@ void _cst_genlist_append_reject_list_item(CstUgData_t *ugd, Evas_Object *genlist
 	if (num_of_message == 0) {
 		edje_object_signal_emit(_EDJ(ugd->backup_layout), "show,content2", "code");
 	} else {
-#if 0		/* Disable this code to remove the seprator as per Tizen-lite GUI*/
-		_cst_create_genlist_separator(genlist, EINA_TRUE);
-#endif
 		for (index = 0; index < num_of_message; index++) {
 			item_data = calloc(1, sizeof(CstGlItemData_t));
 			ret_if(item_data == NULL);

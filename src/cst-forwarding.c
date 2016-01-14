@@ -649,14 +649,12 @@ Evas_Object *_cst_create_cf_popup(Evas_Object *parent, void *data,
 	layout = elm_layout_add(ugd->popup);
 	elm_layout_theme_set(layout, "layout", "popup", "callforwardingview");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
 	cst_util_domain_translatable_part_text_set(ugd->popup, "title,text", info_text);
 
 	eo = _cst_create_cf_ime(ugd->nf, editstring,
 										cst_forward_data.cf_wait_time, req->flavour, (void *)ugd);
-	elm_object_style_set(eo, "editfield/password/popup");
-	elm_object_signal_emit(eo, "elm,action,hide,search_icon", "");
 	elm_object_part_content_set(layout, "elm.swallow.content", eo);
 	elm_object_content_set(ugd->popup, layout);
 
@@ -691,7 +689,6 @@ Evas_Object *_cst_create_cf_popup(Evas_Object *parent, void *data,
 	}
 	ugd->cf_btn = btn2;
 
-/*	evas_object_smart_callback_add(ugd->nf, "transition,finished", _cst_transition_cb, navi_it);*/
 	eext_object_event_callback_add(ugd->popup, EEXT_CALLBACK_BACK,
 									__cst_on_click_cf_ime_cancel_btn, cb_data);
 	evas_object_show(ugd->popup);
@@ -1021,8 +1018,6 @@ static Evas_Object *__cst_create_genlist_cf(void *data)
 	evas_object_show(ugd->popup);
 
 	genlist = elm_genlist_add(ugd->nf);
-
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
 	for (index = 0; list_call_forwarding[index].style != CST_GL_ITEM_NONE; ++index) {
 		if (list_call_forwarding[index].style == CST_GL_ITEM_2TEXT_ONOFF_PROGRESS) {
 			item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
@@ -1046,7 +1041,6 @@ static Evas_Object *__cst_create_genlist_cf(void *data)
 		}
 		ugd->cf_gl_item[index] = item_data->gl_item;
 	}
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
 
 	evas_object_smart_callback_add(genlist, "realized",
 						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST);
