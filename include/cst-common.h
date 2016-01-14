@@ -62,19 +62,10 @@
 #define CST_MAX_NUM_AUTO_REJECT_LIST 100
 #define CST_DISPLAY_NAME_LENGTH_MAX		(255+1)
 
-#define CST_TITLE_BTN_ICON_BACK					IMG_DIR"/00_icon_back.png"
 #define CST_TITLE_BTN_ICON_PLUS					IMG_DIR"/00_icon_plus.png"
 #define CST_TITLE_BTN_ICON_EDIT					IMG_DIR"/00_icon_edit.png"
 #define CST_TITLE_BTN_ICON_SELECT_ALL			IMG_DIR"/T01_title_icon_select_all.png"
 #define CST_TITLE_BTN_ICON_ADD					IMG_DIR"/T01_title_icon_add.png"
-#define CST_TITLE_BTN_ICON_DELETE				IMG_DIR"/T01_title_icon_delete.png"
-#define CST_CTRL_ICON_CLOSE						IMG_DIR"/01_controlbar_icon_close.png"
-#define CST_CTRL_ICON_CREATE					IMG_DIR"/01_controlbar_icon_create.png"
-#define CST_CTRL_ICON_DELETE					IMG_DIR"/01_controlbar_icon_delete.png"
-#define CST_CTRL_ICON_EDIT						IMG_DIR"/01_controlbar_icon_edit.png"
-#define CST_CTRL_ICON_UPDATE					IMG_DIR"/01_controlbar_icon_update.png"
-#define CST_CTRL_ICON_CONTACTS					IMG_DIR"/01_controlbar_icon_contacts.png"
-#define CST_VIDEO_CALL_IMAGE_DEFAULT_PATH		IMG_DIR"/call_no_video_sim"
 #define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
 
 #define FDN_SIM_PB_FAIL_STR								"SIM Phonebook operation is failed for some unknown reason"
@@ -226,12 +217,6 @@ typedef enum {
 	CST_SELECTED_SIM2,
 } CstSimSlot_t;
 #endif /*Tizen Lite code */
-
-enum {
-	CST_IN_VOICE_MAIL_VIBRATE_ALWAYS_DOCOMO,
-	CST_IN_VOICE_MAIL_ONLY_IN_SILENT_MODE_DOCOMO,
-	CST_IN_NEVER_DOCOMO,
-};
 
 enum {
 	CST_STATUS_ACTIVATED,

@@ -32,8 +32,6 @@
 #include "cst-fdn-setting.h"
 #include "cst-fdn-list.h"
 #include "cst-tapi-request.h"
-#include "cst-intrl-dial-country-code-docomo.h"
-#include "cst-intrl-dial-prefix-docomo.h"
 
 #define MAX_PRECONFIG_NUM		8
 #define DEF_BUF_LEN	(512)
