@@ -32,4 +32,8 @@ po/CMakeFiles/
 po/Makefile
 po/cmake_install.cmake
 usr
+build*
+deploy*
+install.sh
+run.sh
 TEMP_BUILD_DIR

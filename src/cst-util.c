@@ -618,7 +618,6 @@ void _cst_unlisten_vconf_change(void)
 	_cst_flight_mode_unlisten_setting_change_for_more_call_setting();
 }
 
-/* this api is shared also by NTT DoCoMo code*/
 Eina_Bool _cst_naviframe_item_pop_cb(void *data)
 {
 	CstUgData_t *ugd = (CstUgData_t *)data;
