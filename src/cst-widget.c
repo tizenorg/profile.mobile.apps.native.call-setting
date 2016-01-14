@@ -1096,7 +1096,6 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 		elm_entry_markup_filter_append(ugd->dg_entry, _cst_reject_msg_entry_filter_check_boundary, ugd);
 		input_panel_cb = _cst_reject_msg_input_panel_event_callback;
 		entry_changed_cb = _cst_reject_msg_changed_editfield_cb;
-		editfield_clear_button_disabled_set(entry_layout, EINA_TRUE);
 		break;
 	case CST_IME_CALL_FORWARD:
 		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);

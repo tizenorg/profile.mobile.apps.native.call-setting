@@ -66,29 +66,20 @@ Evas_Object *editfield_create(Evas_Object *parent, Editfield_Type type, const ch
 		elm_object_part_text_set(entry, "elm.guide", guide_text);
 	}
 
-	Evas_Object *button = elm_button_add(parent);
-	elm_object_style_set(button, "editfield_clear");
-	elm_object_focus_allow_set(button, EINA_FALSE);
-	elm_object_part_content_set(layout, "elm.swallow.button", button);
+	if (ET_MULTILINE != type) {
+		Evas_Object *button = elm_button_add(parent);
+		elm_object_style_set(button, "editfield_clear");
+		elm_object_focus_allow_set(button, EINA_FALSE);
+		elm_object_part_content_set(layout, "elm.swallow.button", button);
+		evas_object_smart_callback_add(button, "clicked", clear_button_cb, entry);
+		evas_object_smart_callback_add(entry, "changed", change_cb, layout);
+	}
 
-	evas_object_smart_callback_add(button, "clicked", clear_button_cb, entry);
 	evas_object_smart_callback_add(entry, "focused", focus_cb, layout);
 	evas_object_smart_callback_add(entry, "unfocused", unfocus_cb, layout);
-	evas_object_smart_callback_add(entry, "changed", change_cb, layout);
+
 
 	return layout;
-}
-
-void editfield_clear_button_disabled_set(Evas_Object *editfield, Eina_Bool set)
-{
-	Evas_Object *button = elm_object_part_content_get(editfield, "elm.swallow.button");
-	if (button) {
-		if (set) {
-			evas_object_hide(button);
-		} else {
-			evas_object_show(button);
-		}
-	}
 }
 
 Evas_Object *editfield_get_entry(Evas_Object *editfield)
