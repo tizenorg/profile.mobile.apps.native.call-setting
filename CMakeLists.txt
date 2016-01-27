@@ -44,7 +44,7 @@ pkg_check_modules(pkgs REQUIRED
 )
 
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
@@ -79,20 +79,19 @@ ADD_LIBRARY(${LIB_NAME} SHARED
 TARGET_LINK_LIBRARIES(${LIB_NAME} ${pkgs_LDFLAGS})
 
 ADD_CUSTOM_TARGET(call-setting.edj
-		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/resource/images
-		${CMAKE_CURRENT_SOURCE_DIR}/resource/edc/call-setting.edc ${CMAKE_BINARY_DIR}/call-setting.edj
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resource/edc/call-setting.edc
-				${CMAKE_CURRENT_SOURCE_DIR}/resource/edc/color-classes.edc
+		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting/images
+		${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting.edc ${CMAKE_BINARY_DIR}/call-setting.edj
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting.edc
 )
 ADD_DEPENDENCIES(${LIB_NAME} call-setting.edj)
 
 
 # edje theme
 ADD_CUSTOM_TARGET(call-setting-theme.edj
-		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/theme -sd
-		${CMAKE_CURRENT_SOURCE_DIR}/theme/sounds
-		${CMAKE_CURRENT_SOURCE_DIR}/theme/call-setting-theme.edc ${CMAKE_BINARY_DIR}/call-setting-theme.edj
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/theme/call-setting-theme.edc
+		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting-theme/images -sd
+		${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting-theme/sounds
+		${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting-theme.edc ${CMAKE_BINARY_DIR}/call-setting-theme.edj
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting-theme.edc
 )
 ADD_DEPENDENCIES(${LIB_NAME} call-setting-theme.edj)
 
@@ -100,12 +99,12 @@ INSTALL(TARGETS ${LIB_NAME} DESTINATION ${APP_LIB_DIR})
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/call-setting.edj DESTINATION ${EDJDIR})
 INSTALL(FILES ${CMAKE_BINARY_DIR}/call-setting-theme.edj DESTINATION ${EDJDIR})
-INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource/images/ DESTINATION ${IMAGEDIR} FILES_MATCHING PATTERN "*.png")
-INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resource/images/ DESTINATION ${IMAGEDIR} FILES_MATCHING PATTERN "*.jpg")
+INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/images/ DESTINATION ${IMAGEDIR} FILES_MATCHING PATTERN "*.png")
+INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/images/ DESTINATION ${IMAGEDIR} FILES_MATCHING PATTERN "*.jpg")
 INSTALL(DIRECTORY DESTINATION ${APP_DATA_DIR})
 
 # i18n
-ADD_SUBDIRECTORY(po)
+ADD_SUBDIRECTORY(res/po)
 
 #for Appcontrol
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/${PKG_NAME}.xml DESTINATION ${SHARE_PACKAGES_DIR})

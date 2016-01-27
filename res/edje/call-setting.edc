@@ -15,8 +15,6 @@
  *
  */
 
-#include "color-classes.edc"
-
 #define MAIN_W 720
 
 #define EDITFIELD_COUNT_ENTRY_LEFT_RIGHT_PADDING 32

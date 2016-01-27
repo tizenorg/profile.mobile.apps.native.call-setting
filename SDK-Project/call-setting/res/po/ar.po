@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "تشغيل"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "الهاتف"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "مكالمة فيديو"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "البريد الصوتي"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "زر تشغيل/إيقاف تشغيل"
+
+msgid "IDS_COM_SK_OK"
+msgstr "موافق"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "إضافة"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "عملية غير معرفة."
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "إلغاء قفل PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "تم إلغاء قفل PIN2."
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "تم قفل PIN2."
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "محاولات متبقية %d"
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "PIN 2 غير صحيح."
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "تم تحديد %d"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "الاهتزازات"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "صامت"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "غير محددة"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "أدخل PIN2 جديد"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "كلمة مرور غير صحيحة. أعد المحاولة."
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "نمط الاتصال الثابت"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "أدخل PIN2 ثانية"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "تغيير الرمز PIN2"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "إخفاء"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "أدخل كلمة المرور."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "منزل"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "تحديد العناصر"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "إلغاء"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "تم"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "رجوع"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "جهات الاتصال"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "كلمة المرور"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "نغمات الرنين"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "اختيار الكل"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "تم المسح."
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "مسح؟"
+
+msgid "IDS_COM_SK_SET"
+msgstr "ضبط"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "حفظ"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "الطلب جاري..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "جاري التحميل ..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "يرجى إدخال البطاقة."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "تم إلغاء التفعيل."
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "توجد مشكلة في الاتصال، أو رمز MMI غير صحيح."
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "إنشاء جهة اتصال"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "مكالمة صوتية"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "الفيديو"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "غير معروف"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "تم تحديد %d"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "غير مفعل"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "الاسم"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "رقم الهاتف"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "تم تنشيط نمط FDN."
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "تمت إزالة جهة اتصال واحدة."
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "أسماء الاتصال الثابت"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "يتعذر الحفظ نتيجة لحدوث خطأ في SIM."
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "لم يتم تثبيت التطبيق."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "تم إدخال رقم غير صالح."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "حذف"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "فشل"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "تعذر تغيير رقم البريد الصوتي. اتصل بشركة شبكة الهاتف المحمول إذا استمرت هذه المشكلة."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "لا توجد جهات اتصال FDN على بطاقة SIM"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "أسماء الاتصال الثابت"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "جاري القراءة من بطاقة SIM..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "لم يتم إجراء تغييرات."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "المزيد"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "تحويل في حالة عدم الرد"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "تمت إزالة %d من الأرقام."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "تم حذف %d من الرسائل."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "تمت إزالة %d من جهات الاتصال."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "تمت إزالة رقم واحد."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "تم حذف رسالة واحدة."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "عذراً، أنا أقود الآن."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "لا يمكنني التحدث الآن. ما أخبارك؟"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "جارٍ حظر المعيار"
+
+msgid "IDS_CST_SK_OK"
+msgstr "موافق"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "تغيير الصورة"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "إنشاء"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "عيّن صورة أو مقطع فيديو بديل لعرضه على شاشة الشخص الآخر أثناء مكالمات الفيديو."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "ارفض المكالمات من الأرقام المدرجة في قائمة حظر المكالمات."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "رفض كل المكالمات الواردة."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "تلقّ تنبيهات المكالمات أثناء إجراء هذه الأخيرة."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "قم بإدارة الأرقام في قائمة حظر المكالمات."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "قم بإنشاء رسائل الرد أو تحريرها لإرسالها عند رفض المكالمات الواردة."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "السماح للتنبيهات والإشعارات بإصدار صوت أثناء المكالمات."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "إضافة %s تلقائيًا إلى لوحة عرض الرقم."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "أضف أرقاماً إلى قائمة حظر الرسائل تلقائياً عند إضافتها إلى قائمة حظر المكالمات."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "جاري تحديث الإعدادات..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "الخدمة غير متوفرة."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "تم الرفض من الشبكة."
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "تم الوصول إلى الحد الأقصى من قوائم جهات الاتصال."
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "‏‫رمز PIN2 غير صحيح. تم قفل بطاقة SIM. أدخل رمز PUK2 لإلغاء قفلها."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "أدخل الرسالة."
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "إلغاء التفعيل"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "كل المكالمات الواردة"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "التقاط صورة"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "عرض"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "حذف"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "لا شيء"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "تتطابق تام"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "لم يتم حظر أي أرقام"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "ما من رسائل"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "لا توجد جهات اتصال"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "مكالمات صوتية"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "مكالمات الفيديو"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "اهتزاز عند الرنين"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "عذراً، أنا مشغول. سأتصل بك لاحقاً."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "نغمات الرنين"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "إبلاغ أثناء المكالمات"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "معرف المتصل الخاص بي"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "إعادة التوجيه عند تعذّر الوصول إلى الهاتف"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "تحويل عندما يكون مشغولا"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "تنبيهات المكالمات"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "حظر الرسائل من الأرقام نفسها"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "إعادة توجيه مكالمة صوتية"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "البريد الصوتي"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "إدخال رقم PIN2"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "مسح"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "تغيير الصورة مسبقة الضبط"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "ضبط المكالمة"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "رسائل رفض المكالمات"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "رفض المكالمة"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "‏‫قائمة حظر المكالمات"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "وضع الرفض التلقائي"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "الرد على/إنهاء المكالمات"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "إعدادات إضافية"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "تفعيل"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "إلغاء"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "مدة الانتظار"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "تم تغيير رقم البريد الصوتي."
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "رقم البريد الصوتي"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "صورة مكالمة فيديو"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "تحويل مكالمة الفيديو"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "ينهي مفتاح التشغيل المكالمات"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "مفتاح الرد"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "يبدأ بـ"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "عذراً، أنا مشغول. يرجى إرسال رسالة نصية إلي."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "صورة من الهاتف"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d ثانية"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "الرقم"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "الاسم"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "تم بلوغ أقصى عدد من الأحرف (%d)."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "إدارة إعدادات الرد على/إنهاء المكالمة‬."
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "يتضمن"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "أنا في اجتماع."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "صورة"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "أرقام الاتصال الثابت"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "ينتهي بـ"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "تعديل"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "انتظار المكالمات"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "تحويل المكالمات"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "بواسطة الشبكة"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "لائحة الحجب"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "رمز المنطقة التلقائي"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "إعادة التوجيه دومًا"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "تنبيه أثناء المكالمة"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "ستظهر رسائل رفض المكالمات هنا بعد إنشائها."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "ستظهر الأرقام هنا بعد إضافتها إلى قائمة حظر المكالمات."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "ستظهر جهات اتصال FDN هنا بعد إضافة جهات الاتصال."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "إضافة"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "تم بلوغ الحد الأقصى لعدد الأرقام (%d)."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "من المكتب إلى المنزل"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "من المنزل إلى المكتب"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "حدد بطاقات SIM المطلوب استخدامها لبطاقتي SIM الذكيتين."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "سيتم إلغاء تفعيل بطاقتي SIM الذكيتين. بينما تكون هذه الوظيفة مفعلة، لن تتمكن من تعديل الضبط."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "رمز PIN2 غير صحيح. محاولتان متبقيتان."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "رمز PIN2 غير صحيح. محاولة واحدة متبقية."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "تم تفعيل انتظار المكالمة. إذا كانت شبكة %1$s خارج التغطية، ستتم إعادة توجيه المكالمات الواردة إلى رقم هاتف %2$s."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "تم تفعيل انتظار المكالمة."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "تم إلغاء تفعيل انتظار المكالمة."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "تم تفعيل إعادة توجيه المكالمة."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "تم إلغاء تفعيل إعادة توجيه المكالمة."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "موجود مسبقا."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s إلى %2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "بطاقتا SIM"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "بطاقتا SIM الذكيتان"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "بطاقة SIM"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "تحديد بطاقة SIM"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "نغمات لوحة المفاتيح"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "تشغيل بطاقتي SIM دائمًا"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "تم"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "الأصوات"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "بطاقتا SIM الذكيتان"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "تم حجب PUK2."
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "لم يتم تعيينه"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "لوحة المفاتيح"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "تشغيل بطاقتي SIM دائما"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "يتبقى محاولة واحدة."
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "ليس FDN مدعومًا."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "صوت رقيق"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "صوت واضح"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "خفض التشويش"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "التحويل"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "إعدادات عامة"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "قم بإلغاء تنشيط وضع الطيران لاستخدام خدمات الشبكة."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "كل المكالمات الواردة"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "كل المكالمات الصادرة"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "الرد على المكالمات باستخدام الأوامر الصوتية"
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "حجب المكالمات"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "كلمة المرور الحالية"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "أدخل الرقم."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "رفع الصوت وهو بالحقيبة"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "المكالمات الدولية"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "المكالمات الدولية عدا الوطن"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "كلمة مرور جديدة"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "تخصيص صوت المكالمة"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "رفع مستوى صوت نغمة الرنين عندما يكون الجهاز بالجيب أو الحقيبة."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "قم بتعيين خيارات الملحقات للمكالمات."
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "اضبط صورة إفتراضية لنمط إخفائي."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "الصوت"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "يقوم بإيقاف تشويش الخلفية من جانبك أثناء المكالمات."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "قم بتشغيل مستشعر التقارب أثناء المكالمات."
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "رقم رفض تلقائي خاطئ."
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "إعادة الإرسال إلى"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "رفض الرسالة"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "حظر المكالمة الصوتية‬"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "رسائل الرفض"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "يجب العثور على ‏‫موازن‬ الصوت الأنسب لك قبل أن تتمكن من استخدام هذه الوظيفة. هل تريد البحث الآن؟"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "تأكيد كلمة المرور"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "الواردة أثناء التجوال"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "يتم استخدام الرقم."
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "تم حجب كلمة المرور."
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "تم تغيير كلمة المرور."
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "فحص Adapt Sound مرة أخرى"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "تغيير كلمة المرور"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "اعرض كلمة المرور."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "ضبط الصوت"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "الرد على المكالمات عن طريق"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "الضغط على المفتاح الرئيسي"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "إنهاء المكالمات عن طريق"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "الضغط على مفتاح التشغيل"
+

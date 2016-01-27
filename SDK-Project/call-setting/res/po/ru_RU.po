@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "Вкл."
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "Телефон"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "Видеовызов"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "Голосовая почта"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "Кнопка включения и отключения"
+
+msgid "IDS_COM_SK_OK"
+msgstr "OK"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "Добавить"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "Неизвестная операция"
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Оптимизировать звук"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "Разблокировать PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2-код разблокирован."
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "PIN2 заблокирован."
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "Осталось попыток: %d."
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "Неправильный PIN2"
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "Выбрано: %d"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "Вибрация"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "Без звука"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "Не назначено"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "Новый PIN2"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "Неправильный пароль. Повторите попытку"
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "Режим разрешенных номеров"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "Подтвердите новый PIN2"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "Изменить PIN2-код"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2-код"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Скрыть"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "Введите пароль."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "Домашний"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "Выберите элементы"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ОТМЕНА"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "ГОТОВО"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "Назад"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "Контакты"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "Пароль"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "Мелодии звонка"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Выделить все"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "Удалено."
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "Удалить?"
+
+msgid "IDS_COM_SK_SET"
+msgstr "Применить"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "Соxранить"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "Запрос..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Загрузка..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Вставьте SIM-карту."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "Выключено."
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "Проблема подключения или недействительный код MMI."
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "Создать контакт"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "Голосовой вызов"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "Видео"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Неизвестно"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "Выбрано: %d"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "Выключено"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "Имя"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Номер телефона"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "Режим FDN включен."
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "Удален 1 контакт."
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "FDN-контакт"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "Сохранение невозможно из-за ошибки SIM."
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "Приложение не установлено."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "Введен недопустимый номер."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "УДАЛИТЬ"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "Сбой"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "Невозможно изменить номер голосовой почты. Если эта проблема повторится, обратитесь к оператору мобильной связи."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "На SIM-карте нет контактов FDN"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "FDN-контакты"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "Чтение с SIM-карты..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "Изменения не внесены."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "Опции"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "Если нет ответа"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "Удалено номеров: %d."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "Удалено сообщений: %d."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "Удалено контактов: %d."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "1 номер удален."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "1 сообщение удалено."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Я за рулем."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Я не могу сейчас говорить."
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "Критерий блокировки"
+
+msgid "IDS_CST_SK_OK"
+msgstr "OK"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "Изменить"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Создать"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "Установите альтернативное изображение или видеозапись для отображения на экране собеседника во время видеовызовов."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Отклонять вызовы с номеров из списка блокировки вызовов."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "Отклонять все входящие вызовы."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Получать сигналы вызова во время вызова."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Управление номерами в списке блокировки вызовов."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Составление или редактирование ответных сообщений при отклонении вызова."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "Разрешить звуковые сигналы и уведомления во время вызовов."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "Автоматически добавлять %s в область отображения номера."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "Автоматически добавлять номера в список блокировки сообщений при их добавлении в список блокировки вызовов."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "Обновление параметров..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Услуга недоступна."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Отклонено сетью."
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "Достигнут максимум списков контактов."
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "Неправильный PIN2-код. SIM-карта заблокирована. Введите PUK2-код, чтобы разблокировать ее."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Введите сообщение."
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "Отключить"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "Все входящие вызовы"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "Сделать снимок"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Показать"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "Удалить"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "Нет"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "Точное совпадение"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "Заблокированные номера отсутствуют"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Нет сообщений"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "Нет контактов"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "Голосовые вызовы"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "Видеовызовы"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "Вибрировать при звонке"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Извините, я перезвоню Вам позже."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "Мелодии вызова"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "Уведомл. во время вызов."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Мое изображение"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Если недоступен"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Переадр., если занято"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "Сигналы при вызове"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "Блок. сообщ. с этих номер."
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "Переадресация голосовых вызовов"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "Голосовая почта"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "Введите PIN2"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Удалить"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "Изменить изображение"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Настройки вызовов"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Сообщ-я с отклонен. вызова"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "Отклонение вызова"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "Список блок. вызовов"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "Режим автоотклонения"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Ответ/окончание вызовов"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "Дополнительные параметры"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Включить"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Отмена"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Время ожидания"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "Номер голосовой почты изменен."
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "Номер голосовой почты"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "Изображение для видеовызова"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "Переадресация видеовызовов"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "Завер. вызова клав. пит."
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "Ответ на вызовы клавишей “Домой”"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "Начинается с"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Извините, я занят. Напишите мне."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "Стандартные картинки"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d сек."
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "Номер"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "Имя"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "Достигнуто максимальное число символов (%d)."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "Управление ответами на звонки и завершением вызовов."
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "Содержит"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Я на собрании."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "Картинка"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "Разрешенные номера"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "Заканчивается на"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Изменить"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Ожидание вызова"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Переадресация вызова"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Задается сетью"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "Черный список"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "Авт. код города"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Всегда"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "Сигналы при вызове"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Здесь будут показаны созданные сообщения с отклонением вызова."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Здесь выводятся номера, добавленные в список блокировки вызовов."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "Здесь будут показаны добавленные контакты FDN."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "Добавить"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "Достигнуто максимальное число цифр (%d)."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "С работы домой"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "Из дома на работу"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "Выберите SIM-карты для интеллектуального режима двух SIM-карт."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "Интеллектуальный режим двух SIM-карт будет выключен. Когда эта функция включена, изменение параметров будет невозможно."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "Неправильный PIN2-код. Остались 2 попытки."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "Неправильный PIN2-код. Осталась 1 попытка."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "Ожидание вызова включено. Если сеть %1$s недоступна, входящие вызовы будут переадресовываться на телефонный номер %2$s."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "Ожидание вызова включено."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "Ожидание вызова отключено."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "Переадресация вызовов включена."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "Переадресация вызовов отключена."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "Уже используется."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s - %2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "Обе SIM-карты"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "Интеллект. реж. двух SIM-карт"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "SIM-карта"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "Выберите SIM-карту"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "Звуки клавиатуры"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "Акт. режим двух SIM-карт"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "Готово"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "Звуки"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "Интеллектуальный режим двух SIM-карт"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "PUК2-код заблокирован."
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "Не установлено"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "Клавиатура"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "Активный режим"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "Осталась 1 попытка."
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "FDN не поддерживается."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "Мягкое звучание"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "Чистое звучание"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "Устранение шумов"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "Пересылка"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "Общие настройки"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "Отключите автономный режим для использования услуг сети."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "Все входящие вызовы"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "Все исходящие вызовы"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "Отвечать на вызовы с помощью голосовых команд."
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "Запрет вызова"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "Текущий пароль"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "Введите номер."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "Звон. громче в кармане"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "Международные вызовы"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "Международные кроме домой"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "Новый пароль"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "Настроить звук"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "Громкость мелодии повышается, если устройство находится в кармане или в сумке."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "Настроить параметры аксессуаров для вызовов."
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "Установить стандартное изображение 'Скрыть меня'."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "Звук"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "Подавление фоновых шумов на вашей стороне во время вызова."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "Включать датчик приближения во время вызовов."
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "Неверный номер для черного списка"
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "Переадресовать"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "Отклонить и отправить сообщение"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "Запрет голосовых вызовов"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "Сообщения для отклонения"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "Перед тем как использовать эту функцию, вам нужно найти оптимальный эквалайзер. Сделать это сейчас?"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "Подтвердите пароль"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "Входящие в роуминге"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "Номер уже используется."
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "Пароль заблокирован."
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "Пароль изменен."
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "Проверить оптимизацию звука"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "Изменить пароль"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "Показать пароль."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "Звуки"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Ответ на вызовы"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Нажатие клавиши “Домой”"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Завершить вызовы"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Нажатие клавиши питания"
+

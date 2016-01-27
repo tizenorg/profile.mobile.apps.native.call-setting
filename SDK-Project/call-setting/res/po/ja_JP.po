@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "ON"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "本体"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "ビデオコール"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "留守番電話"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "ON/OFFボタン"
+
+msgid "IDS_COM_SK_OK"
+msgstr "OK"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "追加"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "ご利用になれません"
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "PIN2のロックを解除"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2ロックを解除しました。"
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "PIN2ブロックされました。"
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "残り入力回数：%d回"
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "PIN2が間違っています。"
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d件選択"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "バイブ"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "サイレント"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "指定なし"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "新しいPIN2"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "パスワードが正しくありません。再度入力してください。"
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "固定ダイヤルモード"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "新しいPIN2を確認します。"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "PIN2変更"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "非表示"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "パスワードを入力"
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "ホーム"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "アイテムを選択"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "キャンセル"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "完了"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "戻る"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "電話帳"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "パスワード"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "着信音"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "全て選択"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "削除しました。"
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "削除しますか？"
+
+msgid "IDS_COM_SK_SET"
+msgstr "設定"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "保存"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "要求中..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "読み込み中..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "SIMカードを挿入してください。"
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "無効になりました。"
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "接続エラーまたはMMIコードが正しくありません。"
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "連絡先を登録"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "音声通話"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "動画"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "不明"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "%d件選択"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "OFF"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "名前"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "電話番号"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "FDNモードが有効になりました。"
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "1件の連絡先が削除されました。"
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "FDN連絡先"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "SIMエラーにより保存できません。"
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "アプリケーションがインストールされていません"
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "無効な番号です。"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "削除"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "失敗"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "留守番サービス番号を変更することができません。 この問題が解決しない場合は、キャリアにお問い合わせください。"
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "SIMカードに固定ダイヤル電話帳がありません"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "固定ダイヤル電話帳"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "SIMカードから読み込み中..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "変更は行われませんでした。"
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "その他"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "応答しない時に転送"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "%d件の番号を削除しました。"
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "%d件のﾒｯｾｰｼﾞを削除しました。"
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "%d件の連絡先を削除しました。"
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "1件の番号を削除しました。"
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "1件のﾒｯｾｰｼﾞを削除しました。"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "ただいま運転中です。"
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "電話に出られません。ご用件は？"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "ブロックの基準"
+
+msgid "IDS_CST_SK_OK"
+msgstr "OK"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "画像変更"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "作成"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "ビデオコール中に相手の画面に表示する代替画像や動画を設定"
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "通話ブロックリストに登録した番号からの着信を拒否"
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "全ての着信を拒否"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "通話中に着信通知を受信"
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "通話ブロックリストの番号を管理"
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "着信拒否時に送信するSMSの作成または編集を行います。"
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "通話中にアラームと通知音を許可"
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "番号表示パネルに%sを自動的に追加"
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "通話ブロックリストに番号を追加すると、その番号をメッセージブロックリストに自動で追加"
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "設定を更新中..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "サービスを利用できません。"
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "ネットワークに拒否されました。"
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "電話帳リストの最大保存件数に達しました。"
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "PIN2に誤りがあるため、SIMカードがロックされました。ロックを解除するには、PUK2を入力してください。"
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "メッセージを入力"
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "無効"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "全着信規制"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "カメラを起動"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "表示"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "削除"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "なし"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "完全一致"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "ブロックされた番号はありません"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "メッセージがありません"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "連絡先がありません"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "音声通話"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "ビデオコール"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "着信時にバイブ"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "今忙しいので、後でかけ直します。"
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "着信音"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "通話中の通知"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "自分の発信者ID"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "圏外転送"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "回線混雑時の転送"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "通話通知"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "同じ番号からのSMSをﾌﾞﾛｯｸ"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "通話転送"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "留守番電話"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "PIN2を入力"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "削除"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "プリセット画像を変更"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "通話設定"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "着信拒否メッセージ"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "着信拒否"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "通話ブロックリスト"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "自動着信拒否モード"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "通話応答/終了"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "追加設定"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "有効"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "キャンセル"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "呼び出し時間"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "留守番電話番号が変更されました。"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "留守番電話番号"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "ビデオコールイメージ"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "ビデオコール転送"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "電源キーで通話終了"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "ホームキーで電話に応答"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "前方一致"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "今忙しいので、SMSをください。"
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "プリセット画像"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d秒"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "番号"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "名前"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "最大文字数(%d文字)に達しました。"
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "通話応答/終了設定を管理"
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "部分一致"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "申し訳ありません、会議中です。"
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "画像"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "固定ダイヤル番号"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "後方一致"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "編集"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "割込通話"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "通話転送"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "ネットワーク設定に従う"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "ブロックリスト"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "自動市外局番"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "常時転送"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "通話中にイベント通知"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "着信拒否メッセージを作成すると、ここに表示されます。"
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "通話ブロックリストに番号を追加すると、ここに表示されます。"
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "固定ダイヤル連絡先を作成すると、ここに表示されます。"
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "追加"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "最大桁数(%d桁)に達しました。"
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "職場から自宅"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "自宅から職場"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "スマートデュアルSIMとして使用するSIMカードを選択"
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "[スマートデュアルSIM]を無効にします。この機能が有効なときは、設定を編集することはできません。"
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "PIN2が正しくありません。残りの試行回数は2回です。"
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "PIN2が正しくありません。残りの試行回数は1回です。"
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "[割込通話]が有効です。%1$sネットワークが圏外のとき、着信は%2$sの電話番号に転送します。"
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "[割込通話]が有効になりました。"
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "[割込通話]が無効になりました。"
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "通話転送機能が有効になりました。"
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "通話転送機能が無効になりました。"
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "既に使用されています。"
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$sから%2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "両方のSIMカード"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "スマートデュアルSIM"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "SIMカード"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "SIMカードを選択"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "キーパッド操作音"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "デュアルSIM常時ON"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "完了"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "サウンド"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "スマートデュアルSIM"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "PUK2がロックされました。"
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "未設定"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "キーパッド"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "デュアルSIM常時ON"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "残りの試行回数は1回です。"
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "FDNには対応していません。"
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "ソフトな音声"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "クリアな音声"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "ノイズキャンセラー"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "転送"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "基本設定"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "ネットワークサービスを使用するには、フライトモードを無効にします。"
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "全着信規制"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "全発信規制"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "音声コマンドで着信に応答"
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "通話制限"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "現在のパスワード"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "番号を入力"
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "ﾎﾟｹｯﾄ内では音量ｱｯﾌﾟ"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "国際電話"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "国際電話(自国以外)"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "新しいパスワード"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "通話音質を個別設定"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "端末がポケットやバッグ内にあるときは、着信音量を大きくする"
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "通話のアクセサリオプションを設定"
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "標準代替イメージを設定します。"
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "サウンド"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "通話中にバックグラウンドの雑音を抑制"
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "通話中に近接センサーを起動"
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "自動着信拒否番号が間違っています。"
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "転送先"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "着信拒否メッセージ"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "音声通話の発着信規制"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "拒否メッセージ"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "この機能を使用する前に、自分に最適なEQを見つける必要があります。今すぐ検索しますか？"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "パスワードを確認してください。"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "ローミング時の着信"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "既に使用されている番号です。"
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "パスワードがブロックされました。"
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "パスワードを変更しました。"
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "Adapt Soundを再確認"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "パスワードを変更"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "パスワードを表示"
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "サウンド設定"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "着信の応答方法"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "ホームキーを押す"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "通話の終了方法"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "電源キーを押す"
+

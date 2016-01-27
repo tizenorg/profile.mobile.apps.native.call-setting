@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "Kveikt"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "Sími"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "Myndsímtal"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "Talhólf"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "Hnappur til að kveikja og slökkva"
+
+msgid "IDS_COM_SK_OK"
+msgstr "Í lagi"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "Bæta við"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "Óþekkt aðgerð."
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "Opna fyrir PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2 er opið."
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "PIN2-læst."
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "%d tilraunir eftir."
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "Rangt PIN2-númer."
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d valið"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "Titringur"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "Án hljóðs"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "Óúthlutað"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "Nýtt PIN2-númer"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "Rangt lykilorð. Reyndu aftur."
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "Hamur fyrir föst valnúmer"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "Staðfesta nýtt PIN2-númer"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "Breyta PIN2-númeri"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "PUK2-númer"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Fela"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "Rita aðgangsorð."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "Heima"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "Velja hluti"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "HÆTTA VIÐ"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "LOKIÐ"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "Til baka"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "Tengiliðir"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "Aðgangsorð"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "Hringitónar"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Velja allt"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "Eytt."
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "Á að eyða?"
+
+msgid "IDS_COM_SK_SET"
+msgstr "Stilla"
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "Vista"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "Bið um..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Hleð..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Setjið SIM-kort í."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "Slökkt."
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "Vandamál í tengingu eða ógildur MMI-kóði."
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "Nýr tengiliður"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "Raddsímtal"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "Myndskeið"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Óþekkt"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "%d valið"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "Slökkt"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "Heiti"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Símanúmer"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "Kveikt á læstu skammvali."
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "Einn tengiliður fjarlægður."
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "FDN-tengiliður"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "Það er ekki hægt að vista vegna villu á SIM-korti."
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "Forritið var ekki sett upp."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "Ógilt númer slegið inn."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "EYÐA"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "Mistókst"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "Það er ekki hægt að breyta talhólfsnúmeri. Hafðu samband við þjónustuveitu ef vandamálið leysist ekki."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "Það eru engir skammvalstengiliðir á SIM-kortinu"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "FDN-tengiliðir"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "Les af SIM-korti..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "Engar breytingar voru gerðar."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "Meira"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "Framsenda þegar ekki er svarað"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "%d númer fjarlægð."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "%d skilaboðum eytt."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "%d tengiliðir fjarlægðir."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "1 númer fjarlægt."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "1 skilaboðum eytt."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Ég er undir stýri."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Kemst ekki í síma. E-ð títt?"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "Útilokunarskilyrði"
+
+msgid "IDS_CST_SK_OK"
+msgstr "Í lagi"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "Breyta mynd"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Búa til"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "Velja aðra mynd eða myndskeið til að birta á skjá viðmælandans í myndsímtölum."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Hafna símtölum úr númerum á útilokunarlista símtala."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "Hafna öllum símtölum sem berast."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Fá símtalstilkynningar í símtölum."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Vinna með númer á útilokunarlista símtala."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Skrifa eða breyta svarskilaboðum sem send eru þegar mótteknum símtölum er hafnað."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "Leyfa vekjurum og tilkynningum að gefa frá sér hljóð meðan á símtölum stendur."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "Bæta %s sjálfkrafa við birt símanúmer."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "Bæta númerum sjálfkrafa á útilokunarlista skilaboða þegar þeim er bætt á útilokunarlista símtala."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "Uppfæri stillingar..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Ótiltæk þjónusta."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Hafnað af símkerfi."
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "Hámarksfjölda tengiliðalista hefur verið náð."
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "Rangt PIN2-númer. SIM-kort er læst. Sláðu inn PUK2-númerið til að opna það."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Slá inn skilaboð."
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "Gera óvirkt"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "Allar innhringingar"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "Taka mynd"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Sýna"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "Fjarlægja"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "Ekkert"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "Nákvæm samsvörun"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "Engin númer á bannlista"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Engin skilaboð"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "Engir tengiliðir"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "Símtöl"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "Myndsímtöl"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "Titra við hringingu"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Ég upptekin(n). Hringi seinna."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "Hringitónar"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "Tilkynna í símtölum"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Númerið mitt"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Framsenda ef ekki næst í"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Framsenda þegar er á tali"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "Hringiviðvaranir"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "Loka á skboð frá sömu nr."
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "Framsending símtala"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "Talhólf"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "Sláðu inn PIN2-númer"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Eyða"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "Breyta forstilltri mynd"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Hringistillingar"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Skilaboð símtalshöfnunar"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "Hafna símtali"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "Útilokunarlisti"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "Sjálfvirk höfnun"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Símtölum svarað og lagt á"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "Viðbótarstillingar"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Gera virkt"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Hætta við"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Biðtími"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "Talhólfsnúmeri var breytt."
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "Talhólfsnúmer"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "Mynd fyrir myndsímtal"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "Framsending myndsímtals"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "Rofinn slítur símtölum"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "Heimatakkinn svarar símtölum"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "Byrja á"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Upptekin(n). Sendu mér SMS."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "Forstillt mynd"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d sekúndur"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "Númer"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "Heiti"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "Hámarkfjölda stafa (%d) hefur verið náð."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "Vinna með stillingar fyrir svörun/lok símtala."
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "Láta fylgja"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Ég er á fundi."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "Mynd"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "Númer í læstu skammvali"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "Endar á"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Breyta"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Símtal bíður"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Símtal framsent"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Eftir neti"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "Læsa lista"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "Sjálfv. svæði"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Alltaf framsenda"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "Viðvörun á hringingu"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Skilaboð símtalshöfnunar birtast hér eftir að þau eru búin til."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Númer birtast hér eftir að þau eru sett á útilokunarlista símtala."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "Tengiliðir fasts númeravals birtast hér eftir að þú bætir þeim við."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "Bæta við"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "Hámarksfjölda stafa (%d) náð."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "Skrifstofa til heimilis"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "Heimili til skrifstofu"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "Veldu SIM-kortin til að nota með snjöllu tvöföldu SIM."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "Slökkt verður á snjöllu tvöföldu SIM. Þú getur ekki breytt stillingum á meðan kveikt er á þessum eiginleika."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "Rangt PIN2-númer. 2 tilraunir eftir."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "Rangt PIN2-númer. 1 tilraun eftir."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "Kveikt hefur verið á biðþjónustu símtala. Ef þú ert utan þjónustusvæðis %1$s símkerfisins þíns verða símtöl sem berast framsend í %2$s símanúmerið þitt."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "Kveikt hefur verið á biðþjónustu símtala."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "Slökkt hefur verið á biðþjónustu símtala."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "Kveikt hefur verið á framsendingu símtala."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "Slökkt hefur verið á framsendingu símtala."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "Í notkun."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s til %2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "Bæði SIM-kort"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "Snjallt tvöfalt SIM"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "SIM-kort"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "Velja SIM-kort"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "Takkatónar"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "Alltaf kveikt á tvöf. SIM"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "Lokið"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "Hljóð"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "Snjallt tvöfalt SIM"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "Lokað fyrir PUK2."
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "Ekki valinn"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "Takkaborð"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "Tvöfalt SIM alltaf kveikt"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "1 tilraun eftir."
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "Læst skammval er óstutt."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "Mjúkt hljóð"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "Hreint hljóð"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "Minnka suð"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "Framsending"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "Almennar stillingar"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "Gerðu flugstillingu óvirka til að nota netþjónustu."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "Allar innhringingar"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "Allar hringingar út"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "Svara símtölum með raddskipunum."
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "Læsingar símtala"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "Gildandi aðgangsorð"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "Tilgreina númer."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "Hækka hljóðstyrk í vasa"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "Millilandasímtöl"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "Millil. nema heima"
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "Nýtt aðgangsorð"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "Sérsníða símtalahljóm"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "Hljóðstyrkur hringitóns hækkar þegar tækið er ofan í vasa eða tösku."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "Stilla kosti aukabúnaðar fyrir símtöl."
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "Velja sjálfgilda Fela mig mynd."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "Hljóð"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "Dempa bakgrunnshljóð þín megin meðan á símtölum stendur."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "Kveikja á nálægðarskynjara í símtölum."
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "Rangt höfnunarnúmer."
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "Framsenda til"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "Höfnunarskilaboð"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "Útilokun símtala"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "Höfnunarskilaboð"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "Áður en hægt er að nota þennan eiginleika þarftu að finna bestu tónjöfnunina fyrir þig. Finna hana núna?"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "Staðfesta lykilorð"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "Innhringingar á reiki"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "Þetta númer er þegar í notkun."
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "Aðgangsorð læst."
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "Aðgangsorði breytt."
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "Athuga Adapt Sound aftur"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "Breyta lykilorði"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "Sýna lykilorð."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "Hljóðstillingar"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Svara símtölum með"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Ýtt á heimatakkann"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Ljúka símtölum með"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Ýtt á rofann"
+

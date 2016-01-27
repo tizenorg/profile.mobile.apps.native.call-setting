@@ -1,0 +1,705 @@
+msgid "IDS_COM_BODY_ON_ABB"
+msgstr "Pornit"
+
+msgid "IDS_COM_BODY_PHONE"
+msgstr "Telefon"
+
+msgid "IDS_COM_BODY_VIDEO_CALL"
+msgstr "Apel video"
+
+msgid "IDS_CST_BODY_VOICE_MAIL"
+msgstr "Mesagerie vocală"
+
+msgid "IDS_ST_BODY_ON_OFF_BUTTON"
+msgstr "Buton pornit/oprit"
+
+msgid "IDS_COM_SK_OK"
+msgstr "OK"
+
+msgid "IDS_COM_SK_ADD"
+msgstr "Adaugă"
+
+msgid "IDS_CST_POP_UNKNOWN_OPERATION"
+msgstr "Operaţie necunoscută"
+
+msgid "IDS_CST_MBODY_ADAPT_SOUND"
+msgstr "Adapt Sound"
+
+msgid "IDS_CST_BODY_UNBLOCK_PIN2"
+msgstr "Deblocare PIN2"
+
+msgid "IDS_ST_POP_PIN2_UNBLOCKED"
+msgstr "PIN2 deblocat"
+
+msgid "IDS_ST_POP_PIN2_BLOCKED"
+msgstr "PIN2 blocat"
+
+msgid "IDS_ST_POP_PD_ATTEMPTS_LEFT"
+msgstr "%d încercări rămase"
+
+msgid "IDS_ST_POP_INCORRECT_PIN2"
+msgstr "PIN2 incorect"
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d selectate"
+
+msgid "IDS_ST_BODY_VIBRATIONS"
+msgstr "Vibraţii"
+
+msgid "IDS_ST_BODY_PHONEPROFILES_SILENT"
+msgstr "Silenţios"
+
+msgid "IDS_ST_BODY_NOT_ASSIGNED"
+msgstr "Neatribuit"
+
+msgid "IDS_ST_BODY_NEW_PIN2"
+msgstr "PIN2 nou"
+
+msgid "IDS_ST_BODY_INCORRECT_PASSWORD_TRY_AGAIN"
+msgstr "Parolă incorectă. Încercaţi din nou"
+
+msgid "IDS_ST_BODY_FIXED_DIALLING_MODE"
+msgstr "FDN"
+
+msgid "IDS_ST_BODY_CONFIRM_NEW_PIN2"
+msgstr "Confirmare PIN2 nou"
+
+msgid "IDS_ST_BODY_CHANGE_PIN2"
+msgstr "Modificare PIN2"
+
+msgid "IDS_ST_BODY_PUK2"
+msgstr "Cod PUK2"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Ascundeţi"
+
+msgid "IDS_COM_BODY_ENTER_PASSWORD"
+msgstr "Introduceţi parola."
+
+msgid "IDS_ST_BODY_HOME_M_HOMECITY"
+msgstr "Acasă"
+
+msgid "IDS_MEDIABR_BODY_SELECT_ITEMS"
+msgstr "Selectare elemente"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ANULARE"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "EFECTUAT"
+
+msgid "IDS_COM_BODY_BACK"
+msgstr "Înapoi"
+
+msgid "IDS_COM_BODY_CONTACTS"
+msgstr "Contacte"
+
+msgid "IDS_COM_BODY_PASSWORD"
+msgstr "Parolă"
+
+msgid "IDS_COM_BODY_RINGTONES"
+msgstr "Tonuri sonerie"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Selectare toate"
+
+msgid "IDS_COM_POP_DELETED"
+msgstr "Şters"
+
+msgid "IDS_COM_POP_DELETE_Q"
+msgstr "Ştergeţi?"
+
+msgid "IDS_COM_SK_SET"
+msgstr "Afiş."
+
+msgid "IDS_COM_SK_SAVE"
+msgstr "Salvare"
+
+msgid "IDS_COM_POP_REQUESTING"
+msgstr "Se solicită..."
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Încărcare..."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Inseraţi cartela SIM."
+
+msgid "IDS_COM_POP_DEACTIVATED"
+msgstr "Dezactivat"
+
+msgid "IDS_COM_POP_CONNECTION_PROBLEM_OR_INVALID_MMI_CODE"
+msgstr "Problemă de conexiune sau cod MMI nevalid"
+
+msgid "IDS_COM_OPT_CREATE_CONTACT"
+msgstr "Creare contact"
+
+msgid "IDS_COM_BODY_VOICE_CALL"
+msgstr "Apel"
+
+msgid "IDS_COM_BODY_VIDEOS"
+msgstr "Videoclipuri"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Necunoscut"
+
+msgid "IDS_COM_BODY_PD_SELECTED"
+msgstr "%d selectate"
+
+msgid "IDS_COM_BODY_OFF"
+msgstr "Oprit"
+
+msgid "IDS_COM_BODY_DETAILS_NAME"
+msgstr "Nume"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Număr telefon"
+
+msgid "IDS_PB_POP_FDN_MODE_ACTIVATED"
+msgstr "Mod FDN activat"
+
+msgid "IDS_PB_POP_1_CONTACT_REMOVED"
+msgstr "1 contact eliminat"
+
+msgid "IDS_PB_OPT_FDN_CONTACT"
+msgstr "Contact FDN"
+
+msgid "IDS_PB_BODY_UNABLE_TO_SAVE_DUE_TO_SIM_ERROR"
+msgstr "Imposibil de salvat din cauza unei erori de SIM"
+
+msgid "IDS_COM_BODY_APPLICATION_NOT_INSTALLED"
+msgstr "Aplicaţia nu este instalată."
+
+msgid "IDS_MSG_TPOP_INVALID_NUMBER_ENTERED"
+msgstr "S-a introdus un număr nevalid."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "ŞTERGERE"
+
+msgid "IDS_BR_BUTTON_FAILED"
+msgstr "Eşuat"
+
+msgid "IDS_CLOG_POP_UNABLE_TO_CHANGE_VOICEMAIL_NUMBER_CONTACT_CARRIER_IF_THIS_PROBLEM_PERSISTS"
+msgstr "Imposibil de modificat numărul pentru mesageria vocală. Contactaţi operatorul dacă această problemă persistă."
+
+msgid "IDS_CLOG_POP_NO_FDN_CONTACTS_ON_YOUR_SIM_CARD"
+msgstr "Pe cartela dvs. SIM nu există contacte FDN"
+
+msgid "IDS_COM_OPT_CONTACT_FDN_CONTACTS"
+msgstr "Contacte FDN"
+
+msgid "IDS_COM_BODY_READING_FROM_SIM_CARD"
+msgstr "Se citeşte de pe cartela SIM..."
+
+msgid "IDS_COM_BODY_NO_CHANGES_WERE_MADE"
+msgstr "Nu au fost efectuate modificări."
+
+msgid "IDS_COM_BODY_MORE"
+msgstr "Mai multe"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "Redirecţionare dacă nu se răspunde"
+
+msgid "IDS_CST_TPOP_PD_NUMBERS_REMOVED_ABB"
+msgstr "%d numere au fost eliminate."
+
+msgid "IDS_CST_TPOP_PD_MESSAGES_DELETED_ABB"
+msgstr "Au fost şterse %d mesaje."
+
+msgid "IDS_CST_TPOP_PD_CONTACTS_REMOVED"
+msgstr "Au fost eliminate %d contacte."
+
+msgid "IDS_CST_TPOP_1_NUMBER_REMOVED_ABB"
+msgstr "1 număr a fost eliminat."
+
+msgid "IDS_CST_TPOP_1_MESSAGE_DELETED_ABB"
+msgstr "1 mesaj a fost şters."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Scuze, sunt la volan."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Nu pot vorbi. Ce s-a întâmplat?"
+
+msgid "IDS_CST_TMBODY_BLOCKING_CRITERIA"
+msgstr "Criterii de blocare"
+
+msgid "IDS_CST_SK_OK"
+msgstr "OK"
+
+msgid "IDS_CST_SK_CHANGE_IMAGE"
+msgstr "Schimb. imag."
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Creare"
+
+msgid "IDS_CST_SBODY_SET_AN_ALTERNATIVE_IMAGE_OR_VIDEO_TO_BE_DISPLAYED_ON_THE_OTHER_PERSONS_SCREEN_DURING_VIDEO_CALLS"
+msgstr "Setaţi o imagine sau un videoclip alternativ care să fie afişat pe ecranul celeilalte persoane în timpul apelurilor video."
+
+msgid "IDS_CST_SBODY_REJECT_CALLS_FROM_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Respingeţi apelurile de la numerele de pe lista de blocare a apelurilor."
+
+msgid "IDS_CST_SBODY_REJECT_ALL_INCOMING_CALLS"
+msgstr "Respingeţi toate apelurile primite."
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Prim. notif. pt. apeluri în cursul ap."
+
+msgid "IDS_CST_SBODY_MANAGE_NUMBERS_ON_THE_CALL_BLOCK_LIST"
+msgstr "Gestionaţi numerele de pe lista de blocare a apelurilor."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Compuneţi sau editaţi mesaje de răspuns de trimis când respingeţi apelurile primite."
+
+msgid "IDS_CST_SBODY_ALLOW_ALARMS_AND_NOTIFICATIONS_TO_SOUND_DURING_CALLS"
+msgstr "Permiteţi ca alarma şi notificările să sune în cursul apelurilor."
+
+msgid "IDS_CST_SBODY_ADD_PS_AUTOMATICALLY_TO_THE_NUMBER_DISPLAY_PANEL"
+msgstr "Adăugaţi automat %s la panoul de afişare a numerelor."
+
+msgid "IDS_CST_SBODY_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_AUTOMATICALLY_WHEN_YOU_ADD_THEM_TO_THE_CALL_BLOCK_LIST"
+msgstr "Adăugaţi automat numerele pe lista de blocare a mesajelor atunci când le adăugaţi pe lista de blocare a apelurilor."
+
+msgid "IDS_CST_POP_UPDATING_SETTINGS_ING"
+msgstr "Se actualizează setările..."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Serviciu indisponibil"
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Respins de reţea"
+
+msgid "IDS_CST_POP_MAX_CONTACT_LISTS_REACHED"
+msgstr "Numărul maxim de liste contacte atins"
+
+msgid "IDS_CST_POP_INCORRECT_PIN2_SIM_CARD_IS_LOCKED_ENTER_PUK2_TO_UNLOCK_IT"
+msgstr "Cod PIN2 incorect. Cartela SIM este blocată. Introduceţi codul PUK2 pentru deblocare."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Introducere mesaj"
+
+msgid "IDS_CST_POP_DISABLE"
+msgstr "Dezactivare"
+
+msgid "IDS_CST_POP_ALL_INCOMING_CALLS"
+msgstr "Toate apelurile primite"
+
+msgid "IDS_CST_OPT_TAKE_PICTURE"
+msgstr "Fotografiere"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Afişare"
+
+msgid "IDS_CST_OPT_REMOVE"
+msgstr "Eliminare"
+
+msgid "IDS_CST_OPT_NONE"
+msgstr "Niciuna"
+
+msgid "IDS_CST_OPT_MATCH_EXACTLY_ABB"
+msgstr "Potrivire perfectă"
+
+msgid "IDS_CST_NPBODY_NO_NUMBERS_BLOCKED"
+msgstr "Niciun număr blocat"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Niciun mesaj"
+
+msgid "IDS_CST_NPBODY_NO_CONTACTS"
+msgstr "Niciun contact"
+
+msgid "IDS_CST_MBODY_VOICE_CALLS"
+msgstr "Apeluri vocale"
+
+msgid "IDS_CST_MBODY_VIDEO_CALLS"
+msgstr "Apeluri video"
+
+msgid "IDS_CST_MBODY_VIBRATE_WHEN_RINGING"
+msgstr "Vibraţie când sună"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Scuze, sunt ocupat. Sun înapoi."
+
+msgid "IDS_CST_MBODY_RINGTONES"
+msgstr "Tonuri de apel"
+
+msgid "IDS_CST_MBODY_NOTIFY_DURING_CALLS"
+msgstr "Notif. în timpul apel."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "ID-ul meu de apelant"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Redir. dacă impos. de contact."
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Redirecţionare pt. ocupat"
+
+msgid "IDS_CST_MBODY_CALL_ALERTS"
+msgstr "Alerte apel"
+
+msgid "IDS_CST_MBODY_BLOCK_MSGS_FROM_SAME_NOS_ABB"
+msgstr "Bloc. mes. cu aceleaşi nr."
+
+msgid "IDS_CST_HEADER_VOICE_CALL_FORWARDING"
+msgstr "Se redirecţionează apelul de voce"
+
+msgid "IDS_CST_HEADER_VOICEMAIL"
+msgstr "Mesagerie vocală"
+
+msgid "IDS_CST_HEADER_ENTER_PIN2"
+msgstr "Introduceţi codul PIN2"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Ştergere"
+
+msgid "IDS_CST_HEADER_CHANGE_PRESET_IMAGE_ABB"
+msgstr "Schimbare imag. presetată"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Setări apeluri"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Mesaje respingere apeluri"
+
+msgid "IDS_CST_HEADER_CALL_REJECTION"
+msgstr "Respingere apel"
+
+msgid "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB"
+msgstr "Listă bloc. apeluri"
+
+msgid "IDS_CST_HEADER_AUTO_REJECT_MODE"
+msgstr "Mod respingere automată"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Preluare/terminare apeluri"
+
+msgid "IDS_CST_HEADER_ADDITIONAL_SETTINGS"
+msgstr "Setări suplimentare"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Activare"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Anulare"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Timp aşteptare"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER_CHANGED"
+msgstr "Număr de mesagerie vocală schimbat"
+
+msgid "IDS_CST_BODY_VOICE_MAIL_NUMBER"
+msgstr "Număr mesagerie vocală"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_IMAGE"
+msgstr "Imagine apel video"
+
+msgid "IDS_CST_BODY_VIDEO_CALL_FORWARDING"
+msgstr "Redirecţionare apeluri video"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_PHONE_IS_UNREACHABLE_BELL"
+msgstr "Unable to deactivate call forwarding when phone is unreachable"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_WHEN_BUSY_BELL"
+msgstr "Unable to deactivate call forwarding when busy"
+
+msgid "IDS_CST_BODY_UNABLE_TO_DEACTIVATE_CALL_FORWARDING_FOR_UNANSWERED_CALLS_BELL"
+msgstr "Unable to deactivate call forwarding for unanswered calls"
+
+msgid "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2"
+msgstr "Tasta por. termină apelurile"
+
+msgid "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS"
+msgstr "Tasta pornire răspunde la apeluri"
+
+msgid "IDS_CST_BODY_START_WITH"
+msgstr "Începe cu"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Scuze, sunt ocupat. Trim. SMS."
+
+msgid "IDS_CST_BODY_PRESET_IMAGE"
+msgstr "Imagini prestabilite"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d secunde"
+
+msgid "IDS_CST_BODY_NUMBER"
+msgstr "Număr"
+
+msgid "IDS_CST_BODY_NAME"
+msgstr "Nume"
+
+msgid "IDS_CST_BODY_MAXIMUM_NUMBER_OF_CHARACTERS_HPD_REACHED"
+msgstr "Numărul maxim de caractere (%d) a fost atins."
+
+msgid "IDS_CST_BODY_MANAGE_CALL_ANSWERING_ENDING_SETTINGS_ABB"
+msgstr "Gestionare setări preluare/terminare apel"
+
+msgid "IDS_CST_BODY_INCLUDE"
+msgstr "Includere"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Sunt în şedinţă."
+
+msgid "IDS_CST_BODY_IMAGE"
+msgstr "Imagine"
+
+msgid "IDS_CST_BODY_FIXED_DIALLING_NUMBERS"
+msgstr "Numere de apelare fixă"
+
+msgid "IDS_CST_BODY_END_WITH"
+msgstr "Se termină cu"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Editare"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Apel în aşteptare"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Redirecţionare apeluri"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "După reţea"
+
+msgid "IDS_CST_BODY_BLOCK_LIST"
+msgstr "Listă blocări"
+
+msgid "IDS_CST_BODY_AUTO_AREA_CODE_ABB"
+msgstr "Prefix automat"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Se redirecţionează întotdeauna"
+
+msgid "IDS_CST_BODY_ALERTS_ON_CALL"
+msgstr "Alertă la apel"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "După ce creaţi mesaje de respingere a apelurilor, acestea vor fi afişate aici."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_CALL_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "După ce adăugaţi numere pe lista de blocare a apelurilor, acestea vor fi afişate aici."
+
+msgid "IDS_CST_BODY_AFTER_YOU_ADD_CONTACTS_FDN_CONTACTS_WILL_BE_SHOWN_HERE"
+msgstr "După ce adăugaţi contacte, contactele FDN vor fi afişate aici."
+
+msgid "IDS_CST_BODY_ADD"
+msgstr "Adăugare"
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_DIGITS_HPD_REACHED"
+msgstr "S-a atins numărul maxim de cifre (%d)."
+
+msgid "IDS_SCM_OPT_OFFICE_TO_HOME"
+msgstr "De la birou spre casă"
+
+msgid "IDS_SCM_OPT_HOME_TO_OFFICE"
+msgstr "De acasă la birou"
+
+msgid "IDS_ST_SBODY_SELECT_THE_SIM_CARDS_TO_USE_FOR_SMART_DUAL_SIM"
+msgstr "Selectaţi cartelele SIM care vor fi utilizate pentru funcţia SIM dual inteligent."
+
+msgid "IDS_ST_POP_SMART_DUAL_SIM_WILL_BE_DISABLED_WHILE_THIS_FUNCTION_IS_ENABLED_YOU_WILL_NOT_BE_ABLE_TO_EDIT_YOUR_SETTINGS"
+msgstr "Funcţia SIM dual inteligent va fi dezactivată. Când această funcţie este activată, nu puteţi edita setările."
+
+msgid "IDS_ST_POP_INCORRECT_PIN22_ATTEMPTS_LEFT"
+msgstr "PIN2 incorect. 2 încercări rămase."
+
+msgid "IDS_ST_POP_INCORRECT_PIN21_ATTEMPT_LEFT"
+msgstr "PIN2 incorect. 1 încercare rămasă."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED_IF_YOUR_P1SS_NETWORK_IS_OUT_OF_REACH_MSG"
+msgstr "S-au activat apelurile în aşteptare. Dacă reţeaua %1$s nu este disponibilă, apelurile primite vor fi redirecţionate către numărul de telefon %2$s."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_ENABLED"
+msgstr "Apelurile în aşteptare au fost activate."
+
+msgid "IDS_ST_POP_CALL_WAITING_HAS_BEEN_DISABLED"
+msgstr "Apelurile în aşteptare au fost dezactivate."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_ENABLED"
+msgstr "Redirecţionarea apelurilor a fost activată."
+
+msgid "IDS_ST_POP_CALL_FORWARDING_HAS_BEEN_DISABLED"
+msgstr "Redirecţionarea apelurilor a fost dezactivată."
+
+msgid "IDS_ST_POP_ALREADY_IN_USE"
+msgstr "Se utilizează deja."
+
+msgid "IDS_ST_MBODY_P1SS_TO_P2SS_ABB"
+msgstr "%1$s pentru %2$s"
+
+msgid "IDS_ST_MBODY_BOTH_SIM_CARDS_ABB"
+msgstr "Ambele cartele SIM"
+
+msgid "IDS_ST_HEADER_SMART_DUAL_SIM_ABB"
+msgstr "SIM dual inteligent"
+
+msgid "IDS_ST_HEADER_SIM_CARD_ABB"
+msgstr "Cartelă SIM"
+
+msgid "IDS_ST_HEADER_SELECT_SIM_CARD"
+msgstr "Selectare cartelă SIM"
+
+msgid "IDS_ST_HEADER_KEYPAD_TONES"
+msgstr "Tonuri tastatură"
+
+msgid "IDS_ST_HEADER_DUAL_SIM_ALWAYS_ON_ABB"
+msgstr "SIM dual permanent activ"
+
+msgid "IDS_ST_BUTTON_DONE"
+msgstr "Efectuat"
+
+msgid "IDS_ST_BODY_SOUNDS"
+msgstr "Sunete"
+
+msgid "IDS_ST_BODY_SMART_DUAL_SIM"
+msgstr "SIM dual inteligent"
+
+msgid "IDS_ST_BODY_PUK2_BLOCKED"
+msgstr "Cod PUK2 blocat"
+
+msgid "IDS_ST_BODY_PIN2"
+msgstr "PIN2"
+
+msgid "IDS_ST_BODY_NOT_SET"
+msgstr "Nesetat"
+
+msgid "IDS_ST_BODY_KEYPAD"
+msgstr "Tastatură"
+
+msgid "IDS_ST_BODY_DUAL_SIM_ALWAYS_ON"
+msgstr "SIM dual permanent activă"
+
+msgid "IDS_ST_BODY_1_ATTTEMPT_LEFT"
+msgstr "1 încercare rămasă"
+
+msgid "IDS_CALL_POP_FDN_NOT_SUPPORTED"
+msgstr "FDN nu este acceptat."
+
+msgid "IDS_CST_OPT_SOFT_SOUND_ABB"
+msgstr "Sunete joase"
+
+msgid "IDS_CST_OPT_CLEAR_SOUND_ABB"
+msgstr "Ştergere sunet"
+
+msgid "IDS_CST_MBODY_NOISE_REDUCTION"
+msgstr "Reducere zgomot"
+
+msgid "IDS_COM_BODY_FORWARDING"
+msgstr "Redirecţionare"
+
+msgid "IDS_COM_BODY_GENERAL_SETTINGS"
+msgstr "Setări generale"
+
+msgid "IDS_COM_POP_DEACTIVATE_FLIGHT_MODE_TO_USE_NETWORK_SERVICES"
+msgstr "Dezactivaţi modul Avion pentru a utiliza serviciile reţelei."
+
+msgid "IDS_CST_BODY_ALL_INCOMING_CALLS"
+msgstr "Toate apelurile primite"
+
+msgid "IDS_CST_BODY_ALL_OUTGOING_CALLS"
+msgstr "Toate apelurile efectuate"
+
+msgid "IDS_CST_BODY_ANSWER_CALLS_WITH_VOICE_COMMANDS"
+msgstr "Răspundeţi la apeluri utilizând comenzi vocale."
+
+msgid "IDS_CST_BODY_CALL_BARRING"
+msgstr "Blocare apel"
+
+msgid "IDS_CST_BODY_CURRENT_PASSWORD"
+msgstr "Parolă curentă"
+
+msgid "IDS_CST_BODY_ENTER_NUMBER"
+msgstr "Introduceţi numărul."
+
+msgid "IDS_CST_BODY_INCREASE_VOL_IN_POCKET_ABB"
+msgstr "Creştere vol în buzunar"
+
+msgid "IDS_CST_BODY_INTL_CALLS"
+msgstr "Ap. internaţionale"
+
+msgid "IDS_CST_BODY_INTL_CALLS_EXCEPT_HOME"
+msgstr "Int. cu exc. domic."
+
+msgid "IDS_CST_BODY_NEW_PASSWORD"
+msgstr "Parolă nouă"
+
+msgid "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB"
+msgstr "Personalizare sunet apel"
+
+msgid "IDS_CST_BODY_RINGTONE_VOLUME_INCREASES_WHEN_DEVICE_IS_IN_POCKET_OR_BAG"
+msgstr "Volumul tonului soneriei creşte când dispozitivul se află în buzunar sau în geantă."
+
+msgid "IDS_CST_BODY_SET_ACCESSORY_OPTIONS_FOR_CALLS"
+msgstr "Setare opţiuni accesorii pentru apeluri"
+
+msgid "IDS_CST_BODY_SET_DEFAULT_HIDE_ME_IMAGE"
+msgstr "Setaţi imaginea dvs. implicită la Ascunde-mă."
+
+msgid "IDS_CST_BODY_SOUND"
+msgstr "Sunet"
+
+msgid "IDS_CST_BODY_SUPPRESSES_BACKGROUND_NOISE_FROM_YOUR_SIDE_DURING_CALLS"
+msgstr "Suprimă zgomotul de fundal de pe partea dvs. pe durata apelurilor."
+
+msgid "IDS_CST_BODY_TURN_ON_PROXIMITY_SENSOR_DURING_CALLS"
+msgstr "Activare senzor de proximitate pe durata apelurilor"
+
+msgid "IDS_CST_BODY_WRONG_AUTO_REJECT_NUMBER"
+msgstr "Număr eronat pentru respingere automată"
+
+msgid "IDS_CST_HEADER_FORWARD_TO"
+msgstr "Redirecţionare către"
+
+msgid "IDS_CST_HEADER_REJECT_MESSAGE"
+msgstr "Mesaj de respingere"
+
+msgid "IDS_CST_HEADER_VOICE_CALL_BARRING_ABB"
+msgstr "Barare apel vocal"
+
+msgid "IDS_CST_MBODY_REJECTION_MESSAGES"
+msgstr "Mesaje de respingere"
+
+msgid "IDS_CST_POP_BEFORE_YOU_CAN_USE_THIS_FUNCTION_YOU_NEED_TO_FIND_THE_BEST_EQ_FOR_YOU_FIND_NOW_Q"
+msgstr "Înainte de a utiliza această funcţie, se recomandă să găsiţi cel mai bun EQ pentru dvs. Găsiţi acum?"
+
+msgid "IDS_CST_POP_CONFIRM_PASSWORD"
+msgstr "Confirmare parolă"
+
+msgid "IDS_CST_POP_INCOMING_WHEN_ROAMING"
+msgstr "Apeluri intr. în roaming"
+
+msgid "IDS_CST_POP_NUMBER_ALREADY_IN_USE"
+msgstr "Număr deja utilizat"
+
+msgid "IDS_CST_POP_PASSWORD_BLOCKED"
+msgstr "Parolă blocată"
+
+msgid "IDS_CST_POP_PASSWORD_CHANGED"
+msgstr "Parola modificată"
+
+msgid "IDS_CST_SK2_CHECK_ADAPT_SOUND_AGAIN"
+msgstr "Reverificare Adapt Sound"
+
+msgid "IDS_CST_SK3_CHANGE_PASSWORD"
+msgstr "Schimb. parolă"
+
+msgid "IDS_ST_BODY_SHOW_PASSWORD"
+msgstr "Afişaţi parola."
+
+msgid "IDS_ST_BODY_SOUND_SETTINGS"
+msgstr "Setări sunet"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Preluare apeluri prin"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Apăs. tastei ecr. acasă"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Încheiaţi apelurile prin"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Apăs. tastei de pornire"
+
