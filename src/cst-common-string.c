@@ -15,9 +15,15 @@
  *
  */
 
-#include <appcore-efl.h>
+#include <libintl.h>
 #include "cst-common-string.h"
 #include "cst-common.h"
+
+#undef _
+#undef N_
+#define _(s)				dgettext(UGNAME, s)
+#define dgettext_noop(s)	(s)
+#define N_(s)				dgettext_noop(s)
 
 static const char *cst_str[] = {
 	N_("IDS_CST_BODY_ALERTS_ON_CALL"),

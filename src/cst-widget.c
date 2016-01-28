@@ -16,7 +16,6 @@
  */
 #include <app.h>
 #include <stdio.h>
-#include <appcore-efl.h>
 #include <Elementary.h>
 #include <Evas.h>
 #include <vconf.h>
