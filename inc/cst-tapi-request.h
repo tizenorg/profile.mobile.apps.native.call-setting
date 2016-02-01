@@ -46,22 +46,6 @@ void _cst_deregister_tel_event(void *data);
 void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int flavour, int original_state, char *number, void *func, void *data, int waiting_time, CstUgData_t *ugd);
 void _cst_cancel_all_ss_request(void *data);
 void _cst_change_password_ss_request(CallSettingSSReq_t *req, void *func);
-#ifdef _CALL_SET_FDN_SUPPORT
-void _cst_add_sim_request(GSList **list, void *data);
-void _cst_remove_sim_request(GSList **list, void *data);
-void _cst_verify_pin2(void *data, CallSettingSimNxtReqParams_t *nxt_req_params, SimReqCb cb, void *cb_data);
-void _cst_unblock_pin2(void *data, const char *puk2, const char *new_pin, SimReqCb cb, void *cb_data);
-void _cst_change_pins(void *data, const char *old_pin, const char *new_pin, SimReqCb cb, void *cb_data);
-void _cst_update_sim_fdn_status(void *data);
-void _cst_set_sim_fdn_status(void *data, const unsigned char *pin2, int *pin2_len, SimReqCb cb, void *cb_data);
-void _cst_get_fdn_phnbuk_metadata(void *data, SimReqCb cb, void *cb_data);
-void _cst_get_fdn_phnbuk_cnt(void *data, SimReqCb cb, void *cb_data);
-void _cst_get_sim_lock_info(void *data);
-Eina_Bool _cst_is_sim_phnbuk_ready(void *data, unsigned short *first_index);
-void _cst_get_phnbuk_record(void *data, unsigned short index, SimReqCb cb, void *cb_data);
-void _cst_update_phnbuk_record(void *data, bool is_add_req, CallSettingFDNRec_t *fdn_rec, SimReqCb cb);
-void _cst_delete_phnbuk_record(void *data, unsigned short index, SimReqCb cb, void *cb_data);
-#endif  /* _CALL_SET_FDN_SUPPORT */
 
 #ifdef _TIZEN_LITE_CODE
 void _cst_update_tapi_handle_by_simslot(void *data, CstSimSlot_t slot_id);

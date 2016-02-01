@@ -22,10 +22,6 @@
 
 void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info);
 void _cst_destroy_delete_list(void);
-void _cst_FDN_delete_list_input_panel_event_cb(void *data, Ecore_IMF_Context *imf_context, int value);
-void _cst_FDN_delete_list_changed_editfield_cb(void *data, Evas_Object *obj, void *event_info);
-Eina_Bool _cst_click_FDN_delete_list_ime_back_cb(void *data,
-		Elm_Object_Item *it);
 
 #endif	/* _CST_DELETE_LIST_H_ */
 

@@ -224,6 +224,7 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h ap
 	ugd->ug = (void *)ug;
 
 	bindtextdomain(UGNAME, CST_LOCALE);
+	cst_util_feedback_init();
 	elm_theme_extension_add(NULL, THEME_NAME);
 
 	parent = ug_get_parent_layout(ug);
@@ -374,6 +375,7 @@ static void __cst_on_destroy(ui_gadget_h ug, app_control_h app_control, void *pr
 	}
 
 	elm_theme_extension_del(NULL, THEME_NAME);
+	cst_util_feedback_deinit();
 	LEAVE();
 }
 

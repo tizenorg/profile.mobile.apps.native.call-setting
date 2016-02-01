@@ -24,12 +24,14 @@
 #include "cst-call-setting.h"
 
 #include <Evas.h>
+#include <feedback.h>
 #include <vconf.h>
 #include <msg_types.h>
 #include <msg.h>
 #include <contacts.h>
 #include <metadata_extractor.h>
 #include <telephony.h>
+
 
 #define	POPUP_LIST_HD_W 610
 #define	POPUP_LIST_ITEM_HD_H 114
@@ -114,6 +116,24 @@ void cst_util_item_domain_text_translatable_set(Elm_Object_Item *it, const char*
 		domain = "sys_string";
 
 	elm_object_item_domain_text_translatable_set(it, domain, EINA_TRUE);
+}
+
+void cst_util_feedback_init(void)
+{
+	ENTER("email_feedback_init");
+	feedback_initialize();
+}
+
+void cst_util_feedback_deinit(void)
+{
+	ENTER("email_feedback_deinit");
+	feedback_deinitialize();
+}
+
+void cst_util_feedback_play_tap_sound(void)
+{
+	ENTER("email_feedback_play_tap_sound");
+	feedback_play(FEEDBACK_PATTERN_TAP);
 }
 
 Eina_Bool _cst_vconf_get_bool(const char *in_key, int *boolval)
