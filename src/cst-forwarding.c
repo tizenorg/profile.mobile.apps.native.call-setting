@@ -47,7 +47,6 @@ typedef struct {
 	Elm_Genlist_Item_Class *itc_waiting_time;
 	Elm_Genlist_Item_Class *itc_waiting_time_expand;
 	Evas_Object * ec_item[3];
-	Evas_Object *onoff_screen_genlist;
 	CstGlItemData_t *cf_sel_item;
 	CstGlItemData_t *forwarding_item;
 	CstGlItemData_t *forwardto_item;
@@ -58,11 +57,6 @@ typedef struct {
 	Ecore_Timer *tapi_notify_timer;
 } CstCallForward_info_t;
 
-static void __cst_on_click_cf_onoff(void *data, Evas *evas, Evas_Object *obj, void *event_info);
-static void __cst_gl_cf_onoff_waitingtime_sel(void *data, Evas_Object *obj, void *event_info);
-static void __cst_gl_cf_onoff_forwardto_sel(void *data, Evas_Object *obj, void *event_info);
-static void __cst_gl_cf_onoff_screen_show_remove_forwardto_item(Eina_Bool show_item, char *number);
-static void __cst_gl_cf_onoff_screen_show_remove_waitingtime_item(Eina_Bool show_item);
 static void __cst_gl_on_click_waitingtime_expand(void *data, Evas *evas, Evas_Object *obj, void *event_info);
 static void __cst_gl_collapse_req(void *data, Evas_Object *obj, void *event_info);
 static void __cst_gl_collapse(int selected_time, Evas_Object *obj, void *event_info);
@@ -71,7 +65,6 @@ static void __cst_gl_expand(void *data, Evas_Object *obj, void *event_info);
 static void __cst_gl_sel_waiting_time(void *data, Evas_Object *obj, void *event_info);
 static void __cst_update_wait_time_and_index(int wait_time_index, int wait_time);
 static void __cst_gl_update_waiting_time_ss_request(void);
-static void __cst_update_cf_onoff_screen_state(int call_type, int cf_flavour, Eina_Bool cf_state, char *number, int error, int req_action, void *data, int waiting_time);
 static void __cst_on_click_cf_onoff_forward_to(void *data, Evas *evas, Evas_Object *obj, void *event_info);
 static void __cst_cf_destroy_genlist_item_class(void);
 static Eina_Bool __cst_on_click_cf_voice_video_back_button(void *data, Elm_Object_Item *it);
@@ -88,14 +81,6 @@ static CstGlItemDisplayInfo_t list_call_forwarding[] = {
 	{1, CST_STR_IF_BUSY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_2TEXT_ONOFF_PROGRESS, __cst_on_click_cf_onoff_forward_to},
 	{1, CST_STR_IF_NO_REPLY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_2TEXT_ONOFF_PROGRESS, __cst_on_click_cf_onoff_forward_to},
 	{1, CST_STR_IF_OUT_OF_REACH, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_2TEXT_ONOFF_PROGRESS, __cst_on_click_cf_onoff_forward_to},
-
-	{1, -1, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_NONE, NULL},
-};
-
-static CstGlItemDisplayInfo_t list_call_forwarding_status[] = {
-	{1, CST_STR_FORWARDING, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_1TEXT_ONOFF, __cst_on_click_cf_onoff},
-	{1, CST_STR_FORWARD_TO, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_2TEXT, __cst_on_click_cf_onoff_forward_to},
-	{1, CST_STR_WAITING_TIME, ELM_GENLIST_ITEM_TREE, CST_GL_ITEM_2TEXT_EXPANDABLE, __cst_gl_on_click_waitingtime_expand},
 
 	{1, -1, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_NONE, NULL},
 };
@@ -352,10 +337,7 @@ static void __cst_update_cf_state(int call_type, int cf_flavour,
 			DBG("first item's state is CST_SS_STATE_ON, hence disable the other items in the genlist");
 			next_item = elm_genlist_first_item_get(ugd->backup_genlist);
 			if (next_item) {
-				next_item = elm_genlist_item_next_get(next_item);
-				if (next_item) {
-					elm_object_item_disabled_set(next_item, EINA_FALSE);
-				}
+				elm_object_item_disabled_set(next_item, EINA_FALSE);
 			}
 		} else {
 			while (NULL != next_item) {
@@ -369,49 +351,6 @@ static void __cst_update_cf_state(int call_type, int cf_flavour,
 		}
 	}
 
-	__cst_update_cf_onoff_screen_state(call_type, cf_flavour, cf_state, number, error, req_action, data, waiting_time);
-	return;
-}
-
-static void __cst_update_cf_onoff_screen_state(int call_type, int cf_flavour, Eina_Bool cf_state, char *number, int error, int req_action, void *data, int waiting_time)
-{
-	ret_if(NULL == data);
-	ret_if(cst_forward_data.onoff_screen_genlist == NULL);
-	ret_if(cst_forward_data.forwarding_item == NULL);
-	ret_if(cst_forward_data.forwardto_item == NULL);
-	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-
-	ENTER(__cst_update_cf_onoff_screen_state);
-	if ((cf_flavour != item_data->index) || (req_action == CST_ACTION_QUERY)
-			|| (cf_flavour != cst_forward_data.forwarding_item->index)) {  /* Ensuring the response is for the requested item only */
-		return;
-	}
-
-	if (error == CST_ERROR_NONE) {
-		if (cf_state == EINA_TRUE) {
-			if (strlen(number) > 0) {
-				snprintf(cst_forward_data.forwarding_item->number, sizeof(cst_forward_data.forwarding_item->number), "%s", number);
-			} else {
-				snprintf(cst_forward_data.forwarding_item->number, sizeof(cst_forward_data.forwarding_item->number), "%s", T_(CST_STR_UNKNOWN));
-			}
-
-			__cst_gl_cf_onoff_screen_show_remove_forwardto_item(EINA_TRUE, number);
-			if (cf_flavour == CST_SSTYPE_CF_NO_REPLY) { /* If no reply then show the Waiting time item also */
-				__cst_gl_cf_onoff_screen_show_remove_waitingtime_item(EINA_TRUE);
-				if (waiting_time > 0) {
-					cst_forward_data.cf_wait_time = waiting_time;
-					__cst_update_wait_time_and_index(CST_CF_WAIT_TIME_IDX_NONE, cst_forward_data.cf_wait_time);
-				}
-			}
-		} else {
-			strcpy(cst_forward_data.forwarding_item->number, "");
-			__cst_gl_cf_onoff_screen_show_remove_forwardto_item(EINA_FALSE, NULL);
-			if (cf_flavour == CST_SSTYPE_CF_NO_REPLY) { /* If no reply then show the Waiting time item also */
-				__cst_gl_cf_onoff_screen_show_remove_waitingtime_item(EINA_FALSE);
-			}
-		}
-	}
-	elm_genlist_item_update(cst_forward_data.forwarding_item->gl_item);
 	return;
 }
 
@@ -499,9 +438,6 @@ static void __cst_on_click_cf_ime_done_btn(void *data, Evas_Object *obj, void *e
 		_cst_add_ss_request(&ugd->req_queue, req->action,
 							req->call_type, req->flavour, req->original_state, req->number,
 							__cst_update_cf_state, item_data, cst_forward_data.cf_wait_time, ugd);
-/*		ecore_timer_add(CST_NAVIFRAME_ITEM_POP_TIMER, _cst_naviframe_item_pop_cb, ugd);
-*/
-/*		_cst_naviframe_item_pop_cb(ugd);*/
 		if (ugd->popup) {
 			evas_object_del(ugd->popup);
 			ugd->popup = NULL;
@@ -539,9 +475,6 @@ static Eina_Bool __cst_on_click_cf_ime_back_btn(void *data, Elm_Object_Item *it)
 	keypad_enabled = 0;
 
 	ugd->b_expanded = EINA_FALSE;
-
-/*	ecore_timer_add(CST_NAVIFRAME_ITEM_POP_TIMER, _cst_naviframe_item_pop_cb, ugd);
-*/
 
 	if (ugd->popup) {
 		evas_object_del(ugd->popup);
@@ -748,34 +681,7 @@ static void __cst_update_change_cf_req(CstGlItemData_t *item_data, Eina_Bool req
 			}
 
 			ugd->popup = _cst_create_cf_popup(ugd->nf, ugd, I_(title), edit_string, NULL, req);
-#if 0
 
-			navi_it = elm_naviframe_item_push(ugd->nf,
-											  I_(title), NULL, NULL, eo, NULL);
-			cst_util_item_domain_text_translatable_set(navi_it, I_(title));
-
-			_cst_create_navi_control_bar(ugd->nf,
-												(char *)I_(CST_STR_NAVI_BTN_CANCEL), NULL,
-												__cst_on_click_cf_ime_cancel_btn,
-												(char *)I_(CST_STR_NAVI_BTN_DONE), NULL,
-												__cst_on_click_cf_ime_done_btn,
-												(void *)req, navi_it,
-												cst_forward_data.ec_item);
-
-			elm_naviframe_item_pop_cb_set(navi_it, __cst_on_click_cf_ime_back_btn, (void *)req);
-
-			entry_input = elm_entry_entry_get(ugd->dg_entry);
-
-			if (entry_input && strlen(entry_input) > 0) {
-				elm_object_disabled_set(cst_forward_data.ec_item[1], EINA_FALSE);
-			} else {
-				elm_object_disabled_set(cst_forward_data.ec_item[1], EINA_TRUE);
-			}
-
-			evas_object_smart_callback_add(ugd->nf, "transition,finished", _cst_transition_cb, navi_it);
-
-			elm_object_item_data_set(navi_it, req);
-#endif
 		} else {
 			b_notify_cb_enabled = EINA_FALSE;
 			g_item_data = item_data;
@@ -802,23 +708,6 @@ static void __cst_update_change_cf_req(CstGlItemData_t *item_data, Eina_Bool req
 							__cst_update_cf_state, item_data, -1, ugd);
 		free(req);
 	}
-}
-
-static void __cst_on_click_cf_onoff(void *data, Evas *evas, Evas_Object *obj, void *event_info)
-{
-	ret_if(NULL == data);
-	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = item_data->ugd;
-
-	if (ugd->cf_state[cst_forward_data.forwarding_item->index] == CST_SS_STATE_PROGRESS) { /* Ignore as another SS request is already active */
-		return;
-	}
-
-	Eina_Bool check_state = EINA_FALSE;
-	if (ugd->cf_state[item_data->index] == CST_SS_STATE_ON) {
-		check_state = EINA_TRUE;
-	}
-	__cst_update_change_cf_req(item_data, !check_state, EINA_TRUE);
 }
 
 static void __cst_on_click_cf_onoff_forward_to(void *data, Evas *evas, Evas_Object *obj, void *event_info)
@@ -1041,7 +930,6 @@ static Evas_Object *__cst_create_genlist_cf(void *data)
 		}
 		ugd->cf_gl_item[index] = item_data->gl_item;
 	}
-
 	evas_object_smart_callback_add(genlist, "realized",
 						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST);
 #ifdef _CALL_SET_TTS_SUPPORT
@@ -1061,7 +949,6 @@ static void __cst_cf_create_genlist_item_class(void *data)
 	cst_forward_data.itc_forward_to = NULL;
 	cst_forward_data.itc_waiting_time = NULL;
 	cst_forward_data.itc_waiting_time_expand = NULL;
-	cst_forward_data.onoff_screen_genlist = NULL;
 	cst_forward_data.forwardto_item = NULL;
 	cst_forward_data.waitingtime_item = NULL;
 	cst_forward_data.waitingtime_radio_btn = NULL;
@@ -1085,72 +972,6 @@ static void __cst_cf_create_genlist_item_class(void *data)
 	}
 	if (!cst_forward_data.itc_waiting_time_expand) {
 		cst_forward_data.itc_waiting_time_expand = _cst_create_genlist_item_class(NULL, NULL, NULL, NULL, NULL);
-	}
-}
-
-static void __cst_gl_cf_onoff_forwardto_sel(void *data, Evas_Object *obj, void *event_info)
-{
-	ret_if(data == NULL);
-	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
-	if (list_call_forwarding_status[1].func) {
-		list_call_forwarding_status[1].func((void *)item_data, NULL, obj, item_data->gl_item);
-	}
-	return;
-}
-
-static void __cst_gl_cf_onoff_waitingtime_sel(void *data, Evas_Object *obj, void *event_info)
-{
-	ret_if(data == NULL);
-	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
-	if (list_call_forwarding_status[2].func) {
-		list_call_forwarding_status[2].func((void *)item_data, NULL, obj, item_data->gl_item);
-	}
-	return;
-}
-
-static void __cst_gl_cf_onoff_screen_show_remove_forwardto_item(Eina_Bool show_item, char *number)
-{
-	ENTER(__cst_gl_cf_onoff_screen_show_remove_forwardto_item);
-	ret_if(cst_forward_data.onoff_screen_genlist == NULL);
-	ret_if(cst_forward_data.forwardto_item == NULL);
-
-	/* Remove the Forwardto item */
-	if (cst_forward_data.forwardto_item->gl_item) {
-		elm_object_item_del(cst_forward_data.forwardto_item->gl_item);
-		cst_forward_data.forwardto_item->gl_item = NULL;
-		strcpy(cst_forward_data.forwardto_item->number, "");
-	}
-
-	if (show_item == EINA_TRUE) {
-		if (strlen(number) > 0) {
-			snprintf(cst_forward_data.forwardto_item->number, sizeof(cst_forward_data.forwardto_item->number), "%s", number);
-		} else {
-			snprintf(cst_forward_data.forwardto_item->number, sizeof(cst_forward_data.forwardto_item->number), "%s", T_(CST_STR_UNKNOWN));
-		}
-		cst_forward_data.forwardto_item->gl_item = elm_genlist_item_append(cst_forward_data.onoff_screen_genlist, cst_forward_data.itc_forward_to,
-				(const void *)cst_forward_data.forwardto_item, NULL, list_call_forwarding_status[1].flags,
-				__cst_gl_cf_onoff_forwardto_sel, cst_forward_data.forwardto_item);
-	}
-}
-
-static void __cst_gl_cf_onoff_screen_show_remove_waitingtime_item(Eina_Bool show_item)
-{
-	ENTER(__cst_gl_cf_onoff_screen_show_remove_waitingtime_item);
-	ret_if(cst_forward_data.onoff_screen_genlist == NULL);
-	ret_if(cst_forward_data.waitingtime_item == NULL);
-
-	/* Remove the Waiting time item */
-	if (cst_forward_data.waitingtime_item->gl_item) {
-		elm_object_item_del(cst_forward_data.waitingtime_item->gl_item);
-		cst_forward_data.waitingtime_item->gl_item = NULL;
-	}
-
-	if (show_item == EINA_TRUE) {
-		cst_forward_data.waitingtime_item->gl_item = elm_genlist_item_append(cst_forward_data.onoff_screen_genlist, cst_forward_data.itc_waiting_time,
-				(const void *)cst_forward_data.waitingtime_item, NULL, list_call_forwarding_status[2].flags,
-				__cst_gl_cf_onoff_waitingtime_sel, cst_forward_data.waitingtime_item);
 	}
 }
 
