@@ -31,6 +31,9 @@ void cst_util_domain_translatable_part_text_set(Evas_Object *obj, const char* pa
 void cst_util_item_domain_translatable_text_set(Elm_Object_Item *it, const char* text);
 void cst_util_item_domain_translatable_part_text_set(Elm_Object_Item *it, const char* part, const char* text);
 void cst_util_item_domain_text_translatable_set(Elm_Object_Item *it, const char* text);
+void cst_util_feedback_init(void);
+void cst_util_feedback_deinit(void);
+void cst_util_feedback_play_tap_sound(void);
 Eina_Bool _cst_vconf_get_bool(const char *in_key, int *boolval);
 Eina_Bool _cst_vconf_get_int(const char *in_key, int *intval);
 char *_cst_vconf_get_str(const char *in_key);

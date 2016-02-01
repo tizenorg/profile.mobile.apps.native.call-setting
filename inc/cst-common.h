@@ -65,21 +65,7 @@
 #define CST_TITLE_BTN_ICON_PLUS					IMG_DIR"/00_icon_plus.png"
 #define CST_TITLE_BTN_ICON_EDIT					IMG_DIR"/00_icon_edit.png"
 #define CST_TITLE_BTN_ICON_SELECT_ALL			IMG_DIR"/T01_title_icon_select_all.png"
-#define CST_TITLE_BTN_ICON_ADD					IMG_DIR"/T01_title_icon_add.png"
 #define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
-
-#define FDN_SIM_PB_FAIL_STR								"SIM Phonebook operation is failed for some unknown reason"
-#define FDN_SIM_PB_INVALID_INDEX_STR					"The index is invalid"
-#define FDN_SIM_PB_INVALID_NUMBER_LENGTH_STR			"The length of the number is invalid"
-#define FDN_SIM_PB_INVALID_NAME_STR						"The length of the name is invalid"
-#define FDN_SIM_PB_ACCESS_CONDITION_NOT_SATISFIED_STR	"The condition of access to Phonebook is not satisfied"
-
-#define INAVLID_NUMBER_ERR_STR	"Invalid number."
-#define INAVLID_PIN2_ERR_STR	"Type PIN2 that is 4 to 8 numbers."
-#define OK_STR	"Ok"
-#define CANCEL_STR	"Cancel"
-#define EQ_PKG		"com.samsung.call-eq-analyzer"
-#define GALLERY_UG	"gallery-efl-lite"
 
 /**
  * The key of request bundle for type.
@@ -301,9 +287,7 @@ enum {
 };
 
 enum {
-	CST_DL_AUTO_REJECT,
 	CST_DL_REJECT_CALL_WITH_MSG,
-	CST_DL_FDN_CONTACTS,
 	CST_DL_NONE,
 };
 
@@ -338,11 +322,6 @@ typedef enum {
 	CST_IME_REJECT_MSG,
 	CST_IME_CALL_FORWARD,
 	CST_IME_CALL_BAR,
-	CST_IME_FDN_SETTING,
-	CST_IME_FDN_CONTACT_NAME,
-	CST_IME_FDN_CONTACT_NUMBER,
-	CST_IME_FDN_CONTACT_PIN2,
-	CST_IME_FDN_DELETE,
  	CST_IME_NONE,
 } CstImeType_t;
 
@@ -485,17 +464,7 @@ typedef struct {
 	GSList *sim_req_list;
 	Eina_Bool is_requesting;
 	Evas_Object *backup_genlist;
-
-#ifdef _CALL_SET_FDN_SUPPORT
-	int fdn_contacts_count;
-	int fdn_contact_number_len_max;
-	int fdn_contact_name_len_max;
-#endif
-
 	int kind_of_delete_list;
-
-	GSList *tel_event_subscription_list;
-	Evas_Object *video_call_img;
 
 	/* Tapi Handle */
 	TapiHandle *tapi_handle; /*Handle that point's to the SIM on which it will be operated on*/
@@ -503,10 +472,6 @@ typedef struct {
 	TapiHandle *sim1_tapi_handle;
 	TapiHandle *sim2_tapi_handle;
 #endif
-	int fdn_status;
-	int fdn_initial_state;
-	void (*fdn_status_update_func)();
-	CstGlItemData_t *fdn_gl_item_data;
 	int sim_lock_status;
 	int sim_lock_retry_account;
 	int rej_msg_seg_size;
@@ -520,7 +485,6 @@ typedef struct {
 	app_control_h vibration_service_handle;
 	Evas_Object *rejct_popup;
 	Evas_Object *rejctlist_popup;
-	Evas_Object *fdnmore_popup;
 	Evas_Object *entry_count;
 	char block_list_prev_text[CST_MAX_PHONE_NUMBER_LEN];
 #ifdef _CALL_SET_DUAL_SIM_ALWAYSON
@@ -551,108 +515,11 @@ typedef enum {
 } SimReqStatus_t;
 
 typedef enum {
-	TAPI_SIM_REQ_NONE,
-	TAPI_SIM_REQ_VERIFY_PIN2,
-	TAPI_SIM_REQ_SET_FDN,
-#if 0	// Donot delete this. Its for future use.
-	TAPI_SIM_REQ_CHANGE_PIN2,
-	TAPI_SIM_REQ_UNBLOCK_PIN2,
-#endif
-	TAPI_SIM_REQ_GET_PHNBUK_CNT,
-	TAPI_SIM_REQ_GET_PHNBUK_REC,
-	TAPI_SIM_REQ_ADD_PHNBUK_REC,
-	TAPI_SIM_REQ_UPDATE_PHNBUK_REC,
-	TAPI_SIM_REQ_DELETE_PHNBUK_REC,
-	TAPI_SIM_REQ_GET_PHNBUK_METADATA,
-} SimReqId_t;
-
-typedef enum {
-	TAPI_SIM_OPERATION_SUCCESS,
-	TAPI_SIM_OPERATION_FAILURE,
-	TAPI_SIM_OPERATION_INVALID_INDEX,
-	TAPI_SIM_OPERATION_INVALID_NUMBER_LENGTH,
-	TAPI_SIM_OPERATION_INVALID_NAME_LENGTH,
-	TAPI_SIM_OPERATION_ACCESS_CONDITION_NOT_SATISFIED,
-
-} SimAccessResult_t;
-
-typedef enum {
-	CST_CONTACT_ADD,
-	CST_CONTACT_EDIT
-} CstFDNContactOperation_t;
-
-typedef enum {
 	CST_ERR_POPUP_TYPE_INFO_TEXT_ONLY,
 	CST_ERR_POPUP_TYPE_TITLE_INFO_TEXT,
 } CstErrPopupType_t;
 
-#if 0	// Donot delete this. Its for future use.
-typedef enum {
-	CST_PWD_POPUP_TYPE_UNBLOCK_PIN2,
-	CST_PWD_POPUP_TYPE_UNBLOCK_PIN2_NEW,
-	CST_PWD_POPUP_TYPE_UNBLOCK_PIN2_NEW_CONFIRM,
-	CST_PWD_POPUP_TYPE_FDN_STATUS,
-	CST_PWD_POPUP_TYPE_CHANGE_PIN2,
-	CST_PWD_POPUP_TYPE_CHANGE_PIN2_NEW,
-	CST_PWD_POPUP_TYPE_CHANGE_PIN2_NEW_CONFIRM,
-	CST_PWD_POPUP_TYPE_ADD_FDN_CONTACT,
-	CST_PWD_POPUP_TYPE_DELETE_FDN_CONTACT,
-} CstPaswdPopupType_t;
-#endif
-
-
 typedef void (*SimReqCb)(CstUgData_t *ugd, void *req, void *resp);
 
-typedef struct {
-	SimReqId_t req_id;
-	unsigned char *pin2;
-	int pin2_len;
-	unsigned char *name;
-	unsigned char *number;
-	unsigned short index;
-	unsigned short next_index;
-
-} CallSettingSimNxtReqParams_t;
-
-typedef struct {
-	int tapi_req_id;
-	SimReqStatus_t req_state;
-	SimReqId_t req_id;
-	CallSettingSimNxtReqParams_t *next_req_params;
-	SimReqCb func;
-	void *data;
-	CstUgData_t *ugd;
-} CallSettingSimReq_t;
-
-typedef struct {
-	unsigned short index;
-	unsigned short next_index;
-	unsigned char *name;
-	unsigned char *number;
-	unsigned int ton;
-} CallSettingFDNRec_t;
-
-typedef struct {
-	Elm_Object_Item *gl_item;
-	CallSettingFDNRec_t *phbk_info;
-	void *ugd;
-	gboolean item_delete_status;
-} CstFDNGlItemData_t;
-
-typedef struct {
-	SimAccessResult_t result;
-	int retry_count;
-	int phnbuk_used_rec_cnt;
-	int phnbuk_total_rec_cnt;
-
-	CallSettingFDNRec_t fdn_rec;
-} CallSettingSimResp_t;
-
-typedef struct {
-	unsigned short index;
-	unsigned short next_index;
-	unsigned char *name;
-	unsigned char *number;
-} CstFDNContactEditInfo_t;
 #endif	/* _CST_COMMON_H_ */
 

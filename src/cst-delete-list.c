@@ -29,8 +29,6 @@
 
 #include "msg.h"
 #include "cst-reject-msg.h"
-#include "cst-fdn-setting.h"
-#include "cst-fdn-list.h"
 #include "cst-tapi-request.h"
 
 #define MAX_PRECONFIG_NUM		8
@@ -57,17 +55,6 @@ static void __cst_destroy_genlist_item_styles(void);
 static void __cst_select_all_check_changed_cb(void *data, Evas_Object *obj, void *event_info);
 static void __cst_check_changed_cb(void *data, Evas_Object *obj, void *event_info);
 static void __cst_update_check_state(Delete_List_View_Data *vd);
-
-#ifdef _CALL_SET_FDN_SUPPORT
-static char *__cst_gl_label_get_fdn_delete_list(void *data, Evas_Object *obj, const char *part);
-static void __cst_on_click_FDN_delete_list_btn_delete_cb(void *data, Evas_Object *obj, void *event_info);
-static void __cst_click_FDN_delete_list_ime_done_cb(void *data, Evas_Object *obj, void *event_info);
-static Elm_Object_Item *__cst_fdn_delete_list_get_contact_list_item_by_index(void *data, int item_index);
-static void __cst_click_FDN_delete_list_ime_cancel_cb(void *data,
-		Evas_Object *obj, void *event_info);
-
-static gboolean keypad_enabled = EINA_FALSE;
-#endif  /* _CALL_SET_FDN_SUPPORT */
 static Delete_List_View_Data *g_vd = NULL;
 
 static int kind_of_delete_list;
@@ -155,9 +142,6 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 	}
 
 	switch (ugd->kind_of_delete_list) {
-	case CST_DL_FDN_CONTACTS:
-		__cst_on_click_FDN_delete_list_btn_delete_cb(data, obj, event_info);
-		return;
 	case CST_DL_REJECT_CALL_WITH_MSG:
 		/*In Reject Message "Select All" is as first Item */
 		while (prev_it != NULL && del_list_it != NULL) {
@@ -229,35 +213,6 @@ static void __cst_delete_list_lang_changed(void *data, Evas_Object *obj, void *e
 	}
 }
 
-#if 0 /* Function not used. */
-
-static void __cst_on_click_delete_button(void *data, Evas_Object *obj,
-		void *event_info)
-{
-	ENTER(__cst_on_click_delete_button);
-	ret_if(NULL == data);
-	Delete_List_View_Data *vd = (Delete_List_View_Data *)data;
-	CstUgData_t *ugd = vd->ugd;
-	char *txt = NULL;
-
-	txt = g_strdup(I_(CST_STR_DELETE_Q));
-
-#ifdef _CALL_SET_FDN_SUPPORT
-	if (CST_DL_FDN_CONTACTS == ugd->kind_of_delete_list) {
-		__cst_on_click_FDN_delete_list_btn_delete_cb(data, obj, event_info);
-	} else {
-		ugd->popup = _cst_create_2btn_delete_popup(ugd->nf, ugd, txt, __cst_on_click_delete_confirm, data);
-	}
-#else	  /* _CALL_SET_FDN_SUPPORT */
-	ugd->popup = _cst_create_2btn_delete_popup(ugd->nf, ugd, txt, __cst_on_click_delete_confirm, data);
-#endif    /* !_CALL_SET_FDN_SUPPORT */
-
-	if (txt) {
-		g_free(txt);
-	}
-}
-#endif
-
 static void __cst_on_click_cancel_button(void *data, Evas_Object *obj,
 		void *event_info)
 {
@@ -267,273 +222,6 @@ static void __cst_on_click_cancel_button(void *data, Evas_Object *obj,
 
 	__cst_on_click_back_button(vd->ugd, NULL);
 }
-
-#ifdef _CALL_SET_FDN_SUPPORT
-void _cst_FDN_delete_list_changed_editfield_cb(void *data, Evas_Object *obj,
-		void *event_info)
-{
-	const char *entry_str = elm_entry_entry_get(obj);
-	DBG("entry_str = %s", entry_str);
-
-	if (NULL == entry_str || '\0' == entry_str[0] || 4 > strlen(entry_str)) {
-		if (ec_item[1] != NULL) {
-			elm_object_disabled_set(ec_item[1], EINA_TRUE);
-		}
-	} else {
-		if (ec_item[1] != NULL) {
-			elm_object_disabled_set(ec_item[1], EINA_FALSE);
-		}
-	}
-}
-
-void _cst_FDN_delete_list_input_panel_event_cb(void *data,
-		Ecore_IMF_Context *imf_context, int value)
-{
-	ENTER(_cst_FDN_delete_list_input_panel_event_cb);
-	ret_if(NULL == data);
-
-	if (EINA_FALSE == keypad_enabled) {
-		DBG("keypad_enabled = %d", keypad_enabled);
-		keypad_enabled = EINA_TRUE;
-		return;
-	}
-
-	if (value == ECORE_IMF_INPUT_PANEL_STATE_WILL_SHOW) {
-		return;
-	}
-
-	if (value == ECORE_IMF_INPUT_PANEL_STATE_SHOW) {
-		DBG("ECORE_IMF_INPUT_PANEL_STATE_SHOW");
-	} else if (value == ECORE_IMF_INPUT_PANEL_STATE_HIDE) {
-		DBG("ECORE_IMF_INPUT_PANEL_STATE_HIDE");
-	}
-}
-
-static void __cst_on_click_FDN_delete_list_btn_delete_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	ENTER(__cst_on_click_FDN_delete_list_btn_delete_cb);
-	ret_if(!data);
-	Delete_List_View_Data *vd = (Delete_List_View_Data *)data;
-	CstUgData_t *ugd = vd->ugd;
-	const char *entry_input = NULL;
-
-	memset(ec_item, 0, sizeof(ec_item));
-
-	_cst_create_pin2_confirm_popup(ugd, CST_IME_FDN_DELETE, I_(CST_STR_HEADER_DELETE),
-			__cst_click_FDN_delete_list_ime_done_cb,
-			__cst_click_FDN_delete_list_ime_cancel_cb, (void *)ugd, ec_item);
-
-	entry_input = elm_entry_entry_get(ugd->dg_entry);
-
-	if (ec_item[1] != NULL) {
-		if (entry_input && strlen(entry_input) > 0) {
-			elm_object_disabled_set(ec_item[1], EINA_FALSE);
-		} else {
-			elm_object_disabled_set(ec_item[1], EINA_TRUE);
-		}
-	}
-	g_vd = vd;
-}
-
-static Eina_Bool _cst__FDN_delete_list_naviframe_item_pop_cb(void *data)
-{
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	ugd->dg_entry = NULL;
-	memset(ec_item, 0, sizeof(ec_item));
-
-	__cst_on_click_back_button(ugd, NULL);
-	ugd->back_button = _cst_get_navifr_prev_btn(ugd->nf);
-
-	return ECORE_CALLBACK_CANCEL;
-}
-
-Eina_Bool _cst_click_FDN_delete_list_ime_back_cb(void *data,
-		Elm_Object_Item *it)
-{
-	ENTER(_cst_click_FDN_delete_list_ime_back_cb);
-	retv_if(!data, EINA_TRUE);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	Ecore_IMF_Context *imf_context = elm_entry_imf_context_get(ugd->dg_entry);
-
-	evas_object_smart_callback_del(ugd->dg_entry, "changed",
-			_cst_FDN_delete_list_changed_editfield_cb);
-
-	if (imf_context) {
-		ecore_imf_context_input_panel_event_callback_del(imf_context,
-				ECORE_IMF_INPUT_PANEL_STATE_EVENT,
-				_cst_FDN_delete_list_input_panel_event_cb);
-		ecore_imf_context_input_panel_enabled_set(imf_context, EINA_FALSE);
-	}
-
-	keypad_enabled = EINA_FALSE;
-
-	ecore_timer_add(CST_NAVIFRAME_ITEM_POP_TIMER,
-			_cst__FDN_delete_list_naviframe_item_pop_cb, ugd);
-
-	return EINA_FALSE;
-}
-
-static void __cst_click_FDN_delete_list_ime_done_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	ENTER(__cst_click_FDN_delete_list_ime_done_cb);
-	ret_if(!data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	Delete_List_View_Data *vd  = g_vd;
-	char *password = NULL;
-	int len_password = 0;
-
-	password = elm_entry_markup_to_utf8(elm_entry_entry_get((const Evas_Object *)ugd->dg_entry));
-	if (password == NULL) {
-		_cst_click_FDN_delete_list_ime_back_cb(data, NULL);
-
-		/* Show error popup */
-		cst_FDN_setting_show_popup(CST_ERR_POPUP_TYPE_INFO_TEXT_ONLY, ugd, NULL, INAVLID_PIN2_ERR_STR);
-
-		return;
-	}
-
-	len_password = strlen(password);
-	SEC_DBG("* password len [%d]", len_password);
-	SEC_DBG("* password [%s]", password);
-
-	if (ugd->dg_entry) {
-		evas_object_del(ugd->dg_entry);
-		ugd->dg_entry = NULL;
-	}
-
-	if (4 > len_password) {  /* Back to FDN Delete ListView */
-		SEC_ERR("Invalid PIN2 entered = %s", password);
-
-		_cst_click_FDN_delete_list_ime_back_cb(data, NULL);
-		/* Show error popup */
-		cst_FDN_setting_show_popup(CST_ERR_POPUP_TYPE_INFO_TEXT_ONLY, ugd, NULL, INAVLID_PIN2_ERR_STR);
-	} else { /* Back to FDN Contact ListView */
-		/* Authenticate the PIN2 entered */
-		CallSettingSimNxtReqParams_t nxt_re_params = {0, };
-		nxt_re_params.pin2 = (unsigned char *)password;
-		nxt_re_params.name = NULL;
-		nxt_re_params.number = NULL;
-		nxt_re_params.pin2_len = len_password;
-		nxt_re_params.req_id = TAPI_SIM_REQ_DELETE_PHNBUK_REC;
-		_cst_verify_pin2(ugd, &nxt_re_params, cst_fdn_list_tapi_sim_response_update_cb, NULL);
-
-		/* Update the FDN contact flag for checked items inorder to delete after successfull authentication */
-		Elm_Object_Item *del_list_it = NULL;
-		Elm_Object_Item *del_list_select_all = NULL;
-		CstGlItemData_t *del_item_data = NULL;
-		int item_index = 0;
-
-		/* First item is select_all...so ignoring it */
-		del_list_select_all = elm_genlist_first_item_get(vd->genlist);
-		del_list_it = elm_genlist_item_next_get(del_list_select_all);
-		if (del_list_it == NULL) {
-			DBG("del_list_it = NULL, returning");
-			return;
-		}
-
-		while (del_list_it != NULL) {
-			del_item_data = (CstGlItemData_t *)elm_object_item_data_get(del_list_it);
-			if (del_item_data == NULL) {
-				DBG("del_item_data = NULL, returning");
-				return;
-			}
-
-			if (del_item_data->check == EINA_TRUE) { /* Delete the FDN Contact*/
-				Elm_Object_Item *del_item = NULL;
-				CstFDNGlItemData_t *item_data = NULL;
-
-				del_item = __cst_fdn_delete_list_get_contact_list_item_by_index(ugd, item_index);
-				item_data =	(CstFDNGlItemData_t *)elm_object_item_data_get(del_item);
-				if (item_data == NULL) {
-					DBG("item_data = NULL, returning");
-					return;
-				}
-				item_data->item_delete_status = EINA_TRUE;
-			}
-			del_list_it = elm_genlist_item_next_get(del_list_it);
-			item_index++;
-		}
-	}
-
-	if (password) {
-		g_free(password);
-		password = NULL;
-	}
-
-	if (ugd->popup) {
-		evas_object_del(ugd->popup);
-		ugd->popup = NULL;
-	}
-}
-
-static void __cst_click_FDN_delete_list_ime_cancel_cb(void *data,
-		Evas_Object *obj, void *event_info)
-{
-	ENTER(__cst_click_FDN_delete_list_ime_cancel_cb);
-	ret_if(!data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	if (ugd->popup) {
-		evas_object_del(ugd->popup);
-		ugd->popup = NULL;
-	}
-}
-
-static char *__cst_gl_label_get_fdn_delete_list(void *data, Evas_Object *obj, const char *part)
-{
-	retv_if(NULL == data, NULL);
-	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	Elm_Object_Item *del_list_item = NULL;
-
-	del_list_item = __cst_fdn_delete_list_get_contact_list_item_by_index(ugd, item_data->index-1);
-	if (del_list_item == NULL) {
-		DBG("Fetching the contact failed.... returning");
-		return NULL;
-	}
-
-	CstFDNGlItemData_t *list_item_data = (CstFDNGlItemData_t *)elm_object_item_data_get(del_list_item);
-	if (list_item_data == NULL) {
-		DBG("Fetching the item_data failed.... returning");
-		return NULL;
-	}
-
-	if (strcmp(part, "elm.text.main.left.top") == 0) {
-		return g_strdup((const char *)list_item_data->phbk_info->name);
-	} else if (strcmp(part, "elm.text.sub.left.bottom") == 0) {
-		return g_strdup((const char *)list_item_data->phbk_info->number);
-	}
-	return NULL;
-}
-
-static Elm_Object_Item *__cst_fdn_delete_list_get_contact_list_item_by_index(void *data, int item_index)
-{
-	ENTER(__cst_fdn_delete_list_get_contact_list_item_by_index);
-	retv_if(NULL == data, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	int sel_index = 0;
-	Elm_Object_Item *del_list_item = NULL;
-
-	/* Fetch the first item which is a separator and ignore it */
-	del_list_item = elm_genlist_first_item_get(ugd->backup_genlist);
-	if (del_list_item == NULL) {
-		DBG("Fetching the item_data failed.... returning");
-		return NULL;
-	}
-
-	/* Traverse to the next item which is the FDN contact item */
-	del_list_item = elm_genlist_item_next_get(del_list_item);
-
-	while ((sel_index != item_index) && (del_list_item != NULL)) {
-		del_list_item = elm_genlist_item_next_get(del_list_item);
-		sel_index++;
-	}
-
-	return del_list_item;
-}
-#endif  /* _CALL_SET_FDN_SUPPORT */
 
 static void __cst_update_check_state(Delete_List_View_Data *vd)
 {
@@ -754,18 +442,7 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 				NULL, NULL);
 	}
 
-	if (ugd->kind_of_delete_list == CST_DL_FDN_CONTACTS) {
-#ifdef _CALL_SET_FDN_SUPPORT
-		if (!itc_1text_2text1icon) {
-			itc_1text_2text1icon = _cst_create_genlist_item_class("2line.top",
-					__cst_gl_label_get_fdn_delete_list,
-					__cst_gl_icon_get_delete_list,
-					NULL, __cst_gl_del_delete_list);
-		}
-		itc_1text_2text1icon->decorate_all_item_style = NULL;
-		elm_genlist_decorate_mode_set(vd->genlist, EINA_FALSE);
-#endif  /* _CALL_SET_FDN_SUPPORT */
-	} else if (ugd->kind_of_delete_list == CST_DL_REJECT_CALL_WITH_MSG) {
+	if (ugd->kind_of_delete_list == CST_DL_REJECT_CALL_WITH_MSG) {
 		if (!itc_1text_2text1icon) {
 			itc_1text_2text1icon = _cst_create_genlist_item_class("type1",
 					__cst_gl_label_get_delete_list,
@@ -803,10 +480,6 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 			item_data->label = _cst_get_reject_message(index, EINA_TRUE, EINA_FALSE);
 			break;
 
-#ifdef _CALL_SET_FDN_SUPPORT
-		case CST_DL_FDN_CONTACTS:
-			break;
-#endif  /* _CALL_SET_FDN_SUPPORT */
 		default:
 			DBG("wrong request");
 			free(item_data);
@@ -852,17 +525,6 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 		evas_object_del(ugd->rejctlist_popup);
 		ugd->rejctlist_popup = NULL;
 	}
-	if (ugd->fdnmore_popup) {
-		evas_object_del(ugd->fdnmore_popup);
-		ugd->fdnmore_popup = NULL;
-	}
-#ifdef _CALL_SET_FDN_SUPPORT
-	if (CST_DL_FDN_CONTACTS == ugd->kind_of_delete_list &&
-		ugd->sim_lock_status == TAPI_SIM_LOCK_KEY_PUK2) {
-		_cst_fdn_disable_main_screen_show_unlock_pin2_popup((void *)ugd);
-		return;
-	}
-#endif
 
 	memset(ec_obj_item, 0, sizeof(ec_obj_item));
 
@@ -876,12 +538,6 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 		delete_list_view->total_count = _cst_get_num_of_reject_message();
 		delete_list_view->title = g_strdup_printf("%d/%d", delete_list_view->checked_count, delete_list_view->total_count);
 		break;
-#ifdef _CALL_SET_FDN_SUPPORT
-	case CST_DL_FDN_CONTACTS:
-		delete_list_view->total_count = ugd->fdn_contacts_count;
-		delete_list_view->title = g_strdup_printf(T_(CST_STR_PD_SELECTED), delete_list_view->checked_count);
-		break;
-#endif  /* _CALL_SET_FDN_SUPPORT */
 	default:
 		DBG("wrong request");
 		free(delete_list_view);

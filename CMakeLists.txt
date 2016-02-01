@@ -35,6 +35,7 @@ pkg_check_modules(pkgs REQUIRED
 	efl-extension
 	eina
 	elementary
+	feedback
 	libtzplatform-config
 	msg-service
 	notification
@@ -54,7 +55,6 @@ SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
 
 ADD_DEFINITIONS("-DUGNAME=\"${LIB_NAME}\"")
 
-ADD_DEFINITIONS("-D_CALL_SET_FDN_SUPPORT")
 ADD_LIBRARY(${LIB_NAME} SHARED
 	./src/cst-call-setting.c
 	./src/cst-main.c
@@ -70,9 +70,6 @@ ADD_LIBRARY(${LIB_NAME} SHARED
 	./src/cst-delete-list.c
 	./src/cst-util.c
 	./src/cst-more-call-setting.c
-	./src/cst-fdn-setting.c
-	./src/cst-fdn-list.c
-	./src/cst-fdn-contact.c
 	./src/cst-editfield.c
 )
 
@@ -88,9 +85,7 @@ ADD_DEPENDENCIES(${LIB_NAME} call-setting.edj)
 
 # edje theme
 ADD_CUSTOM_TARGET(call-setting-theme.edj
-		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting-theme/images -sd
-		${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting-theme/sounds
-		${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting-theme.edc ${CMAKE_BINARY_DIR}/call-setting-theme.edj
+		COMMAND edje_cc ${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting-theme.edc ${CMAKE_BINARY_DIR}/call-setting-theme.edj
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting-theme.edc
 )
 ADD_DEPENDENCIES(${LIB_NAME} call-setting-theme.edj)

@@ -60,7 +60,6 @@ void _cst_remove_naviframe(Evas_Object *nf);
 void _cst_transition_cb(void *data, Evas_Object *obj, void *event_info);
 Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 		CstImeType_t ime_type, char *input_string);
-void _cst_fdn_list_changed_editfield_cb(void *data, Evas_Object *obj, void *event_info);
 Elm_Genlist_Item_Class *_cst_create_genlist_item_class(
 	const char *item_style,
 	Elm_Gen_Item_Text_Get_Cb text_get_fn,
