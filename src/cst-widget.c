@@ -27,8 +27,6 @@
 #include "cst-common-string.h"
 #include "cst-debug.h"
 #include "cst-reject-msg.h"
-#include "cst-fdn-setting.h"
-#include "cst-fdn-list.h"
 #include "cst-forwarding.h"
 #include "cst-barring.h"
 #include "cst-util.h"
@@ -59,6 +57,7 @@ static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
 			elm_object_part_content_get(obj, "icon");
 
 	if (contact_icon) {
+		cst_util_feedback_play_tap_sound();
 		evas_object_color_set(contact_icon, CONTACT_BTN_COLOR_PRESSED);
 	}
 
@@ -239,9 +238,6 @@ char *_cst_get_error_string(int error)
 	case CST_ERROR_MAXIMUM_DIGITS_OF_PHONE_NUMBER_REACHED:
 		popup_message = (const char *)g_strdup_printf(I_(CST_STR_POPUP_MAX_NUMBER_OF_DIGITS_REACHED), CST_MAX_PHONE_NUMBER_LEN);
 		return (char *)popup_message;
-	case CST_ERROR_FDN_MODE_ACTIVE:
-		popup_message = I_(CST_STR_FDN_MODE_ACTIVATED);
-		break;
 	case CST_ERROR_NO_VOICEMAIL_NUM_CHANGED:
 		popup_message = I_(CST_STR_NO_CHANGES_WERE_MADE);
 		break;
@@ -998,22 +994,6 @@ void _cst_transition_cb(void *data, Evas_Object *obj, void *event_info)
 	}
 }
 
-static void __cst_widget_entry_next_pressed_cb(void *data, Evas_Object *obj,
-		void *event_info)
-{
-	DBG("__cst_widget_entry_next_pressed_cb");
-	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	if (obj && ugd->nxt_dg_entry_focus) {
-		elm_object_focus_set(obj, EINA_FALSE);
-		elm_entry_cursor_end_set(ugd->nxt_dg_entry_focus);
-		elm_object_focus_set(ugd->nxt_dg_entry_focus, EINA_TRUE);
-	} else if (obj) {
-		elm_object_focus_set(obj, EINA_FALSE);
-	}
-}
-
 static void __cst_widget_entry_done_pressed_cb(void *data, Evas_Object *obj,
 		void *event_info)
 {
@@ -1039,10 +1019,7 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 	Evas_Object *entry_layout = NULL;
 	Evas_Object *eo = NULL;
 
-	if (CST_IME_CALL_FORWARD == ime_type ||
-			CST_IME_FDN_SETTING == ime_type || CST_IME_FDN_DELETE == ime_type ||
-			CST_IME_FDN_CONTACT_PIN2 == ime_type || CST_IME_CALL_BAR == ime_type ||
-			CST_IME_FDN_CONTACT_NAME == ime_type || CST_IME_FDN_CONTACT_NUMBER == ime_type) {
+	if (CST_IME_CALL_FORWARD == ime_type || CST_IME_CALL_BAR == ime_type) {
 		/* Set the Entry part of the Edit-field */
 		entry_layout = editfield_create(parent, ET_SINGLELINE, NULL);
 		ugd->dg_entry = editfield_get_entry(entry_layout);
@@ -1139,92 +1116,6 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 		break;
 #endif  /* _CALL_SET_BARRING_SUPPORT */
 
-#ifdef _CALL_SET_FDN_SUPPORT
-	case CST_IME_FDN_SETTING:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_PIN2));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NUMBERONLY;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		elm_entry_password_set(ugd->dg_entry, EINA_TRUE);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = CST_MAX_PASSWORD_LEN*2;
-		input_panel_cb = _cst_FDN_setting_input_panel_event_cb;
-		entry_changed_cb = _cst_FDN_setting_changed_editfield_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
-		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
-		break;
-	case CST_IME_FDN_CONTACT_NAME:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_BODY_NAME));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NORMAL;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = ugd->fdn_contact_name_len_max;
-		ugd->dg_entry_contact_name = ugd->dg_entry;
-		input_panel_cb = _cst_fdn_list_input_panel_event_cb;
-		entry_changed_cb = _cst_fdn_list_changed_editfield_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_NEXT);
-		entry_activated_cb = __cst_widget_entry_next_pressed_cb;
-		ugd->nxt_dg_entry_focus = NULL;
-		break;
-
-	case CST_IME_FDN_CONTACT_NUMBER:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_NUMBER));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_PHONENUMBER;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = ugd->fdn_contact_number_len_max;
-		digits_filter_data.accepted = "0123456789+*#,(/)N.;- ";
-		digits_filter_data.rejected = NULL;
-		elm_entry_markup_filter_append(ugd->dg_entry,
-				elm_entry_filter_accept_set, &digits_filter_data);
-		ugd->dg_entry_contact_number = ugd->dg_entry;
-		input_panel_cb = _cst_fdn_list_input_panel_event_cb;
-		entry_changed_cb = _cst_fdn_list_changed_editfield_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
-		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
-		ugd->nxt_dg_entry_focus = ugd->dg_entry_contact_number;
-		break;
-	case CST_IME_FDN_CONTACT_PIN2:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_PIN2));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NUMBERONLY;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		elm_entry_password_set(ugd->dg_entry, EINA_TRUE);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = CST_MAX_PASSWORD_LEN*2;
-		ugd->dg_entry_pin2 = ugd->dg_entry;
-		input_panel_cb = _cst_fdn_list_input_panel_event_cb;
-		entry_changed_cb = _cst_fdn_list_changed_editfield_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
-		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
-		break;
-	case CST_IME_FDN_DELETE:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_PIN2));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NUMBERONLY;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		elm_entry_password_set(ugd->dg_entry, EINA_TRUE);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = CST_MAX_PASSWORD_LEN*2;
-		input_panel_cb = _cst_FDN_delete_list_input_panel_event_cb;
-		entry_changed_cb = _cst_FDN_delete_list_changed_editfield_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
-		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
-		break;
-#endif  /* _CALL_SET_FDN_SUPPORT */
-
 	default:
 		ERR("Invalid ime type.");
 		return NULL;
@@ -1249,7 +1140,7 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 	if (imf_context) {
 		ecore_imf_context_input_panel_event_callback_add(imf_context,
 				ECORE_IMF_INPUT_PANEL_STATE_EVENT, input_panel_cb, ugd);
-		if (ime_type == CST_IME_FDN_CONTACT_NAME) {
+		if (ime_type == CST_IME_CALL_BAR) {
 			if (0 > ugd->genlist_editfield_initialized) {
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_FALSE);
@@ -1258,20 +1149,7 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_TRUE);
 			}
-		} else if (ime_type ==
-				CST_IME_FDN_SETTING || ime_type == CST_IME_FDN_DELETE ||
-				ime_type == CST_IME_CALL_BAR) {
-			if (0 > ugd->genlist_editfield_initialized) {
-				ecore_imf_context_input_panel_enabled_set(imf_context,
-						EINA_FALSE);
-				ugd->genlist_editfield_initialized++;
-			} else {
-				ecore_imf_context_input_panel_enabled_set(imf_context,
-						EINA_TRUE);
-			}
- 		} else if (ime_type != CST_IME_REJECT_MSG && ime_type !=
-				CST_IME_FDN_CONTACT_NUMBER && ime_type !=
-				CST_IME_FDN_CONTACT_PIN2) {
+ 		} else if (ime_type != CST_IME_REJECT_MSG) {
 			if (0 > ugd->genlist_editfield_initialized) {
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_FALSE);
@@ -1302,11 +1180,7 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 
 	if (ugd->b_expanded == EINA_FALSE) {
 		evas_object_show(ugd->dg_entry);
-		if (ime_type != CST_IME_FDN_CONTACT_NUMBER && ime_type !=
-				CST_IME_FDN_CONTACT_PIN2) {
-			g_entry = ugd->dg_entry;
-		}
-
+		g_entry = ugd->dg_entry;
 	}
 
 	return eo;
@@ -1324,7 +1198,7 @@ Evas_Object *_cst_create_ime_contacts_btn_obj(Evas_Object *parent, void *data)
 		ugd->contact_btn = NULL;
 	}
 	ugd->contact_btn = elm_button_add(parent);
-	elm_object_style_set(ugd->contact_btn, "cst_transparent");
+	elm_object_style_set(ugd->contact_btn, "transparent");
 	contact_icon = elm_image_add(ugd->contact_btn);
 	if (!contact_icon) {
 		DBG("elm_icon_add() failed");
@@ -1416,11 +1290,6 @@ void _cst_destroy_all_items(CstUgData_t *ugd)
 #ifdef _CALL_SET_BARRING_SUPPORT
 	_cst_destroy_call_barring();
 #endif  /* _CALL_SET_BARRING_SUPPORT */
-
-#ifdef _CALL_SET_FDN_SUPPORT
-	_cst_destroy_fdn_list(ugd);
-	_cst_destroy_fdn_setting();
-#endif  /* _CALL_SET_FDN_SUPPORT */
 }
 
 #ifdef _TIZEN_LITE_CODE
@@ -1494,4 +1363,5 @@ void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 		elm_object_item_disabled_set(ugd->sim2_btn, EINA_TRUE);
 	}
 }
+
 #endif /* _TIZEN_LITE_CODE */

@@ -32,7 +32,7 @@ BuildRequires: pkgconfig(msg-service)
 BuildRequires: pkgconfig(notification)
 BuildRequires: pkgconfig(tapi)
 BuildRequires: pkgconfig(ui-gadget-1)
-BuildRequires: pkgconfig(vconf)
+BuildRequires: pkgconfig(feedback)
 
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig

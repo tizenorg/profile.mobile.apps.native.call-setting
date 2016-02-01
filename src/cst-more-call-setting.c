@@ -28,7 +28,6 @@
 #endif
 #include "cst-forwarding.h"
 #include "cst-waiting.h"
-#include "cst-fdn-setting.h"
 
 static Elm_Genlist_Item_Class *itc_1text = NULL;
 static Elm_Genlist_Item_Class *itc_2text_expand = NULL;
