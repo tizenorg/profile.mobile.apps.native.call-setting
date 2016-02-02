@@ -930,8 +930,7 @@ static Evas_Object *__cst_create_genlist_cf(void *data)
 		}
 		ugd->cf_gl_item[index] = item_data->gl_item;
 	}
-	evas_object_smart_callback_add(genlist, "realized",
-						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST);
+
 #ifdef _CALL_SET_TTS_SUPPORT
 	evas_object_smart_callback_add(genlist, "realized",
 			__cst_call_forwarding_gl_realized_cb, NULL);
@@ -1161,9 +1160,6 @@ void _cst_on_click_call_forwarding(void *data, Evas *evas, Evas_Object *obj, voi
 	__cst_cf_create_genlist_item_class(ugd);
 
 	ugd->backup_genlist = __cst_create_genlist_cf(ugd);
-
-	evas_object_smart_callback_add(ugd->backup_genlist, "realized",
-						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST);
 
 	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
 

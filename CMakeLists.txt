@@ -64,7 +64,6 @@ ADD_LIBRARY(${LIB_NAME} SHARED
 	./src/cst-answering.c
 	./src/cst-forwarding.c
 	./src/cst-forwarding-ime.c
-	./src/cst-barring.c
 	./src/cst-reject-msg.c
 	./src/cst-reject-msg-ime.c
 	./src/cst-delete-list.c

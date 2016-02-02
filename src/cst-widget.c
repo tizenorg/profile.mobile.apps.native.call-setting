@@ -28,7 +28,6 @@
 #include "cst-debug.h"
 #include "cst-reject-msg.h"
 #include "cst-forwarding.h"
-#include "cst-barring.h"
 #include "cst-util.h"
 #include "cst-widget.h"
 #include "cst-delete-list.h"
@@ -247,57 +246,6 @@ char *_cst_get_error_string(int error)
 	}
 
 	return g_strdup(popup_message);
-}
-
-void _cst_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *nxt_item = NULL;
-	Elm_Object_Item *last_item = NULL;
-	CstGlItemData_t *item_data = NULL;
-	nxt_item = elm_genlist_first_item_get(obj);
-
-	if ((long)data == CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST) {
-		nxt_item = elm_genlist_item_next_get(nxt_item);
-	} else {
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		while (item_data == NULL || item_data->index == -1) {
-			nxt_item = elm_genlist_item_next_get(nxt_item);
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		}
-	}
-
-	last_item = elm_genlist_last_item_get(obj);
-
-	if (((long)data == CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST) ||
-			((long)data == CST_DIALOG_GROUP_CALL_FORWARDING_WAITING_TIME)) {
-		if ((long)data == CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST)
-			last_item = elm_genlist_item_prev_get(last_item);
-	} else {
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		while (item_data == NULL || item_data->index == -1) {
-			last_item = elm_genlist_item_prev_get(last_item);
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		}
-		if ((long)data == CST_DIALOG_GROUP_END_WITH_HELP_TEXT) {
-			last_item = elm_genlist_item_prev_get(last_item);
-		}
-	}
-
-	if (nxt_item == last_item) {
-		elm_object_item_signal_emit(nxt_item, "elm,state,default", "");
-		return;
-	}
-
-	elm_object_item_signal_emit(nxt_item, "elm,state,top", "");
-
-	elm_object_item_signal_emit(last_item, "elm,state,bottom", "");
-
-	nxt_item = elm_genlist_item_next_get(nxt_item);
-
-	while (nxt_item != NULL && nxt_item != last_item) {
-		elm_object_item_signal_emit(nxt_item, "elm,state,center", "");
-		nxt_item = elm_genlist_item_next_get(nxt_item);
-	}
 }
 
 static void __cst_del_error_popup_with_ok_btn_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1019,7 +967,7 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 	Evas_Object *entry_layout = NULL;
 	Evas_Object *eo = NULL;
 
-	if (CST_IME_CALL_FORWARD == ime_type || CST_IME_CALL_BAR == ime_type) {
+	if (CST_IME_CALL_FORWARD == ime_type) {
 		/* Set the Entry part of the Edit-field */
 		entry_layout = editfield_create(parent, ET_SINGLELINE, NULL);
 		ugd->dg_entry = editfield_get_entry(entry_layout);
@@ -1096,26 +1044,6 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
 		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
 		break;
-
-#ifdef _CALL_SET_BARRING_SUPPORT
-	case CST_IME_CALL_BAR:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_ENTER_BARRING_PASSWORD));
-
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NUMBERONLY;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		elm_entry_password_set(ugd->dg_entry, EINA_TRUE);
-		limit_filter_data.max_char_count = 0;
-		limit_filter_data.max_byte_count = CST_MAX_PASSWORD_LEN;
-		input_panel_cb = _cst_call_barring_input_panel_event_callback;
-		entry_changed_cb = _cst_call_barring_entry_changed_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
-				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
-		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
-		break;
-#endif  /* _CALL_SET_BARRING_SUPPORT */
-
 	default:
 		ERR("Invalid ime type.");
 		return NULL;
@@ -1137,10 +1065,10 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 
 	DBG("ugd->entry = 0x%x, imf_context = 0x%x", ugd->dg_entry, imf_context);
 
-	if (imf_context) {
+	if (imf_context && ime_type != CST_IME_REJECT_MSG) {
 		ecore_imf_context_input_panel_event_callback_add(imf_context,
 				ECORE_IMF_INPUT_PANEL_STATE_EVENT, input_panel_cb, ugd);
-		if (ime_type == CST_IME_CALL_BAR) {
+
 			if (0 > ugd->genlist_editfield_initialized) {
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_FALSE);
@@ -1149,16 +1077,6 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_TRUE);
 			}
- 		} else if (ime_type != CST_IME_REJECT_MSG) {
-			if (0 > ugd->genlist_editfield_initialized) {
-				ecore_imf_context_input_panel_enabled_set(imf_context,
-						EINA_FALSE);
-				ugd->genlist_editfield_initialized++;
-			} else {
-				ecore_imf_context_input_panel_enabled_set(imf_context,
-						EINA_TRUE);
-			}
-		}
 	}
 
 	if (ugd->is_app_control_invoked) {
@@ -1287,9 +1205,6 @@ void _cst_destroy_all_items(CstUgData_t *ugd)
 	_cst_destroy_dualsim_alwayson(ugd);
 #endif
 
-#ifdef _CALL_SET_BARRING_SUPPORT
-	_cst_destroy_call_barring();
-#endif  /* _CALL_SET_BARRING_SUPPORT */
 }
 
 #ifdef _TIZEN_LITE_CODE

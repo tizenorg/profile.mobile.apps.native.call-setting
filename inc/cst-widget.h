@@ -69,7 +69,6 @@ void _cst_update_genlist_item_class(Elm_Object_Item *item, Elm_Genlist_Item_Clas
 void _cst_destroy_genlist_item_class(Elm_Genlist_Item_Class *itc);
 void _cst_terminate_service(app_control_h service);
 void _cst_destroy_all_items(CstUgData_t *ugd);
-void _cst_gl_realized_cb(void *data, Evas_Object *obj, void *event_info);
 Evas_Object *_cst_create_ime_contacts_btn_obj(Evas_Object *parent, void *data);
 void _cst_create_editfield_dialogue_entry(Evas_Object* parent,
 		Evas_Object* (*p_func)(), void *data, char *dialog_group_style);

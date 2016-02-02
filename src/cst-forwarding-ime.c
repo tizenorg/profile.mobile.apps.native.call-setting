@@ -485,11 +485,7 @@ static Evas_Object *__cst_create_cf_ime_genlist(CstUgData_t *ugd, int cf_flavour
 		waitingtime_item->gl_item = elm_genlist_item_append(genlist, itc_waiting_time,
 									(const void *)waitingtime_item, NULL, ELM_GENLIST_ITEM_TREE,
 									__cst_cf_ime_on_click_waitingtime_expand, waitingtime_item);
-		evas_object_smart_callback_add(genlist, "realized",
-						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_WAITING_TIME);
-	} else {
-		evas_object_smart_callback_add(genlist, "realized",
-						_cst_gl_realized_cb, (const void *)CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST);
+
 	}
 
 	return genlist;

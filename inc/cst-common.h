@@ -114,21 +114,9 @@ typedef enum {
 	CST_ERR_NETWORK_API_FAILED = 0x13,				/**<  Telephony API call failed*/
 	CST_ERR_DIVERT_TO_EMERGENCY_BLOCKED = 0x14,			/**<  Call diverting to an emergency number not allowed*/
 
-	/* Call barring password mismatch errors */
-	CST_ERR_CB_PWD_TOO_SORT = 0x15,					/**< Password is too short - less than 4 characters*/
-	CST_ERR_CB_PWD_MISMATCH = 0x16,					/**< Password do not match - unequal password*/
-	CST_ERR_CB_PWD_TOO_LONG = 0x17,					/**< Password is too long - greater than 4 characters*/
-
 	CST_ERR_UNKNOWN = 0xff,						/**<  unknown error*/
 
 } CstErr_t;
-
-enum {
-	CST_DIALOG_GROUP_NORMAL,
-	CST_DIALOG_GROUP_END_WITH_HELP_TEXT,
-	CST_DIALOG_GROUP_CALL_FORWARDING_BARRING_FDN_LIST,
-	CST_DIALOG_GROUP_CALL_FORWARDING_WAITING_TIME,
-};
 
 enum {
 	CST_SSTYPE_CF_UNCONDITIONAL,
@@ -137,11 +125,6 @@ enum {
 	CST_SSTYPE_CF_NOT_REACHABLE,
 	CST_SSTYPE_CF_ALL,
 	CST_SSTYPE_CF_ALL_CONDITIONAL,
-	CST_SSTYPE_CB_OC,
-	CST_SSTYPE_CB_OIC,
-	CST_SSTYPE_CB_OICEH,
-	CST_SSTYPE_CB_IC,
-	CST_SSTYPE_CB_ICR,
 	CST_SSTYPE_CW,
 };
 
@@ -321,7 +304,6 @@ enum {
 typedef enum {
 	CST_IME_REJECT_MSG,
 	CST_IME_CALL_FORWARD,
-	CST_IME_CALL_BAR,
  	CST_IME_NONE,
 } CstImeType_t;
 

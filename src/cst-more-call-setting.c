@@ -23,9 +23,6 @@
 #include "cst-more-call-setting.h"
 #include "cst-widget.h"
 #include "cst-util.h"
-#ifdef _CALL_SET_BARRING_SUPPORT
-#include "cst-barring.h"
-#endif
 #include "cst-forwarding.h"
 #include "cst-waiting.h"
 
@@ -43,18 +40,11 @@ static void __cst_set_genlist_item_styles_more_cst(void);
 static void __cst_destroy_genlist_item_styles(void);
 static void __cst_on_click_expanded(void *data, Evas *evas, Evas_Object *obj, void *event_info);
 static void __cst_on_click_call_waiting(void *data, Evas *evas, Evas_Object *obj, void *event_info);
-#if 0 /* Function not used */
-static void __cst_gl_con_req(void *data, Evas_Object *obj, void *event_info);
-static void __cst_gl_con(void *data, Evas_Object *obj, void *event_info);
-#endif
 static Eina_Bool __cst_on_click_more_call_setting_back_button(void *data, Elm_Object_Item *it);
 
 static CstGlItemDisplayInfo_t list_more_call_setting[] = {
 	{1, CST_STR_SHOW_MY_CALLER_ID, ELM_GENLIST_ITEM_TREE, CST_GL_ITEM_EXPANDABLE, __cst_on_click_expanded},
 	{1, CST_STR_CALL_FORWARDING, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_TEXT, _cst_on_click_call_forwarding},
-#ifdef _CALL_SET_BARRING_SUPPORT
-	{1, CST_STR_CALL_BARRING, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_TEXT, _cst_on_click_call_barring},
-#endif  /* _CALL_SET_BARRING_SUPPORT */
 	{1, CST_STR_CALL_WAITING, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_1TEXT_ONOFF, __cst_on_click_call_waiting},
 	{1, -1, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_NONE, NULL},
 };
@@ -690,13 +680,6 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_1text,
 								 (void *)item_data, NULL, list_more_call_setting[i].flags,
 								 __cst_gl_sel_more_cst, item_data);
-#ifdef _CALL_SET_BARRING_SUPPORT
-			if (list_more_call_setting[i].str_id == CST_STR_CALL_BARRING) {
-				_cst_flight_mode_genlist_item_disable(item_data->gl_item);
-				_cst_util_system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, _cst_flight_mode_changed_cb_for_call_barring,
-						item_data->gl_item);
-			}
-#endif
 			if (list_more_call_setting[i].str_id == CST_STR_CALL_FORWARDING) {
 				_cst_flight_mode_genlist_item_disable(item_data->gl_item);
 				_cst_util_system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, _cst_flight_mode_changed_cb_for_call_forwarding,

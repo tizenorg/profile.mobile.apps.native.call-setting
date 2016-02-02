@@ -478,8 +478,7 @@ static Evas_Object *__cst_create_genlist_reject_msg(CstUgData_t *ugd)
 	vconf_notify_key_changed(VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT,
 			__cst_reject_sms_count_changed_cb, ugd);
 	_cst_genlist_append_reject_list_item(ugd, genlist);
-	evas_object_smart_callback_add(genlist, "realized",
-			_cst_gl_realized_cb, NULL);
+
 	return genlist;
 }
 
