@@ -73,12 +73,6 @@ static Evas_Object *__cst_create_content(Evas_Object *parent, CstUgData_t *ugd)
 		break;
 	case CST_UG_REQ_VOICE_MAIL:
 		break;
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-	case CST_UG_REQ_DUAL_SIM_ALWAYS_ON:
-		DBG("Its a CST_UG_REQ_DUAL_SIM_ALWAYS_ON UG request.");
-		_cst_create_dual_sim_alwayson_ug(ugd);
-		break;
-#endif
 	default:
 		_cst_create_call_setting(ugd);
 		break;
@@ -199,11 +193,6 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h ap
 		ugd->base = __cst_create_frameview(parent, ugd);
 	}
 
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-	if (ugd->ug_req_type == CST_UG_REQ_DUAL_SIM_ALWAYS_ON) {
-		_cst_get_dual_sim_alwayson_data(ugd, app_control);
-	}
-#endif
 	if (ugd->base) {
 		content = __cst_create_content(parent, ugd);
 		elm_object_part_content_set(ugd->base, "elm.swallow.content", content);

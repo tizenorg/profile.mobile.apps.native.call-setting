@@ -1182,11 +1182,6 @@ void _cst_destroy_all_items(CstUgData_t *ugd)
 	_cst_destroy_call_forwarding();
 	_cst_destroy_more_call_setting();
 	_cst_destroy_reject_message(ugd);
-
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-	_cst_destroy_dualsim_alwayson(ugd);
-#endif
-
 }
 
 static void __cst_set_toolbar_item_icon(Elm_Object_Item *item, int simIndex)

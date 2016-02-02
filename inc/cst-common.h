@@ -75,10 +75,6 @@
 #define CST_UG_BUNDLE_TYPE "type"
 #define CST_UG_BUNDLE_VIEWTYPE "viewtype"
 #define CST_UG_BUNDLE_KEYWORD "keyword"
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-#define CST_UG_BUNDLE_SIM1_NUMBER "number1"
-#define CST_UG_BUNDLE_SIM2_NUMBER "number2"
-#endif
 
 /**
  * This enumeration defines the error codes returned from engine to UI
@@ -464,27 +460,7 @@ typedef struct {
 	Evas_Object *rejctlist_popup;
 	Evas_Object *entry_count;
 	char block_list_prev_text[CST_MAX_PHONE_NUMBER_LEN];
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-	char sim1_number[CST_MAX_PHONE_NUMBER_LEN + 1];
-	char sim2_number[CST_MAX_PHONE_NUMBER_LEN + 1];
-	int dualsimreq_id;
-	int dualsim_alwayson_status;
-	int dualsim_source_destination;
-	Evas_Object *dualsim1_dg_entry;
-	Evas_Object *dualsim2_dg_entry;
-	Evas_Object *rdg_dualsim_mode;
-	app_control_h dualsim_service_handle;
-#endif
 } CstUgData_t;
-
-#ifdef _CALL_SET_DUAL_SIM_ALWAYSON
-typedef enum {
-	DUAL_SIM_WAITING_REQ_SIM2 = 1,
-	DUAL_SIM_FORWARDING_REQ_SIM1,
-	DUAL_SIM_WAITING_REQ_SIM1,
-	DUAL_SIM_FORWARDING_REQ_SIM2,
-} DualSimReq_t;
-#endif
 
 typedef enum {
 	SIM_REQUEST_WAITING_FOR_RESP,
