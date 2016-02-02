@@ -331,17 +331,6 @@ static void __cst_more_call_setting_gl_realized_cb(void *data, Evas_Object *obj,
 {
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	CstGlItemData_t *item_data = elm_object_item_data_get(it);
-#ifdef _CALL_SET_TTS_SUPPORT
-	if (NULL != item_data && list_more_call_setting[item_data->index].str_id == CST_STR_VOICE_MAIL_NUMBER) {
-		elm_access_info_cb_set(elm_object_item_access_object_get(it),
-				ELM_ACCESS_INFO, _cst_util_2item_number_access_info_cb, it);
-	}
-	if (NULL != item_data && list_more_call_setting[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
-		elm_access_info_cb_set(elm_object_item_access_object_get(it),
-				ELM_ACCESS_INFO, _cst_util_on_off_btn_access_info_cb, it);
-	}
-
-#endif /*_CALL_SET_TTS_SUPPORT*/
 	Elm_Object_Item *nxt_item = NULL;
 	Elm_Object_Item *last_item = NULL;
 	int i;
@@ -474,12 +463,7 @@ static Evas_Object *__cst_gl_icon_get_sub_exp(void *data, Evas_Object *obj, cons
 			DBG("Unknown parent");
 			return NULL;
 		}
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* Unregister the access object */
-		if (elm_config_access_get() && radio) {
-			elm_access_object_unregister(radio);
-		}
-#endif
+
 		return radio;
 	}
 	return NULL;

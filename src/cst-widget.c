@@ -668,15 +668,6 @@ static Evas_Object *__cst_create_title_btn_icon_style(Evas_Object *parent,
 	Evas_Object *btn = elm_button_add(parent);
 	elm_object_style_set(btn, "naviframe/title_done");
 	cst_util_domain_translatable_text_set(btn, label);
-#ifdef _CALL_SET_TTS_SUPPORT
-	if (label) {
-		if (strstr(label, "IDS_COM") && _cst_text_id_is_common(label)) {
-			elm_access_info_set(btn, ELM_ACCESS_INFO, dgettext("sys_string", label));
-		} else {
-			elm_access_info_set(btn, ELM_ACCESS_INFO, label);
-		}
-	}
-#endif
 	evas_object_smart_callback_add(btn, "clicked", func, data);
 	evas_object_show(btn);
 	return btn;
@@ -689,15 +680,6 @@ static Evas_Object *__cst_create_title_btn_icon_style_cancel(Evas_Object *parent
 	Evas_Object *btn = elm_button_add(parent);
 	elm_object_style_set(btn, "naviframe/title_cancel");
 	cst_util_domain_translatable_text_set(btn, label);
-#ifdef _CALL_SET_TTS_SUPPORT
-	if (label) {
-		if (strstr(label, "IDS_COM") && _cst_text_id_is_common(label)) {
-			elm_access_info_set(btn, ELM_ACCESS_INFO, dgettext("sys_string", label));
-		} else {
-			elm_access_info_set(btn, ELM_ACCESS_INFO, label);
-		}
-	}
-#endif
 	evas_object_smart_callback_add(btn, "clicked", func, data);
 	evas_object_show(btn);
 	return btn;

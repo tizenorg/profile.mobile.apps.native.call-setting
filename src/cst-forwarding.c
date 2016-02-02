@@ -826,73 +826,7 @@ static void __cst_forwarding_tapi_notify_cb(TapiHandle *handle, const char *noti
 		__cst_query_cf_status(g_item_data);
 	}
 }
-#ifdef _CALL_SET_TTS_SUPPORT
-static char *__cst_cf_no_reply_access_info_cb(void *data, Evas_Object *obj)
-{
-	char *ret = NULL;
-	Elm_Object_Item *item = (Elm_Object_Item *)data;
-	CstGlItemData_t *item_data = elm_object_item_data_get(item);
-	char access_info_text[2 * CST_MAX_PHONE_NUMBER_LEN] = {0, };
-	Eina_Strbuf *buf = eina_strbuf_new();
-	const char *main_text = elm_object_item_part_text_get(item, "elm.text.1");
-	const char *text_number = item_data->number;
 
-	_cst_util_convert_tts_number(text_number, access_info_text);
-
-	int waiting_time_str_id = -1;
-
-	switch (cst_forward_data.cf_wait_time) {
-	case 5:
-		waiting_time_str_id = CST_CF_WAIT_TIME_5_SEC;
-		break;
-	case 10:
-		waiting_time_str_id = CST_CF_WAIT_TIME_10_SEC;
-		break;
-	case 15:
-		waiting_time_str_id = CST_CF_WAIT_TIME_15_SEC;
-		break;
-	case 20:
-		waiting_time_str_id = CST_CF_WAIT_TIME_20_SEC;
-		break;
-	case 25:
-		waiting_time_str_id = CST_CF_WAIT_TIME_25_SEC;
-		break;
-	case 30:
-		waiting_time_str_id = CST_CF_WAIT_TIME_30_SEC;
-		break;
-	default:
-		ERR("Invalid waiting time: %d", cst_forward_data.cf_wait_time);
-	}
-
-	if (-1 == waiting_time_str_id) {
-		eina_strbuf_append_printf(buf, "%s %s", main_text, access_info_text);
-	} else {
-		eina_strbuf_append_printf(buf, "%s %s %s", main_text, access_info_text, T_(waiting_time_str_id));
-	}
-
-	ret = eina_strbuf_string_steal(buf);
-	eina_strbuf_free(buf);
-
-	DBG("ret = (%s)", ret);
-
-	return ret;
-}
-
-static void __cst_call_forwarding_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *item = (Elm_Object_Item *)event_info;
-	CstGlItemData_t *item_data = elm_object_item_data_get(item);
-	if (NULL == item_data)
-		return;
-	if (list_call_forwarding[item_data->index].str_id != CST_STR_IF_NO_REPLY) {
-		elm_access_info_cb_set(elm_object_item_access_object_get(item),
-				ELM_ACCESS_INFO, _cst_util_2item_number_access_info_cb, item);
-	} else {
-		elm_access_info_cb_set(elm_object_item_access_object_get(item),
-				ELM_ACCESS_INFO, __cst_cf_no_reply_access_info_cb, item);
-	}
-}
-#endif
 static Evas_Object *__cst_create_genlist_cf(void *data)
 {
 	retv_if(NULL == data, NULL);
@@ -931,10 +865,6 @@ static Evas_Object *__cst_create_genlist_cf(void *data)
 		ugd->cf_gl_item[index] = item_data->gl_item;
 	}
 
-#ifdef _CALL_SET_TTS_SUPPORT
-	evas_object_smart_callback_add(genlist, "realized",
-			__cst_call_forwarding_gl_realized_cb, NULL);
-#endif
 	return genlist;
 }
 

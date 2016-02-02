@@ -113,12 +113,6 @@ static Evas_Object *__cst_gl_answering_ending_icon_get(void *data, Evas_Object *
 								  __cst_on_changed_power_key_ends_call, item_data);
 		}
 
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* Unregister the access object */
-		if (elm_config_access_get() && item_data->eo_check) {
-			elm_access_object_unregister(item_data->eo_check);
-		}
-#endif
 		return item_data->eo_check;
 	}
 	return NULL;
@@ -265,18 +259,6 @@ static Eina_Bool __cst_answering_call_back_btn_clicked_cb(void *data, Elm_Object
 	return EINA_TRUE;
 }
 
-static void __cst_answering_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
-	CstGlItemData_t *item_data = elm_object_item_data_get(it);
-#ifdef _CALL_SET_TTS_SUPPORT
-	if (NULL != item_data && list_call_answering[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
-		elm_access_info_cb_set(elm_object_item_access_object_get(it),
-				ELM_ACCESS_INFO, _cst_util_on_off_btn_access_info_cb, it);
-	}
-#endif
-}
-
 static void __cst_create_answering_call(Evas_Object *parent, void *data)
 {
 	ENTER(__cst_create_answering_call);
@@ -293,8 +275,6 @@ static void __cst_create_answering_call(Evas_Object *parent, void *data)
 	navi_it = elm_naviframe_item_push(ugd->nf, I_(CST_STR_CALL_ANSWERING_ENDING),
 			back_btn, NULL, answering_gl, NULL);
 	cst_util_item_domain_text_translatable_set(navi_it, I_(CST_STR_CALL_ANSWERING_ENDING));
-	evas_object_smart_callback_add(answering_gl, "realized",
-				__cst_answering_gl_realized_cb, NULL);
 
 	elm_naviframe_item_pop_cb_set(navi_it, __cst_answering_call_back_btn_clicked_cb, ugd);
 

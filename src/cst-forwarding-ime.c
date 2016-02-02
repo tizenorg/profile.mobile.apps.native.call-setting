@@ -352,12 +352,6 @@ static Evas_Object *__cst_cf_ime_get_wait_time_sub_exp_icon(void *data, Evas_Obj
 
 		evas_object_smart_callback_add(radio, "changed",
 				__cst_cf_ime_gl_sel_waiting_time, item_data);
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* Unregister the access object */
-		if (elm_config_access_get() && radio) {
-			elm_access_object_unregister(radio);
-		}
-#endif
 		return radio;
 	}
 	return NULL;
@@ -407,27 +401,6 @@ static void __cst_cf_ime_gl_realized(void *data, Evas_Object *obj, void *ei)
 		elm_object_item_signal_emit(ei, "elm,state,edit,enabled", "");
 		elm_object_focus_set(ugd->dg_entry, EINA_TRUE);
 		elm_entry_cursor_end_set(ugd->dg_entry);
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* ===== Accessibility ==== */
-		if (elm_config_access_get()) {
-			Eina_List *access_list = NULL;
-			Evas_Object *entry = NULL;
-			Evas_Object *edit_icon = NULL;
-
-			elm_object_item_access_unregister(ei);
-			elm_object_item_access_order_unset(ei);
-			entry = elm_object_item_part_content_get(ei, "elm.icon.entry");
-			edit_icon = elm_object_item_part_content_get(ei, "elm.icon.edit");
-
-			elm_access_info_cb_set(entry, ELM_ACCESS_INFO, _cst_util_entry_number_access_info_cb, entry);
-			if (entry)
-				access_list = eina_list_append(access_list, entry);
-			if (edit_icon)
-				access_list = eina_list_append(access_list, edit_icon);
-			if (access_list)
-				elm_object_item_access_order_set(ei, access_list);
-		}
-#endif
 	}
 }
 

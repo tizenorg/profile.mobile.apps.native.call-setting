@@ -87,12 +87,6 @@ int _cst_util_system_settings_unset_changed_cb(system_settings_key_e key, system
  */
 int _cst_util_system_settings_unset_changed_cb_all(system_settings_key_e key);
 
-#ifdef _CALL_SET_TTS_SUPPORT
-char *_cst_util_entry_number_access_info_cb(void *data, Evas_Object *obj);
-char *_cst_util_2item_number_access_info_cb(void *data, Evas_Object *obj);
-char *_cst_util_on_off_btn_access_info_cb(void *data, Evas_Object *obj);
-void _cst_util_convert_tts_number(const char *text_pointer, char *access_entry_text);
-#endif
 Evas_Object *_cst_util_navi_back_btn_create(Evas_Object *naviframe);
 #endif
 

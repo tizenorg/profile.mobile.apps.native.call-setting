@@ -72,12 +72,6 @@ static void __cst_call_setting_gl_realized_cb(void *data, Evas_Object *obj, void
 	int i;
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	item_data = elm_object_item_data_get(it);
-#ifdef _CALL_SET_TTS_SUPPORT
-	if (NULL != item_data && list_dep1[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
-		elm_access_info_cb_set(elm_object_item_access_object_get(it),
-				ELM_ACCESS_INFO, _cst_util_on_off_btn_access_info_cb, it);
-	}
-#endif
 	nxt_item = elm_genlist_first_item_get(obj);
 
 	while (nxt_item != elm_genlist_last_item_get(obj)) {
@@ -217,12 +211,6 @@ static Evas_Object *__cst_gl_icon_get_phone(void *data, Evas_Object *obj, const 
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
 
 	if (!strcmp(part, "elm.icon.right") || !strcmp(part, "elm.icon")) {
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* Unregister the access object */
-		if (elm_config_access_get() && item_data->eo_check) {
-			elm_access_object_unregister(item_data->eo_check);
-		}
-#endif
 		return item_data->eo_check;
 	}
 	return NULL;

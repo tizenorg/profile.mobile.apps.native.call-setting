@@ -344,12 +344,6 @@ static Evas_Object *__cst_gl_icon_get_delete_list(void *data, Evas_Object *obj, 
 					__cst_check_changed_cb, item_data);
 			evas_object_propagate_events_set(item_data->eo_check, EINA_FALSE);
 		}
-#ifdef _CALL_SET_TTS_SUPPORT
-		/* Unregister the access object */
-		if (elm_config_access_get() && item_data->eo_check) {
-			elm_access_object_unregister(item_data->eo_check);
-		}
-#endif
 		return item_data->eo_check;
 	}
 
