@@ -1077,8 +1077,7 @@ static void more_btn_cb(void *data, Evas_Object* obj, void* event_info)
 	}
 
 	ugd->rejct_popup = elm_ctxpopup_add(ugd->win_main);
-	/* TODO: Should be uncommented when "more/default" style will be supported. */
-	/*elm_object_style_set(ugd->rejct_popup, "more/default");*/
+	elm_object_style_set(ugd->rejct_popup, "more/default");
 	evas_object_smart_callback_add(ugd->rejct_popup, "dismissed",
 			NULL, NULL);
 	eext_object_event_callback_add(ugd->rejct_popup, EEXT_CALLBACK_BACK, __cst_Reject_msg_dismiss_popup_more_cb_wrapper, data);
