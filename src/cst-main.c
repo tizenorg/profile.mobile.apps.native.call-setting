@@ -21,9 +21,6 @@
 #include <Eina.h>
 #include <vconf.h>
 #include <app.h>
-#ifdef _CALL_SET_SEARCH_SUPPORT
-#include <setting-cfg.h>
-#endif	/* _CALL_SET_SEARCH_SUPPORT */
 #include "cst-common.h"
 #include "cst-debug.h"
 #include "cst-common-string.h"
@@ -36,85 +33,6 @@
 #include "cst-more-call-setting.h"
 #include "cst-waiting.h"
 #include <efl_extension.h>
-
-#ifdef _CALL_SET_SEARCH_SUPPORT
-
-/**
- *  Call-Setting Search item data
- */
-typedef struct {
-    char *key_name;               /** key name */
-    char *ug_args;                /** UG path or hyperlink */
-    char *icon_path;              /** icon path */
-    int item_type;                /** view name - 2depth search */
-    void *data;					  /** app-data */
-} CST_Search_Items_t;
-
-static CST_Search_Items_t cst_screen_array[] = {
-	/*Auto reject list*/
-	{"IDS_CST_HEADER_CALL_BLOCK_LIST_ABB", "viewtype:frontpage;keyword:IDS_CST_HEADER_CALL_BLOCK_LIST_ABB", IMG_Call, 5, NULL},
-
-	/*Auto reject mode*/
-	{"IDS_CST_HEADER_AUTO_REJECT_MODE", "viewtype:frontpage;keyword:IDS_CST_HEADER_AUTO_REJECT_MODE", IMG_Call, 5, NULL},
-
-	/*Call rejection*/
-	{"IDS_CST_HEADER_CALL_REJECTION", "viewtype:frontpage;keyword:IDS_CST_HEADER_CALL_REJECTION", IMG_Call, 5, NULL},
-
-	/*Rejection messages*/
-	{"IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB", "viewtype:frontpage;keyword:IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB", IMG_Call, 5, NULL},
-
-	/* Answering/Ending Calls */
-	{"IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB", "viewtype:frontpage;keyword:IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB", IMG_Call, 5, NULL},
-	{"IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS", "viewtype:frontpage;keyword:IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS", IMG_Call, 15, NULL},
-	{"IDS_CAM_BODY_VOICE_CONTROL_ABB", "viewtype:frontpage;keyword:IDS_CAM_BODY_VOICE_CONTROL_ABB", IMG_Call, 15, NULL},
-	{"IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2", "viewtype:frontpage;keyword:IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2", IMG_Call, 15, NULL},
-
-	/*Screen off in calls*/
-	{"IDS_CST_BODY_SCREEN_OFF_IN_CALLS_ABB", "viewtype:frontpage;keyword:IDS_CST_BODY_SCREEN_OFF_IN_CALLS_ABB", IMG_Call, 15, NULL},
-
-	/*Call alerts*/
-	{"IDS_CST_MBODY_CALL_ALERTS", "viewtype:frontpage;keyword:IDS_CST_MBODY_CALL_ALERTS", IMG_Call, 5, NULL},
-	{"IDS_CST_MBODY_ANSWER_VIBRATION", "viewtype:frontpage;keyword:IDS_CST_MBODY_ANSWER_VIBRATION", IMG_Call, 15, NULL},
-	{"IDS_CST_MBODY_CALL_END_VIBRATION", "viewtype:frontpage;keyword:IDS_CST_MBODY_CALL_END_VIBRATION", IMG_Call, 15, NULL},
-	{"IDS_CST_BODY_CALL_CONNECT_TONE", "viewtype:frontpage;keyword:IDS_CST_BODY_CALL_CONNECT_TONE", IMG_Call, 15, NULL},
-	{"IDS_CST_BODY_MINUTE_REMINDERS_ABB", "viewtype:frontpage;keyword:IDS_CST_BODY_MINUTE_REMINDERS_ABB", IMG_Call, 15, NULL},
-	{"IDS_CST_BODY_CALL_END_TONE", "viewtype:frontpage;keyword:IDS_CST_BODY_CALL_END_TONE", IMG_Call, 15, NULL},
-	{"IDS_CST_BODY_ALERTS_ON_CALL", "viewtype:frontpage;keyword:IDS_CST_BODY_ALERTS_ON_CALL", IMG_Call, 15, NULL},
-
-	/*Call accessories*/
-	{"IDS_CST_BODY_CALL_ACCESSORIES", "viewtype:frontpage;keyword:IDS_CST_BODY_CALL_ACCESSORIES", IMG_Call, 5, NULL},
-	{"IDS_CST_MBODY_AUTOMATIC_ANSWERING", "viewtype:frontpage;keyword:IDS_CST_MBODY_AUTOMATIC_ANSWERING", IMG_Call, 15, NULL},
-	{"IDS_CST_MBODY_AUTOMATIC_ANSWERING_TIMER", "viewtype:frontpage;keyword:IDS_CST_MBODY_AUTOMATIC_ANSWERING_TIMER", IMG_Call, 5, NULL},
-	{"IDS_CST_MBODY_OUTGOING_CALL_CONDITIONS", "viewtype:frontpage;keyword:IDS_CST_MBODY_OUTGOING_CALL_CONDITIONS", IMG_Call, 5, NULL},
-	{"IDS_CST_MBODY_OUTGOING_CALL_TYPE", "viewtype:frontpage;keyword:IDS_CST_MBODY_OUTGOING_CALL_TYPE", IMG_Call, 5, NULL},
-	{"IDS_CST_BODY_INCOMING_CALL_SOUND_DEVICE_ABB", "viewtype:frontpage;keyword:IDS_CST_BODY_INCOMING_CALL_SOUND_DEVICE_ABB", IMG_Call, 5, NULL},
-
-	/*Additional Settings*/
-	{"IDS_CST_HEADER_ADDITIONAL_SETTINGS", "viewtype:frontpage;keyword:IDS_CST_HEADER_ADDITIONAL_SETTINGS", IMG_Call, 5, NULL},
-	{"IDS_CST_MBODY_MY_CALLER_ID", "viewtype:frontpage;keyword:IDS_CST_MBODY_MY_CALLER_ID", IMG_Call, 5, NULL},
-	{"IDS_CST_BODY_AUTO_REDIAL", "viewtype:frontpage;keyword:IDS_CST_BODY_AUTO_REDIAL", IMG_Call, 15, NULL},
-
-	/*Call waiting*/
-	{"IDS_CST_BODY_CALL_WAITING", "viewtype:frontpage;keyword:IDS_CST_BODY_CALL_WAITING", IMG_Call, 5, NULL},
-
-	/*Ringtones and keypad tones*/
-	{"IDS_ST_BODY_SOUNDS", "viewtype:frontpage;keyword:IDS_ST_BODY_SOUNDS", IMG_Call, 5, NULL},
-	{"IDS_COM_BODY_RINGTONES", "viewtype:frontpage;keyword:IDS_COM_BODY_RINGTONES", IMG_Call, 5, NULL},
-	{"IDS_ST_BODY_VIBRATIONS", "viewtype:frontpage;keyword:IDS_ST_BODY_VIBRATIONS", IMG_Call, 5, NULL},
-	{"IDS_ST_HEADER_KEYPAD_TONES", "viewtype:frontpage;keyword:IDS_ST_HEADER_KEYPAD_TONES", IMG_Call, 15, NULL},
-
-	/*Personalize call sound*/
-	{"IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB", "viewtype:frontpage;keyword:IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB", IMG_Call, 5, NULL},
-
-	/*Voice mail number*/
-    {"IDS_CST_BODY_VOICE_MAIL_NUMBER", "viewtype:frontpage;keyword:IDS_CST_BODY_VOICE_MAIL_NUMBER", IMG_Call, 5, NULL}
-};
-
-#ifndef UG_MODULE_API
-#define UG_MODULE_API __attribute__ ((visibility("default")))
-#endif	/* !UG_MODULE_API */
-
-#endif	/* _CALL_SET_SEARCH_SUPPORT */
 
 static Evas_Object *__cst_create_content(Evas_Object *parent, CstUgData_t *ugd)
 {
@@ -522,24 +440,3 @@ CST_MODULE_EXPORT int setting_plugin_reset(app_control_h app_control, void *priv
 
 	return ret;
 }
-
-#ifdef _CALL_SET_SEARCH_SUPPORT
-UG_MODULE_API int setting_plugin_search_init(app_control_h app_control, void *priv,
-		char **applocale)
-{
-	*applocale = strdup("ug-call-setting");
-
-    Eina_List **pplist = (Eina_List **)priv;
-    int i = 0;
-    int size = sizeof(cst_screen_array)/sizeof(cst_screen_array[0]);
-
-    for (i = 0; i < size; i++) {
-		void *node = setting_plugin_search_item_add(
-				cst_screen_array[i].key_name, cst_screen_array[i].ug_args, NULL,
-				cst_screen_array[i].item_type,  cst_screen_array[i].data);
-		*pplist = eina_list_append(*pplist, node);
-    }
-
-    return 0;
-}
-#endif	/* _CALL_SET_SEARCH_SUPPORT */
