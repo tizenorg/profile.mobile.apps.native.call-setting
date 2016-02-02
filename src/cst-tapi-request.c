@@ -44,7 +44,6 @@ void _cst_register_tel_event(void *data)
 		return;
 	}
 
-#ifdef _TIZEN_LITE_CODE
 	char **cp_list = NULL;
 
 	cp_list = tel_get_cp_name_list();
@@ -68,12 +67,6 @@ void _cst_register_tel_event(void *data)
 	if (cp_list) {
 		g_strfreev(cp_list);
 	}
-#else
-	ugd->tapi_handle = tel_init(NULL);
-	if (ugd->tapi_handle == NULL) {
-		ERR("tel_init() failed.");
-	}
-#endif /* _TIZEN_LITE_CODE */
 
 	LEAVE();
 }
@@ -89,7 +82,6 @@ void _cst_deregister_tel_event(void *data)
 		return;
 	}
 
-#ifdef _TIZEN_LITE_CODE
 	if (ugd->sim1_tapi_handle) {
 		ret = tel_deinit(ugd->sim1_tapi_handle);
 		if (ret != TAPI_API_SUCCESS) {
@@ -105,20 +97,10 @@ void _cst_deregister_tel_event(void *data)
 		}
 	}
 	ugd->sim2_tapi_handle = NULL;
-#else
-	if (ugd->tapi_handle) {
-		ret = tel_deinit(ugd->tapi_handle);
-		if (ret != TAPI_API_SUCCESS) {
-			ERR("tel_deinit failed (%d)\n", ret);
-		}
-	}
-	ugd->tapi_handle = NULL;
-#endif /* _TIZEN_LITE_CODE */
 
 	LEAVE();
 }
 
-#ifdef _TIZEN_LITE_CODE
 void _cst_update_tapi_handle_by_simslot(void *data, CstSimSlot_t slot_id)
 {
 	ENTER(_cst_update_tapi_handle_by_simslot);
@@ -206,7 +188,6 @@ Eina_Bool _cst_is_sim_present_by_simslot(void *data, CstSimSlot_t slot_id)
 
 	return ret;
 }
-#endif /* _TIZEN_LITE_CODE */
 
 static int __cst_get_tapi_req_ss_class(int basic_service_code)
 {

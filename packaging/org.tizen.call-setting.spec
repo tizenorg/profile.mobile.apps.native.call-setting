@@ -75,11 +75,6 @@ cmake . \
         -DAPP_RES_IMAGE_DIR=%{_app_res_image_dir} \
         -DAPP_RES_LOCALE_DIR=%{_app_res_locale_dir} \
         -DSHARE_PACKAGES_DIR=%{_share_packages_dir} \
-%if 0%{?sec_product_feature_app_lite}
-        -D_ENABLE_TIZEN_LITE_CODE:BOOL=OFF
-%else
-        -D_ENABLE_TIZEN_LITE_CODE:BOOL=ON
-%endif
 
 make %{?_smp_mflags}
 

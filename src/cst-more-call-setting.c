@@ -222,10 +222,9 @@ static Evas_Object *__cst_gl_icon_get_more_cst(void *data, Evas_Object *obj, con
 {
 	retv_if(NULL == data, NULL);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-#ifdef _TIZEN_LITE_CODE
 	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
 	retv_if(NULL == ugd, NULL);
-#endif/*Tizen Lite Code*/
+
 	if (!strcmp(part, "elm.icon.right") || !strcmp(part, "elm.icon")
 		|| !strcmp(part, "elm.swallow.end")) {
 		if (list_more_call_setting[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
@@ -301,7 +300,6 @@ static char *__cst_gl_label_get_expandable(void *data, Evas_Object *obj, const c
 	} else if (!strcmp(part, "elm.text.sub")) {
 		int value = 0;
 		if (CST_STR_SHOW_MY_CALLER_ID == list_more_call_setting[item_data->index].str_id) {
-#ifdef _TIZEN_LITE_CODE
 			CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
 			Eina_Bool result;
 			if (ugd->sel_sim == CST_SELECTED_SIM1) {
@@ -309,9 +307,6 @@ static char *__cst_gl_label_get_expandable(void *data, Evas_Object *obj, const c
 			} else {
 				result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE2, &value);
 			}
-#else
-			Eina_Bool result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE, &value);
-#endif/*Tizen Lite Code*/
 
 			if (result == EINA_FALSE) {
 				ERR("_cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE) failed!!!");
@@ -380,7 +375,6 @@ static void __cst_gl_sel_show_my_number(void *data, Evas_Object *obj, void *even
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
-#ifdef _TIZEN_LITE_CODE
 
 	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
@@ -394,19 +388,12 @@ static void __cst_gl_sel_show_my_number(void *data, Evas_Object *obj, void *even
 		evas_object_del(caller_id_popup);
 		caller_id_popup = NULL;
 		ugd->rdg_show_my_number = NULL;
-#else
-	_cst_vconf_set_int(VCONFKEY_TELEPHONY_SS_CLI_STATE,
-					   (int)list_dep2_show_my_number[item_data->index].func);
-#endif/*Tizen Lite Code*/
-	return;
 }
 
-#ifdef _TIZEN_LITE_CODE
 static void __cst_show_my_number_radio_btn_mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
 	__cst_gl_sel_show_my_number(data, obj, event_info);
 }
-#endif
 
 static char *__cst_gl_label_get_sub_exp(void *data, Evas_Object *obj, const char *part)
 {
@@ -440,7 +427,6 @@ static Evas_Object *__cst_gl_icon_get_sub_exp(void *data, Evas_Object *obj, cons
 				elm_radio_state_value_set(ugd->rdg_show_my_number, -1);
 				elm_radio_value_set(ugd->rdg_show_my_number, -1);
 			}
-#ifdef _TIZEN_LITE_CODE
 			if (ugd->sel_sim == CST_SELECTED_SIM1) {
 				radio = _cst_create_radio_icon(obj, ugd->rdg_show_my_number,
 						(long)list_dep2_show_my_number[item_data->index].func, 0,
@@ -452,13 +438,6 @@ static Evas_Object *__cst_gl_icon_get_sub_exp(void *data, Evas_Object *obj, cons
 			}
 			evas_object_event_callback_add(radio, EVAS_CALLBACK_MOUSE_UP,
 				__cst_show_my_number_radio_btn_mouse_up_cb, item_data);
-#else
-			radio = _cst_create_radio_icon(obj, ugd->rdg_show_my_number,
-										   (int)list_dep2_show_my_number[item_data->index].func, 0,
-										   VCONFKEY_TELEPHONY_SS_CLI_STATE);
-			evas_object_smart_callback_add(radio, "changed",
-					__cst_gl_sel_show_my_number, item_data);
-#endif/*Tizen Lite Code*/
 		} else {
 			DBG("Unknown parent");
 			return NULL;
@@ -475,16 +454,13 @@ static void __cst_more_caller_id_changed_cb(keynode_t *node, void *data)
 	ret_if(NULL == data);
 	int value;
 	CstUgData_t *ugd = (CstUgData_t *)data;
-#ifdef _TIZEN_LITE_CODE
 	Eina_Bool result;
 	if (ugd->sel_sim == CST_SELECTED_SIM1) {
 		result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE, &value);
 	} else {
 		result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE2, &value);
 	}
-#else
-	Eina_Bool result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE, &value);
-#endif/*Tizen Lite*/
+
 	DBG("value = %d", value);
 	if (result == EINA_FALSE) {
 		ERR("_cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE) failed!!!");
@@ -587,10 +563,8 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 
 		vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE,
 				__cst_more_caller_id_changed_cb, ugd);
-#ifdef _TIZEN_LITE_CODE
 		vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2,
 				__cst_more_caller_id_changed_cb, ugd);
-#endif/*Tizen Lite Code*/
 	}
 }
 
@@ -687,10 +661,9 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 			if (CST_STR_SHOW_MY_CALLER_ID == list_more_call_setting[i].str_id) {
 				vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE,
 						_cst_vconfkey_change_notify_cb, item_data->gl_item);
-#ifdef _TIZEN_LITE_CODE
+
 				vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2,
 						_cst_vconfkey_change_notify_cb, item_data->gl_item);
-#endif/*Tizen Lite Code*/
 			} else {
 				if (!_cst_check_dual_sim_status(ugd)) {
 					DBG("No SIMs inserted!!!");
@@ -728,7 +701,6 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 	return genlist;
 }
 
-#ifdef _TIZEN_LITE_CODE
 static void __cst_more_settings_sim1_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
@@ -776,7 +748,6 @@ static void __cst_more_settings_sim2_sel_cb(void *data, Evas_Object *obj, void *
 							__cst_on_update_cw_state, ugd->cw_gl_item_data, -1, ugd);
 	}
 }
-#endif /* _TIZEN_LITE_CODE */
 
 void _cst_on_click_more_call_setting(void *data, Evas *evas, Evas_Object *obj, void *event_info)
 {
@@ -824,16 +795,10 @@ void _cst_on_click_more_call_setting(void *data, Evas *evas, Evas_Object *obj, v
 
 	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
 
-#ifdef _TIZEN_LITE_CODE
 	ugd->more_cst_navi_it = elm_naviframe_item_push(ugd->nf, I_(CST_STR_MORE_CALL_SETTINGS),
 			back_btn, NULL, morecallsetting_gl, "tabbar");
 
 	_cst_create_dual_sim_tabbar(ugd->more_cst_navi_it, sim1_cb, sim2_cb, ugd);
-#else
-	ugd->more_cst_navi_it = elm_naviframe_item_push(ugd->nf, I_(CST_STR_MORE_CALL_SETTINGS),
-			back_btn, NULL, morecallsetting_gl, NULL);
-
-#endif /* _TIZEN_LITE_CODE */
 
 	if (ugd->cw_gl_item_data) {
 		ugd->cw_state = CST_SS_STATE_PROGRESS;
@@ -863,8 +828,6 @@ void _cst_destroy_more_call_setting(void)
 
 	vconf_ignore_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE, _cst_vconfkey_change_notify_cb);
 	vconf_ignore_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE, __cst_more_caller_id_changed_cb);
-#ifdef _TIZEN_LITE_CODE
 	vconf_ignore_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2, __cst_more_caller_id_changed_cb);
 	vconf_ignore_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2, _cst_vconfkey_change_notify_cb);
-#endif/*Tizen Lite Code*/
 }

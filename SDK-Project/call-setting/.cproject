@@ -209,7 +209,6 @@
 									<listOptionValue builtIn="false" value="Native_API"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1766419885" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_TIZEN_LITE_CODE"/>
 									<listOptionValue builtIn="false" value="UG_WAYLAND"/>
 									<listOptionValue builtIn="false" value="&quot;UGNAME=&quot;\&quot;call-setting\&quot;&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;EDJDIR=&quot;\&quot;/usr/ug/res/edje/ug-call-setting\&quot;&quot;&quot;"/>
@@ -405,7 +404,6 @@
 									<listOptionValue builtIn="false" value="Native_API"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.785932052" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_TIZEN_LITE_CODE"/>
 									<listOptionValue builtIn="false" value="UG_WAYLAND"/>
 									<listOptionValue builtIn="false" value="&quot;UGNAME=&quot;\&quot;call-setting\&quot;&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;EDJDIR=&quot;\&quot;/usr/ug/res/edje/ug-call-setting\&quot;&quot;&quot;"/>
@@ -590,7 +588,6 @@
 									<listOptionValue builtIn="false" value="Native_API"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.2146328476" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_TIZEN_LITE_CODE"/>
 									<listOptionValue builtIn="false" value="UG_WAYLAND"/>
 									<listOptionValue builtIn="false" value="&quot;UGNAME=&quot;\&quot;call-setting\&quot;&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;EDJDIR=&quot;\&quot;/usr/ug/res/edje/ug-call-setting\&quot;&quot;&quot;"/>
@@ -701,7 +698,6 @@
 									<listOptionValue builtIn="false" value="Native_API"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1212634468" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="_TIZEN_LITE_CODE"/>
 									<listOptionValue builtIn="false" value="UG_WAYLAND"/>
 									<listOptionValue builtIn="false" value="&quot;UGNAME=&quot;\&quot;call-setting\&quot;&quot;&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;EDJDIR=&quot;\&quot;/usr/ug/res/edje/ug-call-setting\&quot;&quot;&quot;"/>

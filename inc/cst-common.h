@@ -180,12 +180,10 @@ enum {
 	CST_IN_CALL_SOUND_EQ_MY_SOUND,
 };
 
-#ifdef _TIZEN_LITE_CODE
 typedef enum {
 	CST_SELECTED_SIM1,
 	CST_SELECTED_SIM2,
 } CstSimSlot_t;
-#endif /*Tizen Lite code */
 
 enum {
 	CST_STATUS_ACTIVATED,
@@ -433,12 +431,11 @@ typedef struct {
 	/* Voice mail */
 	msg_handle_t msg_handle;
 	Elm_Object_Item *vm_gl_item;
-#ifdef _TIZEN_LITE_CODE
+
 	/* more-settings selected sim */
 	int sel_sim;
 	Elm_Object_Item *sim1_btn;
 	Elm_Object_Item *sim2_btn;
-#endif /*Tizen lite code */
 	int call_type;
 	int cb_flavour;
 	int cf_flavour;
@@ -450,10 +447,8 @@ typedef struct {
 
 	/* Tapi Handle */
 	TapiHandle *tapi_handle; /*Handle that point's to the SIM on which it will be operated on*/
-#ifdef _TIZEN_LITE_CODE
 	TapiHandle *sim1_tapi_handle;
 	TapiHandle *sim2_tapi_handle;
-#endif
 	int sim_lock_status;
 	int sim_lock_retry_account;
 	int rej_msg_seg_size;

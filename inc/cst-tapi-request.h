@@ -47,10 +47,8 @@ void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int 
 void _cst_cancel_all_ss_request(void *data);
 void _cst_change_password_ss_request(CallSettingSSReq_t *req, void *func);
 
-#ifdef _TIZEN_LITE_CODE
 void _cst_update_tapi_handle_by_simslot(void *data, CstSimSlot_t slot_id);
 Eina_Bool _cst_is_sim_present_by_simslot(void *data, CstSimSlot_t slot_id);
-#endif /* _TIZEN_LITE_CODE */
 
 #endif  /* _CST_TAPI_REQUEST_H_ */
 

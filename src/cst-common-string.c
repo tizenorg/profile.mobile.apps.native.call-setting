@@ -140,10 +140,8 @@ static const char *cst_str[] = {
 	N_("IDS_ST_BODY_PHONEPROFILES_SILENT"),
 	N_("IDS_VCALL_BODY_BT_HEADSET"),
 	N_("IDS_CST_MBODY_CALL_ALERTS"),
-#ifdef _TIZEN_LITE_CODE
 	N_("Incoming call notifications"),
 	N_("Display notification pop-ups for incoming calls when the screen is on"),
-#endif /*Tizen lite code */
 	N_("IDS_CST_MBODY_CALL_VIBRATIONS"),
 	N_("IDS_CST_MBODY_ANSWER_VIBRATION"),
 	N_("IDS_CST_BODY_THE_CALLERS_DEVICE_VIBRATES_WHEN_RECIPIENTS_ANSWER_THE_PHONE"),

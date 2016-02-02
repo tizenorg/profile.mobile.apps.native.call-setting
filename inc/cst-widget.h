@@ -85,10 +85,8 @@ Evas_Object *_cst_create_2btn_check_popup(Evas_Object *parent, void *data,
 		const char *info_text, const char *popup_title, Evas_Smart_Cb cb, Evas_Smart_Cb cancl_cb, void *cb_data, Evas_Smart_Cb check_callback_fn);
 Eina_Bool _cst_popup_is_check_set(void *data);
 void _cst_create_toast_popup(const char *text);
-#ifdef _TIZEN_LITE_CODE
 void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 		sim1_func, Evas_Smart_Cb sim2_func, void *data);
-#endif /* _TIZEN_LITE_CODE */
 
 #endif	/* _CALL_SETTING_WIDGET_H_ */
 

@@ -1189,7 +1189,6 @@ void _cst_destroy_all_items(CstUgData_t *ugd)
 
 }
 
-#ifdef _TIZEN_LITE_CODE
 static void __cst_set_toolbar_item_icon(Elm_Object_Item *item, int simIndex)
 {
 	if (simIndex == 0) {
@@ -1260,5 +1259,3 @@ void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 		elm_object_item_disabled_set(ugd->sim2_btn, EINA_TRUE);
 	}
 }
-
-#endif /* _TIZEN_LITE_CODE */
