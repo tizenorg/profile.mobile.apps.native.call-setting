@@ -71,8 +71,6 @@ static Evas_Object *__cst_create_content(Evas_Object *parent, CstUgData_t *ugd)
 		DBG("Its a CST_UG_REQ_CALL_WAITING UG request.");
 		_cst_on_click_more_call_setting(ugd, NULL, NULL, NULL);
 		break;
-	case CST_UG_REQ_VOICE_MAIL:
-		break;
 	default:
 		_cst_create_call_setting(ugd);
 		break;
@@ -126,7 +124,6 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h ap
 	WARN(">>");
 	Evas_Object *parent, *content;
 	CstUgData_t *ugd;
-	char *simslot_id = NULL;
 
 	if (!ug || !priv) {
 		return NULL;
@@ -161,28 +158,6 @@ static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h ap
 
 	/* Register the telephony ss events */
 	_cst_register_tel_event(ugd);
-
-	if (ugd->ug_req_type == CST_UG_REQ_VOICE_MAIL) {
-		app_control_get_extra_data(app_control, CST_UG_BUNDLE_VOICEMAIL_SIMSLOT, &simslot_id);
-		if (NULL == simslot_id) {
-			return NULL;
-		}
-		int sim_id = atoi(simslot_id);
-		free(simslot_id);
-		if (0 == sim_id) {
-			ugd->sel_sim = CST_SELECTED_SIM1;
-			_cst_update_tapi_handle_by_simslot(ugd, CST_SELECTED_SIM1);
-		} else if (1 == sim_id) {
-			ugd->sel_sim = CST_SELECTED_SIM2;
-			_cst_update_tapi_handle_by_simslot(ugd, CST_SELECTED_SIM2);
-		} else {
-			DBG("Invalid SIM Index = %d", sim_id);
-			return NULL;
-		}
-	}
-
-	/* Get message handle */
-	_cst_open_msg_handle(ugd);
 
 	ugd->bg = __cst_create_bg(parent);
 	elm_object_style_set(ugd->bg, "transparent");
@@ -234,7 +209,6 @@ static void __cst_on_destroy(ui_gadget_h ug, app_control_h app_control, void *pr
 	ret_if(!ug);
 
 	_cst_deregister_tel_event(ugd);
-	_cst_close_msg_handle(ugd);
 	_cst_unlisten_vconf_change();
 	_cst_destroy_all_items(ugd);
 
@@ -317,47 +291,6 @@ static void __cst_on_key_event(ui_gadget_h ug, enum ug_key_event event, app_cont
 	}
 }
 
-static void __cst_on_event(ui_gadget_h ug, enum ug_event event, app_control_h app_control, void *priv)
-{
-	ENTER(__cst_on_event);
-	CstUgData_t *ugd;
-
-	if (!ug || !priv) {
-		return;
-	}
-
-	ugd = priv;
-
-	switch (event) {
-	case UG_EVENT_LOW_MEMORY:
-		DBG("UG_EVENT_LOW_MEMORY");
-		break;
-	case UG_EVENT_LOW_BATTERY:
-		DBG("UG_EVENT_LOW_BATTERY");
-		break;
-	case UG_EVENT_LANG_CHANGE:
-		DBG("UG_EVENT_LANG_CHANGE");
-		break;
-	case UG_EVENT_ROTATE_PORTRAIT:
-		DBG("UG_EVENT_ROTATE_PORTRAIT");
-		/* fall-through */
-	case UG_EVENT_ROTATE_PORTRAIT_UPSIDEDOWN:
-		DBG("UG_EVENT_ROTATE_PORTRAIT_UPSIDEDOWN");
-		ugd->b_landscape_mode = EINA_FALSE;
-		break;
-	case UG_EVENT_ROTATE_LANDSCAPE:
-		DBG("UG_EVENT_ROTATE_LANDSCAPE");
-		/* fall-through */
-	case UG_EVENT_ROTATE_LANDSCAPE_UPSIDEDOWN:
-		DBG("UG_EVENT_ROTATE_LANDSCAPE_UPSIDEDOWN");
-		ugd->b_landscape_mode = EINA_TRUE;
-		break;
-	default:
-		break;
-	}
-	LEAVE();
-}
-
 CST_MODULE_EXPORT int UG_MODULE_INIT(struct ug_module_ops *ops)
 {
 	ENTER(UG_MODULE_INIT);
@@ -379,7 +312,7 @@ CST_MODULE_EXPORT int UG_MODULE_INIT(struct ug_module_ops *ops)
 	ops->resume = __cst_on_resume;
 	ops->destroy = __cst_on_destroy;
 	ops->message = __cst_on_message;
-	ops->event = __cst_on_event;
+	ops->event = NULL;
 	ops->key_event = __cst_on_key_event;
 	ops->priv = ugd;
 	ops->opt = UG_OPT_INDICATOR_ENABLE;

@@ -38,10 +38,8 @@ static Evas_Object *answering_gl = NULL;
 static CstGlItemDisplayInfo_t list_call_answering[] = {
 	{1, CST_STR_ANSWER_CALLS_BY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_GROUP_INDEX, NULL},
 	{1, CST_STR_PRESSING_THE_HOME_KEY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_1TEXT_ONOFF, __cst_on_click_onoff},
-	/* {1, CST_STR_ACCEPT_INCOMING_CALLS_BY_PRESSING_THE_HOME_KEY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_HELP_TEXT, NULL}, */
 	{1, CST_STR_END_CALLS_BY, ELM_GENLIST_ITEM_TREE, CST_GL_ITEM_GROUP_INDEX, NULL},
 	{1, CST_STR_PRESSING_THE_POWER_KEY, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_1TEXT_ONOFF, __cst_on_click_power_key_ends_call},
-	/* {1, CST_STR_PRESS_POWER_KEY_TO_ENDS_CALLS, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_HELP_TEXT, NULL}, */
 	{1, -1, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_NONE, NULL},
 };
 
@@ -226,13 +224,6 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 						_cst_vconfkey_change_notify_cb, item_data->gl_item);
 			}
 
-		} else if (list_call_answering[index].style == CST_GL_ITEM_HELP_TEXT) {
-
-			item_data->gl_item = elm_genlist_item_append(genlist, itc_help,
-					(void *)item_data, NULL, list_call_answering[index].flags,
-					NULL, NULL);
-
-			elm_genlist_item_select_mode_set(item_data->gl_item, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
 		} else {
 			DBG("No style");
 			free(item_data);

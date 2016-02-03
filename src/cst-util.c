@@ -26,8 +26,6 @@
 #include <Evas.h>
 #include <feedback.h>
 #include <vconf.h>
-#include <msg_types.h>
-#include <msg.h>
 #include <contacts.h>
 #include <metadata_extractor.h>
 #include <telephony.h>
@@ -58,18 +56,10 @@ gboolean _cst_core_util_strcpy(char *pbuffer, int buf_count, const char *pstring
 		DBG("buf_count is zero!!");
 		return FALSE;
 	}
-#ifdef _NO_USE_STRCPY_
-	if ((buf_count - 1) >= (int)strlen(pstring)) {
-		strcpy(pbuffer, pstring);
-	} else {
-		DBG("pbuffer size is smaller than pstring!!");
-		strncpy(pbuffer, pstring, (buf_count - 1));
-		pbuffer[buf_count - 1] = '\0';
-	}
-#else
+
 	strncpy(pbuffer, pstring, (buf_count - 1));
 	pbuffer[buf_count - 1] = '\0';
-#endif
+
 	return TRUE;
 }
 
@@ -89,15 +79,6 @@ void cst_util_domain_translatable_part_text_set(Evas_Object *obj, const char* pa
 		domain = "sys_string";
 
 	elm_object_domain_translatable_part_text_set(obj, part, domain, text);
-}
-
-void cst_util_item_domain_translatable_text_set(Elm_Object_Item *it, const char* text)
-{
-	char *domain = UGNAME;
-	if (text && strstr(text, "IDS_COM") && _cst_text_id_is_common(text))
-		domain = "sys_string";
-
-	elm_object_item_domain_translatable_text_set(it, domain, text);
 }
 
 void cst_util_item_domain_translatable_part_text_set(Elm_Object_Item *it, const char* part, const char* text)
@@ -327,84 +308,6 @@ void _cst_flight_mode_unlisten_setting_change_for_more_call_setting(void)
 	_cst_util_system_settings_unset_changed_cb(SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, _cst_flight_mode_changed_cb_for_call_waiting);
 }
 
-char *_cst_get_voice_mail_number(CstUgData_t *ugd)
-{
-	ENTER(_cst_get_voice_mail_number);
-	retv_if(ugd == NULL, NULL);
-	msg_error_t err = MSG_SUCCESS;
-	char vmail[CST_MAX_PHONE_NUMBER_LEN+1] = {0,};
-
-	msg_struct_t msg_struct = NULL;
-	msg_struct = msg_create_struct(MSG_STRUCT_SETTING_VOICE_MSG_OPT);
-
-	if (ugd->sel_sim == CST_SELECTED_SIM1) {
-		err = msg_set_int_value(msg_struct, MSG_VOICEMSG_SIM_INDEX_INT, 1);
-	} else {
-		err = msg_set_int_value(msg_struct, MSG_VOICEMSG_SIM_INDEX_INT, 2);
-	}
-	if (MSG_SUCCESS != err) {
-		ERR("msg_set_int_value failed !!");
-		msg_release_struct(&msg_struct);
-		return NULL;
-	}
-
-	err = msg_get_voice_msg_opt(ugd->msg_handle, msg_struct);
-	if (MSG_SUCCESS != err) {
-		DBG("msg_get_voice_msg_opt() is failed: %d", err);
-		msg_release_struct(&msg_struct);
-		return NULL;
-	}
-
-	err = msg_get_str_value(msg_struct, MSG_VOICEMSG_ADDRESS_STR, vmail, CST_MAX_PHONE_NUMBER_LEN);
-	if (MSG_SUCCESS != err) {
-		DBG("msg_get_str_value() is failed: %d", err);
-		msg_release_struct(&msg_struct);
-		return NULL;
-	}
-
-	msg_release_struct(&msg_struct);
-
-	if (strlen(vmail) < 1) {
-		return NULL;
-	}
-	return strdup(vmail);
-}
-
-Eina_Bool _cst_set_voice_mail_number(CstUgData_t *ugd, char *vm_num)
-{
-	ENTER(_cst_set_voice_mail_number);
-
-	msg_error_t err = MSG_SUCCESS;
-	Eina_Bool ret = EINA_TRUE;
-	retv_if((ugd == NULL), EINA_FALSE);
-
-	msg_struct_t msg_struct = NULL;
-	msg_struct = msg_create_struct(MSG_STRUCT_SETTING_VOICE_MSG_OPT);
-
-	if (ugd->sel_sim == CST_SELECTED_SIM1) {
-		err = msg_set_int_value(msg_struct, MSG_VOICEMSG_SIM_INDEX_INT, 1);
-	} else {
-		err = msg_set_int_value(msg_struct, MSG_VOICEMSG_SIM_INDEX_INT, 2);
-	}
-	if (MSG_SUCCESS != err) {
-		ERR("msg_get_voice_msg_opt failed !!");
-		msg_release_struct(&msg_struct);
-		ret = EINA_FALSE;
-		return ret;
-	}
-
-	if (MSG_SUCCESS != msg_set_str_value(msg_struct, MSG_VOICEMSG_ADDRESS_STR, vm_num, strlen(vm_num))) {
-		DBG("msg_set_str_value() is failed");
-		ret = EINA_FALSE;
-	} else if (MSG_SUCCESS != msg_set_voice_msg_opt(ugd->msg_handle, msg_struct)) {
-		DBG("msg_set_voice_msg_opt() is failed");
-		ret = EINA_FALSE;
-	}
-
-	msg_release_struct(&msg_struct);
-	return ret;
-}
-
 int _cst_parse_bundle(app_control_h app_control)
 {
 	int type = CST_UG_REQ_MAIN_SCREEN;
@@ -426,38 +329,14 @@ int _cst_parse_bundle(app_control_h app_control)
 		app_control_get_extra_data(app_control, CST_UG_BUNDLE_KEYWORD, &keyword); /* keyword : string STMS ID*/
 		if (keyword && viewtype) {
 			DBG("\n\n *** keyword = %s *** \n\n", keyword);
-			if (!strcmp(keyword, "IDS_CST_HEADER_CALL_BLOCK_LIST_ABB")) {
-				type = CST_UG_REQ_AUTO_REJECT_LIST;
-			} else if (!strcmp(keyword, "IDS_CST_HEADER_CALL_REJECTION") ||
-					!strcmp(keyword, "IDS_CST_HEADER_AUTO_REJECT_MODE")) {
-				type = CST_UG_REQ_AUTO_REJECT_MODE;
-			} else if (!strcmp(keyword, "IDS_CST_MBODY_REJECTION_MESSAGES")) {
+
+			if (!strcmp(keyword, "IDS_CST_MBODY_REJECTION_MESSAGES")) {
 				type = CST_UG_REQ_REJECT_MESSAGES;
-			} else if (!strcmp(keyword, "IDS_CST_BODY_VOICE_MAIL_NUMBER")) {
-				type = CST_UG_REQ_VOICE_MAIL;
 			} else if (!strcmp(keyword, "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB") ||
 					!strcmp(keyword, "IDS_CST_BODY_THE_HOME_KEY_ANSWERS_CALLS") ||
 					!strcmp(keyword, "IDS_CAM_BODY_VOICE_CONTROL_ABB") ||
 					!strcmp(keyword, "IDS_CST_BODY_THE_POWER_KEY_ENDS_CALLS_ABB2")) {
 				type = CST_UG_REQ_ANSWER_END_CALLS;
-			} else if (!strcmp(keyword, "IDS_CST_BODY_SCREEN_OFF_IN_CALLS_ABB") ||
-					!strcmp(keyword, "IDS_CST_BODY_USE_CALL_FAIL_OPTIONS")) {
-				type = CST_UG_REQ_MAIN_SCREEN;
-			} else if (!strcmp(keyword, "IDS_CST_MBODY_CALL_ALERTS") ||
-					!strcmp(keyword, "IDS_CST_MBODY_ANSWER_VIBRATION") ||
-					!strcmp(keyword, "IDS_CST_MBODY_CALL_END_VIBRATION") ||
-					!strcmp(keyword, "IDS_CST_BODY_CALL_CONNECT_TONE") ||
-					!strcmp(keyword, "IDS_CST_BODY_MINUTE_REMINDERS_ABB") ||
-					!strcmp(keyword, "IDS_CST_BODY_CALL_END_TONE") ||
-					!strcmp(keyword, "IDS_CST_BODY_ALERTS_ON_CALL")) {
-				type = CST_UG_REQ_CALL_ALERTS;
-			} else if (!strcmp(keyword, "IDS_CST_BODY_CALL_ACCESSORIES") ||
-					!strcmp(keyword, "IDS_CST_MBODY_AUTOMATIC_ANSWERING") ||
-					!strcmp(keyword, "IDS_CST_MBODY_AUTOMATIC_ANSWERING_TIMER") ||
-					!strcmp(keyword, "IDS_CST_MBODY_OUTGOING_CALL_CONDITIONS") ||
-					!strcmp(keyword, "IDS_CST_MBODY_OUTGOING_CALL_TYPE") ||
-					!strcmp(keyword, "IDS_CST_BODY_INCOMING_CALL_SOUND_DEVICE_ABB")) {
-				type = CST_UG_REQ_CALL_ACCESSORIES;
 			} else if (!strcmp(keyword, "IDS_CST_HEADER_ADDITIONAL_SETTINGS") ||
 					!strcmp(keyword, "IDS_CST_MBODY_MY_CALLER_ID") ||
 					!strcmp(keyword, "IDS_CST_BODY_AUTO_AREA_CODE_ABB") ||
@@ -465,13 +344,6 @@ int _cst_parse_bundle(app_control_h app_control)
 				type = CST_UG_REQ_ADDITIONAL_SETTINGS;
 			} else if (!strcmp(keyword, "IDS_CST_BODY_CALL_WAITING")) {
 				type = CST_UG_REQ_CALL_WAITING;
-			} else if (!strcmp(keyword, "IDS_ST_BODY_SOUNDS") ||
-					!strcmp(keyword, "IDS_COM_BODY_RINGTONES") ||
-					!strcmp(keyword, "IDS_ST_BODY_VIBRATIONS") ||
-					!strcmp(keyword, "IDS_ST_HEADER_KEYPAD_TONES")) {
-				type = CST_UG_REQ_RING_KEYPAD_TONES;
-			} else if (!strcmp(keyword, "IDS_CST_BODY_PERSONALISE_CALL_SOUND_ABB")) {
-				type = CST_UG_REQ_PERSONALIZE_CALL_SOUND;
 			}
 		}
 
@@ -608,28 +480,6 @@ void _cst_on_click_ime_contact_btn(void *data, Evas_Object *obj, void *event_inf
 			(const void *)data);
 }
 
-void _cst_open_msg_handle(CstUgData_t *ugd)
-{
-	ENTER(_cst_open_msg_handle);
-	ret_if(NULL == ugd);
-
-	msg_error_t msg_error = msg_open_msg_handle(&(ugd->msg_handle));
-	if (msg_error < CST_ERR_NONE) {
-		DBG("msg_open_msg_handle Failed : %d", msg_error);
-	}
-}
-
-void _cst_close_msg_handle(CstUgData_t *ugd)
-{
-	ENTER(_cst_close_msg_handle);
-	ret_if(NULL == ugd);
-
-	msg_error_t msg_error = msg_close_msg_handle(&(ugd->msg_handle));
-	if (msg_error < CST_ERR_NONE) {
-		DBG("msg_close_msg_handle Failed : %d", msg_error);
-	}
-}
-
 void _cst_unlisten_vconf_change(void)
 {
 	ENTER(_cst_unlisten_vconf_change);
@@ -693,43 +543,6 @@ Eina_Bool _cst_util_remove_invalid_chars_from_phone_num(const char *src_num,
 	SEC_DBG("* returned number [%s] *", dst_num);
 
 	return EINA_TRUE;
-}
-
-char *_cst_util_fetch_basename_from_path(char *path)
-{
-	ENTER(_cst_util_fetch_basename_from_path);
-
-	if (NULL == path || '\0' == path[0]) {
-		return NULL;	/* invalid arguement */
-	}
-	char *p = strrchr(path, '/');
-	if (!p) {
-		return (char *)g_strdup(path);	/*  cannot find '/' */
-	}
-	if ('\0' == p[1]) {
-		return NULL;	/* end with '/' */
-	}
-
-	return (char *)g_strdup(p + 1);
-}
-
-char *_cst_util_get_metadata_from_media_file(char *file_path)
-{
-	metadata_extractor_h metadata = NULL;
-
-	char *title = NULL;
-	int ret = metadata_extractor_create(&metadata);
-	if (ret == METADATA_EXTRACTOR_ERROR_NONE && metadata) {
-		ret = metadata_extractor_set_path(metadata, file_path);
-		if (ret == METADATA_EXTRACTOR_ERROR_NONE) {
-			ret = metadata_extractor_get_metadata(metadata, METADATA_TITLE, &title);
-			metadata_extractor_destroy(metadata);
-			return (char *)title;
-		}
-		metadata_extractor_destroy(metadata);
-   }
-
-	return NULL;
 }
 
 static Eina_List *keys_array[SYSTEM_SETTINGS_KEY_MAX];

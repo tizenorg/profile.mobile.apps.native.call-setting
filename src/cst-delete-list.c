@@ -27,7 +27,6 @@
 #include "cst-common-string.h"
 #include "cst-util.h"
 
-#include "msg.h"
 #include "cst-reject-msg.h"
 #include "cst-tapi-request.h"
 

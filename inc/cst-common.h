@@ -62,16 +62,12 @@
 #define CST_MAX_NUM_AUTO_REJECT_LIST 100
 #define CST_DISPLAY_NAME_LENGTH_MAX		(255+1)
 
-#define CST_TITLE_BTN_ICON_PLUS					IMG_DIR"/00_icon_plus.png"
-#define CST_TITLE_BTN_ICON_EDIT					IMG_DIR"/00_icon_edit.png"
-#define CST_TITLE_BTN_ICON_SELECT_ALL			IMG_DIR"/T01_title_icon_select_all.png"
 #define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
 
 /**
  * The key of request bundle for type.
  * \n Value : convert id to string by using \%d.
  */
-#define CST_UG_BUNDLE_VOICEMAIL_SIMSLOT "simslot"
 #define CST_UG_BUNDLE_TYPE "type"
 #define CST_UG_BUNDLE_VIEWTYPE "viewtype"
 #define CST_UG_BUNDLE_KEYWORD "keyword"
@@ -141,51 +137,10 @@ enum {
 	CST_GENLIST_ENTRY_ITEM2,
 };
 
-enum {
-	CST_ALERTS_ON_CALL_OFF,
-	CST_ALERTS_ON_CALL_SOUND,
-	CST_ALERTS_ON_CALL_VIBRATION,
-};
-
-enum {
-	CST_OUTGOING_CALL_CONDITIONS_PHONE_LOCKED,
-	CST_OUTGOING_CALL_CONDITIONS_PHONE_UNLOCKED,
-};
-
-enum {
-	CST_OUTGOING_CALLTYPE_LAST_CALL_LOG,
-	CST_OUTGOING_CALLTYPE_VOICE,
-	CST_OUTGOING_CALLTYPE_VIDEO,
-};
-
-enum {
-	CST_AUTO_ANSWER_2_SECONDS,
-	CST_AUTO_ANSWER_5_SECONDS,
-	CST_AUTO_ANSWER_10_SECONDS,
-};
-
-enum {
-	CST_ACCEPT_CALL_DEVICE_BT_HEADSET,
-	CST_ACCEPT_CALL_DEVICE_RECEIVER,
-};
-
-enum {
-	CST_IN_CALL_SOUND_EQ_OFF,
-	CST_IN_CALL_SOUND_EQ_SOFT_SOUND,
-	CST_IN_CALL_SOUND_EQ_CLEAR_SOUND,
-	CST_IN_CALL_SOUND_EQ_MY_SOUND,
-};
-
 typedef enum {
 	CST_SELECTED_SIM1,
 	CST_SELECTED_SIM2,
 } CstSimSlot_t;
-
-enum {
-	CST_STATUS_ACTIVATED,
-	CST_STATUS_DEACTIVATED,
-	CST_STATUS_UNKNOWN,
-};
 
 enum {
 	CST_CALLTYPE_VOICE,
@@ -235,31 +190,14 @@ enum {
 	CST_ERROR_NO_VOICEMAIL_NUM_CHANGED,
 	CST_ERROR_UNKNOWN,
 };
-enum {
-	CST_ITEM_1,
-	CST_ITEM_2,
-	CST_ITEM_3,
-	CST_ITEM_4,
-	CST_ITEM_5,
-};
 
 enum {
 	CST_GL_ITEM_TEXT,
-	CST_GL_ITEM_SUB_TEXT,
 	CST_GL_ITEM_GROUP_INDEX,
 	CST_GL_ITEM_1TEXT_ONOFF,
-	CST_GL_ITEM_1TEXT_ONOFF_PROGRESS,
 	CST_GL_ITEM_RADIO_1TEXT,
 	CST_GL_ITEM_EXPANDABLE,
-	CST_GL_ITEM_DG_SPERATOR,
-	CST_GL_ITEM_DG_TITLE,
-	CST_GL_ITEM_HELP_TEXT,
-	CST_GL_ITEM_2TEXT_ONOFF,
 	CST_GL_ITEM_2TEXT_ONOFF_PROGRESS,
-	CST_GL_ITEM_IMG_1TEXT,
-	CST_GL_ITEM_2TEXT,
-	CST_GL_ITEM_2TEXT_EXPANDABLE,
-	CST_GL_ITEM_2TEXT_1ICON,
 	CST_GL_ITEM_NONE,
 };
 
@@ -270,29 +208,10 @@ enum {
 
 enum {
 	CST_UG_REQ_MAIN_SCREEN = 0,
-
-	/* IMPORTANT NOTE: CST_UG_REQ_AUTO_REJECT_LIST value is "1",
-	 *  Donot modify this value. */
-	CST_UG_REQ_AUTO_REJECT_LIST,
-	CST_UG_REQ_AUTO_REJECT_MODE,
 	CST_UG_REQ_REJECT_MESSAGES,
 	CST_UG_REQ_ANSWER_END_CALLS,
-	CST_UG_REQ_CALL_ALERTS,
-	CST_UG_REQ_CALL_ACCESSORIES,
 	CST_UG_REQ_ADDITIONAL_SETTINGS,
 	CST_UG_REQ_CALL_WAITING,
-	CST_UG_REQ_RING_KEYPAD_TONES,
-	CST_UG_REQ_PERSONALIZE_CALL_SOUND,
-
-	/* IMPORTANT NOTE: CST_UG_REQ_VOICE_MAIL value is "11",
-	 *  passed by Phone app to launch call setting UG in voice mail edit mode.
-	 *  Donot modify this value. */
-	CST_UG_REQ_VOICE_MAIL = 11,
-	CST_UG_REQ_VIDEO_CALL_IMAGE,
-	/* IMPORTANT NOTE: CST_UG_REQ_DUAL_SIM_ALWAYS_ON value is "13",
-	 *  passed by SIM Manager app to launch call setting UG for dual sim always on feature.
-	 *  Donot modify this value. */
-	CST_UG_REQ_DUAL_SIM_ALWAYS_ON,
 };
 
 typedef enum {
@@ -308,14 +227,6 @@ typedef struct {
 	int style;
 	Evas_Object_Event_Cb func;
 } CstGlItemDisplayInfo_t;
-
-typedef struct {
-	char reject_number[CST_MAX_PHONE_NUMBER_LEN+1];
-	char reject_name[CST_DISPLAY_NAME_LENGTH_MAX];
-	int is_activate;
-	int reject_id;
-	int rule;
-} CstRejectInfo_t;
 
 typedef struct _Item_Data {
 	int index;
@@ -357,17 +268,9 @@ typedef struct {
 
 	/* IME */
 	Evas_Object *dg_entry;
-	Evas_Object *dg_entry_contact_name;
 	Evas_Object *dg_entry_contact_number;
-	Evas_Object *dg_entry_pin2;
-	Evas_Object *dg_entry_callfwd_number;
-	Evas_Object *dg_entry_ringtime;
-	Evas_Object *dg_entry_change_callfwd_number;
-	Evas_Object *dg_entry_password;
-	Evas_Object *nxt_dg_entry_focus;
 
 	char entry_string[256];
-	char time[64];
 
 	Eina_Bool b_expanded;
 
@@ -375,47 +278,17 @@ typedef struct {
 	Elm_Object_Item *more_cst_navi_it;
 
 	int genlist_editfield_initialized;
-	/*Navigation Bar */
-	Elm_Object_Item *c_item[10];
-
-	Eina_Bool b_landscape_mode;
-
-	/*Alerts On Call */
-	Evas_Object *rdg_alerts_on_call;
 
 	/*All Calls */
 	/*Show My Number */
 	Evas_Object *rdg_show_my_number;
 
-	/* Outgoing Call Conditions */
-	Evas_Object *rdg_outgoing_call_conditions;
-
-	/* Outgoing Call Type */
-	Evas_Object *rdg_outgoing_call_type;
-
-	/* Auro answer timer */
-	Evas_Object *rdg_auto_answer_timer;
-
-	/* Accept Call in device */
-	Evas_Object *rdg_accept_call_in_dev;
-
-	/* In-call Sound EQ */
-	Evas_Object *rdg_in_call_sound_eq;
-
-	/* Call rejection - Auto reject mode */
-	Evas_Object *rdg_auto_rej_mode;
-
 	/* Auto Reject */
 	Eina_List *reject_list;
-	Eina_List *load_list;
-	int reject_id;
-	Evas_Object *rdg_reject_rule;
-	Eina_Bool exist_reject_unknown;
 
 	/*voice, video call */
 	int cf_state[4];
 	Elm_Object_Item *cf_gl_item[4];
-	int cb_state[5];
 	char cf_number[CST_MAX_PHONE_NUMBER_LEN][4];
 	Evas_Object *popup;
 
@@ -424,16 +297,11 @@ typedef struct {
 	CstGlItemData_t *cw_gl_item_data;
 	Eina_Bool original_state;
 
-	/* Voice mail */
-	msg_handle_t msg_handle;
-	Elm_Object_Item *vm_gl_item;
-
 	/* more-settings selected sim */
 	int sel_sim;
 	Elm_Object_Item *sim1_btn;
 	Elm_Object_Item *sim2_btn;
 	int call_type;
-	int cb_flavour;
 	int cf_flavour;
 	Eina_List *req_queue;
 	GSList *sim_req_list;
@@ -449,30 +317,13 @@ typedef struct {
 	int sim_lock_retry_account;
 	int rej_msg_seg_size;
 
-	Evas_Object *del_btn;
-	Evas_Object *more_btn;
 	Evas_Object *contact_btn;
 	Eina_Bool check_state;
 
-	app_control_h image_service_handle;
-	app_control_h vibration_service_handle;
 	Evas_Object *rejct_popup;
 	Evas_Object *rejctlist_popup;
 	Evas_Object *entry_count;
-	char block_list_prev_text[CST_MAX_PHONE_NUMBER_LEN];
 } CstUgData_t;
-
-typedef enum {
-	SIM_REQUEST_WAITING_FOR_RESP,
-	SIM_REQUEST_CANCELLED,
-} SimReqStatus_t;
-
-typedef enum {
-	CST_ERR_POPUP_TYPE_INFO_TEXT_ONLY,
-	CST_ERR_POPUP_TYPE_TITLE_INFO_TEXT,
-} CstErrPopupType_t;
-
-typedef void (*SimReqCb)(CstUgData_t *ugd, void *req, void *resp);
 
 #endif	/* _CST_COMMON_H_ */
 

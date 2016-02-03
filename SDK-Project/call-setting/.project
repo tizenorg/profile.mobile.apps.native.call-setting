@@ -31,9 +31,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>edc_resources</name>
+			<name>edje_images</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/edc_resources</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/res/edje_images</locationURI>
 		</link>
 		<link>
 			<name>inc</name>

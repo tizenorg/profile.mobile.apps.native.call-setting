@@ -69,7 +69,7 @@ ADD_LIBRARY(${LIB_NAME} SHARED
 TARGET_LINK_LIBRARIES(${LIB_NAME} ${pkgs_LDFLAGS})
 
 ADD_CUSTOM_TARGET(call-setting.edj
-		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/edc_resources/call-setting/images
+		COMMAND edje_cc -id ${CMAKE_CURRENT_SOURCE_DIR}/res/edje_images/call-setting
 		${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting.edc ${CMAKE_BINARY_DIR}/call-setting.edj
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/edje/call-setting.edc
 )

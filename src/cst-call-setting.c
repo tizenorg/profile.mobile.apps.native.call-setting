@@ -43,120 +43,13 @@ Elm_Genlist_Item_Class *itc_2text = NULL;
 static Elm_Genlist_Item_Class *itc_2text_1icon = NULL;
 static Elm_Genlist_Item_Class *itc_multiline = NULL;
 
-#if 0	/* not used */
-static void __cst_on_click_speed_dial(void *data, Evas *evas, Evas_Object *obj, void *event_info);
-static void __cst_on_click_extra_vol(void *data, Evas *evas, Evas_Object *obj, void *event_info);
-#endif
-
 static CstGlItemDisplayInfo_t list_dep1[] = {
 	{1, CST_STR_REJECT_MESSAGES, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_EXPANDABLE, _cst_on_click_reject_message},
 	{1, CST_STR_CALL_ANSWERING_ENDING, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_TEXT, _cst_on_click_answering_call},
-#ifdef _CALL_SET_VIDEO_CALL_IMAGE_SUPPORT
-/*	{1, CST_STR_VIDEO_CALL_IMAGE, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_IMG_1TEXT, _cst_on_click_video_call_img},*/
-	{1, CST_STR_SET_DEFAULT_HIDE_ME_IMAGE, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_HELP_TEXT, NULL},
-#endif
-
-#ifdef _CALL_SET_WITH_HELPTEXT
-	{1, CST_STR_PROXIMITY_SENSOR_HELP_MSG, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_HELP_TEXT, NULL},
-#endif
 	{1, CST_STR_MORE_CALL_SETTINGS, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_TEXT, _cst_on_click_more_call_setting},
-	/* {1, CST_STR_MODIFY_MY_EYES_TO_SEEM_LIKE_I_AM_LOOKING_AT_CAMERA_DURING_VIDEO_CALLS, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_HELP_TEXT, NULL}, */
 	{1, -1, ELM_GENLIST_ITEM_NONE, CST_GL_ITEM_NONE, NULL},
 };
 
-static void __cst_call_setting_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *nxt_item = NULL;
-	Elm_Object_Item *last_item = NULL;
-	CstGlItemData_t *item_data = NULL;
-	int i;
-	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
-	item_data = elm_object_item_data_get(it);
-	nxt_item = elm_genlist_first_item_get(obj);
-
-	while (nxt_item != elm_genlist_last_item_get(obj)) {
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		while (item_data == NULL || item_data->index == -1 ||
-			item_data->style == CST_GL_ITEM_HELP_TEXT || item_data->style == CST_GL_ITEM_DG_TITLE) {
-			nxt_item = elm_genlist_item_next_get(nxt_item);
-			if (nxt_item == NULL) {
-				DBG("Genlist end");
-				return;
-			}
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		}
-
-		last_item = nxt_item;
-
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		while (item_data != NULL && item_data->index != -1 && item_data->style != CST_GL_ITEM_HELP_TEXT) {
-			last_item = elm_genlist_item_next_get(last_item);
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		}
-		last_item = elm_genlist_item_prev_get(last_item);
-
-		if (nxt_item == last_item) {
-			elm_object_item_signal_emit(nxt_item, "elm,state,default", "");
-		} else {
-			elm_object_item_signal_emit(nxt_item, "elm,state,top", "");
-
-			elm_object_item_signal_emit(last_item, "elm,state,bottom", "");
-
-			nxt_item = elm_genlist_item_next_get(nxt_item);
-
-			for (i = 1; nxt_item != last_item; i++) {
-				elm_object_item_signal_emit(nxt_item, "elm,state,center", "");
-				nxt_item = elm_genlist_item_next_get(nxt_item);
-			}
-		}
-		nxt_item = elm_genlist_item_next_get(last_item);
-	}
-}
-
-#if 0	/* unused function */
-static void __cst_speed_dial_view_ug_destroy_cb(ui_gadget_h ug, void *priv)
-{
-	ENTER(__cst_speed_dial_view_ug_destroy_cb);
-	if (ug) {
-		ug_destroy(ug);
-	}
-}
-
-static void __cst_speed_dial_view_ug_result_cb(ui_gadget_h ug, app_control_h service, void *priv)
-{
-	ENTER(__cst_speed_dial_view_ug_result_cb);
-}
-
-static void __cst_speed_dial_view_ug_layout_cb(ui_gadget_h ug, enum ug_mode mode, void *priv)
-{
-	ENTER(__cst_speed_dial_view_ug_layout_cb);
-	Evas_Object *base = ug_get_layout(ug);
-	ret_if(base == NULL);
-
-	evas_object_size_hint_weight_set(base, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_show(base);
-}
-
-static void __cst_on_click_speed_dial(void *data, Evas *evas, Evas_Object *obj, void *event_info)
-{
-	ENTER(__cst_on_click_speed_dial);
-	ret_if(data == NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	struct ug_cbs cbs = { 0, };
-	ui_gadget_h ug;
-
-	cbs.layout_cb = __cst_speed_dial_view_ug_layout_cb;
-	cbs.result_cb = __cst_speed_dial_view_ug_result_cb;
-	cbs.destroy_cb = __cst_speed_dial_view_ug_destroy_cb;
-	cbs.priv = (void *)ugd;
-
-	ug = ug_create((ui_gadget_h)ugd->ug, "speeddial-efl", UG_MODE_FULLVIEW, NULL, &cbs);
-	DBG("ug = 0x%x", ug);
-	if (ug == NULL) {
-		DBG("ug create fail...");
-	}
-}
-#endif
 static char *__cst_gl_label_get_phone(void *data, Evas_Object *obj, const char *part)
 {
 	retv_if(NULL == data, NULL);
@@ -296,39 +189,10 @@ static Evas_Object *__cst_create_genlist_phone(void *data)
 					item_data->gl_item = elm_genlist_item_append(genlist, itc_multiline,
 								(void *)item_data, NULL, list_dep1[i].flags,
 								__cst_gl_sel_phone, item_data);
-		} else if (list_dep1[i].style == CST_GL_ITEM_IMG_1TEXT) {
-			if (list_dep1[i].str_id == CST_STR_VIDEO_CALL_IMAGE) {
-				item_data->gl_item = elm_genlist_item_append(genlist, itc_multiline,
-								 (void *)item_data, NULL, list_dep1[i].flags,
-								 __cst_gl_sel_phone, item_data);
-			} else {
-				item_data->gl_item = elm_genlist_item_append(genlist, itc_1text,
-								 (void *)item_data, NULL, list_dep1[i].flags,
-								 __cst_gl_sel_phone, item_data);
-			}
 		} else if (list_dep1[i].style == CST_GL_ITEM_1TEXT_ONOFF) {
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_1text_1icon,
 							 (void *)item_data, NULL, list_dep1[i].flags,
 							 __cst_gl_sel_phone, item_data);
-		} else if (list_dep1[i].style == CST_GL_ITEM_DG_TITLE) {
-			item_data->gl_item = elm_genlist_item_append(genlist, itc_title,
-								 (void *)item_data, NULL, list_dep1[i].flags,
-								 NULL, NULL);
-			elm_genlist_item_select_mode_set(item_data->gl_item, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
-		} else if (list_dep1[i].style == CST_GL_ITEM_HELP_TEXT) {
-			item_data->gl_item = elm_genlist_item_append(genlist, itc_help,
-								 (void *)item_data, NULL, list_dep1[i].flags,
-								 NULL, NULL);
-			elm_genlist_item_select_mode_set(item_data->gl_item, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
-			if (list_dep1[i+1].style != CST_GL_ITEM_DG_TITLE) {
-				_cst_create_genlist_separator(genlist, EINA_FALSE);
-			}
-		} else if (list_dep1[i].style == CST_GL_ITEM_SUB_TEXT) {
-			item_data->gl_item = elm_genlist_item_append(genlist, itc_2text,
-							 (void *)item_data, NULL, list_dep1[i].flags,
-							 __cst_gl_sel_phone, item_data);
-
-			ugd->vm_gl_item = item_data->gl_item;
 		} else {
 			DBG("No style");
 			free(item_data);
@@ -336,7 +200,6 @@ static Evas_Object *__cst_create_genlist_phone(void *data)
 			return NULL;
 		}
 	}
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
 
 	return genlist;
 }
@@ -351,9 +214,6 @@ void _cst_create_call_setting(void *data)
 
 	__cst_set_genlist_item_styles_phone();
 	Evas_Object *genlist = __cst_create_genlist_phone(ugd);
-
-	evas_object_smart_callback_add(genlist, "realized",
-				__cst_call_setting_gl_realized_cb, NULL);
 
 	navi_it = elm_naviframe_item_push(ugd->nf, I_(title), NULL, NULL, genlist, NULL);
 	cst_util_item_domain_text_translatable_set(navi_it, I_(title));

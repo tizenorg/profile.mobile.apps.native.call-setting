@@ -30,7 +30,7 @@
 #define CST_IMG_ICON_SIM1 "logs_icon_sim_tab_1.png"
 #define CST_IMG_ICON_SIM2 "logs_icon_sim_tab_2.png"
 
-#define CST_SIM_IMAGE(LAYOUT_NAME, IMAGE_NAME, MID_IMAGE_COLOR_CODE, IMAGE_COLOR_CODE ) \
+#define CST_SIM_IMAGE(LAYOUT_NAME, IMAGE_NAME) \
 	group { \
 		images { \
 			image: IMAGE_NAME COMP; \
@@ -42,7 +42,6 @@
 					state: "default" 0.0; \
 					min: 32 32;\
 					max: 32 32;\
-					color_class:IMAGE_COLOR_CODE;\
 					image.normal: IMAGE_NAME; \
 					aspect: 1 1; \
 					align: 1 0.5;\
@@ -216,22 +215,6 @@ collections {
 		}
 	}
 
-	group {
-		name: "entry_margin";
-		parts {
-			part {
-				name: "rect";
-				type: RECT;
-				scale: 1;
-				description {
-					visible: 0;
-					state: "default" 0.0;
-					min: 0 8;
-				}
-			}
-		}
-	}
-
 	group { name: "editfield_bg";
 		parts {
 			part { name: "bg";
@@ -297,7 +280,7 @@ collections {
 		}
 	}
 
-	CST_SIM_IMAGE("SIM1_CARD", CST_IMG_ICON_SIM1, "A02O012", "A02O004");
-	CST_SIM_IMAGE("SIM2_CARD", CST_IMG_ICON_SIM2, "A02O013", "A02O004");
+	CST_SIM_IMAGE("SIM1_CARD", CST_IMG_ICON_SIM1);
+	CST_SIM_IMAGE("SIM2_CARD", CST_IMG_ICON_SIM2);
 }
 

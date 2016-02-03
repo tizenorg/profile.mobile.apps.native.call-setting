@@ -322,54 +322,6 @@ static char *__cst_gl_label_get_expandable(void *data, Evas_Object *obj, const c
 	return NULL;
 }
 
-static void __cst_more_call_setting_gl_realized_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
-	CstGlItemData_t *item_data = elm_object_item_data_get(it);
-	Elm_Object_Item *nxt_item = NULL;
-	Elm_Object_Item *last_item = NULL;
-	int i;
-
-	nxt_item = elm_genlist_first_item_get(obj);
-
-	while (nxt_item != elm_genlist_last_item_get(obj)) {
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		while (item_data == NULL || item_data->index == -1 || item_data->style == CST_GL_ITEM_HELP_TEXT) {
-			nxt_item = elm_genlist_item_next_get(nxt_item);
-			if (nxt_item == NULL) {
-				DBG("Genlist end");
-				return;
-			}
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(nxt_item);
-		}
-
-		last_item = nxt_item;
-
-		item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		while (item_data != NULL && item_data->index != -1 && item_data->style != CST_GL_ITEM_HELP_TEXT) {
-			last_item = elm_genlist_item_next_get(last_item);
-			item_data = (CstGlItemData_t *)elm_object_item_data_get(last_item);
-		}
-		last_item = elm_genlist_item_prev_get(last_item);
-
-		if (nxt_item == last_item) {
-			elm_object_item_signal_emit(nxt_item, "elm,state,default", "");
-		} else {
-			elm_object_item_signal_emit(nxt_item, "elm,state,top", "");
-
-			elm_object_item_signal_emit(last_item, "elm,state,bottom", "");
-
-			nxt_item = elm_genlist_item_next_get(nxt_item);
-
-			for (i = 1; nxt_item != last_item; i++) {
-				elm_object_item_signal_emit(nxt_item, "elm,state,center", "");
-				nxt_item = elm_genlist_item_next_get(nxt_item);
-			}
-		}
-		nxt_item = elm_genlist_item_next_get(last_item);
-	}
-}
-
 static void __cst_gl_sel_show_my_number(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
@@ -648,12 +600,6 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 				_cst_util_system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, _cst_flight_mode_changed_cb_for_call_waiting,
 						item_data->gl_item);
 			}
-			if (list_more_call_setting[i].str_id == CST_STR_VOICE_MAIL_NUMBER) {
-				_cst_flight_mode_genlist_item_disable(item_data->gl_item);
-				_cst_util_system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, _cst_flight_mode_changed_cb_for_voice_mail_number,
-						item_data->gl_item);
-				ugd->vm_gl_item = item_data->gl_item;
-			}
 		} else if (list_more_call_setting[i].style == CST_GL_ITEM_EXPANDABLE) {
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_2text_expand,
 								 (void *)item_data, NULL, list_more_call_setting[i].flags,
@@ -669,14 +615,6 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 					DBG("No SIMs inserted!!!");
 					elm_object_item_disabled_set(item_data->gl_item, EINA_TRUE);
 				}
-			}
-		} else if (list_more_call_setting[i].style == CST_GL_ITEM_HELP_TEXT) {
-			item_data->gl_item = elm_genlist_item_append(genlist, itc_help,
-								 (void *)item_data, NULL, list_more_call_setting[i].flags,
-								 NULL, NULL);
-			elm_genlist_item_select_mode_set(item_data->gl_item, ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY);
-			if (list_more_call_setting[i+1].style != CST_GL_ITEM_NONE) {
-				_cst_create_genlist_separator(genlist, EINA_FALSE);
 			}
 		} else if (list_more_call_setting[i].style == CST_GL_ITEM_1TEXT_ONOFF) {
 			if (CST_STR_CALL_WAITING == list_more_call_setting[item_data->index].str_id) {
@@ -696,7 +634,6 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 			return NULL;
 		}
 	}
-	_cst_create_genlist_separator(genlist, EINA_FALSE);
 
 	return genlist;
 }
@@ -715,7 +652,6 @@ static void __cst_more_settings_sim1_sel_cb(void *data, Evas_Object *obj, void *
 	ugd->sel_sim = CST_SELECTED_SIM1;
 	_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM1);
 	elm_genlist_realized_items_update(morecallsetting_gl);
-	elm_object_item_signal_emit(ugd->sim2_btn, "unselected", "");
 	if (ugd->cw_gl_item_data) {
 		_cst_cancel_all_ss_request(ugd);
 		ugd->cw_state = CST_SS_STATE_PROGRESS_INIT;
@@ -739,7 +675,6 @@ static void __cst_more_settings_sim2_sel_cb(void *data, Evas_Object *obj, void *
 	ugd->sel_sim = CST_SELECTED_SIM2;
 	_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM2);
 	elm_genlist_realized_items_update(morecallsetting_gl);
-	elm_object_item_signal_emit(ugd->sim1_btn, "unselected", "");
 	if (ugd->cw_gl_item_data) {
 		_cst_cancel_all_ss_request(ugd);
 		ugd->cw_state = CST_SS_STATE_PROGRESS_INIT;
@@ -789,9 +724,6 @@ void _cst_on_click_more_call_setting(void *data, Evas *evas, Evas_Object *obj, v
 
 	__cst_set_genlist_item_styles_more_cst();
 	morecallsetting_gl = __cst_create_genlist_more_cst(ugd);
-
-	evas_object_smart_callback_add(morecallsetting_gl, "realized",
-				__cst_more_call_setting_gl_realized_cb, NULL);
 
 	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
 
