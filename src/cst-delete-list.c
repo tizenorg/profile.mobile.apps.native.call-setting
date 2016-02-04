@@ -561,7 +561,7 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 
 	/*Create layout */
 	delete_list_view->main_layout = elm_layout_add(ugd->nf);
-	elm_layout_file_set(delete_list_view->main_layout, EDJ_NAME, "toolbar");
+	elm_layout_file_set(delete_list_view->main_layout, THEME_NAME, "reject_msg_listview_layout");
 	evas_object_size_hint_weight_set(delete_list_view->main_layout,
 									 EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(delete_list_view->main_layout,

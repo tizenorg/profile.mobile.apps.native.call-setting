@@ -32,9 +32,6 @@
 #include <vconf.h>
 #include <app.h>
 
-#define CST_RINGTONE_FILE_EXT ".ogg"
-#define CST_MEDIA_FILE_EXT_LEN 4
-
 static Elm_Genlist_Item_Class *itc_1text = NULL;
 static Elm_Genlist_Item_Class *itc_1text_1icon = NULL;
 static Elm_Genlist_Item_Class *itc_title = NULL;

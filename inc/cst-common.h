@@ -37,7 +37,6 @@
 #define IMG_DIR             IMAGEDIR
 #define CST_LOCALE          LOCALEDIR
 
-#define EDJ_NAME            EDJ_DIR"/call-setting.edj"
 #define _EDJ(o)             elm_layout_edje_get(o)
 
 #define THEME_NAME          EDJ_DIR"/call-setting-theme.edj"

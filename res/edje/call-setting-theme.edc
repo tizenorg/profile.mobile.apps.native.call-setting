@@ -15,14 +15,99 @@
  *
  */
 
-#define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 23
-#define POPUP_EDITFIELD_LAYOUT_MINMAX_HEIGHT_INC 154
-#define DEMO_POPUP_PROCESSINGVIEW1BUTTON_CONTENT_MIN 0 144
-#define ENTRY_ITEM_HEIGHT 120
-#define PADDING_LEFT 32
-#define CONTACT_BUTTON_PADDING_RIGHT 17
-#define CONTACT_BUTTON_PADDING_LEFT 17
-#define CONTACT_BUTTON_SIZE 80
+/*********Processing popup parameters*********/
+#define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 		23
+#define POPUP_EDITFIELD_LAYOUT_MINMAX_HEIGHT_INC 		154
+#define DEMO_POPUP_PROCESSINGVIEW1BUTTON_CONTENT_MIN 	0 144
+
+/********Call Forwarding popup parameters********/
+#define ENTRY_ITEM_HEIGHT								120
+#define PADDING_LEFT									32
+#define PADDING_RIGHT									32
+#define CONTACT_BUTTON_PADDING_RIGHT					17
+#define CONTACT_BUTTON_PADDING_LEFT						17
+#define CONTACT_BUTTON_SIZE								80
+
+/******Reject message edit view parameters*******/
+#define EDITFIELD_COUNT_ENTRY_HEIGHT					80
+#define EDITFIELD_COUNT_ENTRY_FONT_SIZE					38
+#define EDITFIELD_COUNT_ENTRY_TEXT_COLOR_INC			188 188 188 255
+#define EDITFIELD_BG_COLOR_INC							243 248 247 255
+#define EDITFIELD_ENTRY_BG_COLOR_INC					250 250 250 255
+
+/********Sim Icons in Tab Bar********/
+#define CST_IMG_ICON_SIM1								"logs_icon_sim_tab_1.png"
+#define CST_IMG_ICON_SIM2								"logs_icon_sim_tab_2.png"
+
+/********Contact Button********/
+#define CST_IMG_CONTACTS								"phone_number_icon.png"
+#define CONTACT_ICON_SIZE								60
+#define CONTACT_BTN_COLOR_NORMAL						61 185 204 255
+#define CONTACT_BTN_COLOR_PRESSED						59 148 162 255
+
+#define CST_SIM_IMAGE(LAYOUT_NAME, IMAGE_NAME) \
+	group { \
+		images { \
+			image: IMAGE_NAME COMP; \
+		} \
+		name: LAYOUT_NAME; \
+		parts { \
+			part { name: "image"; \
+				description { \
+					state: "default" 0.0; \
+					min: 32 32;\
+					max: 32 32;\
+					image.normal: IMAGE_NAME; \
+					aspect: 1 1; \
+					align: 1 0.5;\
+					aspect_preference: BOTH; \
+				} \
+			} \
+		} \
+	}
+	
+#define CST_ICON_BTN(LAYOUT_NAME, IMAGE_NAME, IMAGE_SIZE, COLOR_NORMAL, COLOR_PRESSED) \
+	group { \
+		images { \
+			image: IMAGE_NAME COMP; \
+		} \
+		name: LAYOUT_NAME; \
+		parts { \
+			part { name: "image"; \
+				description { \
+					state: "default" 0.0; \
+					min: IMAGE_SIZE IMAGE_SIZE;\
+					max: IMAGE_SIZE IMAGE_SIZE;\
+					image.normal: IMAGE_NAME; \
+					aspect: 1 1; \
+					align: 1 0.5;\
+					color: COLOR_NORMAL;\
+					aspect_preference: BOTH; \
+				} \
+				description { \
+					state: "pressed" 0.0; \
+					inherit: "default" 0.0; \
+					color: COLOR_PRESSED; \
+				} \
+			} \
+		} \
+		programs { \
+			program { \
+				name: "icon_press"; \
+				signal: "icon,press"; \
+				source: "cst"; \
+				action: STATE_SET "pressed" 0.0; \
+				target: "image"; \
+			} \
+			program { \
+				name: "icon_unpress"; \
+				signal: "icon,unpress"; \
+				source: "cst"; \
+				action: STATE_SET "default" 0.0; \
+				target: "image"; \
+			} \
+		} \
+	}
 
 collections {
    base_scale: 2.6;
@@ -32,7 +117,177 @@ collections {
          color: 0 0 0 0;
       }
    }
+/*******************************TAB BAR SIM ICONS***********************************/
+	CST_SIM_IMAGE("SIM1_CARD", CST_IMG_ICON_SIM1);
+	CST_SIM_IMAGE("SIM2_CARD", CST_IMG_ICON_SIM2);
+	
+/*************************REJECT MESSAGE LIST VIEW LAYOUT *************************/
+	group {
+		name: "reject_msg_listview_layout";
+		parts {
+			part {
+				name: "elm.swallow.contents";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 1;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+				}
+				description {
+					state: "show_content2" 0.0;
+					inherit: "default" 0.0;
+					visible: 0;
+				}
+			}
 
+			part {
+				name: "elm.swallow.contents2";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 0;
+					rel1 { relative: 0.0 0.0;}
+					rel2 { relative: 1.0 1.0;}
+				}
+				description {
+					state: "show_content2" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
+		}
+
+		programs {
+			program {
+				name: "show_contents1";
+				signal: "show,content1";
+				source: "code";
+				action: STATE_SET "default" 0.0;
+				target: "elm.swallow.contents";
+				target: "elm.swallow.contents2";
+			}
+
+			program {
+				name: "show_contents2";
+				signal: "show,content2";
+				source: "code";
+				action: STATE_SET "show_content2" 0.0;
+				target: "elm.swallow.contents";
+				target: "elm.swallow.contents2";
+			}
+		}
+	}
+	
+/*************************REJECT MESSAGE EDIT VIEW LAYOUT *************************/
+	group { name: "edit_reject_msg_layout";
+		parts {
+			part { name: "bg";
+				type: RECT;
+				description { state: "default" 0.0;
+					color: EDITFIELD_BG_COLOR_INC;
+				}
+			}
+			
+			part { name: "padding_left";
+				type: SPACER;
+				scale: 1;
+				description { state: "default" 0.0;
+					fixed: 1 0;
+	      			align: 0.0 0.5;
+	      			rel2.relative: 0.0 1.0;
+	      			min: PADDING_LEFT 0;
+	      			max: PADDING_LEFT -1;
+	      		}
+			}
+
+			part { name: "padding_right";
+				type: SPACER;
+				scale: 1;
+				description { state: "default" 0.0;
+					fixed: 1 0;
+	      			align: 1.0 0.5;
+	      			rel1.relative: 1.0 0.0;
+	      			min: PADDING_RIGHT 0;
+	      			max: PADDING_RIGHT -1;
+				}
+			}
+
+			part { name: "char_count_bg";
+				type: RECT;
+				scale: 1;
+				description { state: "default" 0.0;
+					fixed: 0 1;
+					align: 0.5 0.0;
+					rel2.relative: 1.0 0.0;
+					min: 0 EDITFIELD_COUNT_ENTRY_HEIGHT;
+					color: EDITFIELD_ENTRY_BG_COLOR_INC;
+				}
+			}
+			
+			part { name: "entry_bg";
+				type: RECT;
+				scale: 1;
+				description { state: "default" 0.0;
+					align: 0.5 0.0;
+					rel1 {
+         				relative: 0 1; to: "char_count_bg";
+      				}
+      				rel2 {
+						relative: 1 1; to: "entry_part";
+      				}
+					color: EDITFIELD_ENTRY_BG_COLOR_INC;
+				}
+			}
+
+			part { name: "char_count_text";
+				type: TEXT;
+				scale: 1;
+				description { state: "default" 0.0;
+					fixed: 0 1;
+					rel1 {
+         				relative: 1 0;
+         				to_x: "padding_left";
+         				to_y: "char_count_bg";
+      				}
+      				rel2 {
+						relative: 0 1;
+         				to_x: "padding_right";
+         				to_y: "char_count_bg";
+      				}
+      				text {
+						font: "Tizen:style=Regular";
+						size: EDITFIELD_COUNT_ENTRY_FONT_SIZE;
+						align: 1.0 0.5;
+						text_class: "tizen";
+						ellipsis: -1;
+					}
+					color: EDITFIELD_COUNT_ENTRY_TEXT_COLOR_INC;
+					min: 0 EDITFIELD_COUNT_ENTRY_HEIGHT;
+				}
+			}
+
+			part { name: "entry_part";
+				type: SWALLOW;
+				description { state: "default" 0.0;
+					align: 0.5 0.0;
+			    	rel1 {
+			        	relative: 0 1;
+			        	to_y: "char_count_bg";
+			      	}
+			      	rel2 {
+			        	relative: 1 1;
+			        	to_y: "char_count_bg";
+			      	}
+			      	min: 0 ENTRY_ITEM_HEIGHT;
+				}
+			}
+		}
+	}
+	
+/*************************CALL FORWARDING POPUP LAYOUT *************************/
 	group { name: "elm/layout/popup/callforwardingview";
 	   parts {
 	      part { name: "pad_l";
@@ -76,7 +331,10 @@ collections {
 	   }
 	}
 
-/*************************************Entry with contact button layout********************/
+/**********************************CONTACT ICON BUTTON***************************************/
+	CST_ICON_BTN("CONTACT_ICON", CST_IMG_CONTACTS, CONTACT_BUTTON_SIZE, CONTACT_BTN_COLOR_NORMAL, CONTACT_BTN_COLOR_PRESSED);
+
+/**********************************Entry with contact button layout*************************/
 group {
 	name: "entry_item_with_contact_btn";
 	parts {
