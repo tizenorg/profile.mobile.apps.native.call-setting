@@ -465,9 +465,6 @@ static void __cst_invoke_contact_single_picker(void *data)
 static Eina_Bool __cst_util_contact_ug_create_cb(void *data)
 {
 	retv_if(NULL == data, ECORE_CALLBACK_CANCEL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	Evas_Object *contact_icon = (Evas_Object *) elm_object_part_content_get(ugd->contact_btn, "icon");
-	evas_object_color_set(contact_icon, 61, 185, 204, 255);
 	__cst_invoke_contact_single_picker(data);
 	return ECORE_CALLBACK_CANCEL;
 }

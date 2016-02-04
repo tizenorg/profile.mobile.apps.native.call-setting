@@ -12,3 +12,4 @@ deploy*
 install.sh
 run.sh
 SDK-Project/.metadata/*
+TEMP_BUILD_DIR/*

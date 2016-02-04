@@ -38,9 +38,6 @@
 #include "cst-editfield.h"
 #include <efl_extension.h>
 
-#define CONTACT_BTN_COLOR_NORMAL	61, 185, 204, 255
-#define CONTACT_BTN_COLOR_PRESSED	59, 148, 162, 255
-
 static Evas_Object *g_entry = NULL;
 
 static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
@@ -48,12 +45,11 @@ static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
 {
 	ret_if(NULL == data);
 	CstUgData_t *ugd = (CstUgData_t *)data;
-	Evas_Object *contact_icon = (Evas_Object *)
-			elm_object_part_content_get(obj, "icon");
+	Evas_Object *contact_icon = (Evas_Object *)elm_object_part_content_get(obj, "icon");
 
 	if (contact_icon) {
 		cst_util_feedback_play_tap_sound();
-		evas_object_color_set(contact_icon, CONTACT_BTN_COLOR_PRESSED);
+		edje_object_signal_emit(contact_icon, "icon,press", "cst");
 	}
 
 	if (ugd->dg_entry) {
@@ -64,10 +60,9 @@ static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
 static void _cst_on_unpress_ime_contact_btn(void *data, Evas_Object *obj,
 		void *event_info)
 {
-	Evas_Object *contact_icon = (Evas_Object *)
-			elm_object_part_content_get(obj, "icon");
+	Evas_Object *contact_icon = (Evas_Object *)elm_object_part_content_get(obj, "icon");
 	if (contact_icon) {
-		evas_object_color_set(contact_icon, CONTACT_BTN_COLOR_NORMAL);
+		edje_object_signal_emit(contact_icon, "icon,unpress", "cst");
 	}
 }
 
@@ -422,54 +417,28 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 	void (*input_panel_cb)() = NULL;
 	void (*entry_changed_cb)() = NULL;
 	void (*entry_activated_cb)() = NULL;
-	Eina_Bool ret = EINA_FALSE;
 	Evas_Object *layout = NULL;
 	Evas_Object *entry_layout = NULL;
 	Evas_Object *eo = NULL;
 
-	if (CST_IME_CALL_FORWARD == ime_type) {
-		/* Set the Entry part of the Edit-field */
-		entry_layout = editfield_create(parent, ET_SINGLELINE, NULL);
-		ugd->dg_entry = editfield_get_entry(entry_layout);
-		eo = entry_layout;
-	} else if (CST_IME_REJECT_MSG == ime_type) {
+	if (CST_IME_REJECT_MSG == ime_type) {
 		layout = elm_layout_add(parent);
-		elm_layout_file_set(layout, EDJ_NAME, "editfield_layout");
+		elm_layout_file_set(layout, THEME_NAME, "edit_reject_msg_layout");
 		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND,
 				EVAS_HINT_EXPAND);
 
-		Evas_Object *entry_bg = elm_layout_add(layout);
-		elm_layout_file_set(entry_bg, EDJ_NAME, "editfield_bg");
-
 		entry_layout = editfield_create(parent, ET_MULTILINE, NULL);
-		elm_object_part_content_set(entry_bg, "editfield", entry_layout);
 		ugd->dg_entry = editfield_get_entry(entry_layout);
-		elm_object_part_content_set(layout, "entry_part", entry_bg);
+		elm_object_part_content_set(layout, "entry_part", entry_layout);
 
 		ugd->entry_count = layout;
 
 		eo = layout;
 	} else {
-		layout = elm_layout_add(parent);
-		ret = elm_layout_theme_set(layout, "layout", "entry",
-				"default");
-
-		if (ret == EINA_FALSE) {
-			DBG("elm_layout_theme_set() failed");
-			evas_object_del(layout);
-			return NULL;
-		}
-		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND,
-				EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(layout, EVAS_HINT_FILL,
-				0.0);
-
-		/* Set the Entry part of the Edit-field layout */
+		/* Set the Entry part of the Edit-field */
 		entry_layout = editfield_create(parent, ET_SINGLELINE, NULL);
-
-		elm_object_part_content_set(layout, "elm.icon.entry", entry_layout);
 		ugd->dg_entry = editfield_get_entry(entry_layout);
-		eo = layout;
+		eo = entry_layout;
 	}
 
 	switch (ime_type) {
@@ -582,9 +551,8 @@ Evas_Object *_cst_create_ime_contacts_btn_obj(Evas_Object *parent, void *data)
 		DBG("elm_icon_add() failed");
 		return NULL;
 	}
-	elm_image_file_set(contact_icon, CST_CTRL_ICON_CONTACTS_DEF_IMG, NULL);
+	elm_image_file_set(contact_icon, THEME_NAME, "CONTACT_ICON");
 	elm_image_resizable_set(contact_icon, EINA_TRUE, EINA_TRUE);
-	evas_object_color_set(contact_icon, CONTACT_BTN_COLOR_NORMAL);
 	elm_object_part_content_set(ugd->contact_btn, "icon", contact_icon);
 
 	evas_object_smart_callback_add(ugd->contact_btn, "pressed",
@@ -654,9 +622,9 @@ void _cst_destroy_all_items(CstUgData_t *ugd)
 static void __cst_set_toolbar_item_icon(Elm_Object_Item *item, int simIndex)
 {
 	if (simIndex == 0) {
-		elm_toolbar_item_icon_file_set(item, EDJ_NAME, "SIM1_CARD");
+		elm_toolbar_item_icon_file_set(item, THEME_NAME, "SIM1_CARD");
 	} else if (simIndex == 1) {
-		elm_toolbar_item_icon_file_set(item, EDJ_NAME, "SIM2_CARD");
+		elm_toolbar_item_icon_file_set(item, THEME_NAME, "SIM2_CARD");
 	}
 }
 void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb

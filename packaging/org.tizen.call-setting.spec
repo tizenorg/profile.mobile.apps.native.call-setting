@@ -62,11 +62,14 @@ export LDFLAGS+="-Wl,--hash-style=both -Wl,--rpath=%{_prefix}/lib -Wl,--as-neede
 %define _app_lib_dir              %{TZ_SYS_RO_UG}/lib
 %define _app_res_dir              %{TZ_SYS_RO_UG}/res
 %define _app_res_edje_dir         %{TZ_SYS_RO_UG}/res/edje/%{_app_lib_name}
-%define _app_res_image_dir        %{TZ_SYS_RO_UG}/res/images/%{_app_lib_name}
 %define _app_res_locale_dir       %{TZ_SYS_RO_UG}/res/locale
 %define _share_packages_dir       %{TZ_SYS_RO_PACKAGES}
+%define _tmp_buld_dir		  TEMP_BUILD_DIR/%{_project}-%{_arch}
 
-cmake . \
+mkdir -p %{_tmp_buld_dir}
+cd %{_tmp_buld_dir}
+
+cmake ../../ \
         -DPKG_NAME=%{name} \
         -DLIB_NAME=%{_app_lib_name} \
         -DAPP_LIB_DIR=%{_app_lib_dir} \
@@ -79,8 +82,13 @@ cmake . \
 make %{?_smp_mflags}
 
 %install
+rm -rf %{buildroot}
+cd %{_tmp_buld_dir}
+
 %make_install
-%find_lang %{_app_lib_name}
+
+%clean
+rm -f debugfiles.list debuglinks.list debugsources.list
 
 %post
 /sbin/ldconfig
@@ -88,13 +96,12 @@ make %{?_smp_mflags}
 mkdir -p  %{_app_bin_dir}
 ln -sf %{TZ_SYS_BIN}/ug-client %{_app_bin_dir}/%{_app_name}
 
-%files -f %{_app_lib_name}.lang
+%files
 %license LICENSE
-
 %manifest %{name}.manifest
 %{_app_lib_dir}/lib%{_app_lib_name}.so
-%{_app_res_edje_dir}
-%{_app_res_image_dir}
+%{_app_res_edje_dir}/*
+%{_app_res_locale_dir}/*
 %{_share_packages_dir}/%{name}.xml
 
 %postun -p /sbin/ldconfig

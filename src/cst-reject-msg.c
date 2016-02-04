@@ -634,7 +634,7 @@ static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstUgData_t
 	if (text_size > 0) {
 		snprintf(buf, sizeof(buf), "%i/%i", text_size, segment_size);
 	}
-	elm_object_part_text_set(ugd->entry_count, "entry_count", buf);
+	elm_object_part_text_set(ugd->entry_count, "char_count_text", buf);
 
 	ugd->rej_msg_seg_size = segment_size;
 	if (text_size > segment_size) {
@@ -1140,7 +1140,7 @@ static void __cst_create_reject_message(Evas_Object *parent, void *data)
 	/*Create layout */
 	layout = elm_layout_add(ugd->nf);
 	ugd->backup_layout = layout;
-	elm_layout_file_set(layout, EDJ_NAME, "toolbar");
+	elm_layout_file_set(layout, THEME_NAME, "reject_msg_listview_layout");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	nocontent = __cst_create_nocontents_layout(ugd);
