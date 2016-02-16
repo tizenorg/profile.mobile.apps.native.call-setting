@@ -1,0 +1,9 @@
+/Debug
+/SA_Report
+/Release
+/.sign
+.sdb.devicemap
+.sdk_delta.info
+.package-stamp
+*.*~
+
