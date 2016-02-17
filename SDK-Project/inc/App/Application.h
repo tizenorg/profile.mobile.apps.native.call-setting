@@ -38,8 +38,8 @@ namespace App {
 		void onAppResume();
 		void onAppControl(app_control_h request);
 		void onLanguageChanged(app_event_info_h event);
-		Application(Application const &) = delete;
-		Application& operator = (Application const &) = delete;
+		Application(const Application&) = delete;
+		Application& operator = (const Application&) = delete;
 	};
 }
 

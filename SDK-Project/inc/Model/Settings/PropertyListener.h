@@ -15,18 +15,31 @@
  *
  */
 
-#ifndef APPCORE_H_
-#define APPCORE_H_
+#ifndef PROPERTY_LISTENER_H_
+#define PROPERTY_LISTENER_H_
 
-namespace App {
-	class AppCore {
+namespace Model { namespace Settings {
+
+	class ISettingManager;
+
+	template <typename VALUE_TYPE>
+	class IPropertyListener {
 	public:
-		AppCore();
-		~AppCore();
-	private:
-		/*Model instance and View Manager will be added soon*/
-		AppCore(const AppCore&) = delete;
-		AppCore& operator = (const AppCore&) = delete;
+		virtual ~IPropertyListener(){}
+		virtual bool onAttach(ISettingManager *settingsManager) = 0;
+		virtual void onDetach() = 0;
+		virtual void onPropertyChanged(const VALUE_TYPE &value);
 	};
-}
-#endif /* APPCORE_H_ */
+
+	template <typename VALUE_TYPE>
+	class PropertyListener : public IPropertyListener<VALUE_TYPE> {
+	public:
+		PropertyListener();
+		virtual ~PropertyListener();
+		void detach();
+		bool isAttached();
+	private:
+		ISettingManager *m_pSettingManager;
+	};
+} }
+#endif /* PROPERTY_LISTENER_H_ */
