@@ -20,15 +20,15 @@
 
 namespace Model { namespace Settings {
 
-	class ISettingManager;
+	class ISettingsManager;
 
 	template <typename VALUE_TYPE>
 	class IPropertyListener {
 	public:
 		virtual ~IPropertyListener(){}
-		virtual bool onAttach(ISettingManager *settingsManager) = 0;
+		virtual bool onAttach(ISettingsManager *settingsManager) = 0;
 		virtual void onDetach() = 0;
-		virtual void onPropertyChanged(const VALUE_TYPE &value);
+		virtual void onPropertyChanged(const VALUE_TYPE &value) = 0;
 	};
 
 	template <typename VALUE_TYPE>
@@ -36,10 +36,13 @@ namespace Model { namespace Settings {
 	public:
 		PropertyListener();
 		virtual ~PropertyListener();
+		virtual bool onAttach(ISettingsManager *settingsManager);
+		virtual void onDetach();
+		virtual void onPropertyChanged(const VALUE_TYPE &value) = 0;
 		void detach();
 		bool isAttached();
 	private:
-		ISettingManager *m_pSettingManager;
+		ISettingsManager *m_pSettingsManager;
 	};
 } }
 #endif /* PROPERTY_LISTENER_H_ */
