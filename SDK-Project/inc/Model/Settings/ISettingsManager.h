@@ -26,12 +26,12 @@ namespace Model { namespace Settings {
 	class ISettingsManager {
 	public:
 		virtual ~ISettingsManager(){}
-		virtual ResultCode addBoolPropertyListener(BoolKey key, PropertyListener<bool> *listener) = 0;
-		virtual ResultCode addIntPropertyListener(IntKey key, PropertyListener<int> *listener) = 0;
-		virtual ResultCode addStringPropertyListener(StringKey key, PropertyListener<std::string> *listener) = 0;
-		virtual void removeBoolPropertyListener(PropertyListener<bool> *listener) = 0;
-		virtual void removeIntPropertyListener(PropertyListener<int> *listener) = 0;
-		virtual void removeStringPropertyListener(PropertyListener<std::string> *listener) = 0;
+		virtual ResultCode addPropertyListener(BoolKey key, PropertyListener<bool> *listener) = 0;
+		virtual ResultCode addPropertyListener(IntKey key, PropertyListener<int> *listener) = 0;
+		virtual ResultCode addPropertyListener(StringKey key, PropertyListener<std::string> *listener) = 0;
+		virtual void removePropertyListener(PropertyListener<bool> *listener) = 0;
+		virtual void removePropertyListener(PropertyListener<int> *listener) = 0;
+		virtual void removePropertyListener(PropertyListener<std::string> *listener) = 0;
 		virtual ResultCode setIntProperty(IntKey key, int value) = 0;
 		virtual ResultCode getIntProperty(IntKey key, int &value) = 0;
 		virtual ResultCode setBoolProperty(BoolKey key, bool value) = 0;
