@@ -18,21 +18,25 @@
 #ifndef REQUEST_LISTENER_H_
 #define REQUEST_LISTENER_H_
 
+#include "Model/Telephony/TelephonyTypes.h"
+#include "Model/Telephony/BaseRequestListener.h"
+
 namespace Model { namespace Telephony {
 
 	class ITelephonyManager;
+	class BaseRequestListener;
 
 	class IBaseRequestListener {
 	public:
 		virtual ~IBaseRequestListener(){}
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
 		virtual void onDetach() = 0;
 	};
 
 	template <typename VALUE_TYPE>
 	class IRequestListener : public IBaseRequestListener {
 	public:
-		virtual void onRequestComplete(ResultCode result, const VALUE_TYPE &value) = 0;
+		virtual void onRequestComplete(ResultCode result, const VALUE_TYPE *value) = 0;
 	};
 
 	class ISimpleRequestListener : public IBaseRequestListener {
@@ -40,38 +44,27 @@ namespace Model { namespace Telephony {
 		virtual void onRequestComplete(ResultCode result) = 0;
 	};
 
-	class BaseRequestListener {
-	public:
-		void cancelRequest();
-		bool isAttached();
-	protected:
-		void onAttachImpl(ITelephonyManager *telephonyManager, int requestId);
-		void onDetachImpl();
-		BaseRequestListener();
-		~BaseRequestListener();
-	private:
-		int m_requestId;
-		ITelephonyManager* m_pTelephonyManager;
-	};
-
 	template <typename VALUE_TYPE>
 	class RequestListener : public BaseRequestListener,
 							public IRequestListener<VALUE_TYPE> {
 	public:
-		RequestListener();
-		virtual ~RequestListener();
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId);
+		RequestListener(){}
+		virtual ~RequestListener(){}
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
 
 	class SimpleRequestListener : public BaseRequestListener,
 								public ISimpleRequestListener {
 	public:
-		SimpleRequestListener();
-		virtual ~SimpleRequestListener();
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId);
+		SimpleRequestListener(){}
+		virtual ~SimpleRequestListener(){}
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
+
+	template class RequestListener<CallWaitingReqData>;
+	template class RequestListener<CallFwdReqData>;
 } }
 
 #endif /* REQUEST_LISTENER_H_ */
