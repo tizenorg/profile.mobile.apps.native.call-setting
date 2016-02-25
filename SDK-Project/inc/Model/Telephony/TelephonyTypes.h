@@ -18,6 +18,7 @@
 #ifndef TELEPHONY_TYPES_H_
 #define TELEPHONY_TYPES_H_
 
+#include <string>
 namespace Model { namespace Telephony {
 
 	typedef enum {
@@ -27,14 +28,16 @@ namespace Model { namespace Telephony {
 		TELEPHONY_RES_FAIL_OPTION_NOT_SUPPORTED,
 		TELEPHONY_RES_FAIL_DATA_MISSING,
 		TELEPHONY_RES_FAIL_UNEXPECTED_DATA,
+		TELEPHONY_RES_FAIL_REJECT_BY_NETWORK,
+		TELEPHONY_RES_FAIL_MEMORY_BAD_ALLOC,
 		TELEPHONY_RES_FAIL_UNKNOWN_ERROR,
 	} ResultCode;
 
 	typedef enum {
-		TELEPHONY_CALLTYPE_UNKNOWN,
 		TELEPHONY_CALLTYPE_VOICE,
 		TELEPHONY_CALLTYPE_VIDEO,
 		TELEPHONY_CALLTYPE_ALL,
+		TELEPHONY_CALLTYPE_UNDEFINED,
 	} CallType;
 
 	typedef enum {
@@ -42,14 +45,34 @@ namespace Model { namespace Telephony {
 		TELEPHONY_CF_IF_BUSY,
 		TELEPHONY_CF_IF_NO_REPLY,
 		TELEPHONY_CF_IF_NO_REACHABLE,
-	} CallFwdType;
+		TELEPHONY_CF_IF_UNDEFINED,
+	} CallFwdCondition;
 
 	typedef enum {
-		TELEPHONY_CW_ACTIVATE,
-		TELEPHONY_CW_DEACTIVATE,
+		TELEPHONY_CF_NO_REPLY_5_SEC,
+		TELEPHONY_CF_NO_REPLY_10_SEC,
+		TELEPHONY_CF_NO_REPLY_15_SEC,
+		TELEPHONY_CF_NO_REPLY_20_SEC,
+		TELEPHONY_CF_NO_REPLY_25_SEC,
+		TELEPHONY_CF_NO_REPLY_30_SEC,
+		TELEPHONY_CF_NO_REPLY_UNDEFINED,
+	} CallFwdNoReplyTime;
+
+	typedef enum {
+		TELEPHONY_CW_MODE_ACTIVATE,
+		TELEPHONY_CW_MODE_DEACTIVATE,
+		TELEPHONY_CW_MODE_UNDEFINED,
 	} CallWaitingMode;
 
 	typedef enum {
+		TELEPHONY_CF_MODE_ACTIVATE,
+		TELEPHONY_CF_MODE_REGISTER,
+		TELEPHONY_CF_MODE_DEACTIVATE,
+		TELEPHONY_CF_MODE_UNDEFINED,
+	} CallForwardMode;
+
+	typedef enum {
+		TELEPHONY_SIMCARD_STATE_REMOVED,
 		TELEPHONY_SIMCARD_STATE_READY,
 		TELEPHONY_SIMCARD_STATE_PROCESSING,
 		TELEPHONY_SIMCARD_STATE_BLOCKED,
@@ -58,21 +81,30 @@ namespace Model { namespace Telephony {
 	} SimCardState;
 
 	typedef enum {
+		TELEPHONY_SIM_SLOT_NONE,
 		TELEPHONY_SIM_SLOT_1,
 		TELEPHONY_SIM_SLOT_2,
 	} SimSlot;
 
-	typedef struct {
+	struct CallWaitingReqData {
 		CallType callType;
 		CallWaitingMode mode;
-	} CallWaitingReqData;
+		CallWaitingReqData() : callType(TELEPHONY_CALLTYPE_UNDEFINED),
+			mode(TELEPHONY_CW_MODE_UNDEFINED) {}
+	};
 
-	typedef struct {
+	struct CallFwdReqData {
 		CallType callType;
-		CallFwdType cfType;
-		const char* telNumber;
-		int waitTime = 0;
-	} CallFwdReqData;
+		CallForwardMode mode;
+		CallFwdCondition condition;
+		std::string telNumber;
+		CallFwdNoReplyTime waitTime;
+		CallFwdReqData() : callType(TELEPHONY_CALLTYPE_UNDEFINED),
+			mode(TELEPHONY_CF_MODE_UNDEFINED),
+			condition(TELEPHONY_CF_IF_UNDEFINED),
+			telNumber("undefined"),
+			waitTime(TELEPHONY_CF_NO_REPLY_UNDEFINED) {}
+	};
 
 } }
 
