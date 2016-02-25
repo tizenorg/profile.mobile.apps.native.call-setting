@@ -25,7 +25,7 @@ namespace Model { namespace Telephony {
 	class IBaseRequestListener {
 	public:
 		virtual ~IBaseRequestListener(){}
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
 		virtual void onDetach() = 0;
 	};
 
@@ -41,35 +41,35 @@ namespace Model { namespace Telephony {
 	};
 
 	class BaseRequestListener {
-	public:
-		void cancelRequest();
-		bool isAttached();
-	protected:
-		void onAttachImpl(ITelephonyManager *telephonyManager, int requestId);
-		void onDetachImpl();
-		BaseRequestListener();
-		~BaseRequestListener();
-	private:
-		int m_requestId;
-		ITelephonyManager* m_pTelephonyManager;
+		public:
+			void cancelRequest();
+			bool isAttached();
+		protected:
+			BaseRequestListener();
+			~BaseRequestListener();
+			bool onAttachImpl(ITelephonyManager *telephonyManager, int requestId);
+			void onDetachImpl();
+		private:
+			int m_requestId;
+			ITelephonyManager* m_pTelephonyManager;
 	};
 
 	template <typename VALUE_TYPE>
 	class RequestListener : public BaseRequestListener,
 							public IRequestListener<VALUE_TYPE> {
 	public:
-		RequestListener();
-		virtual ~RequestListener();
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId);
+		RequestListener(){}
+		virtual ~RequestListener(){}
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
 
 	class SimpleRequestListener : public BaseRequestListener,
 								public ISimpleRequestListener {
 	public:
-		SimpleRequestListener();
-		virtual ~SimpleRequestListener();
-		virtual void onAttach(ITelephonyManager *telephonyManager, int requestId);
+		SimpleRequestListener(){}
+		virtual ~SimpleRequestListener(){}
+		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
 } }
