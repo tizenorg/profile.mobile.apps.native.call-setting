@@ -19,16 +19,17 @@
 #define I_TELEPHONY_MANAGER_H_
 
 #include "Model/Telephony/TelephonyTypes.h"
-#include "Model/Telephony/RequestListener.h"
 
 namespace Model { namespace Telephony {
+	class SimpleRequestListener;
+	template <typename VALUE_TYPE> class RequestListener;
 	class ITelephonyManager {
 	public:
 		virtual ~ITelephonyManager(){}
-		virtual ResultCode requestCallWaitState(CallWaitingReqData &reqData, RequestListener<CallWaitingReqData> &listener) = 0;
-		virtual ResultCode requestCallWaitSetup(CallWaitingReqData &reqData, SimpleRequestListener &listener) = 0;
-		virtual ResultCode requestCallFwdState(CallFwdReqData &reqData, RequestListener<CallFwdReqData> &listener) = 0;
-		virtual ResultCode requestCallFwdSetup(CallFwdReqData &reqData, SimpleRequestListener &listener) = 0;
+		virtual ResultCode requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener) = 0;
+		virtual ResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener) = 0;
+		virtual ResultCode requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener) = 0;
+		virtual ResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener) = 0;
 		virtual void cancelRequest(int requestId) = 0;
 		virtual SimCardState getSimState() = 0;
 		virtual int getSimSlotCount() = 0;
