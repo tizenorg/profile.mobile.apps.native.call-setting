@@ -1,6 +1,6 @@
 APPNAME = call-setting
 
-type = sharedLib
+type = app
 profile = mobile-3.0
 
 USER_SRCS = src/call-setting.c

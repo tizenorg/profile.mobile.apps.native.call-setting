@@ -6,11 +6,6 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.tizen.nativecore.apichecker.apicheckerbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<arguments>
 			</arguments>
@@ -27,33 +22,32 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
-		<nature>org.tizen.nativecore.apichecker.apicheckernature</nature>
 	</natures>
 	<linkedResources>
 		<link>
 			<name>edje_images</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/res/edje_images</locationURI>
+			<location>/home/igor/GIT/TizenOrg/call-setting/res/edje_images</location>
 		</link>
 		<link>
 			<name>inc</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/inc</locationURI>
+			<location>/home/igor/GIT/TizenOrg/call-setting/inc</location>
 		</link>
 		<link>
 			<name>src</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src</locationURI>
+			<location>/home/igor/GIT/TizenOrg/call-setting/src</location>
 		</link>
 		<link>
 			<name>res/edje</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/res/edje</locationURI>
+			<location>/home/igor/GIT/TizenOrg/call-setting/res/edje</location>
 		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1453908247643</id>
+			<id>1456919148947</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -62,7 +56,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1453908247648</id>
+			<id>1456919148952</id>
 			<name></name>
 			<type>6</type>
 			<matcher>

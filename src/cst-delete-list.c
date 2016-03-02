@@ -47,7 +47,7 @@ typedef struct {
 	int checked_count;
 	char *title;
 
-	void *ugd;
+	void *ad;
 } Delete_List_View_Data;
 
 static void __cst_destroy_genlist_item_styles(void);
@@ -83,12 +83,12 @@ static Eina_Bool __cst_on_click_back_button(void *data, Elm_Object_Item *it)
 	ENTER(__cst_on_click_back_button);
 	retv_if(data == NULL, EINA_TRUE);
 
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	retv_if(ugd == NULL, EINA_TRUE);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	retv_if(ad == NULL, EINA_TRUE);
 
-	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ugd->nf), NULL, NULL);
+	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ad->nf), NULL, NULL);
 
-	elm_naviframe_item_pop(ugd->nf);
+	elm_naviframe_item_pop(ad->nf);
 
 	memset(ec_item, 0, sizeof(ec_item));
 
@@ -102,7 +102,7 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 	ENTER(__cst_on_click_delete_confirm);
 	ret_if(NULL == data);
 	Delete_List_View_Data *vd = NULL;
-	CstUgData_t *ugd = NULL;
+	CstAppData_t *ad = NULL;
 	Elm_Object_Item *prev_it = NULL;
 	Elm_Object_Item *del_list_it = NULL;
 	Elm_Object_Item *del_list_select_all = NULL;
@@ -111,13 +111,13 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 	vd = (Delete_List_View_Data *)data;
 	ret_if(vd == NULL);
 
-	ugd = vd->ugd;
-	ret_if(ugd == NULL);
+	ad = vd->ad;
+	ret_if(ad == NULL);
 
 	/* Destroy the popup */
-	if (ugd && ugd->popup) {
-		evas_object_del(ugd->popup);
-		ugd->popup = NULL;
+	if (ad && ad->popup) {
+		evas_object_del(ad->popup);
+		ad->popup = NULL;
 	}
 
 	if (vd->checked_count < 1) {
@@ -126,7 +126,7 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 	}
 
 	/* Fetch the first item which is a seperator and ignore it */
-	prev_it = elm_genlist_first_item_get(ugd->backup_genlist);
+	prev_it = elm_genlist_first_item_get(ad->backup_genlist);
 	if (prev_it == NULL) {
 		DBG("prev_it = NULL, returning");
 		return;
@@ -140,7 +140,7 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 		return;
 	}
 
-	switch (ugd->kind_of_delete_list) {
+	switch (ad->kind_of_delete_list) {
 	case CST_DL_REJECT_CALL_WITH_MSG:
 		/*In Reject Message "Select All" is as first Item */
 		while (prev_it != NULL && del_list_it != NULL) {
@@ -176,7 +176,7 @@ static void __cst_on_click_delete_confirm(void *data, Evas_Object *obj, void *ev
 		break;
 	}
 
-	__cst_on_click_back_button(ugd, NULL);
+	__cst_on_click_back_button(ad, NULL);
 	return;
 }
 
@@ -185,14 +185,14 @@ static void __cst_delete_list_lang_changed(void *data, Evas_Object *obj, void *e
 	ENTER(__cst_delete_list_lang_changed);
 	ret_if(NULL == data);
 	Delete_List_View_Data *vd = (Delete_List_View_Data *)data;
-	CstUgData_t *ugd = vd->ugd;
-	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ugd->nf);
+	CstAppData_t *ad = vd->ad;
+	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ad->nf);
 	char *txt = NULL;
 
 	/* Update the popup text on language change */
-	if (ugd->popup) {
+	if (ad->popup) {
 		txt = g_strdup(I_(CST_STR_DELETE_Q));
-		cst_util_domain_translatable_text_set(ugd->popup, txt);
+		cst_util_domain_translatable_text_set(ad->popup, txt);
 
 		if (txt) {
 			g_free(txt);
@@ -219,17 +219,17 @@ static void __cst_on_click_cancel_button(void *data, Evas_Object *obj,
 	ret_if(NULL == data);
 	Delete_List_View_Data *vd = (Delete_List_View_Data *)data;
 
-	__cst_on_click_back_button(vd->ugd, NULL);
+	__cst_on_click_back_button(vd->ad, NULL);
 }
 
 static void __cst_update_check_state(Delete_List_View_Data *vd)
 {
 	ret_if(vd == NULL);
 	ENTER(__cst_update_check_state);
-	CstUgData_t *ugd = (CstUgData_t *)vd->ugd;
-	ret_if(ugd == NULL);
+	CstAppData_t *ad = (CstAppData_t *)vd->ad;
+	ret_if(ad == NULL);
 	char *label = NULL;
-	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ugd->nf);
+	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ad->nf);
 
 	label = calloc(CST_MAX_ITEM_TEXT_BUFFER_LEN + 1, sizeof(char));
 	ret_if(label == NULL);
@@ -321,7 +321,7 @@ static char *__cst_gl_label_get_delete_list(void *data, Evas_Object *obj, const 
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
 
 	if (!strcmp(part, "elm.text")) {
-		char *buf = strdup(dgettext(UGNAME, (const char *)item_data->label));
+		char *buf = strdup(dgettext(APPNAME, (const char *)item_data->label));
 		return buf;
 	}
 
@@ -419,10 +419,10 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 	retv_if(NULL == vd, NULL);
 	int index = 0, i = 0;
 	CstGlItemData_t *item_data;
-	CstUgData_t *ugd = vd->ugd;
-	retv_if(ugd == NULL, NULL);
+	CstAppData_t *ad = vd->ad;
+	retv_if(ad == NULL, NULL);
 
-	vd->genlist = elm_genlist_add(ugd->nf);
+	vd->genlist = elm_genlist_add(ad->nf);
 	retv_if(NULL == vd->genlist, NULL);
 	elm_genlist_mode_set(vd->genlist, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(vd->genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -435,7 +435,7 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 				NULL, NULL);
 	}
 
-	if (ugd->kind_of_delete_list == CST_DL_REJECT_CALL_WITH_MSG) {
+	if (ad->kind_of_delete_list == CST_DL_REJECT_CALL_WITH_MSG) {
 		if (!itc_1text_2text1icon) {
 			itc_1text_2text1icon = _cst_create_genlist_item_class("type1",
 					__cst_gl_label_get_delete_list,
@@ -468,7 +468,7 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 	for (index = i; index < vd->total_count; index++) {
 		item_data = calloc(1, sizeof(CstGlItemData_t));
 		retv_if(item_data == NULL, NULL);
-		switch (ugd->kind_of_delete_list) {
+		switch (ad->kind_of_delete_list) {
 		case CST_DL_REJECT_CALL_WITH_MSG:
 			item_data->label = _cst_get_reject_message(index, EINA_TRUE, EINA_FALSE);
 			break;
@@ -481,7 +481,7 @@ static Evas_Object *__cst_create_delete_list_genlist(Delete_List_View_Data *vd)
 		}
 
 		item_data->index = index+1;
-		item_data->ugd = ugd;
+		item_data->ad = ad;
 		item_data->gl_item = elm_genlist_item_append(vd->genlist,
 							 itc_1text_2text1icon,
 							 item_data,
@@ -498,7 +498,7 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 {
 	ENTER(_cst_create_delete_list);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Delete_List_View_Data *delete_list_view = NULL;
 	Elm_Object_Item *navi_it;
 	Elm_Object_Item *top_it = NULL;
@@ -510,21 +510,21 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 	int w = 0;
 	int h = 0;
 
-	if (ugd->rejct_popup) {
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
+	if (ad->rejct_popup) {
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
 	}
-	if (ugd->rejctlist_popup) {
-		evas_object_del(ugd->rejctlist_popup);
-		ugd->rejctlist_popup = NULL;
+	if (ad->rejctlist_popup) {
+		evas_object_del(ad->rejctlist_popup);
+		ad->rejctlist_popup = NULL;
 	}
 
 	memset(ec_obj_item, 0, sizeof(ec_obj_item));
 
-	kind_of_delete_list = ugd->kind_of_delete_list;
+	kind_of_delete_list = ad->kind_of_delete_list;
 	delete_list_view = (Delete_List_View_Data *)calloc(1, sizeof(Delete_List_View_Data));
 	ret_if(delete_list_view == NULL);
-	delete_list_view->ugd = ugd;
+	delete_list_view->ad = ad;
 	DBG("Request list : %d", kind_of_delete_list);
 	switch (kind_of_delete_list) {
 	case CST_DL_REJECT_CALL_WITH_MSG:
@@ -548,8 +548,8 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 	evas_object_data_set(delete_list_view->genlist, "delete_view_data", delete_list_view);
 
 	/* Move to previous top item */
-	evas_object_geometry_get(ugd->backup_genlist, &x, &y, &w, &h);
-	gen_item = elm_genlist_at_xy_item_get(ugd->backup_genlist, x, y+48, &posret);	/* if half of the item is hidden, consider the next item as the top item */
+	evas_object_geometry_get(ad->backup_genlist, &x, &y, &w, &h);
+	gen_item = elm_genlist_at_xy_item_get(ad->backup_genlist, x, y+48, &posret);	/* if half of the item is hidden, consider the next item as the top item */
 	if (gen_item) {
 		top_item_idx = elm_genlist_item_index_get(gen_item);
 	}
@@ -560,7 +560,7 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 	}
 
 	/*Create layout */
-	delete_list_view->main_layout = elm_layout_add(ugd->nf);
+	delete_list_view->main_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(delete_list_view->main_layout, THEME_NAME, "reject_msg_listview_layout");
 	evas_object_size_hint_weight_set(delete_list_view->main_layout,
 									 EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -570,20 +570,20 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 	elm_object_part_content_set(delete_list_view->main_layout,
 								"elm.swallow.contents", delete_list_view->genlist);
 
-	navi_it = elm_naviframe_item_push(ugd->nf,
+	navi_it = elm_naviframe_item_push(ad->nf,
 									  delete_list_view->title, NULL, NULL,
 									  delete_list_view->main_layout, NULL);
 
 	evas_object_smart_callback_add(delete_list_view->genlist,
 			"language,changed", __cst_delete_list_lang_changed, delete_list_view);
-	_cst_create_navi_control_bar(ugd->nf,
+	_cst_create_navi_control_bar(ad->nf,
 										(char *)I_(CST_STR_NAVI_BTN_CANCEL), NULL,
 										__cst_on_click_cancel_button,
 										(char *)I_(CST_STR_NAVI_BTN_DELETE), NULL,
 										__cst_on_click_delete_confirm,
 										(void *)delete_list_view, navi_it,
 										ec_obj_item);
-	elm_naviframe_item_pop_cb_set(navi_it, __cst_on_click_back_button, ugd);
+	elm_naviframe_item_pop_cb_set(navi_it, __cst_on_click_back_button, ad);
 	if (ec_obj_item[1] != NULL) {
 		elm_object_disabled_set(ec_obj_item[1], EINA_TRUE);
 	}

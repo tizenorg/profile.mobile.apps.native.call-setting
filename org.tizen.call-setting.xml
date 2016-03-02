@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.call-setting" version="0.8.8" install-location="internal-only">
+<manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.call-setting" version="1.0.0" install-location="internal-only">
 	<label>Call setting</label>
 	<description>Call setting</description>
-	<ui-application appid="call-setting" exec="/usr/ug/bin/call-setting" ui-gadget="true" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true">
-		<icon>com.samsung.call.png</icon>
+	<ui-application appid="org.tizen.call-setting" exec="/usr/apps/org.tizen.call-setting/bin/call-setting" nodisplay="true" multiple="false" type="capp" taskmanage="false" launch_mode="group">
 		<label>Call setting</label>
+		<icon>org.tizen.call-setting.png</icon>
 		<label xml:lang="hy-am">Զանգի կայանքներ</label>
 		<label xml:lang="az-az">Zəng parametrləri</label>
 		<label xml:lang="eu-es">Deien konfigurazioa</label>
@@ -77,7 +77,6 @@
 		<privilege>http://tizen.org/privilege/appmanager.launch</privilege>
 		<privilege>http://tizen.org/privilege/message.read</privilege>
 		<privilege>http://tizen.org/privilege/telephony</privilege>
-		<privilege>http://tizen.org/privilege/telephony.admin</privilege>
 		<privilege>http://tizen.org/privilege/contact.read</privilege>
 	</privileges>
 </manifest>

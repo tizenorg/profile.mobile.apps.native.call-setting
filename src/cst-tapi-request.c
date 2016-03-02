@@ -37,10 +37,10 @@ static void __cst_remove_ss_request(void *data);
 void _cst_register_tel_event(void *data)
 {
 	ENTER(_cst_register_tel_event);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd == NULL) {
-		ERR("ugd = NULL, so returning");
+	if (ad == NULL) {
+		ERR("ad = NULL, so returning");
 		return;
 	}
 
@@ -52,17 +52,17 @@ void _cst_register_tel_event(void *data)
 		return;
 	}
 
-	ugd->sim1_tapi_handle = tel_init(cp_list[0]); /*SIM1 slot*/
-	if (ugd->sim1_tapi_handle == NULL) {
+	ad->sim1_tapi_handle = tel_init(cp_list[0]); /*SIM1 slot*/
+	if (ad->sim1_tapi_handle == NULL) {
 		ERR("tel_init() for SIM1 failed.");
 	}
 
-	ugd->sim2_tapi_handle = tel_init(cp_list[1]); /*SIM2 slot*/
-	if (ugd->sim2_tapi_handle == NULL) {
+	ad->sim2_tapi_handle = tel_init(cp_list[1]); /*SIM2 slot*/
+	if (ad->sim2_tapi_handle == NULL) {
 		ERR("tel_init() for SIM2 failed.");
 	}
 
-	ugd->tapi_handle = ugd->sim1_tapi_handle; /*By default let SIM1 be the selected slot*/
+	ad->tapi_handle = ad->sim1_tapi_handle; /*By default let SIM1 be the selected slot*/
 
 	if (cp_list) {
 		g_strfreev(cp_list);
@@ -74,29 +74,29 @@ void _cst_register_tel_event(void *data)
 void _cst_deregister_tel_event(void *data)
 {
 	ENTER(_cst_deregister_tel_event);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	int ret = -1;
 
-	if (ugd == NULL) {
-		ERR("ugd = NULL, so returning");
+	if (ad == NULL) {
+		ERR("ad = NULL, so returning");
 		return;
 	}
 
-	if (ugd->sim1_tapi_handle) {
-		ret = tel_deinit(ugd->sim1_tapi_handle);
+	if (ad->sim1_tapi_handle) {
+		ret = tel_deinit(ad->sim1_tapi_handle);
 		if (ret != TAPI_API_SUCCESS) {
 			ERR("tel_deinit SIM1 failed (%d)\n", ret);
 		}
 	}
-	ugd->sim1_tapi_handle = NULL;
+	ad->sim1_tapi_handle = NULL;
 
-	if (ugd->sim2_tapi_handle) {
-		ret = tel_deinit(ugd->sim2_tapi_handle);
+	if (ad->sim2_tapi_handle) {
+		ret = tel_deinit(ad->sim2_tapi_handle);
 		if (ret != TAPI_API_SUCCESS) {
 			ERR("tel_deinit SIM2 failed (%d)\n", ret);
 		}
 	}
-	ugd->sim2_tapi_handle = NULL;
+	ad->sim2_tapi_handle = NULL;
 
 	LEAVE();
 }
@@ -104,23 +104,23 @@ void _cst_deregister_tel_event(void *data)
 void _cst_update_tapi_handle_by_simslot(void *data, CstSimSlot_t slot_id)
 {
 	ENTER(_cst_update_tapi_handle_by_simslot);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd == NULL) {
-		ERR("ugd = NULL, so returning");
+	if (ad == NULL) {
+		ERR("ad = NULL, so returning");
 		return;
 	}
 	DBG("Slot_ID = %d", slot_id);
 
 	switch (slot_id) {
 	case CST_SELECTED_SIM1:
-		ugd->tapi_handle = ugd->sim1_tapi_handle;
+		ad->tapi_handle = ad->sim1_tapi_handle;
 		break;
 	case CST_SELECTED_SIM2:
-		ugd->tapi_handle = ugd->sim2_tapi_handle;
+		ad->tapi_handle = ad->sim2_tapi_handle;
 		break;
 	default:
-		ugd->tapi_handle = ugd->sim1_tapi_handle; /*By default let SIM1 be the selected slot*/
+		ad->tapi_handle = ad->sim1_tapi_handle; /*By default let SIM1 be the selected slot*/
 		break;
 	}
 
@@ -130,14 +130,14 @@ void _cst_update_tapi_handle_by_simslot(void *data, CstSimSlot_t slot_id)
 Eina_Bool _cst_is_sim_present_by_simslot(void *data, CstSimSlot_t slot_id)
 {
 	ENTER(_cst_is_sim_present_by_simslot);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	TapiResult_t tapi_err = TAPI_API_SUCCESS;
 	TelSimCardStatus_t sim_status = 0;
 	int sim_changed = 0;
 	Eina_Bool ret = EINA_FALSE;
 
-	if (ugd == NULL) {
-		ERR("ugd = NULL, so returning");
+	if (ad == NULL) {
+		ERR("ad = NULL, so returning");
 		return ret;
 	}
 	DBG("Slot_ID = %d", slot_id);
@@ -145,7 +145,7 @@ Eina_Bool _cst_is_sim_present_by_simslot(void *data, CstSimSlot_t slot_id)
 
 	switch (slot_id) {
 	case CST_SELECTED_SIM1:
-		tapi_err = tel_get_sim_init_info(ugd->sim1_tapi_handle, &sim_status,
+		tapi_err = tel_get_sim_init_info(ad->sim1_tapi_handle, &sim_status,
 				&sim_changed);
 		if (TAPI_API_SUCCESS != tapi_err) {
 			ERR("tel_get_sim_init_info failed.. tapi_err = %d", tapi_err);
@@ -164,7 +164,7 @@ Eina_Bool _cst_is_sim_present_by_simslot(void *data, CstSimSlot_t slot_id)
 		ret = EINA_TRUE;
 		break;
 	case CST_SELECTED_SIM2:
-		tapi_err = tel_get_sim_init_info(ugd->sim2_tapi_handle, &sim_status,
+		tapi_err = tel_get_sim_init_info(ad->sim2_tapi_handle, &sim_status,
 				&sim_changed);
 		if (TAPI_API_SUCCESS != tapi_err) {
 			ERR("tel_get_sim_init_info failed.. tapi_err = %d", tapi_err);
@@ -366,7 +366,7 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 	TelSsCause_t ss_result = result;
 	TelSsForwardResp_t *cf_data = NULL;
 	CallSettingSSReq_t *req = NULL;
-	CstUgData_t *ugd = NULL;
+	CstAppData_t *ad = NULL;
 
 	req = (CallSettingSSReq_t *)user_data;
 	if (req == NULL) {
@@ -374,20 +374,20 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 		return FALSE;
 	}
 
-	ugd = (CstUgData_t *)req->ugd;
-	if (ugd == NULL) {
-		ERR("ugd is NULL, returning");
+	ad = (CstAppData_t *)req->ad;
+	if (ad == NULL) {
+		ERR("ad is NULL, returning");
 		return FALSE;
 	}
 
 	cf_data = (TelSsForwardResp_t *)data;
 	if (cf_data == NULL) {
 		ERR("data is NULL, returning");
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 
 		return FALSE;
@@ -396,11 +396,11 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 	retv_if(req->is_requesting == EINA_FALSE, 0);
 	if (req->is_canceled == EINA_TRUE) {
 		DBG("Req(0x%xp,req_id=%d) was canceled. So It will be removed", req, req->req_id);
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 
 		return FALSE;
@@ -414,11 +414,11 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 		if (req) {
 			req->func(req->call_type, req->flavour, EINA_FALSE, NULL, error, req->action, req->data, req->waiting_time);
 		}
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 
 		return FALSE;
@@ -456,12 +456,12 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 
 				req->func(CST_CALLTYPE_VIDEO, cf_flavour, cf_state, number, CST_ERROR_NONE, req->action, req->data, waiting_time);
 
-				__cst_remove_ss_request(ugd);
+				__cst_remove_ss_request(ad);
 
 				if (cf_flavour == CST_SSTYPE_CF_NOT_REACHABLE) {
-					if (ugd->popup) {
-						evas_object_del(ugd->popup);
-						ugd->popup = NULL;
+					if (ad->popup) {
+						evas_object_del(ad->popup);
+						ad->popup = NULL;
 					}
 				}
 
@@ -504,11 +504,11 @@ static gboolean __cst_ss_forward_query_resp_cb(TapiHandle *handle, int result, v
 		req->func(call_type, cf_flavour, cf_state, number, CST_ERROR_NONE, req->action, req->data, waiting_time);
 	}
 
-	__cst_remove_ss_request(ugd);
+	__cst_remove_ss_request(ad);
 	if (cf_flavour == CST_SSTYPE_CF_NOT_REACHABLE) {
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 	}
 	return TRUE;
@@ -521,7 +521,7 @@ static gboolean __cst_ss_forward_set_resp_cb(TapiHandle *handle, int result, voi
 	TelSsForwardInfo_t cf_info;
 	TelSsForwardResp_t *cf_data = NULL;
 	CallSettingSSReq_t *req = NULL;
-	CstUgData_t *ugd = NULL;
+	CstAppData_t *ad = NULL;
 
 	req = (CallSettingSSReq_t *)user_data;
 	if (req == NULL) {
@@ -529,23 +529,23 @@ static gboolean __cst_ss_forward_set_resp_cb(TapiHandle *handle, int result, voi
 		return FALSE;
 	}
 
-	ugd = (CstUgData_t *)req->ugd;
-	if (ugd == NULL) {
-		ERR("ugd is NULL, returning");
+	ad = (CstAppData_t *)req->ad;
+	if (ad == NULL) {
+		ERR("ad is NULL, returning");
 		return FALSE;
 	}
 
 	cf_data = (TelSsForwardResp_t *)data;
 	if (cf_data == NULL) {
 		ERR("data is NULL, returning");
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
 	retv_if(req->is_requesting == EINA_FALSE, 0);
 	if (req->is_canceled == EINA_TRUE) {
 		DBG("Req(0x%xp,req_id=%d) was canceled. So It will be removed", req, req->req_id);
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
@@ -560,7 +560,7 @@ static gboolean __cst_ss_forward_set_resp_cb(TapiHandle *handle, int result, voi
 		if (req) {
 			req->func(req->call_type, req->flavour, req->original_state, NULL, error, req->action, req->data, req->waiting_time);
 		}
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
@@ -568,7 +568,7 @@ static gboolean __cst_ss_forward_set_resp_cb(TapiHandle *handle, int result, voi
 	cf_info.Condition = __cst_get_tapi_cf_flavour(req->flavour);
 	cf_info.Class = __cst_get_tapi_req_ss_class(req->call_type);
 
-	__cst_remove_ss_request(ugd);
+	__cst_remove_ss_request(ad);
 
 	return TRUE;
 }
@@ -580,7 +580,7 @@ static gboolean __cst_ss_waiting_set_resp_cb(TapiHandle *handle, int result, voi
 	TelSsWaitingResp_t *cw_data = NULL;
 	CallSettingSSReq_t *req = NULL;
 	TelSsWaitingInfo_t cw_info;
-	CstUgData_t *ugd = NULL;
+	CstAppData_t *ad = NULL;
 
 	req = (CallSettingSSReq_t *)user_data;
 	if (req == NULL) {
@@ -588,22 +588,22 @@ static gboolean __cst_ss_waiting_set_resp_cb(TapiHandle *handle, int result, voi
 		return FALSE;
 	}
 
-	ugd = (CstUgData_t *)req->ugd;
-	if (ugd == NULL) {
-		ERR("ugd is NULL, returning");
+	ad = (CstAppData_t *)req->ad;
+	if (ad == NULL) {
+		ERR("ad is NULL, returning");
 		return FALSE;
 	}
 
 	cw_data = (TelSsWaitingResp_t *)data;
 	if (cw_data == NULL) {
 		ERR("data is NULL, returning");
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
 	retv_if(req->is_requesting == EINA_FALSE, 0);
 	if (req->is_canceled == EINA_TRUE) {
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
@@ -616,14 +616,14 @@ static gboolean __cst_ss_waiting_set_resp_cb(TapiHandle *handle, int result, voi
 		if (req) {
 			req->func(req->call_type, req->flavour, EINA_TRUE, NULL, error, req->action, req->data, req->waiting_time);
 		}
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
 	memset(&cw_info, 0x0, sizeof(TelSsWaitingInfo_t));
 	cw_info.Class = __cst_get_tapi_req_ss_class(req->call_type);
 
-	__cst_remove_ss_request(ugd);
+	__cst_remove_ss_request(ad);
 	return TRUE;
 }
 
@@ -633,7 +633,7 @@ static gboolean __cst_ss_waiting_query_resp_cb(TapiHandle *handle, int result, v
 	TelSsCause_t ss_result = result;
 	TelSsWaitingResp_t *cw_data = NULL;
 	CallSettingSSReq_t *req = NULL;
-	CstUgData_t *ugd = NULL;
+	CstAppData_t *ad = NULL;
 
 	req = (CallSettingSSReq_t *)user_data;
 	if (req == NULL) {
@@ -641,22 +641,22 @@ static gboolean __cst_ss_waiting_query_resp_cb(TapiHandle *handle, int result, v
 		return FALSE;
 	}
 
-	ugd = (CstUgData_t *)req->ugd;
-	if (ugd == NULL) {
-		ERR("ugd is NULL, returning");
+	ad = (CstAppData_t *)req->ad;
+	if (ad == NULL) {
+		ERR("ad is NULL, returning");
 		return FALSE;
 	}
 
 	cw_data = (TelSsWaitingResp_t *)data;
 	if (cw_data == NULL) {
 		ERR("data is NULL, returning");
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
 	retv_if(req->is_requesting == EINA_FALSE, 0);
 	if (req->is_canceled == EINA_TRUE) {
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
@@ -669,7 +669,7 @@ static gboolean __cst_ss_waiting_query_resp_cb(TapiHandle *handle, int result, v
 		if (req) {
 			req->func(req->call_type, req->flavour, req->original_state, NULL, error, req->action, req->data, req->waiting_time);
 		}
-		__cst_remove_ss_request(ugd);
+		__cst_remove_ss_request(ad);
 		return FALSE;
 	}
 
@@ -692,7 +692,7 @@ static gboolean __cst_ss_waiting_query_resp_cb(TapiHandle *handle, int result, v
 		break;
 	}
 
-	__cst_remove_ss_request(ugd);
+	__cst_remove_ss_request(ad);
 	return TRUE;
 }
 
@@ -709,23 +709,23 @@ static void __cst_print_req_queue(Eina_List *queue)
 void _cst_cancel_all_ss_request(void *data)
 {
 	ENTER(_cst_cancel_all_ss_request);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
 	Eina_List *l;
 	Eina_List *l_next;
 	CallSettingSSReq_t *req;
 
-	EINA_LIST_FOREACH_SAFE(ugd->req_queue, l, l_next, req) {
+	EINA_LIST_FOREACH_SAFE(ad->req_queue, l, l_next, req) {
 		ret_if(req == NULL);
 		DBG("Cancel req=0x%p", req);
 		if (req->is_requesting == EINA_TRUE) {
 			req->is_canceled = EINA_TRUE;
 		} else {
 			free(req);
-			ugd->req_queue = eina_list_remove_list(ugd->req_queue, l);
+			ad->req_queue = eina_list_remove_list(ad->req_queue, l);
 		}
 	}
-	__cst_print_req_queue(ugd->req_queue);
+	__cst_print_req_queue(ad->req_queue);
 	LEAVE();
 }
 
@@ -736,9 +736,9 @@ void _cst_change_password_ss_request(CallSettingSSReq_t *req, void *func)
 	ret_if(NULL == func);
 	int err = TAPI_API_SUCCESS;
 	CstGlItemData_t *item_data = (CstGlItemData_t *)req->data;
-	CstUgData_t *ugd = item_data->ugd;
+	CstAppData_t *ad = item_data->ad;
 	req->func = func;
-	err = tel_change_ss_barring_password(ugd->tapi_handle,
+	err = tel_change_ss_barring_password(ad->tapi_handle,
 			req->old_password,
 			req->new_password,
 			req->confirm_password,
@@ -748,7 +748,7 @@ void _cst_change_password_ss_request(CallSettingSSReq_t *req, void *func)
 	}
 }
 
-void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int flavour, int orig_state, char *number, void *func, void *data, int waiting_time, CstUgData_t *ugd)
+void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int flavour, int orig_state, char *number, void *func, void *data, int waiting_time, CstAppData_t *ad)
 {
 	ENTER(_cst_add_ss_request);
 	ret_if(NULL == data);
@@ -763,7 +763,7 @@ void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int 
 	req->data = data;
 	req->func = func;
 	req->waiting_time = waiting_time;
-	req->ugd = ugd;
+	req->ad = ad;
 	snprintf(req->number, CST_MAX_PHONE_NUMBER_LEN, "%s", number);
 	int cnt;
 
@@ -783,30 +783,30 @@ void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int 
 static void __cst_remove_ss_request(void *data)
 {
 	ENTER(__cst_remove_ss_request);
-	CstUgData_t *ugd = data;
-	retm_if(!ugd, "ugd is NULL");
+	CstAppData_t *ad = data;
+	retm_if(!ad, "ad is NULL");
 	CallSettingSSReq_t *req;
 	Eina_List *first;
 	int cnt;
-	ret_if(eina_list_count(ugd->req_queue) == 0);
+	ret_if(eina_list_count(ad->req_queue) == 0);
 
-	first = eina_list_nth_list(ugd->req_queue, 0);
+	first = eina_list_nth_list(ad->req_queue, 0);
 	retm_if(!first, "first is NULL");
 	req = (CallSettingSSReq_t *)first->data;
 	DBG("Remove req=0x%p", req);
-	ugd->req_queue = eina_list_remove_list(ugd->req_queue, first);
+	ad->req_queue = eina_list_remove_list(ad->req_queue, first);
 	free(req);
 
-	cnt = eina_list_count(ugd->req_queue);
+	cnt = eina_list_count(ad->req_queue);
 	DBG("req count=%d", cnt);
 
 	if (cnt > 0) {
-		first = eina_list_nth_list(ugd->req_queue, 0);
+		first = eina_list_nth_list(ad->req_queue, 0);
 		retm_if(!first, "first is NULL");
 		req = (CallSettingSSReq_t *)first->data;
 		__cst_send_ss_req_to_telephony_server(req);
 	}
-	__cst_print_req_queue(ugd->req_queue);
+	__cst_print_req_queue(ad->req_queue);
 
 	LEAVE();
 
@@ -820,7 +820,7 @@ static void __cst_send_ss_req_to_telephony_server(CallSettingSSReq_t *req)
 	TelSsWaitingInfo_t cw_info;
 	int api_ret = -1;
 	int req_id = -1;
-	CstUgData_t *ugd = req->ugd;
+	CstAppData_t *ad = req->ad;
 
 	ret_if(req == NULL);
 	DBG("Send req=0x%p action=%d call_type=%d flavour=%d waiting_time=%d", req, req->action, req->call_type, req->flavour, req->waiting_time);
@@ -840,7 +840,7 @@ static void __cst_send_ss_req_to_telephony_server(CallSettingSSReq_t *req)
 		cf_info.Condition = __cst_get_tapi_cf_flavour(req->flavour);
 		cf_info.Class = __cst_get_tapi_req_ss_class(req->call_type);
 		if (req->action == CST_ACTION_QUERY) {
-			api_ret = tel_get_ss_forward_status(ugd->tapi_handle, cf_info.Class, cf_info.Condition, (tapi_response_cb)__cst_ss_forward_query_resp_cb, (void *)req);
+			api_ret = tel_get_ss_forward_status(ad->tapi_handle, cf_info.Class, cf_info.Condition, (tapi_response_cb)__cst_ss_forward_query_resp_cb, (void *)req);
 		} else {
 			cf_info.Mode = __cst_get_tapi_cf_mode(req->action);
 			if ((req->flavour == CST_SSTYPE_CF_NO_REPLY) && (req->waiting_time > 0)) {
@@ -853,16 +853,16 @@ static void __cst_send_ss_req_to_telephony_server(CallSettingSSReq_t *req)
 				cf_info.Ton = TAPI_SS_CF_TON_NATIONAL;
 			}
 			DBG("Ton : %d", cf_info.Ton);
-			api_ret = tel_set_ss_forward(ugd->tapi_handle, &cf_info, (tapi_response_cb)__cst_ss_forward_set_resp_cb, (void *)req);
+			api_ret = tel_set_ss_forward(ad->tapi_handle, &cf_info, (tapi_response_cb)__cst_ss_forward_set_resp_cb, (void *)req);
 		}
 		break;
 	case CST_SSTYPE_CW:
 		cw_info.Class = __cst_get_tapi_req_ss_class(req->call_type);
 		if (req->action == CST_ACTION_QUERY) {
-			api_ret = tel_get_ss_waiting_status(ugd->tapi_handle, cw_info.Class, (tapi_response_cb)__cst_ss_waiting_query_resp_cb, (void *)req);
+			api_ret = tel_get_ss_waiting_status(ad->tapi_handle, cw_info.Class, (tapi_response_cb)__cst_ss_waiting_query_resp_cb, (void *)req);
 		} else {
 			cw_info.Mode = __cst_get_tapi_cw_mode(req->action);
-			api_ret = tel_set_ss_waiting(ugd->tapi_handle, &cw_info, (tapi_response_cb)__cst_ss_waiting_set_resp_cb, (void *)req);
+			api_ret = tel_set_ss_waiting(ad->tapi_handle, &cw_info, (tapi_response_cb)__cst_ss_waiting_set_resp_cb, (void *)req);
 		}
 		break;
 	}
@@ -873,12 +873,12 @@ static void __cst_send_ss_req_to_telephony_server(CallSettingSSReq_t *req)
 
 	if (api_ret != TAPI_API_SUCCESS) {
 		CstGlItemData_t *item_data;
-		CstUgData_t *ugd;
+		CstAppData_t *ad;
 
 		req->func(req->call_type, req->flavour, EINA_FALSE, NULL, CST_ERROR_INCORRECT_OPERATION, req->action, req->data, req->waiting_time);
 		item_data = (CstGlItemData_t *)req->data;
-		ugd = (CstUgData_t *)item_data->ugd;
-		__cst_remove_ss_request(ugd);
+		ad = (CstAppData_t *)item_data->ad;
+		__cst_remove_ss_request(ad);
 	}
 	DBG("api_ret=%d req_id=0x%p", api_ret, req_id);
 

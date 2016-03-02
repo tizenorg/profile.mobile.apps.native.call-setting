@@ -41,7 +41,7 @@
 CST_MODULE_EXPORT char *cst_reject_msg_get(int index, gboolean b_parsing)
 {
     ENTER(cst_reject_msg_get);
-    bindtextdomain(UGNAME, CST_LOCALE);
+    bindtextdomain(APPNAME, CST_LOCALE);
 
     char *message = _cst_get_reject_message(index, b_parsing, EINA_TRUE);
     return message;
@@ -65,7 +65,7 @@ gboolean _cst_core_util_strcpy(char *pbuffer, int buf_count, const char *pstring
 
 void cst_util_domain_translatable_text_set(Evas_Object *obj, const char* text)
 {
-	char *domain = UGNAME;
+	char *domain = APPNAME;
 	if (text && strstr(text, "IDS_COM") && _cst_text_id_is_common(text))
 		domain = "sys_string";
 
@@ -74,7 +74,7 @@ void cst_util_domain_translatable_text_set(Evas_Object *obj, const char* text)
 
 void cst_util_domain_translatable_part_text_set(Evas_Object *obj, const char* part, const char* text)
 {
-	char *domain = UGNAME;
+	char *domain = APPNAME;
 	if (text && strstr(text, "IDS_COM") && _cst_text_id_is_common(text))
 		domain = "sys_string";
 
@@ -83,7 +83,7 @@ void cst_util_domain_translatable_part_text_set(Evas_Object *obj, const char* pa
 
 void cst_util_item_domain_translatable_part_text_set(Elm_Object_Item *it, const char* part, const char* text)
 {
-	char *domain = UGNAME;
+	char *domain = APPNAME;
 	if (text && strstr(text, "IDS_COM") && _cst_text_id_is_common(text))
 		domain = "sys_string";
 
@@ -92,7 +92,7 @@ void cst_util_item_domain_translatable_part_text_set(Elm_Object_Item *it, const 
 
 void cst_util_item_domain_text_translatable_set(Elm_Object_Item *it, const char* text)
 {
-	char *domain = UGNAME;
+	char *domain = APPNAME;
 	if (text && strstr(text, "IDS_COM") && _cst_text_id_is_common(text))
 		domain = "sys_string";
 
@@ -191,7 +191,7 @@ Eina_Bool _cst_check_flight_mode(void)
 /*
  * This API is used to find the SIM status in Dual SIM Devices
  */
-Eina_Bool _cst_check_dual_sim_status(CstUgData_t *ugd)
+Eina_Bool _cst_check_dual_sim_status(CstAppData_t *ad)
 {
 	ENTER(_cst_check_dual_sim_status);
 
@@ -200,7 +200,7 @@ Eina_Bool _cst_check_dual_sim_status(CstUgData_t *ugd)
 
 	int res = telephony_init(&handle_list);
 	if (TELEPHONY_ERROR_NONE == res) {
-		int sel_sim = ugd->sel_sim;
+		int sel_sim = ad->sel_sim;
 
 		if (CST_SELECTED_SIM1 <= sel_sim && sel_sim < handle_list.count) {
 			telephony_sim_state_e sim_state = TELEPHONY_SIM_STATE_UNAVAILABLE;
@@ -375,8 +375,8 @@ static Eina_Bool __cst_imf_context_entry_focus_set_cb(void *data)
 static void __cst_contact_list_view_reply_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
 	ENTER(__cst_contact_list_view_reply_cb);
-	CstUgData_t *ugd = (CstUgData_t *)user_data;
-	ret_if(NULL == ugd);
+	CstAppData_t *ad = (CstAppData_t *)user_data;
+	ret_if(NULL == ad);
 	ret_if(APP_CONTROL_RESULT_SUCCEEDED != result);
 
 	int number_id = -1;
@@ -418,10 +418,10 @@ static void __cst_contact_list_view_reply_cb(app_control_h request, app_control_
 		}
 	}
 
-	if (ugd->dg_entry_contact_number) {
-		elm_entry_entry_set(ugd->dg_entry_contact_number, buffer);
+	if (ad->dg_entry_contact_number) {
+		elm_entry_entry_set(ad->dg_entry_contact_number, buffer);
 	} else {
-		elm_entry_entry_set(ugd->dg_entry, buffer);
+		elm_entry_entry_set(ad->dg_entry, buffer);
 	}
 	contacts_record_destroy(numbers_record, true);
 
@@ -429,14 +429,14 @@ static void __cst_contact_list_view_reply_cb(app_control_h request, app_control_
 		DBG("contacts_disconnect failed");
 	}
 
-	ugd->is_app_control_invoked = false;
+	ad->is_app_control_invoked = false;
 
-	if (ugd->dg_entry_contact_number) {
+	if (ad->dg_entry_contact_number) {
 		ecore_idler_add(__cst_imf_context_entry_focus_set_cb,
-				(const void *)ugd->dg_entry_contact_number);
-	} else if (ugd->popup == NULL) {
+				(const void *)ad->dg_entry_contact_number);
+	} else if (ad->popup == NULL) {
 		ecore_idler_add(__cst_imf_context_entry_focus_set_cb,
-				(const void *)ugd->dg_entry);
+				(const void *)ad->dg_entry);
 	}
 }
 
@@ -444,7 +444,7 @@ static void __cst_invoke_contact_single_picker(void *data)
 {
 	ENTER(__cst_invoke_contact_single_picker);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	app_control_h app_control = NULL;
 
 	app_control_create(&app_control);
@@ -456,8 +456,8 @@ static void __cst_invoke_contact_single_picker(void *data)
 			CST_CT_APPCONTROL_DATA_PHONE);
 
 	if (APP_CONTROL_ERROR_NONE == app_control_send_launch_request(app_control,
-			__cst_contact_list_view_reply_cb, (void *)ugd)) {
-		ugd->is_app_control_invoked = true;
+			__cst_contact_list_view_reply_cb, (void *)ad)) {
+		ad->is_app_control_invoked = true;
 	}
 	app_control_destroy(app_control);
 }
@@ -487,16 +487,16 @@ void _cst_unlisten_vconf_change(void)
 
 Eina_Bool _cst_naviframe_item_pop_cb(void *data)
 {
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	evas_object_smart_callback_del(ugd->nf, "transition,finished", _cst_transition_cb);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	evas_object_smart_callback_del(ad->nf, "transition,finished", _cst_transition_cb);
 
-	ugd->dg_entry = NULL;
+	ad->dg_entry = NULL;
 
-	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ugd->nf), NULL, NULL);
+	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ad->nf), NULL, NULL);
 
-	elm_naviframe_item_pop(ugd->nf);
+	elm_naviframe_item_pop(ad->nf);
 
-	ugd->back_button = _cst_get_navifr_prev_btn(ugd->nf);
+	ad->back_button = _cst_get_navifr_prev_btn(ad->nf);
 
 	return ECORE_CALLBACK_CANCEL;
 }
@@ -554,7 +554,7 @@ static void __system_settings_changed_in_cb(system_settings_key_e key, void *use
 {
 	ENTER("__system_settings_changed_in_cb");
 
-	if (key < 0 || key >= SYSTEM_SETTINGS_KEY_MAX) {
+	if (key < SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE || key >= SYSTEM_SETTINGS_KEY_MAX) {
 		ERR("System Error. Wrong key.");
 		return;
 	}
@@ -594,7 +594,7 @@ int _cst_util_system_settings_set_changed_cb(system_settings_key_e key, system_s
 {
 	ENTER("_cst_util_system_settings_set_changed_cb");
 
-	if (key < 0 || key >= SYSTEM_SETTINGS_KEY_MAX || !callback) {
+	if (key < SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE || key >= SYSTEM_SETTINGS_KEY_MAX || !callback) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -633,7 +633,7 @@ int _cst_util_system_settings_unset_changed_cb(system_settings_key_e key, system
 {
 	ENTER("_cst_util_system_settings_unset_changed_cb");
 
-	if (key < 0 || key >= SYSTEM_SETTINGS_KEY_MAX || !callback || !keys_array[key]) {
+	if (key < SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE || key >= SYSTEM_SETTINGS_KEY_MAX || !callback || !keys_array[key]) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -666,7 +666,7 @@ int _cst_util_system_settings_unset_changed_cb_all(system_settings_key_e key)
 {
 	ENTER("_cst_util_system_settings_unset_changed_cb_all");
 
-	if (key < 0 || key >= SYSTEM_SETTINGS_KEY_MAX || !keys_array[key]) {
+	if (key < SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE || key >= SYSTEM_SETTINGS_KEY_MAX || !keys_array[key]) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -699,4 +699,38 @@ Evas_Object *_cst_util_navi_back_btn_create(Evas_Object *naviframe)
 	evas_object_smart_callback_add(back_btn, "clicked", __cst_on_clicked_navi_back_btn, naviframe);
 
 	return back_btn;
+}
+
+
+static const char *_cst_util_get_res_path()
+{
+	static char res_folder_path[PATH_MAX] = {'\0'};
+	if (res_folder_path[0] == '\0') {
+		char *res_path_buff = app_get_resource_path();
+		strncpy(res_folder_path, res_path_buff, PATH_MAX-1);
+		free(res_path_buff);
+	}
+	return res_folder_path;
+}
+
+static const char *_cst_util_get_resource(const char *res_name)
+{
+	if (res_name == NULL) {
+		ERR("res_name is NULL");
+		return NULL;
+	}
+
+	static char res_path[PATH_MAX] = {'\0'};
+	snprintf(res_path, PATH_MAX, "%s%s", _cst_util_get_res_path(), res_name);
+	return res_path;
+}
+
+const char *_cst_util_get_edj_path()
+{
+	return _cst_util_get_resource(THEME_PATH);
+}
+
+const char *_cst_util_get_locale_path()
+{
+	return _cst_util_get_resource(LOCAL_DIR);
 }
