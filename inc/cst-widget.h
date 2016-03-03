@@ -28,7 +28,7 @@
 
 char *_cst_get_error_string(int error);
 void _cst_create_error_popup(int error_code);
-Evas_Object *_cst_create_error_popup_with_ok_btn(CstUgData_t *ugd, int error);
+Evas_Object *_cst_create_error_popup_with_ok_btn(CstAppData_t *ad, int error);
 void _cst_create_navi_control_bar(Evas_Object *parent,
 		char *label1, const char *icon1, Evas_Smart_Cb cb1,
 		char *label2, const char *icon2, Evas_Smart_Cb cb2,
@@ -42,7 +42,7 @@ Evas_Object *_cst_create_onoff_button(Evas_Object *obj,
 Evas_Object *_cst_create_radio_icon(Evas_Object *obj,
 									Evas_Object *rdg, int value, int offset, const char *vconf_key);
 void _cst_transition_cb(void *data, Evas_Object *obj, void *event_info);
-Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
+Evas_Object *_cst_create_ime_editfield(CstAppData_t *ad, Evas_Object *parent,
 		CstImeType_t ime_type, char *input_string);
 Elm_Genlist_Item_Class *_cst_create_genlist_item_class(
 	const char *item_style,
@@ -51,7 +51,7 @@ Elm_Genlist_Item_Class *_cst_create_genlist_item_class(
 	Elm_Gen_Item_State_Get_Cb state_get_fn, Elm_Gen_Item_Del_Cb del_fn);
 void _cst_update_genlist_item_class(Elm_Object_Item *item, Elm_Genlist_Item_Class *itc);
 void _cst_destroy_genlist_item_class(Elm_Genlist_Item_Class *itc);
-void _cst_destroy_all_items(CstUgData_t *ugd);
+void _cst_destroy_all_items(CstAppData_t *ad);
 Evas_Object *_cst_create_ime_contacts_btn_obj(Evas_Object *parent, void *data);
 void _cst_create_toast_popup(const char *text);
 void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb

@@ -33,13 +33,21 @@
 #define CST_MODULE_EXPORT __attribute__ ((visibility("default")))
 #endif
 
-#define EDJ_DIR             EDJDIR
-#define IMG_DIR             IMAGEDIR
-#define CST_LOCALE          LOCALEDIR
+#define _EDJ(o)			elm_layout_edje_get(o)
 
-#define _EDJ(o)             elm_layout_edje_get(o)
+#define THEME_PATH		"/edje/call-setting-theme.edj"
+#define LOCAL_DIR		"/locale"
 
-#define THEME_NAME          EDJ_DIR"/call-setting-theme.edj"
+#define THEME_NAME		_cst_util_get_edj_path()
+#define CST_LOCALE		_cst_util_get_locale_path()
+
+#if !defined(APPNAME)
+#define APPNAME "call-setting"
+#endif
+
+#if !defined(PACKAGE)
+#define PACKAGE "org.tizen."APPNAME
+#endif
 
 #define CST_MAX_PASSWORD_LEN		4
 #define CST_MAX_REJECT_NUM		30
@@ -60,8 +68,6 @@
 #define CST_SHOW_PROGRESSBAR_POPUP_TIMER 0.00000001
 #define CST_MAX_NUM_AUTO_REJECT_LIST 100
 #define CST_DISPLAY_NAME_LENGTH_MAX		(255+1)
-
-#define CST_CTRL_ICON_CONTACTS_DEF_IMG			IMG_DIR"/call_setting_address.png"
 
 /**
  * The key of request bundle for type.
@@ -243,17 +249,16 @@ typedef struct _Item_Data {
 	char number[CST_MAX_PHONE_NUMBER_LEN + 1];
 	char text[CST_MAX_ITEM_TEXT_BUFFER_LEN + 1];
 	char name[CST_DISPLAY_NAME_LENGTH_MAX + 1];
-	void *ugd;
+	void *ad;
 	int style;
 	int cf_cb_request_by;
 } CstGlItemData_t;
 
 typedef struct {
-	Evas_Object *base;
-	Evas_Object *bg;
 	Evas_Object *win_main;
+	Evas_Object *main_layout;
 	Evas_Object *conform;
-	void *ug;
+
 	bool is_app_control_invoked;
 	Evas_Object *nf;
 	Evas_Object *controlbar;
@@ -262,8 +267,6 @@ typedef struct {
 	Evas_Object *cf_btn;
 
 	int ug_req_type;
-
-	double scale;
 
 	/* IME */
 	Evas_Object *dg_entry;
@@ -322,7 +325,7 @@ typedef struct {
 	Evas_Object *rejct_popup;
 	Evas_Object *rejctlist_popup;
 	Evas_Object *entry_count;
-} CstUgData_t;
+} CstAppData_t;
 
 #endif	/* _CST_COMMON_H_ */
 

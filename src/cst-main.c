@@ -16,11 +16,11 @@
  */
 
 #include <Elementary.h>
-#include <ui-gadget-module.h>
-#include <ui-gadget.h>
 #include <Eina.h>
 #include <vconf.h>
 #include <app.h>
+#include <efl_extension.h>
+
 #include "cst-common.h"
 #include "cst-debug.h"
 #include "cst-common-string.h"
@@ -32,308 +32,56 @@
 #include "cst-answering.h"
 #include "cst-more-call-setting.h"
 #include "cst-waiting.h"
-#include <efl_extension.h>
 
-static Evas_Object *__cst_create_content(Evas_Object *parent, CstUgData_t *ugd)
+static bool __cst_app_create(void *data);
+static void __cst_app_control(app_control_h app_control, void *data);
+static void __cst_app_pause(void *data);
+static void __cst_app_resume(void *data);
+static void __cst_app_terminate(void *data);
+
+static int __cst_create_naviframe(CstAppData_t *ad)
 {
-	ENTER(__cst_create_content);
-	Evas_Object *nf;
-	retv_if(parent == NULL, NULL);
+	ENTER(__cst_create_naviframe);
 
-	nf = elm_naviframe_add(parent);
-	ugd->nf = nf;
-	elm_naviframe_prev_btn_auto_pushed_set(nf, EINA_FALSE);
-	eext_object_event_callback_add(nf, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, NULL);
-	eext_object_event_callback_add(nf, EEXT_CALLBACK_MORE, eext_naviframe_more_cb, NULL);
+	ad->nf = elm_naviframe_add(ad->conform);
+	retv_if(!ad->nf, false);
+	elm_naviframe_prev_btn_auto_pushed_set(ad->nf, EINA_FALSE);
+	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, NULL);
+	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, eext_naviframe_more_cb, NULL);
 
-	evas_object_show(nf);
-	elm_object_focus_set(nf, EINA_TRUE);
-	ugd->popup = NULL;
+	evas_object_show(ad->nf);
+	elm_object_focus_set(ad->nf, EINA_TRUE);
 
-	switch (ugd->ug_req_type) {
-	case CST_UG_REQ_MAIN_SCREEN:
-		DBG("Its a CST_UG_REQ_MAIN_SCREEN UG request.");
-		_cst_create_call_setting(ugd);
-		break;
-	case CST_UG_REQ_REJECT_MESSAGES:
-		DBG("Its a CST_UG_REQ_REJECT_MESSAGES UG request.");
-		_cst_on_click_reject_message(ugd, NULL, NULL, NULL);
-		break;
-	case CST_UG_REQ_ANSWER_END_CALLS:
-		DBG("Its a CST_UG_REQ_ANSWER_END_CALLS UG request.");
-		_cst_on_click_answering_call(ugd, NULL, NULL, NULL);
-		break;
-	case CST_UG_REQ_ADDITIONAL_SETTINGS:
-		DBG("Its a CST_UG_REQ_ADDITIONAL_SETTINGS UG request.");
-		_cst_on_click_more_call_setting(ugd, NULL, NULL, NULL);
-		break;
-	case CST_UG_REQ_CALL_WAITING:
-		DBG("Its a CST_UG_REQ_CALL_WAITING UG request.");
-		_cst_on_click_more_call_setting(ugd, NULL, NULL, NULL);
-		break;
-	default:
-		_cst_create_call_setting(ugd);
-		break;
-	}
+	elm_object_part_content_set(ad->main_layout, "elm.swallow.content", ad->nf);
 
 	LEAVE();
 
-	return nf;
+	return true;
 }
 
-static Evas_Object *__cst_create_fullview(Evas_Object *parent, CstUgData_t *ugd)
+static int __cst_create_main_layout(CstAppData_t *ad)
 {
-	ENTER(__cst_create_fullview);
-	Evas_Object *base;
+	ENTER(__cst_create_main_layout);
 
-	/* Create Full view */
-	base = elm_layout_add(parent);
-	if (!base) {
-		return NULL;
-	}
+	ad->main_layout = elm_layout_add(ad->win_main);
+	retv_if(!ad->main_layout, false);
 
-	elm_layout_theme_set(base, "layout", "application", "default");
-	evas_object_size_hint_weight_set(base, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_layout_theme_set(ad->main_layout, "layout", "application", "default");
+	evas_object_size_hint_weight_set(ad->main_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_show(ad->main_layout);
 
-	evas_object_show(base);
-	LEAVE();
+	elm_object_content_set(ad->conform, ad->main_layout);
 
-	return base;
-}
-
-static Evas_Object *__cst_create_frameview(Evas_Object *parent, CstUgData_t *ugd)
-{
-	ENTER(__cst_create_frameview);
-	Evas_Object *base = NULL;
-
-	return base;
-}
-
-static Evas_Object *__cst_create_bg(Evas_Object *parent)
-{
-	ENTER(__cst_create_bg);
-	Evas_Object *bg = elm_bg_add(parent);
+	Evas_Object *bg = elm_bg_add(ad->main_layout);
+	retv_if(!bg, false);
 	evas_object_size_hint_weight_set(bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	elm_object_style_set(bg, "transparent");
+	elm_object_part_content_set(ad->main_layout, "elm.swallow.bg", bg);
+
 	evas_object_show(bg);
 
-	return bg;
-}
-
-static void *__cst_on_create(ui_gadget_h ug, enum ug_mode mode, app_control_h app_control, void *priv)
-{
-	WARN(">>");
-	Evas_Object *parent, *content;
-	CstUgData_t *ugd;
-
-	if (!ug || !priv) {
-		return NULL;
-	}
-
-	ugd = priv;
-	ugd->ug = (void *)ug;
-
-	bindtextdomain(UGNAME, CST_LOCALE);
-	cst_util_feedback_init();
-	elm_theme_extension_add(NULL, THEME_NAME);
-
-	parent = ug_get_parent_layout(ug);
-	ugd->win_main = parent;
-	retv_if(parent == NULL, NULL);
-	ugd->back_button = NULL;
-	ugd->req_queue = NULL;
-	ugd->sim_req_list = NULL;
-
-	int rotate_angles[3] = {0};
-
-	/* Set the required angles wherein the rotation has to be supported */
-	elm_win_wm_rotation_available_rotations_set(ugd->win_main,
-			rotate_angles, 1);
-
-	if (app_control) {
-		ugd->ug_req_type = _cst_parse_bundle(app_control);
-		DBG("ug_req_type=%d", ugd->ug_req_type);
-	} else {
-		ugd->ug_req_type = CST_UG_REQ_MAIN_SCREEN;
-	}
-
-	/* Register the telephony ss events */
-	_cst_register_tel_event(ugd);
-
-	ugd->bg = __cst_create_bg(parent);
-	elm_object_style_set(ugd->bg, "transparent");
-
-	if (mode == UG_MODE_FULLVIEW) {
-		ugd->base = __cst_create_fullview(parent, ugd);
-	} else {
-		ugd->base = __cst_create_frameview(parent, ugd);
-	}
-
-	if (ugd->base) {
-		content = __cst_create_content(parent, ugd);
-		elm_object_part_content_set(ugd->base, "elm.swallow.content", content);
-	}
-	elm_object_part_content_set(ugd->base, "elm.swallow.bg", ugd->bg);
-
-	ugd->scale = elm_config_scale_get();
-	DBG("scale factor=%f", ugd->scale);
-	return ugd->base;
-}
-
-static void __cst_on_start(ui_gadget_h ug, app_control_h app_control, void *priv)
-{
-	ENTER(__cst_on_start);
-	CstUgData_t *ugd = priv;
-	ret_if(!ugd);
-	ret_if(!ug);
-
-	ugd->conform = ug_get_conformant();
-
-	LEAVE();
-}
-
-static void __cst_on_pause(ui_gadget_h ug, app_control_h app_control, void *priv)
-{
-	ENTER(__cst_on_pause);
-}
-
-static void __cst_on_resume(ui_gadget_h ug, app_control_h app_control, void *priv)
-{
-	ENTER(__cst_on_resume);
-}
-
-static void __cst_on_destroy(ui_gadget_h ug, app_control_h app_control, void *priv)
-{
-	WARN(">>");
-	CstUgData_t *ugd = priv;
-	ret_if(!ugd);
-	ret_if(!ug);
-
-	_cst_deregister_tel_event(ugd);
-	_cst_unlisten_vconf_change();
-	_cst_destroy_all_items(ugd);
-
-	if (ugd->rejct_popup) {
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
-	}
-	if (ugd->reject_list) {
-		ugd->reject_list = eina_list_free(ugd->reject_list);
-	}
-
-	if (ugd->req_queue) {
-		Eina_List *l;
-		CallSettingSSReq_t *req;
-
-		EINA_LIST_FOREACH(ugd->req_queue, l, req) {
-			free(req);
-		}
-		ugd->req_queue = eina_list_free(ugd->req_queue);
-	}
-
-	if (ugd->sim_req_list) {
-		g_slist_free_full(ugd->sim_req_list, g_free);
-		ugd->sim_req_list = NULL;
-	}
-
-	if (ugd->popup != NULL) {
-		evas_object_del(ugd->popup);
-		ugd->popup = NULL;
-	}
-
-	if (ugd->nf) {
-		evas_object_del(ugd->nf);
-		ugd->nf = NULL;
-	}
-
-	if (ugd->bg) {
-		evas_object_del(ugd->bg);
-		ugd->bg = NULL;
-	}
-
-	if (ugd->base) {
-		evas_object_del(ugd->base);
-		ugd->base = NULL;
-	}
-
-	elm_theme_extension_del(NULL, THEME_NAME);
-	cst_util_feedback_deinit();
-	LEAVE();
-}
-
-static void __cst_on_message(ui_gadget_h ug, app_control_h msg, app_control_h app_control, void *priv)
-{
-}
-
-static void __cst_on_key_event(ui_gadget_h ug, enum ug_key_event event, app_control_h app_control, void *priv)
-{
-	ENTER(__cst_on_key_event);
-	CstUgData_t *ugd = priv;
-	ret_if(!ugd);
-	ret_if(!ug);
-
-	switch (event) {
-	case UG_KEY_EVENT_END:
-		if (ugd->popup != NULL) {
-			DBG("popup=0x%p", ugd->popup);
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
-		} else if (ugd->back_button != NULL) {
-			DBG("back_button = 0x%p", ugd->back_button);
-			evas_object_smart_callback_call(ugd->back_button, "clicked", NULL);
-		} else {
-			DBG("Error: No action is defined for END KEY EVENT, popup=0x%p, back_button=0x%p", ugd->popup, ugd->back_button);
-		}
-		break;
-
-	default:
-		DBG("Unknown Event Detected, event=%d", event);
-		break;
-	}
-}
-
-CST_MODULE_EXPORT int UG_MODULE_INIT(struct ug_module_ops *ops)
-{
-	ENTER(UG_MODULE_INIT);
-
-	CstUgData_t *ugd;
-
-	if (!ops) {
-		return -1;
-	}
-
-	ugd = calloc(1, sizeof(CstUgData_t));
-	if (!ugd) {
-		return -1;
-	}
-
-	ops->create = __cst_on_create;
-	ops->start = __cst_on_start;
-	ops->pause = __cst_on_pause;
-	ops->resume = __cst_on_resume;
-	ops->destroy = __cst_on_destroy;
-	ops->message = __cst_on_message;
-	ops->event = NULL;
-	ops->key_event = __cst_on_key_event;
-	ops->priv = ugd;
-	ops->opt = UG_OPT_INDICATOR_ENABLE;
-	LEAVE();
-	return 0;
-}
-
-CST_MODULE_EXPORT void UG_MODULE_EXIT(struct ug_module_ops *ops)
-{
-	ENTER(UG_MODULE_EXIT);
-	struct ug_data *ugd;
-
-	if (!ops) {
-		return;
-	}
-
-	ugd = ops->priv;
-	if (ugd) {
-		free(ugd);
-	}
-	LEAVE();
+	return true;
 }
 
 /**
@@ -361,4 +109,192 @@ CST_MODULE_EXPORT int setting_plugin_reset(app_control_h app_control, void *priv
 	ret += vconf_set_str(VCONFKEY_CISSAPPL_USER_CREATE_MSG6_STR, "");
 
 	return ret;
+}
+
+int main(int argc, char *argv[])
+{
+	CstAppData_t ad = {0,};
+	int ret = 0;
+
+	ui_app_lifecycle_callback_s event_callback = {0,};
+
+	event_callback.create = __cst_app_create;
+	event_callback.terminate = __cst_app_terminate;
+	event_callback.pause = __cst_app_pause;
+	event_callback.resume = __cst_app_resume;
+	event_callback.app_control = __cst_app_control;
+
+	ret = ui_app_main(argc, argv, &event_callback, &ad);
+	if (ret != APP_ERROR_NONE) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
+	}
+
+	return ret;
+}
+
+static void win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	ui_app_exit();
+}
+
+static int __cst_create_base_eo(CstAppData_t *ad)
+{
+	ad->win_main = elm_win_util_standard_add(PACKAGE, PACKAGE);
+	retv_if(!ad->win_main, false);
+	elm_win_autodel_set(ad->win_main, EINA_TRUE);
+
+	if (elm_win_wm_rotation_supported_get(ad->win_main)) {
+		int rots[4] = { 0 };
+		elm_win_wm_rotation_available_rotations_set(ad->win_main, (const int *)(&rots), 1);
+	}
+
+	evas_object_smart_callback_add(ad->win_main, "delete,request", win_delete_request_cb, NULL);
+//	eext_object_event_callback_add(ad->win_main, EEXT_CALLBACK_BACK, win_back_cb, ad);
+
+	ad->conform = elm_conformant_add(ad->win_main);
+	retv_if(!ad->conform, false);
+	elm_win_indicator_mode_set(ad->win_main, ELM_WIN_INDICATOR_SHOW);
+	elm_win_indicator_opacity_set(ad->win_main, ELM_WIN_INDICATOR_OPAQUE);
+	evas_object_size_hint_weight_set(ad->conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_win_resize_object_add(ad->win_main, ad->conform);
+
+	evas_object_show(ad->conform);
+	evas_object_show(ad->win_main);
+
+	return true;
+}
+
+static bool __cst_app_create(void *data)
+{
+	ENTER(__FUNCTION__);
+
+	retv_if(!data, false);
+	CstAppData_t *ad = data;
+
+	bool res = __cst_create_base_eo(ad);
+	if (!res) {
+		ERR("__cst_create_base_eo failed");
+		return false;
+	}
+	res = __cst_create_main_layout(ad);
+	if (!res) {
+		ERR("__cst_create_main_layout failed");
+		evas_object_del(ad->win_main);
+		return false;
+	}
+	res = __cst_create_naviframe(ad);
+	if (!res) {
+		ERR("__cst_create_naviframe failed");
+		evas_object_del(ad->win_main);
+		return false;
+	}
+
+	cst_util_feedback_init();
+
+	_cst_register_tel_event(ad);
+
+	bindtextdomain(APPNAME, CST_LOCALE);
+
+	elm_theme_extension_add(NULL, THEME_NAME);
+
+	return true;
+}
+
+static void __cst_app_control(app_control_h app_control, void *data)
+{
+	ENTER(__FUNCTION__);
+
+	ret_if(!data);
+	CstAppData_t *ad = data;
+
+	if (app_control) {
+		ad->ug_req_type = _cst_parse_bundle(app_control);
+		DBG("ug_req_type=%d", ad->ug_req_type);
+	} else {
+		ad->ug_req_type = CST_UG_REQ_MAIN_SCREEN;
+	}
+
+	switch (ad->ug_req_type) {
+	case CST_UG_REQ_MAIN_SCREEN:
+		DBG("Its a CST_UG_REQ_MAIN_SCREEN UG request.");
+		_cst_create_call_setting(ad);
+		break;
+	case CST_UG_REQ_REJECT_MESSAGES:
+		DBG("Its a CST_UG_REQ_REJECT_MESSAGES UG request.");
+		_cst_on_click_reject_message(ad, NULL, NULL, NULL);
+		break;
+	case CST_UG_REQ_ANSWER_END_CALLS:
+		DBG("Its a CST_UG_REQ_ANSWER_END_CALLS UG request.");
+		_cst_on_click_answering_call(ad, NULL, NULL, NULL);
+		break;
+	case CST_UG_REQ_ADDITIONAL_SETTINGS:
+		DBG("Its a CST_UG_REQ_ADDITIONAL_SETTINGS UG request.");
+		_cst_on_click_more_call_setting(ad, NULL, NULL, NULL);
+		break;
+	case CST_UG_REQ_CALL_WAITING:
+		DBG("Its a CST_UG_REQ_CALL_WAITING UG request.");
+		_cst_on_click_more_call_setting(ad, NULL, NULL, NULL);
+		break;
+	default:
+		_cst_create_call_setting(ad);
+		break;
+	}
+}
+
+static void __cst_app_pause(void *data)
+{
+	ENTER(__FUNCTION__);
+}
+
+static void __cst_app_resume(void *data)
+{
+	ENTER(__FUNCTION__);
+}
+
+static void __cst_app_terminate(void *data)
+{
+	ret_if(!data);
+	CstAppData_t *ad = data;
+
+	_cst_deregister_tel_event(ad);
+	_cst_unlisten_vconf_change();
+	_cst_destroy_all_items(ad);
+
+	if (ad->rejct_popup) {
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
+	}
+	if (ad->reject_list) {
+		ad->reject_list = eina_list_free(ad->reject_list);
+	}
+
+	if (ad->req_queue) {
+		Eina_List *l;
+		CallSettingSSReq_t *req;
+
+		EINA_LIST_FOREACH(ad->req_queue, l, req) {
+			free(req);
+		}
+		ad->req_queue = eina_list_free(ad->req_queue);
+	}
+
+	if (ad->sim_req_list) {
+		g_slist_free_full(ad->sim_req_list, g_free);
+		ad->sim_req_list = NULL;
+	}
+
+	if (ad->popup != NULL) {
+		evas_object_del(ad->popup);
+		ad->popup = NULL;
+	}
+
+	if (ad->win_main) {
+		evas_object_del(ad->win_main);
+	}
+
+	elm_theme_extension_del(NULL, THEME_NAME);
+
+	cst_util_feedback_deinit();
+
+	LEAVE();
 }

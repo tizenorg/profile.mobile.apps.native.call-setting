@@ -19,7 +19,6 @@
 #define _CST_UTIL_H_
 
 #include <Elementary.h>
-#include <ui-gadget-module.h>
 #include <app.h>
 #include <vconf.h>
 #include <system_settings.h>
@@ -40,10 +39,10 @@ void _cst_vconf_set_bool(const char *in_key, const int boolval);
 void _cst_vconf_set_int(const char *in_key, const int intval);
 void _cst_vconf_set_str(const char *in_key, const char *strval);
 Eina_Bool _cst_check_flight_mode(void);
-Eina_Bool _cst_check_dual_sim_status(CstUgData_t *ugd);
+Eina_Bool _cst_check_dual_sim_status(CstAppData_t *ad);
 int _cst_parse_bundle(app_control_h app_control);
 void _cst_on_click_ime_contact_btn(void *data, Evas_Object *obj, void *event_info);
-void _cst_connect_reject_list_handle(CstUgData_t *ugd);
+void _cst_connect_reject_list_handle(CstAppData_t *ad);
 void _cst_unlisten_vconf_change(void);
 Eina_Bool _cst_naviframe_item_pop_cb(void *data);
 void _cst_flight_mode_genlist_item_disable(void *data);
@@ -81,5 +80,10 @@ int _cst_util_system_settings_unset_changed_cb(system_settings_key_e key, system
 int _cst_util_system_settings_unset_changed_cb_all(system_settings_key_e key);
 
 Evas_Object *_cst_util_navi_back_btn_create(Evas_Object *naviframe);
+
+const char *_cst_util_get_edj_path();
+
+const char *_cst_util_get_locale_path();
+
 #endif
 
