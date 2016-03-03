@@ -58,20 +58,20 @@ static Eina_Bool __cst_cf_is_waiting_time_available(int wait_time);
 int _cst_get_input_number(char *buffer, void *data)
 {
 	ENTER(_cst_get_input_number);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	const char *entry_input;
 	Ecore_IMF_Context *imf_ctx;
 
-	entry_input = elm_entry_entry_get(ugd->dg_entry);
+	entry_input = elm_entry_entry_get(ad->dg_entry);
 	retv_if(NULL == entry_input, -1);
 	if (strlen(entry_input) == 0) {
-		imf_ctx = elm_entry_imf_context_get(ugd->dg_entry);
+		imf_ctx = elm_entry_imf_context_get(ad->dg_entry);
 		if (imf_ctx) {
 			ecore_imf_context_input_panel_hide(imf_ctx);
 		}
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 		_cst_create_error_popup(CST_ERROR_ENTER_NUMBER);
 		return -1;
@@ -108,7 +108,7 @@ static Evas_Object *__cst_gl_icon_get_cf_ime(void *data, Evas_Object *obj,
 	ENTER(__cst_gl_icon_get_cf_ime);
 	retv_if(data == NULL, NULL);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 
 	if (!strcmp(part, "elm.swallow.content")) {
 		Evas_Object *item_layout = elm_layout_add(obj);
@@ -116,11 +116,11 @@ static Evas_Object *__cst_gl_icon_get_cf_ime(void *data, Evas_Object *obj,
 		evas_object_size_hint_weight_set(item_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(item_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-		if (strlen(ugd->entry_string) > 0) {
-			def_ime_number = ugd->entry_string;
+		if (strlen(ad->entry_string) > 0) {
+			def_ime_number = ad->entry_string;
 		}
 
-		Evas_Object *editfield = _cst_create_ime_editfield(ugd, item_layout, CST_IME_CALL_FORWARD, def_ime_number);
+		Evas_Object *editfield = _cst_create_ime_editfield(ad, item_layout, CST_IME_CALL_FORWARD, def_ime_number);
 		if (!editfield) {
 			ERR("Failed to create editfield object!");
 			evas_object_del(item_layout);
@@ -128,7 +128,7 @@ static Evas_Object *__cst_gl_icon_get_cf_ime(void *data, Evas_Object *obj,
 		}
 		elm_object_part_content_set(item_layout, "elm.swallow.editfield", editfield);
 
-		Evas_Object *contact_btn = _cst_create_ime_contacts_btn_obj(obj, (void *)ugd);
+		Evas_Object *contact_btn = _cst_create_ime_contacts_btn_obj(obj, (void *)ad);
 		if (!editfield) {
 			ERR("Failed to create contact btn, only editfield will be shown!");
 		} else {
@@ -213,7 +213,7 @@ static void __cst_cf_ime_waiting_time_expand(void *data, Evas_Object *obj, void 
 	ENTER(__cst_cf_ime_waiting_time_expand);
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	ret_if(NULL == it);
 	CstGlItemData_t *sub_item_data;
@@ -223,15 +223,15 @@ static void __cst_cf_ime_waiting_time_expand(void *data, Evas_Object *obj, void 
 	Ecore_IMF_Context *imf_ctx;
 
 	/* Hide the IMF if exists */
-	imf_ctx = elm_entry_imf_context_get(ugd->dg_entry);
+	imf_ctx = elm_entry_imf_context_get(ad->dg_entry);
 	if (imf_ctx) {
 		ecore_imf_context_input_panel_hide(imf_ctx);
 	}
-	waiting_time_popup = elm_popup_add(ugd->nf);
+	waiting_time_popup = elm_popup_add(ad->nf);
 	cst_util_domain_translatable_part_text_set(waiting_time_popup, "title,text", I_(CST_STR_WAITING_TIME));
 	eext_object_event_callback_add(waiting_time_popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(waiting_time_popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_smart_callback_add(waiting_time_popup, "block,clicked", __cst_waiting_time_popup_block_clicked_cb, ugd->nf);
+	evas_object_smart_callback_add(waiting_time_popup, "block,clicked", __cst_waiting_time_popup_block_clicked_cb, ad->nf);
 	/* box */
 	box = elm_box_add(waiting_time_popup);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -247,7 +247,7 @@ static void __cst_cf_ime_waiting_time_expand(void *data, Evas_Object *obj, void 
 		sub_item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 		ret_if(sub_item_data == NULL);
 		sub_item_data->index = i;
-		sub_item_data->ugd = ugd;
+		sub_item_data->ad = ad;
 		sub_item_data->parent_gl_item = it;
 		sub_item_data->gl_item = elm_genlist_item_append(genlist, itc_waiting_time_expand,
 								(const void *)sub_item_data, NULL,
@@ -358,33 +358,33 @@ static void __cst_cf_ime_gl_realized(void *data, Evas_Object *obj, void *ei)
 	ENTER(__cst_cf_ime_gl_realized);
 	CstGlItemData_t *item_data = elm_object_item_data_get(ei);
 	ret_if(NULL == item_data);
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 
 	DBG("Idx = %d", item_data->index);
 	if (item_data->index == CST_GENLIST_ENTRY_ITEM) {
 		elm_object_item_signal_emit(ei, "elm,state,edit,enabled", "");
-		elm_object_focus_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_cursor_end_set(ugd->dg_entry);
+		elm_object_focus_set(ad->dg_entry, EINA_TRUE);
+		elm_entry_cursor_end_set(ad->dg_entry);
 	}
 }
 
-static Evas_Object *__cst_create_cf_ime_genlist(CstUgData_t *ugd, int cf_flavour)
+static Evas_Object *__cst_create_cf_ime_genlist(CstAppData_t *ad, int cf_flavour)
 {
 	ENTER(__cst_create_cf_ime_genlist);
 	Evas_Object *genlist;
 	CstGlItemData_t *item_data = NULL;
 	Elm_Object_Item *item = NULL;
 
-	genlist = elm_genlist_add(ugd->nf);
+	genlist = elm_genlist_add(ad->nf);
 	elm_scroller_policy_set(genlist, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 	elm_genlist_homogeneous_set(genlist, EINA_TRUE);
 	elm_scroller_content_min_limit(genlist, EINA_FALSE, EINA_TRUE);
 
-	memset(ugd->entry_string, 0, sizeof(ugd->entry_string));
-	evas_object_smart_callback_add(genlist, "realized", __cst_cf_ime_gl_realized, ugd);
+	memset(ad->entry_string, 0, sizeof(ad->entry_string));
+	evas_object_smart_callback_add(genlist, "realized", __cst_cf_ime_gl_realized, ad);
 
-	ugd->genlist_editfield_initialized = 0;
+	ad->genlist_editfield_initialized = 0;
 
 	if (!itc_ime) {
 		itc_ime = _cst_create_genlist_item_class("full",
@@ -405,13 +405,13 @@ static Evas_Object *__cst_create_cf_ime_genlist(CstUgData_t *ugd, int cf_flavour
 		}
 		waitingtime_item = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 		retv_if(waitingtime_item == NULL, NULL);
-		waitingtime_item->ugd = ugd;
+		waitingtime_item->ad = ad;
 		waitingtime_item->gl_item = NULL;
 	}
 
 	item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 	retv_if(NULL == item_data, NULL);
-	item_data->ugd = ugd;
+	item_data->ad = ad;
 	item_data->index = CST_GENLIST_ENTRY_ITEM;
 	item = elm_genlist_item_append(genlist, itc_ime,
 					   (void *)item_data, NULL, ELM_GENLIST_ITEM_NONE,
@@ -464,7 +464,7 @@ Evas_Object *_cst_create_cf_ime(Evas_Object *parent, char *edit_string,
 {
 	ENTER(_cst_create_cf_ime);
 	retv_if(data == NULL, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Eina_Bool ret = EINA_FALSE;
 
 	if ((edit_string != NULL) && (strlen(edit_string) > 0)) {
@@ -481,6 +481,6 @@ Evas_Object *_cst_create_cf_ime(Evas_Object *parent, char *edit_string,
 		curr_wait_time = CST_CF_WAIT_TIME_30_SEC;
 	}
 
-	Evas_Object *genlist = __cst_create_cf_ime_genlist(ugd, cf_flavour);
+	Evas_Object *genlist = __cst_create_cf_ime_genlist(ad, cf_flavour);
 	return genlist;
 }

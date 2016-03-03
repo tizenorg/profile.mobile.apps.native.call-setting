@@ -16,9 +16,10 @@ FOREACH(pofile ${POFILES})
 			DEPENDS ${absPofile}
 	)
 	INSTALL(FILES ${moFile}
-			DESTINATION ${APP_RES_LOCALE_DIR}/${lang}/LC_MESSAGES RENAME ${LIB_NAME}.mo)
+			DESTINATION ${LOCALE_DIR}/${lang}/LC_MESSAGES RENAME ${PROJECT_NAME}.mo)
 	SET(moFiles ${moFiles} ${moFile})
 ENDFOREACH(pofile)
 
 MESSAGE(".mo files: ${moFiles}")
 ADD_CUSTOM_TARGET(po ALL DEPENDS ${moFiles})
+

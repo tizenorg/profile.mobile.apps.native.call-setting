@@ -183,13 +183,13 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 {
 	ENTER(__cst_create_gl_answering_ending);
 	retv_if(NULL == data, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	int index = 0;
 	Evas_Object *genlist;
 	CstGlItemData_t *item_data;
 
 	/* Create genlist */
-	genlist = elm_genlist_add(ugd->nf);
+	genlist = elm_genlist_add(ad->nf);
 
 	/* Genlist item append */
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
@@ -198,7 +198,7 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 		item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 		retv_if(NULL == item_data, NULL);
 		item_data->index = index;
-		item_data->ugd = ugd;
+		item_data->ad = ad;
 
 		if (list_call_answering[index].style == CST_GL_ITEM_GROUP_INDEX) {
 
@@ -238,13 +238,13 @@ static Evas_Object *__cst_create_gl_answering_ending(void *data)
 static Eina_Bool __cst_answering_call_back_btn_clicked_cb(void *data, Elm_Object_Item *it)
 {
 	ENTER(__cst_answering_call_back_btn_clicked_cb);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	retv_if(ugd == NULL, EINA_TRUE);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	retv_if(ad == NULL, EINA_TRUE);
 
 	_cst_destroy_answering_call();
 
-	if (ugd->ug_req_type == CST_UG_REQ_ANSWER_END_CALLS) {
-		ug_destroy_me(ugd->ug);
+	if (ad->ug_req_type == CST_UG_REQ_ANSWER_END_CALLS) {
+		ui_app_exit();
 	}
 
 	return EINA_TRUE;
@@ -254,20 +254,20 @@ static void __cst_create_answering_call(Evas_Object *parent, void *data)
 {
 	ENTER(__cst_create_answering_call);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Elm_Object_Item *navi_it = NULL;
 	Evas_Object *back_btn = NULL;
 
 	__cst_set_genlist_item_styles();
-	answering_gl = __cst_create_gl_answering_ending(ugd);
+	answering_gl = __cst_create_gl_answering_ending(ad);
 
-	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
+	back_btn = _cst_util_navi_back_btn_create(ad->nf);
 
-	navi_it = elm_naviframe_item_push(ugd->nf, I_(CST_STR_CALL_ANSWERING_ENDING),
+	navi_it = elm_naviframe_item_push(ad->nf, I_(CST_STR_CALL_ANSWERING_ENDING),
 			back_btn, NULL, answering_gl, NULL);
 	cst_util_item_domain_text_translatable_set(navi_it, I_(CST_STR_CALL_ANSWERING_ENDING));
 
-	elm_naviframe_item_pop_cb_set(navi_it, __cst_answering_call_back_btn_clicked_cb, ugd);
+	elm_naviframe_item_pop_cb_set(navi_it, __cst_answering_call_back_btn_clicked_cb, ad);
 
 	LEAVE();
 }
@@ -277,8 +277,8 @@ void _cst_on_click_answering_call(void *data, Evas *evas, Evas_Object *obj, void
 	ENTER(_cst_on_click_answering_call);
 
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	__cst_create_answering_call(ugd->nf, ugd);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	__cst_create_answering_call(ad->nf, ad);
 }
 
 void _cst_destroy_answering_call(void)

@@ -15,6 +15,8 @@
  *
  */
 
+#include <Elementary.h>
+#include <vconf.h>
 #include <app.h>
 #include <app_manager.h>
 
@@ -27,10 +29,6 @@
 #include "cst-reject-msg.h"
 #include "cst-util.h"
 #include "cst-more-call-setting.h"
-#include <ui-gadget-module.h>
-#include <Elementary.h>
-#include <vconf.h>
-#include <app.h>
 
 static Elm_Genlist_Item_Class *itc_1text = NULL;
 static Elm_Genlist_Item_Class *itc_1text_1icon = NULL;
@@ -81,15 +79,15 @@ static void __cst_gl_sel_phone(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	ret_if(NULL == ugd);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	ret_if(NULL == ad);
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
 
 	if (list_dep1[item_data->index].func) {
 		if (list_dep1[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
 			list_dep1[item_data->index].func((void *)item_data, NULL, obj, event_info);
 		} else {
-			list_dep1[item_data->index].func((void *)ugd, NULL, obj, event_info);
+			list_dep1[item_data->index].func((void *)ad, NULL, obj, event_info);
 		}
 	}
 	return;
@@ -111,9 +109,7 @@ static Eina_Bool __cst_on_clicked_back_btn(void *data, Elm_Object_Item *it)
 	ENTER(__cst_on_clicked_back_btn);
 	retv_if(NULL == data, EINA_TRUE);
 
-	CstUgData_t *ugd = (CstUgData_t *)data;
-
-	ug_destroy_me((ui_gadget_h)ugd->ug);
+	ui_app_exit();
 
 	return EINA_FALSE;
 }
@@ -162,12 +158,12 @@ static Evas_Object *__cst_create_genlist_phone(void *data)
 {
 	ENTER(__cst_create_genlist_phone);
 	retv_if(NULL == data, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	CstGlItemData_t *item_data;
 	Evas_Object *genlist;
 	int i;
 
-	genlist = elm_genlist_add(ugd->nf);
+	genlist = elm_genlist_add(ad->nf);
 	retv_if(NULL == genlist, NULL);
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 
@@ -176,7 +172,7 @@ static Evas_Object *__cst_create_genlist_phone(void *data)
 		retv_if(NULL == item_data, NULL);
 		DBG("list_dep1[i].str_id = %d", list_dep1[i].str_id);
  		item_data->index = i;
-		item_data->ugd = ugd;
+		item_data->ad = ad;
 		item_data->style = list_dep1[i].style;
 		if (list_dep1[i].style == CST_GL_ITEM_TEXT) {
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_1text,
@@ -205,17 +201,17 @@ void _cst_create_call_setting(void *data)
 {
 	ENTER(_cst_create_call_setting);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	int title = CST_STR_CALL_SETTINGS;
 	Elm_Object_Item *navi_it = NULL;
 
 	__cst_set_genlist_item_styles_phone();
-	Evas_Object *genlist = __cst_create_genlist_phone(ugd);
+	Evas_Object *genlist = __cst_create_genlist_phone(ad);
 
-	navi_it = elm_naviframe_item_push(ugd->nf, I_(title), NULL, NULL, genlist, NULL);
+	navi_it = elm_naviframe_item_push(ad->nf, I_(title), NULL, NULL, genlist, NULL);
 	cst_util_item_domain_text_translatable_set(navi_it, I_(title));
 
-	elm_naviframe_item_pop_cb_set(navi_it, __cst_on_clicked_back_btn, ugd);
+	elm_naviframe_item_pop_cb_set(navi_it, __cst_on_clicked_back_btn, ad);
 
 	LEAVE();
 }
