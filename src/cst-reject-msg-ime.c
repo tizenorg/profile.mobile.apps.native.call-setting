@@ -29,9 +29,9 @@ Evas_Object *_cst_create_reject_message_ime(Evas_Object *parent, char *edit_stri
 {
 	ENTER(_cst_create_reject_message_ime);
 	retv_if(NULL == data, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
 	input_string = edit_string;
 
-	return _cst_create_ime_editfield(ugd, parent, CST_IME_REJECT_MSG, input_string);
+	return _cst_create_ime_editfield(ad, parent, CST_IME_REJECT_MSG, input_string);
 }

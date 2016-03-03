@@ -44,7 +44,7 @@ static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
 		void *event_info)
 {
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Evas_Object *contact_icon = (Evas_Object *)elm_object_part_content_get(obj, "icon");
 
 	if (contact_icon) {
@@ -52,8 +52,8 @@ static void _cst_on_press_ime_contact_btn(void *data, Evas_Object *obj,
 		edje_object_signal_emit(contact_icon, "icon,press", "cst");
 	}
 
-	if (ugd->dg_entry) {
-		elm_object_focus_set(ugd->dg_entry, EINA_FALSE);
+	if (ad->dg_entry) {
+		elm_object_focus_set(ad->dg_entry, EINA_FALSE);
 	}
 }
 
@@ -177,14 +177,14 @@ char *_cst_get_error_string(int error)
 static void __cst_del_error_popup_with_ok_btn_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(data == NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	evas_object_del(ugd->popup);
-	ugd->popup = NULL;
+	evas_object_del(ad->popup);
+	ad->popup = NULL;
 
-	if (ugd->dg_entry != NULL) {
-		elm_object_focus_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_cursor_end_set(ugd->dg_entry);
+	if (ad->dg_entry != NULL) {
+		elm_object_focus_set(ad->dg_entry, EINA_TRUE);
+		elm_entry_cursor_end_set(ad->dg_entry);
 	}
 }
 
@@ -201,28 +201,28 @@ void _cst_create_error_popup(int error)
 	return;
 }
 
-Evas_Object *_cst_create_error_popup_with_ok_btn(CstUgData_t *ugd, int error)
+Evas_Object *_cst_create_error_popup_with_ok_btn(CstAppData_t *ad, int error)
 {
 	retv_if(error < 0, NULL);
-	retv_if(ugd == NULL, NULL);
+	retv_if(ad == NULL, NULL);
 
 	char *error_msg;
 	error_msg = _cst_get_error_string(error);
 	DBG("Error message=%s", error_msg);
 
 	Evas_Object *popup, *btn;
-	ugd->popup = popup = elm_popup_add(ugd->nf);
+	ad->popup = popup = elm_popup_add(ad->nf);
 	cst_util_domain_translatable_text_set(popup, error_msg);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	btn = elm_button_add(popup);
 	cst_util_domain_translatable_text_set(btn, I_(CST_STR_SK_OK));
 	elm_object_part_content_set(popup, "button1", btn);
-	evas_object_smart_callback_add(btn, "clicked", __cst_del_error_popup_with_ok_btn_cb, (void *)ugd);
+	evas_object_smart_callback_add(btn, "clicked", __cst_del_error_popup_with_ok_btn_cb, (void *)ad);
 
 	evas_object_show(popup);
 
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK,
-								__cst_del_error_popup_with_ok_btn_cb, (void *)ugd);
+								__cst_del_error_popup_with_ok_btn_cb, (void *)ad);
 
 	g_free(error_msg);
 	return popup;
@@ -406,11 +406,11 @@ static void __cst_widget_entry_done_pressed_cb(void *data, Evas_Object *obj,
 		elm_object_focus_set(obj, EINA_FALSE);
 }
 
-Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
+Evas_Object *_cst_create_ime_editfield(CstAppData_t *ad, Evas_Object *parent,
 		CstImeType_t ime_type, char *input_string)
 {
-	retv_if((NULL == ugd || NULL == parent), NULL);
-	Ecore_IMF_Input_Panel_Layout panel_layout;
+	retv_if((NULL == ad || NULL == parent), NULL);
+	Elm_Input_Panel_Layout panel_layout;
 	Elm_Entry_Filter_Limit_Size limit_filter_data;
 	Elm_Entry_Filter_Accept_Set digits_filter_data;
 	Ecore_IMF_Context *imf_context;
@@ -428,48 +428,48 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 				EVAS_HINT_EXPAND);
 
 		entry_layout = editfield_create(parent, ET_MULTILINE, NULL);
-		ugd->dg_entry = editfield_get_entry(entry_layout);
+		ad->dg_entry = editfield_get_entry(entry_layout);
 		elm_object_part_content_set(layout, "entry_part", entry_layout);
 
-		ugd->entry_count = layout;
+		ad->entry_count = layout;
 
 		eo = layout;
 	} else {
 		/* Set the Entry part of the Edit-field */
 		entry_layout = editfield_create(parent, ET_SINGLELINE, NULL);
-		ugd->dg_entry = editfield_get_entry(entry_layout);
+		ad->dg_entry = editfield_get_entry(entry_layout);
 		eo = entry_layout;
 	}
 
 	switch (ime_type) {
 	case CST_IME_REJECT_MSG:
-		cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_ENTER_MESSAGE));
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_NORMAL;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
-		elm_entry_markup_filter_append(ugd->dg_entry, _cst_reject_msg_entry_filter_check_boundary, ugd);
+		cst_util_domain_translatable_part_text_set(ad->dg_entry, "elm.guide", I_(CST_STR_ENTER_MESSAGE));
+		panel_layout = ELM_INPUT_PANEL_LAYOUT_NORMAL;
+		elm_entry_input_panel_layout_set(ad->dg_entry, panel_layout);
+		elm_entry_markup_filter_append(ad->dg_entry, _cst_reject_msg_entry_filter_check_boundary, ad);
 		input_panel_cb = _cst_reject_msg_input_panel_event_callback;
 		entry_changed_cb = _cst_reject_msg_changed_editfield_cb;
 		break;
 	case CST_IME_CALL_FORWARD:
-		elm_entry_single_line_set(ugd->dg_entry, EINA_TRUE);
-		elm_entry_scrollable_set(ugd->dg_entry, EINA_TRUE);
-		if (strlen(ugd->entry_string) > 0) {
-			elm_entry_entry_set(ugd->dg_entry, ugd->entry_string);
+		elm_entry_single_line_set(ad->dg_entry, EINA_TRUE);
+		elm_entry_scrollable_set(ad->dg_entry, EINA_TRUE);
+		if (strlen(ad->entry_string) > 0) {
+			elm_entry_entry_set(ad->dg_entry, ad->entry_string);
 		}
 		if (NULL == input_string) {
-			cst_util_domain_translatable_part_text_set(ugd->dg_entry, "elm.guide", I_(CST_STR_NUMBER));
+			cst_util_domain_translatable_part_text_set(ad->dg_entry, "elm.guide", I_(CST_STR_NUMBER));
 		}
-		panel_layout = ECORE_IMF_INPUT_PANEL_LAYOUT_PHONENUMBER;
-		elm_entry_input_panel_layout_set(ugd->dg_entry, panel_layout);
+		panel_layout = ELM_INPUT_PANEL_LAYOUT_PHONENUMBER;
+		elm_entry_input_panel_layout_set(ad->dg_entry, panel_layout);
 		limit_filter_data.max_char_count = 0;
 		limit_filter_data.max_byte_count = CST_MAX_CF_NUMBER_LEN;
 		digits_filter_data.accepted = "0123456789+*#";
 		digits_filter_data.rejected = NULL;
-		elm_entry_markup_filter_append(ugd->dg_entry,
+		elm_entry_markup_filter_append(ad->dg_entry,
 				elm_entry_filter_accept_set, &digits_filter_data);
 		input_panel_cb = _cst_call_forwarding_input_panel_event_callback;
 		entry_changed_cb = _cst_call_forward_entry_changed_cb;
-		elm_entry_input_panel_return_key_type_set(ugd->dg_entry,
+		elm_entry_input_panel_return_key_type_set(ad->dg_entry,
 				ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE);
 		entry_activated_cb = __cst_widget_entry_done_pressed_cb;
 		break;
@@ -479,55 +479,55 @@ Evas_Object *_cst_create_ime_editfield(CstUgData_t *ugd, Evas_Object *parent,
 	}
 
 	if (CST_IME_REJECT_MSG != ime_type) {
-		elm_entry_markup_filter_append(ugd->dg_entry,
+		elm_entry_markup_filter_append(ad->dg_entry,
 				elm_entry_filter_limit_size, &limit_filter_data);
 	}
-	elm_entry_cnp_mode_set(ugd->dg_entry, ELM_CNP_MODE_PLAINTEXT);
+	elm_entry_cnp_mode_set(ad->dg_entry, ELM_CNP_MODE_PLAINTEXT);
 
 	if (input_string != NULL) {
-		elm_entry_entry_set(ugd->dg_entry, input_string);
+		elm_entry_entry_set(ad->dg_entry, input_string);
 	}
 
-	elm_entry_cursor_end_set(ugd->dg_entry);
+	elm_entry_cursor_end_set(ad->dg_entry);
 
-	imf_context = elm_entry_imf_context_get(ugd->dg_entry);
+	imf_context = elm_entry_imf_context_get(ad->dg_entry);
 
-	DBG("ugd->entry = 0x%x, imf_context = 0x%x", ugd->dg_entry, imf_context);
+	DBG("ad->entry = 0x%x, imf_context = 0x%x", ad->dg_entry, imf_context);
 
 	if (imf_context && ime_type != CST_IME_REJECT_MSG) {
 		ecore_imf_context_input_panel_event_callback_add(imf_context,
-				ECORE_IMF_INPUT_PANEL_STATE_EVENT, input_panel_cb, ugd);
+				ECORE_IMF_INPUT_PANEL_STATE_EVENT, input_panel_cb, ad);
 
-			if (0 > ugd->genlist_editfield_initialized) {
+			if (0 > ad->genlist_editfield_initialized) {
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_FALSE);
-				ugd->genlist_editfield_initialized++;
+				ad->genlist_editfield_initialized++;
 			} else {
 				ecore_imf_context_input_panel_enabled_set(imf_context,
 						EINA_TRUE);
 			}
 	}
 
-	if (ugd->is_app_control_invoked) {
+	if (ad->is_app_control_invoked) {
 		ecore_imf_context_input_panel_enabled_set(imf_context, EINA_FALSE);
 	}
 
 	if (NULL != entry_changed_cb) {
 		DBG("entry_changed_cb = 0x%x", entry_changed_cb);
-		evas_object_smart_callback_add(ugd->dg_entry, "changed",
-				entry_changed_cb, ugd);
-		evas_object_smart_callback_add(ugd->dg_entry, "preedit,changed",
-				entry_changed_cb, ugd);
+		evas_object_smart_callback_add(ad->dg_entry, "changed",
+				entry_changed_cb, ad);
+		evas_object_smart_callback_add(ad->dg_entry, "preedit,changed",
+				entry_changed_cb, ad);
 	}
 
 	if (NULL != entry_activated_cb) {
-		evas_object_smart_callback_add(ugd->dg_entry, "activated",
-				entry_activated_cb, ugd);
+		evas_object_smart_callback_add(ad->dg_entry, "activated",
+				entry_activated_cb, ad);
 	}
 
-	if (ugd->b_expanded == EINA_FALSE) {
-		evas_object_show(ugd->dg_entry);
-		g_entry = ugd->dg_entry;
+	if (ad->b_expanded == EINA_FALSE) {
+		evas_object_show(ad->dg_entry);
+		g_entry = ad->dg_entry;
 	}
 
 	return eo;
@@ -538,32 +538,32 @@ Evas_Object *_cst_create_ime_contacts_btn_obj(Evas_Object *parent, void *data)
 	retv_if(NULL == parent, NULL);
 	retv_if(NULL == data, NULL);
 
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Evas_Object *contact_icon = NULL;
 
-	if (ugd->contact_btn != NULL) {
-		ugd->contact_btn = NULL;
+	if (ad->contact_btn != NULL) {
+		ad->contact_btn = NULL;
 	}
-	ugd->contact_btn = elm_button_add(parent);
-	elm_object_style_set(ugd->contact_btn, "transparent");
-	contact_icon = elm_image_add(ugd->contact_btn);
+	ad->contact_btn = elm_button_add(parent);
+	elm_object_style_set(ad->contact_btn, "transparent");
+	contact_icon = elm_image_add(ad->contact_btn);
 	if (!contact_icon) {
 		DBG("elm_icon_add() failed");
 		return NULL;
 	}
 	elm_image_file_set(contact_icon, THEME_NAME, "CONTACT_ICON");
 	elm_image_resizable_set(contact_icon, EINA_TRUE, EINA_TRUE);
-	elm_object_part_content_set(ugd->contact_btn, "icon", contact_icon);
+	elm_object_part_content_set(ad->contact_btn, "icon", contact_icon);
 
-	evas_object_smart_callback_add(ugd->contact_btn, "pressed",
-					_cst_on_press_ime_contact_btn, (void *)ugd);
-	evas_object_smart_callback_add(ugd->contact_btn, "unpressed",
-					_cst_on_unpress_ime_contact_btn, (void *)ugd);
-	evas_object_smart_callback_add(ugd->contact_btn, "clicked",
-					_cst_on_click_ime_contact_btn, (void *)ugd);
-	evas_object_show(ugd->contact_btn);
+	evas_object_smart_callback_add(ad->contact_btn, "pressed",
+					_cst_on_press_ime_contact_btn, (void *)ad);
+	evas_object_smart_callback_add(ad->contact_btn, "unpressed",
+					_cst_on_unpress_ime_contact_btn, (void *)ad);
+	evas_object_smart_callback_add(ad->contact_btn, "clicked",
+					_cst_on_click_ime_contact_btn, (void *)ad);
+	evas_object_show(ad->contact_btn);
 
-	return ugd->contact_btn;
+	return ad->contact_btn;
 }
 
 Elm_Genlist_Item_Class *_cst_create_genlist_item_class(
@@ -608,15 +608,15 @@ void _cst_destroy_genlist_item_class(Elm_Genlist_Item_Class *itc)
 	}
 }
 
-void _cst_destroy_all_items(CstUgData_t *ugd)
+void _cst_destroy_all_items(CstAppData_t *ad)
 {
-	ret_if(ugd == NULL);
+	ret_if(ad == NULL);
 
 	_cst_destroy_answering_call();
 	_cst_destroy_delete_list();
 	_cst_destroy_call_forwarding();
 	_cst_destroy_more_call_setting();
-	_cst_destroy_reject_message(ugd);
+	_cst_destroy_reject_message(ad);
 }
 
 static void __cst_set_toolbar_item_icon(Elm_Object_Item *item, int simIndex)
@@ -635,12 +635,12 @@ void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 
 	Evas_Object *tabbar = NULL;
 	Elm_Object_Item *item[2] = {0, };
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Eina_Bool is_sim1_present = EINA_FALSE;
 	Eina_Bool is_sim2_present = EINA_FALSE;
 	char *sim_name = NULL;
 	/* create toolbar */
-	tabbar = elm_toolbar_add(ugd->nf);
+	tabbar = elm_toolbar_add(ad->nf);
 	if (tabbar == NULL) {
 		DBG("tabbar is NULL");
 		return;
@@ -664,8 +664,8 @@ void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 	elm_object_item_part_content_set(navi_it, "tabbar", tabbar);
 
 	elm_toolbar_select_mode_set(tabbar, ELM_OBJECT_SELECT_MODE_ALWAYS);
-	ugd->sim1_btn = item[0];
-	ugd->sim2_btn = item[1];
+	ad->sim1_btn = item[0];
+	ad->sim2_btn = item[1];
 
 	is_sim1_present = _cst_is_sim_present_by_simslot(data, CST_SELECTED_SIM1);
 	is_sim2_present = _cst_is_sim_present_by_simslot(data, CST_SELECTED_SIM2);
@@ -673,19 +673,19 @@ void _cst_create_dual_sim_tabbar(Elm_Object_Item *navi_it, Evas_Smart_Cb
 	if (is_sim1_present && is_sim2_present) { /*Both SIM's inserted*/
 		DBG("Both SIM's inserted");
 		elm_toolbar_item_selected_set(item[0], EINA_TRUE);
-		ugd->sel_sim = CST_SELECTED_SIM1;
+		ad->sel_sim = CST_SELECTED_SIM1;
 		_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM1);
 	} else if (is_sim2_present && !is_sim1_present) { /*Only SIM2 inserted*/
 		DBG("Only SIM2 inserted");
 		elm_toolbar_item_selected_set(item[1], EINA_TRUE);
-		ugd->sel_sim = CST_SELECTED_SIM2;
+		ad->sel_sim = CST_SELECTED_SIM2;
 		_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM2);
-		elm_object_item_disabled_set(ugd->sim1_btn, EINA_TRUE);
+		elm_object_item_disabled_set(ad->sim1_btn, EINA_TRUE);
 	} else { /*Only SIM1 inserted*/
 		DBG("Only SIM1 inserted");
 		elm_toolbar_item_selected_set(item[0], EINA_TRUE);
-		ugd->sel_sim = CST_SELECTED_SIM1;
+		ad->sel_sim = CST_SELECTED_SIM1;
 		_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM1);
-		elm_object_item_disabled_set(ugd->sim2_btn, EINA_TRUE);
+		elm_object_item_disabled_set(ad->sim2_btn, EINA_TRUE);
 	}
 }
