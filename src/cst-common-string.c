@@ -21,7 +21,7 @@
 
 #undef _
 #undef N_
-#define _(s)				dgettext(UGNAME, s)
+#define _(s)				dgettext(APPNAME, s)
 #define dgettext_noop(s)	(s)
 #define N_(s)				dgettext_noop(s)
 
@@ -227,7 +227,7 @@ const char *_cst_get_text(int str_id)
 
 	table = cst_str;
 	if (str_id < CST_SYS_STRING) {
-		return dgettext(UGNAME, table[str_id]);
+		return dgettext(APPNAME, table[str_id]);
 	} else {
 		return S_(sys_str[str_id - CST_SYS_STRING]);
 	}
@@ -239,7 +239,7 @@ char *_cst_gettext(const char *s)
 		return "NULL";
 	}
 
-	char *p = dgettext(UGNAME, s);
+	char *p = dgettext(APPNAME, s);
 
 	if (!g_strcmp0(s, p)) {	/* not found */
 		/* find in system pkg */

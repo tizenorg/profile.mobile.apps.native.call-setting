@@ -115,32 +115,32 @@ void __cst_on_update_cw_state(int call_type, int flavour,
 	ENTER(__cst_on_update_cw_state);
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	ret_if(NULL == item_data->ugd);
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	ret_if(NULL == item_data->ad);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 	ret_if(NULL == item_data->gl_item);
 	DBG("req_action=%d(0: Activate, 1:Deactivate, 2:Query)", req_action);
 	DBG("cw_state=%d(0: off, 1:on), error=%d", cw_state, error);
 
 	if (error == CST_ERROR_NONE) {
 		if (cw_state == EINA_TRUE) {
-			ugd->cw_state = CST_SS_STATE_ON;
+			ad->cw_state = CST_SS_STATE_ON;
 		} else {
-			ugd->cw_state = CST_SS_STATE_OFF;
+			ad->cw_state = CST_SS_STATE_OFF;
 		}
 		elm_object_item_disabled_set(item_data->gl_item, EINA_FALSE);
 	} else {
 		if (error == CST_ERROR_FDN_MODE_ACTIVE) {
-			if (ugd->popup) {
-				evas_object_del(ugd->popup);
-				ugd->popup = NULL;
+			if (ad->popup) {
+				evas_object_del(ad->popup);
+				ad->popup = NULL;
 			}
-			ugd->popup = (Evas_Object *)_cst_create_error_popup_with_ok_btn(ugd,
+			ad->popup = (Evas_Object *)_cst_create_error_popup_with_ok_btn(ad,
 					error);
-			evas_object_show(ugd->popup);
+			evas_object_show(ad->popup);
 			elm_object_item_disabled_set(item_data->gl_item, EINA_TRUE);
 		}
 
-		ugd->cw_state = CST_SS_STATE_OFF;
+		ad->cw_state = CST_SS_STATE_OFF;
 		if (req_action != CST_ACTION_QUERY) {
 			_cst_create_error_popup(error);
 		}
@@ -152,30 +152,30 @@ static void __cst_on_click_call_waiting(void *data, Evas *evas, Evas_Object *obj
 {
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data ;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	ret_if(NULL == ugd);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	ret_if(NULL == ad);
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
 
-	if (ugd->cw_state == CST_SS_STATE_PROGRESS || ugd->cw_state == CST_SS_STATE_PROGRESS_INIT) {
+	if (ad->cw_state == CST_SS_STATE_PROGRESS || ad->cw_state == CST_SS_STATE_PROGRESS_INIT) {
 		return;
 	}
 
 	Eina_Bool check_state = elm_check_state_get(item_data->eo_check);
 
 	int action = check_state ? CST_ACTION_DEACTIVATE : CST_ACTION_ACTIVATE;
-	ugd->cw_state = CST_SS_STATE_PROGRESS;
+	ad->cw_state = CST_SS_STATE_PROGRESS;
 	elm_genlist_item_update(item_data->gl_item);
-	_cst_add_ss_request(&ugd->req_queue, action,
+	_cst_add_ss_request(&ad->req_queue, action,
 						CST_CALLTYPE_VOICE, CST_SSTYPE_CW, EINA_FALSE, NULL,
-						__cst_on_update_cw_state, item_data, -1, ugd);
+						__cst_on_update_cw_state, item_data, -1, ad);
 }
 
 static void __cst_on_changed_cw_check(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	ret_if(NULL == ugd);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	ret_if(NULL == ad);
 	int check_state = elm_check_state_get(obj);
 
 	if (elm_object_item_disabled_get(item_data->gl_item) == EINA_TRUE) {
@@ -184,11 +184,11 @@ static void __cst_on_changed_cw_check(void *data, Evas_Object *obj, void *event_
 	}
 
 	int action = check_state ? CST_ACTION_ACTIVATE : CST_ACTION_DEACTIVATE;
-	ugd->cw_state = CST_SS_STATE_PROGRESS;
+	ad->cw_state = CST_SS_STATE_PROGRESS;
 	elm_genlist_item_update(item_data->gl_item);
-	_cst_add_ss_request(&ugd->req_queue, action,
+	_cst_add_ss_request(&ad->req_queue, action,
 						CST_CALLTYPE_VOICE, CST_SSTYPE_CW, EINA_FALSE, NULL,
-						__cst_on_update_cw_state, item_data, -1, ugd);
+						__cst_on_update_cw_state, item_data, -1, ad);
 
 }
 
@@ -196,12 +196,12 @@ static void __cst_waiting_tapi_notify_cb(TapiHandle *handle, const char *noti_id
 {
 	ENTER(__cst_waiting_tapi_notify_cb);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)user_data;
-	ret_if(NULL == ugd);
-	CstGlItemData_t *item_data = ugd->cw_gl_item_data;
+	CstAppData_t *ad = (CstAppData_t *)user_data;
+	ret_if(NULL == ad);
+	CstGlItemData_t *item_data = ad->cw_gl_item_data;
 	ret_if(NULL == item_data);
 
-	if (ugd->cw_state == CST_SS_STATE_PROGRESS_INIT) {
+	if (ad->cw_state == CST_SS_STATE_PROGRESS_INIT) {
 		DBG("The call waiting state initial state query is still in progress");
 		return;
 	}
@@ -211,9 +211,9 @@ static void __cst_waiting_tapi_notify_cb(TapiHandle *handle, const char *noti_id
 	DBG("status = %d", cw_status_data->record[0].Status);
 
 	if (cw_status == TAPI_SS_STATUS_ACTIVE) {
-		ugd->cw_state = CST_SS_STATE_ON;
+		ad->cw_state = CST_SS_STATE_ON;
 	} else {
-		ugd->cw_state = CST_SS_STATE_OFF;
+		ad->cw_state = CST_SS_STATE_OFF;
 	}
 	elm_genlist_item_update(item_data->gl_item);
 }
@@ -222,8 +222,8 @@ static Evas_Object *__cst_gl_icon_get_more_cst(void *data, Evas_Object *obj, con
 {
 	retv_if(NULL == data, NULL);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	retv_if(NULL == ugd, NULL);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	retv_if(NULL == ad, NULL);
 
 	if (!strcmp(part, "elm.icon.right") || !strcmp(part, "elm.icon")
 		|| !strcmp(part, "elm.swallow.end")) {
@@ -231,10 +231,10 @@ static Evas_Object *__cst_gl_icon_get_more_cst(void *data, Evas_Object *obj, con
 			if (CST_STR_CALL_WAITING == list_more_call_setting[item_data->index].str_id) {
 				Evas_Object *icon = NULL;
 				Eina_Bool check_state = EINA_FALSE;
-				switch (ugd->cw_state) {
+				switch (ad->cw_state) {
 				case CST_SS_STATE_ON:
 				case CST_SS_STATE_OFF:
-					if (ugd->cw_state == CST_SS_STATE_ON) {
+					if (ad->cw_state == CST_SS_STATE_ON) {
 						check_state = EINA_TRUE;
 					}
 					item_data->eo_check = icon = _cst_create_onoff_button(obj, check_state,
@@ -273,14 +273,14 @@ static void __cst_gl_sel_more_cst(void *data, Evas_Object *obj, void *event_info
 {
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
 
 	if (list_more_call_setting[item_data->index].func) {
 		if (list_more_call_setting[item_data->index].style == CST_GL_ITEM_1TEXT_ONOFF) {
 			list_more_call_setting[item_data->index].func((void *)item_data, NULL, obj, item_data->gl_item);
 		} else if (list_more_call_setting[item_data->index].str_id == CST_STR_VOICE_MAIL_NUMBER) {
-			list_more_call_setting[item_data->index].func((void *)ugd, NULL, obj, item_data->gl_item);
+			list_more_call_setting[item_data->index].func((void *)ad, NULL, obj, item_data->gl_item);
 		} else {
 			list_more_call_setting[item_data->index].func((void *)item_data, NULL, obj, item_data->gl_item);
 		}
@@ -300,9 +300,9 @@ static char *__cst_gl_label_get_expandable(void *data, Evas_Object *obj, const c
 	} else if (!strcmp(part, "elm.text.sub")) {
 		int value = 0;
 		if (CST_STR_SHOW_MY_CALLER_ID == list_more_call_setting[item_data->index].str_id) {
-			CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+			CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 			Eina_Bool result;
-			if (ugd->sel_sim == CST_SELECTED_SIM1) {
+			if (ad->sel_sim == CST_SELECTED_SIM1) {
 				result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE, &value);
 			} else {
 				result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE2, &value);
@@ -328,9 +328,9 @@ static void __cst_gl_sel_show_my_number(void *data, Evas_Object *obj, void *even
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
 
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
-	if (ugd->sel_sim == CST_SELECTED_SIM1) {
+	if (ad->sel_sim == CST_SELECTED_SIM1) {
 		_cst_vconf_set_int(VCONFKEY_TELEPHONY_SS_CLI_STATE,
 						   (long)list_dep2_show_my_number[item_data->index].func);
 	} else {
@@ -339,7 +339,7 @@ static void __cst_gl_sel_show_my_number(void *data, Evas_Object *obj, void *even
 	}
 		evas_object_del(caller_id_popup);
 		caller_id_popup = NULL;
-		ugd->rdg_show_my_number = NULL;
+		ad->rdg_show_my_number = NULL;
 }
 
 static void __cst_show_my_number_radio_btn_mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
@@ -367,24 +367,24 @@ static Evas_Object *__cst_gl_icon_get_sub_exp(void *data, Evas_Object *obj, cons
 {
 	retv_if(NULL == data, NULL);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	retv_if(NULL == ugd, NULL);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	retv_if(NULL == ad, NULL);
 	CstGlItemData_t *parent_item_data = (CstGlItemData_t *)elm_object_item_data_get(item_data->parent_gl_item);
 
 	if (!strcmp(part, "elm.swallow.end")) {
 		Evas_Object *radio;
 		if (CST_STR_SHOW_MY_CALLER_ID == list_more_call_setting[parent_item_data->index].str_id) {
-			if (NULL == ugd->rdg_show_my_number) {
-				ugd->rdg_show_my_number = elm_radio_add(obj);
-				elm_radio_state_value_set(ugd->rdg_show_my_number, -1);
-				elm_radio_value_set(ugd->rdg_show_my_number, -1);
+			if (NULL == ad->rdg_show_my_number) {
+				ad->rdg_show_my_number = elm_radio_add(obj);
+				elm_radio_state_value_set(ad->rdg_show_my_number, -1);
+				elm_radio_value_set(ad->rdg_show_my_number, -1);
 			}
-			if (ugd->sel_sim == CST_SELECTED_SIM1) {
-				radio = _cst_create_radio_icon(obj, ugd->rdg_show_my_number,
+			if (ad->sel_sim == CST_SELECTED_SIM1) {
+				radio = _cst_create_radio_icon(obj, ad->rdg_show_my_number,
 						(long)list_dep2_show_my_number[item_data->index].func, 0,
 						VCONFKEY_TELEPHONY_SS_CLI_STATE);
 			} else {
-				radio = _cst_create_radio_icon(obj, ugd->rdg_show_my_number,
+				radio = _cst_create_radio_icon(obj, ad->rdg_show_my_number,
 						(long)list_dep2_show_my_number[item_data->index].func, 0,
 						VCONFKEY_TELEPHONY_SS_CLI_STATE2);
 			}
@@ -405,9 +405,9 @@ static void __cst_more_caller_id_changed_cb(keynode_t *node, void *data)
 	ENTER(__cst_more_caller_id_changed_cb);
 	ret_if(NULL == data);
 	int value;
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Eina_Bool result;
-	if (ugd->sel_sim == CST_SELECTED_SIM1) {
+	if (ad->sel_sim == CST_SELECTED_SIM1) {
 		result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE, &value);
 	} else {
 		result = _cst_vconf_get_int(VCONFKEY_TELEPHONY_SS_CLI_STATE2, &value);
@@ -419,24 +419,24 @@ static void __cst_more_caller_id_changed_cb(keynode_t *node, void *data)
 		return;
 	}
 
-	if (ugd->rdg_show_my_number) {
-		elm_radio_value_set(ugd->rdg_show_my_number, value);
+	if (ad->rdg_show_my_number) {
+		elm_radio_value_set(ad->rdg_show_my_number, value);
 	}
 }
 
 static Eina_Bool __cst_on_click_more_call_setting_back_button(void *data, Elm_Object_Item *it)
 {
 	ENTER(__cst_on_click_more_call_setting_back_button);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	retv_if(ugd == NULL, EINA_TRUE);
-	_cst_cancel_all_ss_request(ugd);
-	tel_deregister_noti_event(ugd->sim1_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS);
-	tel_deregister_noti_event(ugd->sim2_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	retv_if(ad == NULL, EINA_TRUE);
+	_cst_cancel_all_ss_request(ad);
+	tel_deregister_noti_event(ad->sim1_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS);
+	tel_deregister_noti_event(ad->sim2_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS);
 
 	_cst_destroy_more_call_setting();
 
-	if (ugd->ug_req_type == CST_UG_REQ_ADDITIONAL_SETTINGS) {
-		ug_destroy_me(ugd->ug);
+	if (ad->ug_req_type == CST_UG_REQ_ADDITIONAL_SETTINGS) {
+		ui_app_exit();
 	}
 
 	return EINA_TRUE;
@@ -454,14 +454,14 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 	ENTER(__cst_gl_exp);
 	ret_if(NULL == data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	ret_if(ugd == NULL);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	ret_if(ad == NULL);
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	ret_if(NULL == it);
 	CstGlItemData_t *parent_item_data1 = (CstGlItemData_t *)elm_object_item_data_get(it);
 	ret_if(NULL == parent_item_data1);
 
-	if (!_cst_check_dual_sim_status(ugd)) {
+	if (!_cst_check_dual_sim_status(ad)) {
 		_cst_create_error_popup(CST_ERROR_INSERT_SIM_CARD);
 		return;
 	}
@@ -470,11 +470,11 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *genlist = NULL;
 	Evas_Object *box = NULL;
 	int i = 0;
-	caller_id_popup = elm_popup_add(ugd->nf);
+	caller_id_popup = elm_popup_add(ad->nf);
 	eext_object_event_callback_add(caller_id_popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(caller_id_popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(caller_id_popup, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_smart_callback_add(caller_id_popup, "block,clicked", __cst_popup_block_clicked_cb, ugd->nf);
+	evas_object_smart_callback_add(caller_id_popup, "block,clicked", __cst_popup_block_clicked_cb, ad->nf);
 	cst_util_domain_translatable_part_text_set(caller_id_popup, "title,text", I_(CST_STR_SHOW_MY_CALLER_ID));
 	/* box */
 
@@ -493,15 +493,15 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 	/* radio */
 
 	if (CST_STR_SHOW_MY_CALLER_ID == list_more_call_setting[parent_item_data1->index].str_id) {
-		ugd->rdg_show_my_number = NULL;
-		ugd->rdg_show_my_number = elm_radio_add(genlist);
-		elm_radio_state_value_set(ugd->rdg_show_my_number, -1);
-		elm_radio_value_set(ugd->rdg_show_my_number, -1);
+		ad->rdg_show_my_number = NULL;
+		ad->rdg_show_my_number = elm_radio_add(genlist);
+		elm_radio_state_value_set(ad->rdg_show_my_number, -1);
+		elm_radio_value_set(ad->rdg_show_my_number, -1);
 		for (i = 0; list_dep2_show_my_number[i].style != CST_GL_ITEM_NONE; ++i) {
 			sub_item_data = (CstGlItemData_t *)calloc(1, sizeof(CstGlItemData_t));
 			ret_if(sub_item_data == NULL);
 			sub_item_data->index = i;
-			sub_item_data->ugd = ugd;
+			sub_item_data->ad = ad;
 			sub_item_data->parent_gl_item = it;
 			sub_item_data->style = list_dep2_show_my_number[i].style;
 			sub_item_data->gl_item = elm_genlist_item_append(genlist, itc_sub_expand,
@@ -514,9 +514,9 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 	evas_object_show(caller_id_popup);
 
 		vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE,
-				__cst_more_caller_id_changed_cb, ugd);
+				__cst_more_caller_id_changed_cb, ad);
 		vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2,
-				__cst_more_caller_id_changed_cb, ugd);
+				__cst_more_caller_id_changed_cb, ad);
 	}
 }
 
@@ -571,12 +571,12 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 {
 	ENTER(__cst_create_genlist_more_cst);
 	retv_if(NULL == data, NULL);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	CstGlItemData_t *item_data;
 	Evas_Object *genlist;
 	int i;
 
-	genlist = elm_genlist_add(ugd->nf);
+	genlist = elm_genlist_add(ad->nf);
 	retv_if(NULL == genlist, NULL);
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 	for (i = 0; list_more_call_setting[i].style != CST_GL_ITEM_NONE; ++i) {
@@ -584,7 +584,7 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 		retv_if(NULL == item_data, NULL);
 
 		item_data->index = i;
-		item_data->ugd = ugd;
+		item_data->ad = ad;
 		item_data->style = list_more_call_setting[i].style;
 		if (list_more_call_setting[i].style == CST_GL_ITEM_TEXT) {
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_1text,
@@ -611,7 +611,7 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 				vconf_notify_key_changed(VCONFKEY_TELEPHONY_SS_CLI_STATE2,
 						_cst_vconfkey_change_notify_cb, item_data->gl_item);
 			} else {
-				if (!_cst_check_dual_sim_status(ugd)) {
+				if (!_cst_check_dual_sim_status(ad)) {
 					DBG("No SIMs inserted!!!");
 					elm_object_item_disabled_set(item_data->gl_item, EINA_TRUE);
 				}
@@ -621,7 +621,7 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 				item_data->gl_item = elm_genlist_item_append(genlist, itc_multiline_1icon,
 								 (void *)item_data, NULL, list_more_call_setting[i].flags,
 								 __cst_gl_sel_more_cst, item_data);
-				ugd->cw_gl_item_data = item_data;
+				ad->cw_gl_item_data = item_data;
 			} else {
 				item_data->gl_item = elm_genlist_item_append(genlist, itc_1text_1icon,
 								 (void *)item_data, NULL, list_more_call_setting[i].flags,
@@ -641,46 +641,46 @@ static Evas_Object *__cst_create_genlist_more_cst(void *data)
 static void __cst_more_settings_sim1_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd->sel_sim == CST_SELECTED_SIM1) {
+	if (ad->sel_sim == CST_SELECTED_SIM1) {
 		DBG("SIM1 already selected");
 		return;
 	}
 	DBG("SIM1 not selected");
 
-	ugd->sel_sim = CST_SELECTED_SIM1;
+	ad->sel_sim = CST_SELECTED_SIM1;
 	_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM1);
 	elm_genlist_realized_items_update(morecallsetting_gl);
-	if (ugd->cw_gl_item_data) {
-		_cst_cancel_all_ss_request(ugd);
-		ugd->cw_state = CST_SS_STATE_PROGRESS_INIT;
-		_cst_add_ss_request(&ugd->req_queue, CST_ACTION_QUERY,
+	if (ad->cw_gl_item_data) {
+		_cst_cancel_all_ss_request(ad);
+		ad->cw_state = CST_SS_STATE_PROGRESS_INIT;
+		_cst_add_ss_request(&ad->req_queue, CST_ACTION_QUERY,
 							CST_CALLTYPE_VOICE, CST_SSTYPE_CW, EINA_FALSE, NULL,
-							__cst_on_update_cw_state, ugd->cw_gl_item_data, -1, ugd);
+							__cst_on_update_cw_state, ad->cw_gl_item_data, -1, ad);
 	}
 }
 
 static void __cst_more_settings_sim2_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd->sel_sim == CST_SELECTED_SIM2) {
+	if (ad->sel_sim == CST_SELECTED_SIM2) {
 		DBG("SIM2 already selected");
 		return;
 	}
 	DBG("SIM2 not selected");
 
-	ugd->sel_sim = CST_SELECTED_SIM2;
+	ad->sel_sim = CST_SELECTED_SIM2;
 	_cst_update_tapi_handle_by_simslot(data, CST_SELECTED_SIM2);
 	elm_genlist_realized_items_update(morecallsetting_gl);
-	if (ugd->cw_gl_item_data) {
-		_cst_cancel_all_ss_request(ugd);
-		ugd->cw_state = CST_SS_STATE_PROGRESS_INIT;
-		_cst_add_ss_request(&ugd->req_queue, CST_ACTION_QUERY,
+	if (ad->cw_gl_item_data) {
+		_cst_cancel_all_ss_request(ad);
+		ad->cw_state = CST_SS_STATE_PROGRESS_INIT;
+		_cst_add_ss_request(&ad->req_queue, CST_ACTION_QUERY,
 							CST_CALLTYPE_VOICE, CST_SSTYPE_CW, EINA_FALSE, NULL,
-							__cst_on_update_cw_state, ugd->cw_gl_item_data, -1, ugd);
+							__cst_on_update_cw_state, ad->cw_gl_item_data, -1, ad);
 	}
 }
 
@@ -688,7 +688,7 @@ void _cst_on_click_more_call_setting(void *data, Evas *evas, Evas_Object *obj, v
 {
 	ENTER(_cst_on_click_more_call_setting);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Eina_Bool is_sim1_present = EINA_FALSE;
 	Eina_Bool is_sim2_present = EINA_FALSE;
 	TapiResult_t err = TAPI_API_SUCCESS;
@@ -704,44 +704,44 @@ void _cst_on_click_more_call_setting(void *data, Evas *evas, Evas_Object *obj, v
 		return;
 	}
 	if (is_sim1_present) {
-		err = tel_register_noti_event(ugd->sim1_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS, __cst_waiting_tapi_notify_cb, (void *)ugd);
+		err = tel_register_noti_event(ad->sim1_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS, __cst_waiting_tapi_notify_cb, (void *)ad);
 		if (err != TAPI_API_SUCCESS) {
 			DBG("tel_register_noti_event failed: err(%d)", err);
 		}
 		sim1_cb = __cst_more_settings_sim1_sel_cb;
-		ugd->sel_sim = CST_SELECTED_SIM1;
+		ad->sel_sim = CST_SELECTED_SIM1;
 	}
 	if (is_sim2_present) {
-		err = tel_register_noti_event(ugd->sim2_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS, __cst_waiting_tapi_notify_cb, (void *)ugd);
+		err = tel_register_noti_event(ad->sim2_tapi_handle, TAPI_NOTI_SS_WAITING_STATUS, __cst_waiting_tapi_notify_cb, (void *)ad);
 		if (err != TAPI_API_SUCCESS) {
 			DBG("tel_register_noti_event failed: err(%d)", err);
 		}
 		sim2_cb = __cst_more_settings_sim2_sel_cb;
 		if (!is_sim1_present) {
-			ugd->sel_sim = CST_SELECTED_SIM2;
+			ad->sel_sim = CST_SELECTED_SIM2;
 		}
 	}
 
 	__cst_set_genlist_item_styles_more_cst();
-	morecallsetting_gl = __cst_create_genlist_more_cst(ugd);
+	morecallsetting_gl = __cst_create_genlist_more_cst(ad);
 
-	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
+	back_btn = _cst_util_navi_back_btn_create(ad->nf);
 
-	ugd->more_cst_navi_it = elm_naviframe_item_push(ugd->nf, I_(CST_STR_MORE_CALL_SETTINGS),
+	ad->more_cst_navi_it = elm_naviframe_item_push(ad->nf, I_(CST_STR_MORE_CALL_SETTINGS),
 			back_btn, NULL, morecallsetting_gl, "tabbar");
 
-	_cst_create_dual_sim_tabbar(ugd->more_cst_navi_it, sim1_cb, sim2_cb, ugd);
+	_cst_create_dual_sim_tabbar(ad->more_cst_navi_it, sim1_cb, sim2_cb, ad);
 
-	if (ugd->cw_gl_item_data) {
-		ugd->cw_state = CST_SS_STATE_PROGRESS;
-		_cst_add_ss_request(&ugd->req_queue, CST_ACTION_QUERY,
+	if (ad->cw_gl_item_data) {
+		ad->cw_state = CST_SS_STATE_PROGRESS;
+		_cst_add_ss_request(&ad->req_queue, CST_ACTION_QUERY,
 							CST_CALLTYPE_VOICE, CST_SSTYPE_CW, EINA_FALSE, NULL,
-							__cst_on_update_cw_state, ugd->cw_gl_item_data, -1, ugd);
+							__cst_on_update_cw_state, ad->cw_gl_item_data, -1, ad);
 	}
 
-	cst_util_item_domain_text_translatable_set(ugd->more_cst_navi_it, I_(CST_STR_MORE_CALL_SETTINGS));
+	cst_util_item_domain_text_translatable_set(ad->more_cst_navi_it, I_(CST_STR_MORE_CALL_SETTINGS));
 
-	elm_naviframe_item_pop_cb_set(ugd->more_cst_navi_it, __cst_on_click_more_call_setting_back_button, (void *)ugd);
+	elm_naviframe_item_pop_cb_set(ad->more_cst_navi_it, __cst_on_click_more_call_setting_back_button, (void *)ad);
 
 	LEAVE();
 }

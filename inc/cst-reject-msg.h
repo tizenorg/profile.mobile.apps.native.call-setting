@@ -23,12 +23,12 @@ void _cst_on_click_reject_message(void *data, Evas *evas, Evas_Object *obj, void
 char *_cst_get_reject_message(int index, gboolean b_parsing, gboolean b_translated);
 void _cst_set_reject_message(int index, char *message);
 int _cst_set_num_of_reject_message(int num);
-void _cst_reject_msg_create_navi_control_bar(CstUgData_t *ugd);
-void _cst_genlist_append_reject_list_item(CstUgData_t *ugd, Evas_Object *genlist);
+void _cst_reject_msg_create_navi_control_bar(CstAppData_t *ad);
+void _cst_genlist_append_reject_list_item(CstAppData_t *ad, Evas_Object *genlist);
 int _cst_get_num_of_reject_message(void);
 void _cst_reject_msg_input_panel_event_callback(void *data, Ecore_IMF_Context *imf_context, int value);
 void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *event_info);
-void _cst_destroy_reject_message(CstUgData_t *ugd);
+void _cst_destroy_reject_message(CstAppData_t *ad);
 void _cst_reject_msg_entry_filter_check_boundary(void *data, Evas_Object *entry, char **text);
 void _cst_set_reject_message_util(int index, char *message);
 

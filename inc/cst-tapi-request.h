@@ -35,7 +35,7 @@ typedef struct {
 	void *data;
 	char number[CST_MAX_PHONE_NUMBER_LEN];
 	int waiting_time;
-	CstUgData_t *ugd;
+	CstAppData_t *ad;
 	char old_password[CST_MAX_PHONE_NUMBER_LEN];
 	char new_password[CST_MAX_PHONE_NUMBER_LEN];
 	char confirm_password[CST_MAX_PHONE_NUMBER_LEN];
@@ -43,7 +43,7 @@ typedef struct {
 
 void _cst_register_tel_event(void *data);
 void _cst_deregister_tel_event(void *data);
-void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int flavour, int original_state, char *number, void *func, void *data, int waiting_time, CstUgData_t *ugd);
+void _cst_add_ss_request(Eina_List **queue, int action_type, int call_type, int flavour, int original_state, char *number, void *func, void *data, int waiting_time, CstAppData_t *ad);
 void _cst_cancel_all_ss_request(void *data);
 void _cst_change_password_ss_request(CallSettingSSReq_t *req, void *func);
 

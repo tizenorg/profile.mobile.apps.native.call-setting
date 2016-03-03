@@ -32,7 +32,7 @@
 static void __cst_set_genlist_item_styles_reject_msg(void);
 static void __cst_destroy_genlist_item_styles(void);
 static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *event_info);
-static void __cst_reject_msg_back_to_prev(CstUgData_t *ugd);
+static void __cst_reject_msg_back_to_prev(CstAppData_t *ad);
 static int _cst_set_reject_msg_button_status(int num);
 
 static Elm_Genlist_Item_Class *itc_1text = NULL;
@@ -84,9 +84,9 @@ static void __cst_reject_sms_count_changed_cb(keynode_t *node, void *data)
 {
 	ENTER(__cst_reject_sms_count_changed_cb);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd->backup_genlist) {
+	if (ad->backup_genlist) {
 		vconf_ignore_key_changed(VCONFKEY_CISSAPPL_USER_CREATE_MSG1_STR,
 				__cst_reject_sms_changed_cb);
 		vconf_ignore_key_changed(VCONFKEY_CISSAPPL_USER_CREATE_MSG2_STR,
@@ -100,10 +100,10 @@ static void __cst_reject_sms_count_changed_cb(keynode_t *node, void *data)
 		vconf_ignore_key_changed(VCONFKEY_CISSAPPL_USER_CREATE_MSG6_STR,
 				__cst_reject_sms_changed_cb);
 
-		elm_genlist_clear(ugd->backup_genlist);
+		elm_genlist_clear(ad->backup_genlist);
 	}
 
-	_cst_genlist_append_reject_list_item(ugd, ugd->backup_genlist);
+	_cst_genlist_append_reject_list_item(ad, ad->backup_genlist);
 	_cst_set_reject_msg_button_status(_cst_get_num_of_reject_message());
 	LEAVE();
 }
@@ -112,12 +112,12 @@ static Eina_Bool _back_btn_clicked_reject_msg_cb(void *data, Elm_Object_Item *it
 {
 	ENTER(_back_btn_clicked_reject_msg_cb);
 	retv_if(NULL == data, EINA_TRUE);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	_cst_destroy_reject_message(ugd);
+	_cst_destroy_reject_message(ad);
 
-	if (ugd->ug_req_type == CST_UG_REQ_REJECT_MESSAGES) {
-		ug_destroy_me(ugd->ug);
+	if (ad->ug_req_type == CST_UG_REQ_REJECT_MESSAGES) {
+		ui_app_exit();
 	}
 
 	return EINA_TRUE;
@@ -195,14 +195,14 @@ char *_cst_get_reject_message(int index, gboolean b_parsing, gboolean b_translat
 		if (!b_translated && parsed_message && strstr(parsed_message, "IDS_CST"))
 			return_str = strdup(parsed_message);
 		else
-			return_str = strdup(dgettext(UGNAME, parsed_message));
+			return_str = strdup(dgettext(APPNAME, parsed_message));
 		free(parsed_message);
 		parsed_message = NULL;
 	} else {
 		if (!b_translated && markup_converted_message && strstr(markup_converted_message, "IDS_CST"))
 			return_str = strdup(markup_converted_message);
 		else
-			return_str = strdup(dgettext(UGNAME, markup_converted_message));
+			return_str = strdup(dgettext(APPNAME, markup_converted_message));
 	}
 	free(message);
 	message = NULL;
@@ -372,7 +372,7 @@ static char *__cst_gl_label_get_reject_msg(void *data, Evas_Object *obj, const c
 	retv_if(item_data == NULL, NULL);
 
 	if (!strcmp(part, "elm.text.multiline")) {
-		char *buf = strdup(dgettext(UGNAME, (const char *)item_data->label));
+		char *buf = strdup(dgettext(APPNAME, (const char *)item_data->label));
 		return buf;
 	}
 
@@ -401,7 +401,7 @@ static void __cst_set_genlist_item_styles_reject_msg(void)
 	}
 }
 
-void _cst_genlist_append_reject_list_item(CstUgData_t *ugd, Evas_Object *genlist)
+void _cst_genlist_append_reject_list_item(CstAppData_t *ad, Evas_Object *genlist)
 {
 	ENTER(_cst_genlist_append_reject_list_item);
 	int num_of_message;
@@ -416,13 +416,13 @@ void _cst_genlist_append_reject_list_item(CstUgData_t *ugd, Evas_Object *genlist
 		elm_object_item_part_text_set(g_navi_it, "elm.text.title", header);
 	}
 	if (num_of_message == 0) {
-		edje_object_signal_emit(_EDJ(ugd->backup_layout), "show,content2", "code");
+		edje_object_signal_emit(_EDJ(ad->backup_layout), "show,content2", "code");
 	} else {
 		for (index = 0; index < num_of_message; index++) {
 			item_data = calloc(1, sizeof(CstGlItemData_t));
 			ret_if(item_data == NULL);
 			item_data->index = index;
-			item_data->ugd = (void *)ugd;
+			item_data->ad = (void *)ad;
 			item_data->label = _cst_get_reject_message(index, EINA_TRUE, EINA_FALSE);
 
 			item_data->gl_item = elm_genlist_item_append(genlist, itc_1text,
@@ -459,16 +459,16 @@ void _cst_genlist_append_reject_list_item(CstUgData_t *ugd, Evas_Object *genlist
 					break;
 				}
 		}
-		edje_object_signal_emit(_EDJ(ugd->backup_layout), "show,content1", "code");
+		edje_object_signal_emit(_EDJ(ad->backup_layout), "show,content1", "code");
 	}
 }
 
-static Evas_Object *__cst_create_genlist_reject_msg(CstUgData_t *ugd)
+static Evas_Object *__cst_create_genlist_reject_msg(CstAppData_t *ad)
 {
 	ENTER(__cst_create_genlist_reject_msg);
 	Evas_Object *genlist;
 
-	genlist = elm_genlist_add(ugd->nf);
+	genlist = elm_genlist_add(ad->nf);
 
 	elm_genlist_tree_effect_enabled_set(genlist, EINA_TRUE);
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -476,8 +476,8 @@ static Evas_Object *__cst_create_genlist_reject_msg(CstUgData_t *ugd)
 	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 
 	vconf_notify_key_changed(VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT,
-			__cst_reject_sms_count_changed_cb, ugd);
-	_cst_genlist_append_reject_list_item(ugd, genlist);
+			__cst_reject_sms_count_changed_cb, ad);
+	_cst_genlist_append_reject_list_item(ad, genlist);
 
 	return genlist;
 }
@@ -487,8 +487,8 @@ static Eina_Bool __cst_click_reject_msg_edit_back(void *data, Elm_Object_Item *i
 	ENTER(__cst_click_reject_msg_edit_back);
 	retv_if(!data, EINA_TRUE);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	__cst_reject_msg_back_to_prev(ugd);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	__cst_reject_msg_back_to_prev(ad);
 
 	return EINA_TRUE;
 }
@@ -497,8 +497,8 @@ static Eina_Bool __cst_click_reject_msg_create_back(void *data, Elm_Object_Item 
 {
 	ENTER(__cst_click_reject_msg_create_back);
 	retv_if(!data, EINA_TRUE);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	__cst_reject_msg_back_to_prev(ugd);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	__cst_reject_msg_back_to_prev(ad);
 
 	return EINA_TRUE;
 }
@@ -527,11 +527,11 @@ static void __cst_click_reject_msg_edit_done(void *data, Evas_Object *obj, void 
 	ret_if(!data);
 
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
-	ret_if(!ugd);
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
+	ret_if(!ad);
 
-	char *parsed_message = __cst_parse_input_string((char *)elm_entry_entry_get(ugd->dg_entry));
-	char *new_message = elm_entry_markup_to_utf8(elm_entry_entry_get(ugd->dg_entry));
+	char *parsed_message = __cst_parse_input_string((char *)elm_entry_entry_get(ad->dg_entry));
+	char *new_message = elm_entry_markup_to_utf8(elm_entry_entry_get(ad->dg_entry));
 	char *reject_message = _cst_get_reject_message(item_data->index, EINA_FALSE, EINA_TRUE);
 
 	DBG("item_data->label = %s", item_data->label);
@@ -540,15 +540,15 @@ static void __cst_click_reject_msg_edit_done(void *data, Evas_Object *obj, void 
 		DBG("No new message");
 	} else if (__cst_check_empty(parsed_message)) {
 		DBG("No Message");
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 		_cst_create_error_popup(CST_ERROR_ENTER_MESSAGE);
 	} else if ((reject_message && !strcmp(reject_message, new_message))) {
 		DBG("No change");
-		__cst_reject_msg_back_to_prev(ugd);
-	} else if ((__cst_rejectcall_message_check_same_data((void *)ugd, new_message)) == EINA_FALSE) {
+		__cst_reject_msg_back_to_prev(ad);
+	} else if ((__cst_rejectcall_message_check_same_data((void *)ad, new_message)) == EINA_FALSE) {
 		DBG("Duplicate message");
 	} else {
 		free(item_data->label);
@@ -556,7 +556,7 @@ static void __cst_click_reject_msg_edit_done(void *data, Evas_Object *obj, void 
 		_cst_set_reject_message(item_data->index, (char *)new_message);
 		elm_genlist_item_update(item_data->gl_item);
 
-		__cst_reject_msg_back_to_prev(ugd);
+		__cst_reject_msg_back_to_prev(ad);
 	}
 	free(parsed_message);
 	free(new_message);
@@ -575,32 +575,32 @@ static void __cst_click_reject_msg_create_done(void *data, Evas_Object *obj, voi
 	ENTER(__cst_click_reject_msg_create_done);
 	ret_if(!data);
 
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	int num_of_reject_message;
 	char *parsed_message = NULL;
 	char *new_message = NULL;
 
 	num_of_reject_message = _cst_get_num_of_reject_message();
 
-	parsed_message = __cst_parse_input_string((char *)elm_entry_entry_get(ugd->dg_entry));
+	parsed_message = __cst_parse_input_string((char *)elm_entry_entry_get(ad->dg_entry));
 
-	new_message = elm_entry_markup_to_utf8(elm_entry_entry_get(ugd->dg_entry));
+	new_message = elm_entry_markup_to_utf8(elm_entry_entry_get(ad->dg_entry));
 
 	if (NULL == new_message) {
 		DBG("No new message");
 	} else if (__cst_check_empty(parsed_message)) {
 		DBG("No Message");
-		if (ugd->popup) {
-			evas_object_del(ugd->popup);
-			ugd->popup = NULL;
+		if (ad->popup) {
+			evas_object_del(ad->popup);
+			ad->popup = NULL;
 		}
 		_cst_create_error_popup(CST_ERROR_ENTER_MESSAGE);
-	} else if ((__cst_rejectcall_message_check_same_data((void *)ugd, new_message)) == EINA_FALSE) {
+	} else if ((__cst_rejectcall_message_check_same_data((void *)ad, new_message)) == EINA_FALSE) {
 		DBG("Duplicate message");
 	} else {
 		_cst_set_reject_message_util(num_of_reject_message, (char *)new_message);
 		_cst_set_num_of_reject_message(num_of_reject_message + 1);
-		__cst_reject_msg_back_to_prev(ugd);
+		__cst_reject_msg_back_to_prev(ad);
 	}
 	free(parsed_message);
 	parsed_message = NULL;
@@ -615,9 +615,9 @@ static void __cst_click_reject_msg_create_cancel(void *data, Evas_Object *obj,
 	__cst_click_reject_msg_create_back(data, NULL);
 }
 
-static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstUgData_t *ugd)
+static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstAppData_t *ad)
 {
-	retv_if(!ugd, REJECT_MSG_TEXT_UNDER_LIMIT_NUM);
+	retv_if(!ad, REJECT_MSG_TEXT_UNDER_LIMIT_NUM);
 
 	unsigned int text_size = 0;
 	unsigned int segment_size = 0;
@@ -634,9 +634,9 @@ static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstUgData_t
 	if (text_size > 0) {
 		snprintf(buf, sizeof(buf), "%i/%i", text_size, segment_size);
 	}
-	elm_object_part_text_set(ugd->entry_count, "char_count_text", buf);
+	elm_object_part_text_set(ad->entry_count, "char_count_text", buf);
 
-	ugd->rej_msg_seg_size = segment_size;
+	ad->rej_msg_seg_size = segment_size;
 	if (text_size > segment_size) {
 		DBG("text_size = %d > segment_size = %d", text_size, segment_size);
 		return REJECT_MSG_TEXT_OVER_LIMIT_NUM;
@@ -651,7 +651,7 @@ static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstUgData_t
 void _cst_reject_msg_entry_filter_check_boundary(void *data, Evas_Object *entry, char **text)
 {
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	unsigned int text_size = 0;
 	unsigned int segment_size = 0;
 	int encoded_mode = 0;
@@ -748,7 +748,7 @@ void _cst_reject_msg_entry_filter_check_boundary(void *data, Evas_Object *entry,
 					}
 				} while (text_size > segment_size);
 
-				char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ugd->rej_msg_seg_size);
+				char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ad->rej_msg_seg_size);
 				_cst_create_toast_popup(label);
 				g_free(label);
 
@@ -782,11 +782,11 @@ void _cst_reject_msg_entry_filter_check_boundary(void *data, Evas_Object *entry,
 void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	const char *entry_str = elm_entry_entry_get(obj);
 	char *text = NULL;
 	DBG("entry_str = %s", entry_str);
-	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ugd->nf);
+	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ad->nf);
 	ret_if(!navi_it);
 	Evas_Object *btn = elm_object_item_part_content_get(navi_it,
 					   "title_right_btn");
@@ -802,7 +802,7 @@ void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *ev
 
 	if (NULL != entry_str) {
 		text = elm_entry_markup_to_utf8(entry_str);
-		int ret = __cst_reject_msg_exceed_limit_text_size(text, ugd);
+		int ret = __cst_reject_msg_exceed_limit_text_size(text, ad);
 		switch (ret) {
 		case REJECT_MSG_TEXT_OVER_LIMIT_NUM:
 			if (btn != NULL) {
@@ -811,7 +811,7 @@ void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *ev
 			if (save_btn != NULL) {
 				elm_object_disabled_set(save_btn, EINA_TRUE);
 			}
-			char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ugd->rej_msg_seg_size);
+			char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ad->rej_msg_seg_size);
 			_cst_create_toast_popup(label);
 			elm_entry_prediction_allow_set(obj, EINA_FALSE);
 
@@ -851,7 +851,7 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 	ENTER(__cst_edit_reject_message_list);
 	ret_if(!data);
 	CstGlItemData_t *item_data = (CstGlItemData_t *)data;
-	CstUgData_t *ugd = (CstUgData_t *)item_data->ugd;
+	CstAppData_t *ad = (CstAppData_t *)item_data->ad;
 	Elm_Object_Item *navi_it;
 	Evas_Object *scroller;
 	Evas_Object *layout;
@@ -860,16 +860,16 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 	g_item_data = item_data;
 
 	elm_genlist_item_selected_set(item_data->gl_item, EINA_FALSE);
-	ugd->popup = NULL;
+	ad->popup = NULL;
 
-	scroller = elm_scroller_add(ugd->nf);
+	scroller = elm_scroller_add(ad->nf);
 	evas_object_size_hint_align_set(scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	layout = _cst_create_reject_message_ime(scroller, _cst_get_reject_message(item_data->index, EINA_FALSE, EINA_TRUE), ugd);
+	layout = _cst_create_reject_message_ime(scroller, _cst_get_reject_message(item_data->index, EINA_FALSE, EINA_TRUE), ad);
 	elm_object_content_set(scroller, layout);
 
-	navi_it = elm_naviframe_item_push(ugd->nf,
+	navi_it = elm_naviframe_item_push(ad->nf,
 									  I_(CST_STR_BODY_EDIT), NULL, NULL, scroller, NULL);
 	if (navi_it == NULL) {
 		ERR("elm_naviframe_item_push fail...");
@@ -877,7 +877,7 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 	}
 	cst_util_item_domain_text_translatable_set(navi_it, I_(CST_STR_BODY_EDIT));
 
-	_cst_create_navi_control_bar(ugd->nf,
+	_cst_create_navi_control_bar(ad->nf,
 										(char *)I_(CST_STR_NAVI_BTN_CANCEL), NULL,
 										__cst_click_reject_msg_edit_cancel,
 										(char *)I_(CST_STR_NAVI_BTN_DONE), NULL,
@@ -888,7 +888,7 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 
 	elm_naviframe_item_pop_cb_set(navi_it, __cst_click_reject_msg_edit_back, (void *)g_item_data);
 
-	entry_input = elm_entry_entry_get(ugd->dg_entry);
+	entry_input = elm_entry_entry_get(ad->dg_entry);
 
 	if (save_btn != NULL) {
 		if (entry_input && strlen(entry_input) > 0) {
@@ -897,50 +897,50 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 			elm_object_disabled_set(save_btn, EINA_TRUE);
 		}
 	}
-	evas_object_smart_callback_add(ugd->nf, "transition,finished", _cst_transition_cb, navi_it);
+	evas_object_smart_callback_add(ad->nf, "transition,finished", _cst_transition_cb, navi_it);
 }
 
 static void __cst_on_click_reject_message_add_button(void *data, Evas_Object *obj, void *event_info)
 {
 	ENTER(__cst_on_click_reject_message_add_button);
 	ret_if(!data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Elm_Object_Item *navi_it;
 	Evas_Object *scroller;
 	Evas_Object *layout;
 	const char *entry_input = NULL;
 
-	ugd->popup = NULL;
-	if (ugd->rejct_popup) {
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
+	ad->popup = NULL;
+	if (ad->rejct_popup) {
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
 	}
-	scroller = elm_scroller_add(ugd->nf);
+	scroller = elm_scroller_add(ad->nf);
 	evas_object_size_hint_align_set(scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	layout = _cst_create_reject_message_ime(scroller, NULL, ugd);
+	layout = _cst_create_reject_message_ime(scroller, NULL, ad);
 	elm_object_content_set(scroller, layout);
 
-	navi_it = elm_naviframe_item_push(ugd->nf,
+	navi_it = elm_naviframe_item_push(ad->nf,
 									  I_(CST_STR_SK3_CREATE), NULL, NULL, scroller, NULL);
 	if (navi_it == NULL) {
 		DBG("elm_naviframe_item_push fail...");
 	}
 	cst_util_item_domain_text_translatable_set(navi_it, I_(CST_STR_SK3_CREATE));
 
-	_cst_create_navi_control_bar(ugd->nf,
+	_cst_create_navi_control_bar(ad->nf,
 										(char *)I_(CST_STR_NAVI_BTN_CANCEL), NULL,
 										__cst_click_reject_msg_create_cancel,
 										(char *)I_(CST_STR_NAVI_BTN_DONE), NULL,
 										__cst_click_reject_msg_create_done,
-										(void *)ugd, navi_it,
+										(void *)ad, navi_it,
 										NULL);
 	save_btn = elm_object_item_part_content_get(navi_it, "title_right_btn");
 
-	elm_naviframe_item_pop_cb_set(navi_it, __cst_click_reject_msg_create_back, (void *)ugd);
+	elm_naviframe_item_pop_cb_set(navi_it, __cst_click_reject_msg_create_back, (void *)ad);
 
-	entry_input = elm_entry_entry_get(ugd->dg_entry);
+	entry_input = elm_entry_entry_get(ad->dg_entry);
 
 	if (save_btn != NULL) {
 		if (entry_input && strlen(entry_input) > 0) {
@@ -949,15 +949,15 @@ static void __cst_on_click_reject_message_add_button(void *data, Evas_Object *ob
 			elm_object_disabled_set(save_btn, EINA_TRUE);
 		}
 	}
-	evas_object_smart_callback_add(ugd->nf, "transition,finished", _cst_transition_cb, navi_it);
+	evas_object_smart_callback_add(ad->nf, "transition,finished", _cst_transition_cb, navi_it);
 }
 
-static Evas_Object *__cst_create_nocontents_layout(CstUgData_t *ugd)
+static Evas_Object *__cst_create_nocontents_layout(CstAppData_t *ad)
 {
 	ENTER(__cst_create_nocontents_layout);
 
 	Evas_Object *layout;
-	layout = elm_layout_add(ugd->nf);
+	layout = elm_layout_add(ad->nf);
 	if (!layout) {
 		return NULL;
 	}
@@ -973,18 +973,18 @@ static Evas_Object *__cst_create_nocontents_layout(CstUgData_t *ugd)
 	return layout;
 }
 
-void _cst_reject_msg_create_navi_control_bar(CstUgData_t *ugd)
+void _cst_reject_msg_create_navi_control_bar(CstAppData_t *ad)
 {
 	ENTER(_cst_reject_msg_create_navi_control_bar);
 
 	memset(ec_item, 0, sizeof(ec_item));
 
-	_cst_create_navi_control_bar(ugd->nf,
+	_cst_create_navi_control_bar(ad->nf,
 										(char *)I_(CST_STR_HEADER_DELETE), NULL,
 										_cst_create_delete_list,
 										(char *)I_(CST_STR_SK3_CREATE), NULL,
 										__cst_on_click_reject_message_add_button,
-										(void *)ugd, g_navi_it,
+										(void *)ad, g_navi_it,
 										ec_item);
 
 	_cst_set_reject_msg_button_status(_cst_get_num_of_reject_message());
@@ -1011,29 +1011,29 @@ static void __cst_Reject_msg_ctxpopup_rotation_changed(void *data,
 {
 	ENTER(__cst_Reject_msg_ctxpopup_rotation_changed);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Evas_Coord x, y, w , h;
 	int rotation_angle = 0;
 
-	if (ugd->rejct_popup) {
-		elm_win_screen_size_get(ugd->win_main, &x, &y, &w, &h);
-		rotation_angle = elm_win_rotation_get((Evas_Object *)ugd->win_main);
+	if (ad->rejct_popup) {
+		elm_win_screen_size_get(ad->win_main, &x, &y, &w, &h);
+		rotation_angle = elm_win_rotation_get((Evas_Object *)ad->win_main);
 		switch (rotation_angle) {
 			case 0:
 			case 180:
-				evas_object_move(ugd->rejct_popup, 0, h);
+				evas_object_move(ad->rejct_popup, 0, h);
 				break;
 			case 90:
-				evas_object_move(ugd->rejct_popup, 0, w);
+				evas_object_move(ad->rejct_popup, 0, w);
 				break;
 			case 270:
-				evas_object_move(ugd->rejct_popup, h, w);
+				evas_object_move(ad->rejct_popup, h, w);
 				break;
 			default:
-				evas_object_move(ugd->rejct_popup, 0, h);
+				evas_object_move(ad->rejct_popup, 0, h);
 				break;
 		}
-		evas_object_show(ugd->rejct_popup);
+		evas_object_show(ad->rejct_popup);
 	}
 }
 
@@ -1042,17 +1042,17 @@ static void __cst_Reject_msg_dismiss_popup_more_cb(void *data, Evas *e, Evas_Obj
 	ENTER(__cst_Reject_msg_dismiss_popup_more_cb);
 	ret_if(NULL == data);
 
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	if (ugd->rejct_popup) {
-		evas_object_smart_callback_del(ugd->win_main, "rotation,changed",
+	if (ad->rejct_popup) {
+		evas_object_smart_callback_del(ad->win_main, "rotation,changed",
 				__cst_Reject_msg_ctxpopup_rotation_changed);
 
-		evas_object_event_callback_del_full(ugd->rejct_popup, EVAS_CALLBACK_DEL,
+		evas_object_event_callback_del_full(ad->rejct_popup, EVAS_CALLBACK_DEL,
 				__cst_Reject_msg_dismiss_popup_more_cb, data);
 
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
 	}
 }
 
@@ -1066,60 +1066,60 @@ static void __cst_Reject_msg_dismiss_popup_more_cb_wrapper(void *data, Evas_Obje
 static void more_btn_cb(void *data, Evas_Object* obj, void* event_info)
 {
 	ENTER(more_btn_cb);
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 	Evas_Coord x, y, w , h;
 	int rotation_angle = 0;
 	int num = 0;
-	if (ugd->rejct_popup) {
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
+	if (ad->rejct_popup) {
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
 	}
 
-	ugd->rejct_popup = elm_ctxpopup_add(ugd->win_main);
-	elm_object_style_set(ugd->rejct_popup, "more/default");
-	evas_object_smart_callback_add(ugd->rejct_popup, "dismissed",
+	ad->rejct_popup = elm_ctxpopup_add(ad->win_main);
+	elm_object_style_set(ad->rejct_popup, "more/default");
+	evas_object_smart_callback_add(ad->rejct_popup, "dismissed",
 			NULL, NULL);
-	eext_object_event_callback_add(ugd->rejct_popup, EEXT_CALLBACK_BACK, __cst_Reject_msg_dismiss_popup_more_cb_wrapper, data);
-	eext_object_event_callback_add(ugd->rejct_popup,  EEXT_CALLBACK_MORE, __cst_Reject_msg_dismiss_popup_more_cb_wrapper, data);
-	elm_ctxpopup_auto_hide_disabled_set(ugd->rejct_popup, EINA_TRUE);
+	eext_object_event_callback_add(ad->rejct_popup, EEXT_CALLBACK_BACK, __cst_Reject_msg_dismiss_popup_more_cb_wrapper, data);
+	eext_object_event_callback_add(ad->rejct_popup,  EEXT_CALLBACK_MORE, __cst_Reject_msg_dismiss_popup_more_cb_wrapper, data);
+	elm_ctxpopup_auto_hide_disabled_set(ad->rejct_popup, EINA_TRUE);
 
-	evas_object_event_callback_add(ugd->rejct_popup, EVAS_CALLBACK_DEL,
+	evas_object_event_callback_add(ad->rejct_popup, EVAS_CALLBACK_DEL,
 			__cst_Reject_msg_dismiss_popup_more_cb, data);
 
 	num  = _cst_get_num_of_reject_message();
 
 	if (num < 6) { /*If number is 6, then max number of Reject msgs set hence dont show 'Create' option*/
-		elm_ctxpopup_item_append(ugd->rejct_popup, T_(CST_STR_SK3_CREATE), NULL, __cst_on_click_reject_message_add_button, ugd);
+		elm_ctxpopup_item_append(ad->rejct_popup, T_(CST_STR_SK3_CREATE), NULL, __cst_on_click_reject_message_add_button, ad);
 	}
 
 	if (num > 0) { /*If number is 0, then no Reject msgs set hence dont show 'Delete' option*/
-		elm_ctxpopup_item_append(ugd->rejct_popup, T_(CST_STR_HEADER_DELETE), NULL, _cst_create_delete_list, ugd);
+		elm_ctxpopup_item_append(ad->rejct_popup, T_(CST_STR_HEADER_DELETE), NULL, _cst_create_delete_list, ad);
 	}
 
-	elm_ctxpopup_direction_priority_set(ugd->rejct_popup, ELM_CTXPOPUP_DIRECTION_UP,
+	elm_ctxpopup_direction_priority_set(ad->rejct_popup, ELM_CTXPOPUP_DIRECTION_UP,
 						ELM_CTXPOPUP_DIRECTION_UNKNOWN,
 						ELM_CTXPOPUP_DIRECTION_UNKNOWN,
 						ELM_CTXPOPUP_DIRECTION_UNKNOWN);
-	elm_win_screen_size_get(ugd->win_main, &x, &y, &w, &h);
-	evas_object_smart_callback_add(ugd->win_main, "rotation,changed",
+	elm_win_screen_size_get(ad->win_main, &x, &y, &w, &h);
+	evas_object_smart_callback_add(ad->win_main, "rotation,changed",
 			__cst_Reject_msg_ctxpopup_rotation_changed, data);
-	rotation_angle = elm_win_rotation_get((Evas_Object *)ugd->win_main);
+	rotation_angle = elm_win_rotation_get((Evas_Object *)ad->win_main);
 	switch (rotation_angle) {
 		case 0:
 		case 180:
-			evas_object_move(ugd->rejct_popup, (w / 2), h);
+			evas_object_move(ad->rejct_popup, (w / 2), h);
 			break;
 		case 90:
-			evas_object_move(ugd->rejct_popup,	(h / 2), w);
+			evas_object_move(ad->rejct_popup,	(h / 2), w);
 			break;
 		case 270:
-			evas_object_move(ugd->rejct_popup, (h / 2), w);
+			evas_object_move(ad->rejct_popup, (h / 2), w);
 			break;
 		default:
-			evas_object_move(ugd->rejct_popup, (w / 2), h);
+			evas_object_move(ad->rejct_popup, (w / 2), h);
 			break;
 	}
-	evas_object_show(ugd->rejct_popup);
+	evas_object_show(ad->rejct_popup);
 	return;
 }
 
@@ -1127,31 +1127,31 @@ static void __cst_create_reject_message(Evas_Object *parent, void *data)
 {
 	ENTER(_cst_on_click_reject_message);
 	Evas_Object *layout, *nocontent;
-	CstUgData_t *ugd = data;
+	CstAppData_t *ad = data;
 	static Evas_Object *more_btn = NULL;
 	Evas_Object *back_btn = NULL;
-	ret_if(ugd == NULL);
+	ret_if(ad == NULL);
 
 	int title = CST_STR_REJECT_MESSAGES;
 
 	__cst_set_genlist_item_styles_reject_msg();
-	ugd->kind_of_delete_list = CST_DL_REJECT_CALL_WITH_MSG;
+	ad->kind_of_delete_list = CST_DL_REJECT_CALL_WITH_MSG;
 
 	/*Create layout */
-	layout = elm_layout_add(ugd->nf);
-	ugd->backup_layout = layout;
+	layout = elm_layout_add(ad->nf);
+	ad->backup_layout = layout;
 	elm_layout_file_set(layout, THEME_NAME, "reject_msg_listview_layout");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	nocontent = __cst_create_nocontents_layout(ugd);
-	g_genlist = ugd->backup_genlist = __cst_create_genlist_reject_msg(ugd);
+	nocontent = __cst_create_nocontents_layout(ad);
+	g_genlist = ad->backup_genlist = __cst_create_genlist_reject_msg(ad);
 	evas_object_smart_callback_add(g_genlist, "language,changed", __cst_reject_msg_lang_changed, data);
 
-	elm_object_part_content_set(layout, "elm.swallow.contents", ugd->backup_genlist);
+	elm_object_part_content_set(layout, "elm.swallow.contents", ad->backup_genlist);
 	elm_object_part_content_set(layout, "elm.swallow.contents2", nocontent);
 
 	/*Create naviframe back button*/
-	back_btn = _cst_util_navi_back_btn_create(ugd->nf);
+	back_btn = _cst_util_navi_back_btn_create(ad->nf);
 
 	header = (char *)malloc(sizeof(char)*256);
 	memset(header, 0x0, 256);
@@ -1159,13 +1159,13 @@ static void __cst_create_reject_message(Evas_Object *parent, void *data)
 	snprintf(header, sizeof(char)*256, "%s (%d/6)", T_(title), _cst_get_num_of_reject_message());
 
 	DBG("header = %s", header);
-	g_navi_it = elm_naviframe_item_push(ugd->nf, header, back_btn, NULL, layout, NULL);
-	elm_naviframe_item_pop_cb_set(g_navi_it, _back_btn_clicked_reject_msg_cb, (void *)ugd);
+	g_navi_it = elm_naviframe_item_push(ad->nf, header, back_btn, NULL, layout, NULL);
+	elm_naviframe_item_pop_cb_set(g_navi_it, _back_btn_clicked_reject_msg_cb, (void *)ad);
 
 	/*create more button*/
-	more_btn = elm_button_add(ugd->nf);
+	more_btn = elm_button_add(ad->nf);
 	elm_object_style_set(more_btn, "naviframe/more/default");
-	evas_object_smart_callback_add(more_btn, "clicked", more_btn_cb, ugd);
+	evas_object_smart_callback_add(more_btn, "clicked", more_btn_cb, ad);
 	elm_object_item_part_content_set(g_navi_it, "toolbar_more_btn", more_btn);
 }
 
@@ -1173,8 +1173,8 @@ void _cst_on_click_reject_message(void *data, Evas *evas, Evas_Object *obj, void
 {
 	ENTER(_cst_on_click_reject_message);
 	ret_if(NULL == data);
-	CstUgData_t *ugd = (CstUgData_t *)data;
-	__cst_create_reject_message(ugd->nf, ugd);
+	CstAppData_t *ad = (CstAppData_t *)data;
+	__cst_create_reject_message(ad->nf, ad);
 }
 
 void _cst_reject_msg_input_panel_event_callback(void *data, Ecore_IMF_Context *imf_context, int value)
@@ -1192,43 +1192,43 @@ void _cst_reject_msg_input_panel_event_callback(void *data, Ecore_IMF_Context *i
 
 static Eina_Bool _cst_reject_msg_naviframe_item_pop_cb(void *data)
 {
-	CstUgData_t *ugd = (CstUgData_t *)data;
+	CstAppData_t *ad = (CstAppData_t *)data;
 
-	evas_object_smart_callback_del(ugd->nf, "transition,finished", _cst_transition_cb);
+	evas_object_smart_callback_del(ad->nf, "transition,finished", _cst_transition_cb);
 
-	ugd->dg_entry = NULL;
+	ad->dg_entry = NULL;
 
-	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ugd->nf), NULL, NULL);
+	elm_naviframe_item_pop_cb_set(elm_naviframe_top_item_get(ad->nf), NULL, NULL);
 
-	elm_naviframe_item_pop(ugd->nf);
+	elm_naviframe_item_pop(ad->nf);
 
 	save_btn = NULL;
 
 	return ECORE_CALLBACK_CANCEL;
 }
 
-static void __cst_reject_msg_back_to_prev(CstUgData_t *ugd)
+static void __cst_reject_msg_back_to_prev(CstAppData_t *ad)
 {
-	ret_if(!ugd);
-	Ecore_IMF_Context *imf_context = elm_entry_imf_context_get(ugd->dg_entry);
+	ret_if(!ad);
+	Ecore_IMF_Context *imf_context = elm_entry_imf_context_get(ad->dg_entry);
 
 	if (imf_context) {
 		ecore_imf_context_input_panel_event_callback_del(imf_context, ECORE_IMF_INPUT_PANEL_STATE_EVENT, _cst_reject_msg_input_panel_event_callback);
 		ecore_imf_context_input_panel_enabled_set(imf_context, EINA_FALSE);
 	}
 
-	evas_object_smart_callback_del(ugd->dg_entry, "changed", _cst_reject_msg_changed_editfield_cb);
-	evas_object_smart_callback_del(ugd->dg_entry, "preedit,changed", _cst_reject_msg_changed_editfield_cb);
+	evas_object_smart_callback_del(ad->dg_entry, "changed", _cst_reject_msg_changed_editfield_cb);
+	evas_object_smart_callback_del(ad->dg_entry, "preedit,changed", _cst_reject_msg_changed_editfield_cb);
 
-/*	ecore_timer_add(CST_NAVIFRAME_ITEM_POP_TIMER, _cst_reject_msg_naviframe_item_pop_cb, ugd);
+/*	ecore_timer_add(CST_NAVIFRAME_ITEM_POP_TIMER, _cst_reject_msg_naviframe_item_pop_cb, ad);
 */
-	_cst_reject_msg_naviframe_item_pop_cb(ugd);
+	_cst_reject_msg_naviframe_item_pop_cb(ad);
 }
 
-void _cst_destroy_reject_message(CstUgData_t *ugd)
+void _cst_destroy_reject_message(CstAppData_t *ad)
 {
 	ENTER(_cst_destroy_reject_message);
-	ret_if(!ugd);
+	ret_if(!ad);
 
 	vconf_ignore_key_changed(VCONFKEY_CISSAPPL_USER_CREATE_MSG1_STR,
 			__cst_reject_sms_changed_cb);
@@ -1246,9 +1246,9 @@ void _cst_destroy_reject_message(CstUgData_t *ugd)
 			__cst_reject_sms_count_changed_cb);
 	__cst_destroy_genlist_item_styles();
 
-	if (ugd->rejct_popup) {
-		evas_object_del(ugd->rejct_popup);
-		ugd->rejct_popup = NULL;
+	if (ad->rejct_popup) {
+		evas_object_del(ad->rejct_popup);
+		ad->rejct_popup = NULL;
 	}
 
 	if (header) {
@@ -1261,12 +1261,12 @@ void _cst_destroy_reject_message(CstUgData_t *ugd)
 		g_genlist = NULL;
 	}
 
-	if (ugd->backup_genlist) {
-		ugd->backup_genlist = NULL;
+	if (ad->backup_genlist) {
+		ad->backup_genlist = NULL;
 	}
 
-	if (ugd->backup_layout) {
-		ugd->backup_layout = NULL;
+	if (ad->backup_layout) {
+		ad->backup_layout = NULL;
 	}
 }
 
