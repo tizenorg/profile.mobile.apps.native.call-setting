@@ -41,14 +41,6 @@ namespace Model { namespace Settings {
 		virtual ResultCode getStringProperty(StringKey key, std::string &value);
 
 	private:
-		typedef std::pair<IntKey, PropertyListener<int> *> intListenerPair;
-		typedef std::pair<BoolKey,PropertyListener<bool> *> boolListenerPair;
-		typedef std::pair<StringKey,PropertyListener<std::string> *> stringListenerPair;
-
-		std::vector<intListenerPair> intPropertyListeners;
-		std::vector<boolListenerPair> boolPropertyListeners;
-		std::vector<stringListenerPair> stringPropertyListeners;
-
 		const char* convertPropertyKeyToVconfKey(IntKey key);
 		const char* convertPropertyKeyToVconfKey(BoolKey key);
 		const char* convertPropertyKeyToVconfKey(StringKey key);
@@ -71,6 +63,15 @@ namespace Model { namespace Settings {
 		void notifyIntListenersForChanges(const char *VconfKey);
 		void notifyBoolListenersForChanges(const char *VconfKey);
 		void notifyStringListenersForChanges(const char *VconfKey);
+
+	private:
+		typedef std::pair<IntKey, PropertyListener<int> *> IntListenerPair;
+		typedef std::pair<BoolKey,PropertyListener<bool> *> BoolListenerPair;
+		typedef std::pair<StringKey,PropertyListener<std::string> *> StringListenerPair;
+
+		std::vector<IntListenerPair> intPropertyListeners;
+		std::vector<BoolListenerPair> boolPropertyListeners;
+		std::vector<StringListenerPair> stringPropertyListeners;
 	};
 } }
 

@@ -28,21 +28,21 @@ SettingsManager::SettingsManager()
 SettingsManager::~SettingsManager()
 {
 	while(!intPropertyListeners.empty()) {
-		intListenerPair pair = intPropertyListeners.back();
+		IntListenerPair pair = intPropertyListeners.back();
 		intPropertyListeners.pop_back();
 		unregisterPropertyListener<IntKey>(pair.first);
 		pair.second->onDetach();
 	}
 
 	while(!boolPropertyListeners.empty()) {
-		boolListenerPair pair = boolPropertyListeners.back();
+		BoolListenerPair pair = boolPropertyListeners.back();
 		boolPropertyListeners.pop_back();
 		unregisterPropertyListener<BoolKey>(pair.first);
 		pair.second->onDetach();
 	}
 
 	while(!stringPropertyListeners.empty()) {
-		stringListenerPair pair = stringPropertyListeners.back();
+		StringListenerPair pair = stringPropertyListeners.back();
 		stringPropertyListeners.pop_back();
 		unregisterPropertyListener<StringKey>(pair.first);
 		pair.second->onDetach();
@@ -362,7 +362,7 @@ void SettingsManager::removePropertyListener(PropertyListener<bool> *listener)
 		return;
 	}
 
-	boolListenerPair listenerPair = *it;
+	BoolListenerPair listenerPair = *it;
 	unregisterPropertyListener<BoolKey>(listenerPair.first);
 
 	boolPropertyListeners.erase(it);
@@ -371,7 +371,7 @@ void SettingsManager::removePropertyListener(PropertyListener<bool> *listener)
 
 void SettingsManager::removePropertyListener(PropertyListener<int> *listener)
 {
-	auto it = find_if(intPropertyListeners.begin(), intPropertyListeners.end(), [&listener](const intListenerPair &item) {
+	auto it = find_if(intPropertyListeners.begin(), intPropertyListeners.end(), [&listener](const IntListenerPair &item) {
 				return item.second == listener;
 	});
 
@@ -380,7 +380,7 @@ void SettingsManager::removePropertyListener(PropertyListener<int> *listener)
 		return;
 	}
 
-	intListenerPair listenerPair = *it;
+	IntListenerPair listenerPair = *it;
 	unregisterPropertyListener<IntKey>(listenerPair.first);
 
 	intPropertyListeners.erase(it);
@@ -389,7 +389,7 @@ void SettingsManager::removePropertyListener(PropertyListener<int> *listener)
 
 void SettingsManager::removePropertyListener(PropertyListener<std::string> *listener)
 {
-	auto it = find_if(stringPropertyListeners.begin(), stringPropertyListeners.end(), [&listener](const stringListenerPair &item) {
+	auto it = find_if(stringPropertyListeners.begin(), stringPropertyListeners.end(), [&listener](const StringListenerPair &item) {
 				return item.second == listener;
 	});
 
@@ -398,7 +398,7 @@ void SettingsManager::removePropertyListener(PropertyListener<std::string> *list
 		return;
 	}
 
-	stringListenerPair listenerPair = *it;
+	StringListenerPair listenerPair = *it;
 	unregisterPropertyListener<StringKey>(listenerPair.first);
 
 	stringPropertyListeners.erase(it);
