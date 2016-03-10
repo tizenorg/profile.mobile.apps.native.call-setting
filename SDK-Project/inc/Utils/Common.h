@@ -18,6 +18,8 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#include <Elementary.h>
+
 #include "Utils/Delegation.h"
 #include "Utils/Path.h"
 #include "Utils/Logger.h"
@@ -25,9 +27,7 @@
 using namespace Utils;
 
 typedef Delegate<void()> NotifyHandler;
-
 typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasSmartCb;
-
 
 #define makeNotifyHandler(classType, classMethod, data) \
 		NotifyHandler::wrap<classType, &classType::classMethod>(data)
@@ -40,5 +40,9 @@ typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasSmartCb;
 
 #define makeEvasSmartCb(classType, classMethod) \
 	Callback<void(Evas_Object *obj, void *event_info)>::template make<classType, classMethod>()
+
+#define makeAppEventCb(classType, classMethod) \
+	CallbackAlt<void(app_event_info_h event_info)>::template make<classType, classMethod>()
+
 
 #endif /* COMMON_H_ */

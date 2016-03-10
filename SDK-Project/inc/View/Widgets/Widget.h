@@ -24,6 +24,7 @@
 #include "Utils/Common.h"
 
 namespace Widgets {
+
 	class Widget : private NonCopyable {
 
 	public:
