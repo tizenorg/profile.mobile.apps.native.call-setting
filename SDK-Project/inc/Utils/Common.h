@@ -18,22 +18,46 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#include <Elementary.h>
+
 #include "Utils/Delegation.h"
 #include "Utils/Path.h"
 #include "Utils/Logger.h"
 
 using namespace Utils;
 
-typedef Delegate<void()> NotifyHandler;
-typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasSmartCb;
+typedef enum {
+	SYS_EVENT_LANGUAGE_CHANGE,
+	SYS_EVENT_REGION_FMT_CHANGE,
+	SYS_EVENT_PAUSE,
+	SYS_EVENT_RESUME,
+} SystemEvent;
 
-#define makeNotifyHandler(classType, classMethod, data) \
-		Delegate<void()>::wrap<classType, classMethod>(data)
+typedef enum {
+	VIEW_CHANGE_BEGIN,
+	VIEW_CHANGE_END,
+	MENU_BUTTON_PRESSED,
+	BACK_BUTTON_PRESSED,
+	ORIENTATION_CHANGED,
+} ViewEvent;
+
+typedef Delegate<void()> NotifyHandler;
+typedef Delegate<void(ViewEvent)> ViewEventHandler;
+typedef Delegate<void(SystemEvent)> SystemEventHandler;
+
+#define makeHandler(handlerType, classType, classMethod, data) \
+		handlerType::wrap<classType, classMethod>(data)
+
+typedef Callback<void(Evas *, Evas_Object *, void *)> EvasSmartCb;
 
 #define makeEvasEventCb(classType, classMethod) \
 	Callback<void(Evas *e, Evas_Object *obj, void *event_info)>::template make<classType, classMethod>()
 
 #define makeEvasSmartCb(classType, classMethod) \
 	Callback<void(Evas_Object *obj, void *event_info)>::template make<classType, classMethod>()
+
+#define makeAppEventCb(classType, classMethod) \
+	CallbackAlt<void(app_event_info_h event_info)>::template make<classType, classMethod>()
+
 
 #endif /* COMMON_H_ */
