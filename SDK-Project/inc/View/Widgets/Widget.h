@@ -68,7 +68,7 @@ namespace View { namespace Widgets {
 	{
 		RETVM_IF (!parent || !parent->getEvasObject(), nullptr, "Parent is invalid!");
 
-		WidgetClass *instance = new WidgetClass();
+		WIDGET_TYPE *instance = new WIDGET_TYPE();
 		if (!instance->initialize(parent, ARGS...) || !instance->m_pEvasObject) {
 			Widget::destroy(instance);
 			return nullptr;
