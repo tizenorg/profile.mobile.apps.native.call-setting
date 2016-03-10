@@ -66,7 +66,7 @@ void Application::appTerminate()
 bool Application::onAppCreate()
 {
 	m_pAppCore = new AppCore();
-	RETVM_IF(m_pAppCore, false, "Failed to init app core");
+	RETVM_IF(!m_pAppCore, false, "Failed to init app core");
 
 	bindtextdomain(TEXT_DOMAIN, Utils::getLocaleDir().c_str());
 	textdomain(TEXT_DOMAIN);
