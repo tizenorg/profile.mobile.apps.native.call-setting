@@ -65,8 +65,9 @@ void Application::appTerminate()
 
 bool Application::onAppCreate()
 {
-	m_pAppCore = new AppCore();
-	RETVM_IF(m_pAppCore, false, "Failed to init app core");
+	INF("onAppCreate callback");
+	m_pAppCore = AppCore::initialize();
+	RETVM_IF(!m_pAppCore, false, "Failed to init app core");
 
 	bindtextdomain(TEXT_DOMAIN, Utils::getLocaleDir().c_str());
 	textdomain(TEXT_DOMAIN);
@@ -84,18 +85,22 @@ bool Application::onAppCreate()
 
 void Application::onAppTerminate()
 {
-	delete m_pAppCore;
+	INF("onAppTerminate callback");
+	AppCore::finalize(m_pAppCore);
 	m_pAppCore = nullptr;
 }
 
 void Application::onAppPause()
 {
 	INF("onAppPause callback");
+	m_pAppCore->getSystemEventProvider().onAppPause();
+
 }
 
 void Application::onAppResume()
 {
 	INF("onAppResume callback");
+	m_pAppCore->getSystemEventProvider().onAppResume();
 }
 
 void Application::onAppControl(app_control_h request)
@@ -105,11 +110,14 @@ void Application::onAppControl(app_control_h request)
 
 void Application::onLanguageChanged(app_event_info_h event)
 {
-	INF("onLanguageChanged callback start");
+	INF("onLanguageChanged callback");
 	char *lang = nullptr;
 	app_event_get_language(event, &lang);
 	if (lang) {
 		elm_language_set(lang);
 		free(lang);
 	}
+
+	m_pAppCore->getSystemEventProvider().onLanguageChanged();
 }
+
