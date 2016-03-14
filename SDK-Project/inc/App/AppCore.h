@@ -18,15 +18,28 @@
 #ifndef APPCORE_H_
 #define APPCORE_H_
 
+#include "App/SystemEventManager.h"
+#include "View/ViewManager/ViewManager.h"
+#include "Model/Settings/SettingsManager.h"
+
 namespace App {
-	class AppCore {
+	using namespace Model;
+	using namespace View;
+	class AppCore : private NonCopyable {
 	public:
+		static AppCore *initialize();
+		static void finalize(AppCore *core);
+
+		SystemEventManager &getSystemEventManager();
+		Settings::SettingsManager &getSettingsManager();
+		ViewManager &getViewManager();
+
+	private:
 		AppCore();
 		~AppCore();
-	private:
-		/*Model instance and View Manager will be added soon*/
-		AppCore(const AppCore&) = delete;
-		AppCore& operator = (const AppCore&) = delete;
+		SystemEventManager *m_pEventManager;
+		Settings::SettingsManager *m_pSettingsManager;
+		View::ViewManager *m_pViewManager;
 	};
 }
 #endif /* APPCORE_H_ */
