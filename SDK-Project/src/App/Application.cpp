@@ -65,16 +65,12 @@ void Application::appTerminate()
 
 bool Application::onAppCreate()
 {
-	m_pAppCore = new AppCore();
-	RETVM_IF(m_pAppCore, false, "Failed to init app core");
+	INF("onAppCreate callback");
+	m_pAppCore = AppCore::initialize();
+	RETVM_IF(!m_pAppCore, false, "Failed to init app core");
 
 	bindtextdomain(TEXT_DOMAIN, Utils::getLocaleDir().c_str());
 	textdomain(TEXT_DOMAIN);
-
-	app_event_handler_h handle = nullptr;
-	ui_app_add_event_handler(&handle, APP_EVENT_LANGUAGE_CHANGED, [](app_event_info_h event_info, void *data) {
-		return static_cast<Application*>(data)->onLanguageChanged(event_info);
-	}, this);
 
 	elm_app_base_scale_set(UI_BASE_SCALE);
 	elm_config_preferred_engine_set("opengl_x11");
@@ -84,32 +80,27 @@ bool Application::onAppCreate()
 
 void Application::onAppTerminate()
 {
-	delete m_pAppCore;
-	m_pAppCore = nullptr;
+	DBG("Application Terminate");
+	if (m_pAppCore) {
+		AppCore::finalize(m_pAppCore);
+		m_pAppCore = nullptr;
+	}
 }
 
 void Application::onAppPause()
 {
-	INF("onAppPause callback");
+	DBG("Application Pause");
+	m_pAppCore->getSystemEventManager().dispatchPauseEvent();
+
 }
 
 void Application::onAppResume()
 {
-	INF("onAppResume callback");
+	DBG("Application Resume");
+	m_pAppCore->getSystemEventManager().dispatchResumeEvent();
 }
 
 void Application::onAppControl(app_control_h request)
 {
 	INF("onAppControl callback");
-}
-
-void Application::onLanguageChanged(app_event_info_h event)
-{
-	INF("onLanguageChanged callback start");
-	char *lang = nullptr;
-	app_event_get_language(event, &lang);
-	if (lang) {
-		elm_language_set(lang);
-		free(lang);
-	}
 }

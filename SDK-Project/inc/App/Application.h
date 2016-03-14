@@ -22,7 +22,7 @@
 #include "App/AppCore.h"
 
 namespace App {
-	class Application
+	class Application : private NonCopyable
 	{
 	public:
 		Application();
@@ -37,9 +37,6 @@ namespace App {
 		void onAppPause();
 		void onAppResume();
 		void onAppControl(app_control_h request);
-		void onLanguageChanged(app_event_info_h event);
-		Application(const Application&) = delete;
-		Application& operator = (const Application&) = delete;
 	};
 }
 
