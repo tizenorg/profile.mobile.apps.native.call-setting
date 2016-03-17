@@ -15,16 +15,19 @@
  *
  */
 
-#ifndef PATH_H_
-#define PATH_H_
-
-#include <string>
+#ifndef NON_COPYABLE_H_
+#define NON_COPYABLE_H_
 
 namespace Utils {
-
-	const std::string &getResourceDir();
-	const std::string &getLocaleDir();
-	std::string getResourcePath(const std::string &relativePath);
+	class NonCopyable
+	{
+	public:
+		NonCopyable() {}
+		NonCopyable(const NonCopyable &) = delete;
+		NonCopyable(NonCopyable &&) = delete;
+		NonCopyable &operator=(const NonCopyable &) = delete;
+		NonCopyable &operator=(NonCopyable &&) = delete;
+	};
 }
 
-#endif /* PATH_H_ */
+#endif /*NON_COPYABLE_H_*/
