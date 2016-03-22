@@ -254,7 +254,7 @@ static void __cst_update_cf_state(int call_type, int cf_flavour,
 			if (strlen(number) > 0) {
 				snprintf(item_data->number, sizeof(item_data->number), "%s", number);
 			} else {
-				strcpy(item_data->number, "");
+				strncpy(item_data->number, "", sizeof(item_data->number));
 			}
 			ad->cf_state[item_data->index] = CST_SS_STATE_OFF;
 			_cst_update_genlist_item_class(item_data->gl_item, cst_forward_data.itc_1text_1icon);
@@ -431,7 +431,7 @@ static void __cst_on_click_cf_ime_done_btn(void *data, Evas_Object *obj, void *e
 		elm_genlist_item_update(item_data->gl_item);
 		DBG("activate CF num=%s", buffer);
 		if (!strcmp(buffer, T_(CST_STR_UNKNOWN))) {
-			strcpy(buffer, "");
+			strncpy(buffer, "", CST_MAX_PHONE_NUMBER_LEN);
 		}
 		snprintf(req->number, CST_MAX_PHONE_NUMBER_LEN, "%s", buffer);
 		cst_forward_data.cf_wait_time = _cst_cf_ime_fetch_latest_wait_time();
