@@ -20,10 +20,12 @@
 
 #include <app.h>
 #include "App/AppCore.h"
+#include "Controller/MainView/MainViewController.h"
 
 namespace App {
-	class Application : private NonCopyable
-	{
+	using namespace Controller;
+
+	class Application : private NonCopyable {
 	public:
 		Application();
 		~Application();
@@ -31,12 +33,17 @@ namespace App {
 		void appTerminate();
 
 	private:
-		AppCore *m_pAppCore;
 		bool onAppCreate();
 		void onAppTerminate();
 		void onAppPause();
 		void onAppResume();
 		void onAppControl(app_control_h request);
+		void onDestroyRequest(ViewController *controller);
+
+	private:
+		AppCore *m_pAppCore;
+		MainViewController *m_pMainViewController;
+
 	};
 }
 

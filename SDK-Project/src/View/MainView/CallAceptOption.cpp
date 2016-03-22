@@ -15,22 +15,19 @@
  *
  */
 
-#ifndef APPCONFIG_H_
-#define APPCONFIG_H_
+#include <app_i18n.h>
 
-#ifdef	UI_BASE_SCALE
-#undef	UI_BASE_SCALE
-#endif
-#define	UI_BASE_SCALE 2.6
+#include "View/MainView/CallAceptOption.h"
 
-#ifdef	LOG_TAG
-#undef	LOG_TAG
-#endif
-#define	LOG_TAG "CALL-SETTING"
+namespace MainView {
 
-#ifdef	TEXT_DOMAIN
-#undef	TEXT_DOMAIN
-#endif
-#define	TEXT_DOMAIN "call-setting-2"
+	char *CallAceptOption::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0) {
+			return strdup(_("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"));
+		}
 
-#endif /* APPCONFIG_H_ */
+		return nullptr;
+	}
+
+}

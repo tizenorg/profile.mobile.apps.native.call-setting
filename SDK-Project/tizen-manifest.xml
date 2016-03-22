@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.call-setting" version="1.0.0">
+<manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.call-setting-2" version="1.0.0">
     <profile name="mobile"/>
-    <ui-application appid="org.tizen.call-setting" exec="call-setting" hw-acceleration="on" launch_mode="group" multiple="false" nodisplay="true" taskmanage="false" type="capp">
+    <ui-application appid="org.tizen.call-setting-2" exec="call-setting" hw-acceleration="on" launch_mode="caller" multiple="false" nodisplay="false" taskmanage="true" type="capp">
         <label>call-setting</label>
         <label xml:lang="hy-am">Զանգի կայանքներ</label>
         <label xml:lang="az-az">Zəng parametrləri</label>
