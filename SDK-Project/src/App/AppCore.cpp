@@ -16,12 +16,78 @@
  */
 
 #include "App/AppCore.h"
-using namespace App;
+#include "Utils/Logger.h"
 
-AppCore::AppCore()
-{
-}
+namespace App {
+	AppCore::AppCore() :
+		m_pEventManager(nullptr),
+		m_pSettingsManager(nullptr),
+		m_pViewManager(nullptr)
+	{
+	}
 
-AppCore::~AppCore()
-{
+	AppCore::~AppCore()
+	{
+	}
+
+	AppCore *AppCore::initialize()
+	{
+		AppCore *instance = new AppCore();
+
+		DBG("AppCore initialize SystemEventProvider");
+		instance->m_pEventManager = new SystemEventManager();
+		if (!instance->m_pEventManager) {
+			ERR("Failed to initialize SystemEventProvider");
+			AppCore::finalize(instance);
+			return nullptr;
+		}
+
+		DBG("AppCore initialize SettingsManager");
+		instance->m_pSettingsManager = new Settings::SettingsManager();
+		if (!instance->m_pSettingsManager) {
+			ERR("Failed to initialize SettingsManager");
+			AppCore::finalize(instance);
+			return nullptr;
+		}
+
+		DBG("AppCore initialize ViewManager");
+		instance->m_pViewManager = ViewManager::create();
+		if (!instance->m_pViewManager) {
+			ERR("Failed to initialize ViewManager");
+			AppCore::finalize(instance);
+			return nullptr;
+		}
+
+		return instance;
+	}
+
+	void AppCore::finalize(AppCore *core)
+	{
+		RETM_IF(!core, "Invalid argument");
+
+		delete core->m_pEventManager;
+		delete core->m_pSettingsManager;
+
+		if (core->m_pViewManager) {
+			ViewManager::destroy(core->m_pViewManager);
+		}
+
+		delete core;
+	}
+
+	SystemEventManager &AppCore::getSystemEventManager()
+	{
+		return *m_pEventManager;
+	}
+
+	Model::Settings::SettingsManager &AppCore::getSettingsManager()
+	{
+		return *m_pSettingsManager;
+	}
+
+	View::ViewManager &AppCore::getViewManager()
+	{
+		return *m_pViewManager;
+	}
+
 }
