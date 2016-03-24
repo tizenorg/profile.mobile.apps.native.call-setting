@@ -15,22 +15,26 @@
  *
  */
 
-#ifndef APPCONFIG_H_
-#define APPCONFIG_H_
+#ifndef MAIN_VIEW_CONTROLLER_H_
+#define MAIN_VIEW_CONTROLLER_H_
 
-#ifdef	UI_BASE_SCALE
-#undef	UI_BASE_SCALE
-#endif
-#define	UI_BASE_SCALE 2.6
+#include "Controller/ViewController.h"
 
-#ifdef	LOG_TAG
-#undef	LOG_TAG
-#endif
-#define	LOG_TAG "CALL-SETTING"
+namespace Controller {
+	class MainViewController : public Controller::ViewController {
+	public:
+		virtual ~MainViewController() {}
 
-#ifdef	TEXT_DOMAIN
-#undef	TEXT_DOMAIN
-#endif
-#define	TEXT_DOMAIN "call-setting-2"
+	private:
+		friend class ViewController;
 
-#endif /* APPCONFIG_H_ */
+		MainViewController (App::AppCore &core, DestroyRequestHandler handler);
+		virtual bool createView();
+		virtual void onBackKeyPressed();
+		void onRejectMsgClick();
+		void onCallAceptClick();
+		void onMoreClick();
+	};
+}
+
+#endif /* MAIN_VIEW_CONTROLLER_H_ */

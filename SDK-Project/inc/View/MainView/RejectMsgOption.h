@@ -15,22 +15,22 @@
  *
  */
 
-#ifndef APPCONFIG_H_
-#define APPCONFIG_H_
+#include "View/Widgets/GenlistItem.h"
 
-#ifdef	UI_BASE_SCALE
-#undef	UI_BASE_SCALE
-#endif
-#define	UI_BASE_SCALE 2.6
+#ifndef REJECT_MSG_OPTION_H_
+#define REJECT_MSG_OPTION_H_
 
-#ifdef	LOG_TAG
-#undef	LOG_TAG
-#endif
-#define	LOG_TAG "CALL-SETTING"
+namespace MainView {
 
-#ifdef	TEXT_DOMAIN
-#undef	TEXT_DOMAIN
-#endif
-#define	TEXT_DOMAIN "call-setting-2"
+	class RejectMsgOption : public Widgets::GenlistItem {
+	public:
+		RejectMsgOption() {};
+		virtual ~RejectMsgOption() {};
+		virtual Elm_Genlist_Item_Class *getItemClass() override;
 
-#endif /* APPCONFIG_H_ */
+	private:
+		virtual char *getText(const char *part) override;
+	};
+}
+
+#endif /* REJECT_MSG_OPTION_H_ */
