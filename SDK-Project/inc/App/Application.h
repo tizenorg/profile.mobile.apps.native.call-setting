@@ -23,7 +23,7 @@
 #include "Controller/MainView/MainViewController.h"
 
 namespace App {
-	using namespace Controller;
+	using namespace MainController;
 
 	class Application : private NonCopyable {
 	public:

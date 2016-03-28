@@ -15,10 +15,10 @@
  *
  */
 
-#include "View/Widgets/GenlistItem.h"
-
 #ifndef CALL_ACEPT_OPTION_H_
 #define CALL_ACEPT_OPTION_H_
+
+#include "View/Widgets/GenlistItem.h"
 
 namespace MainView {
 

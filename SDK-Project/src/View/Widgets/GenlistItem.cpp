@@ -34,6 +34,34 @@ namespace Widgets {
 		}
 	}
 
+	void GenlistItem::update()
+	{
+		if (m_pEOItem) {
+			elm_genlist_item_update(m_pEOItem);
+		}
+	}
+
+	void GenlistItem::updatePart(const char *parts, GenlistPartType partType)
+	{
+		RETM_IF(!parts, "Invalid args!");
+
+		if (m_pEOItem) {
+			switch (partType) {
+			case GENLIST_ITEM_FIELD_TEXT:
+				elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_TEXT);
+				break;
+			case GENLIST_ITEM_FIELD_CONTENT:
+				elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_CONTENT);
+				break;
+			case GENLIST_ITEM_FIELD_STATE:
+				elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_STATE);
+				break;
+			default:
+				elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_ALL);
+			}
+		}
+	}
+
 	bool GenlistItem::initialize(Genlist &list, ItemAddMethod itemAdd)
 	{
 		RETVM_IF(m_pEOItem, false, "Second initialize of WidgetItem is forbidden");
@@ -84,7 +112,7 @@ namespace Widgets {
 			};
 
 		itc.func.content_get = [](void *data, Evas_Object *obj, const char *part) -> Evas_Object * {
-				return static_cast<GenlistItem *>(data)->getContent(part);
+				return static_cast<GenlistItem *>(data)->getContent(obj, part);
 			};
 
 		itc.func.state_get = [](void *data, Evas_Object *obj, const char *part) -> Eina_Bool {

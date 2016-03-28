@@ -27,25 +27,17 @@ SettingsManager::SettingsManager()
 
 SettingsManager::~SettingsManager()
 {
-	while(!intPropertyListeners.empty()) {
-		IntListenerPair pair = intPropertyListeners.back();
-		intPropertyListeners.pop_back();
-		unregisterPropertyListener<IntKey>(pair.first);
-		pair.second->onDetach();
-	}
+	clearHandlersMap<IntHandlersMap>(m_intHandlersMap);
+	clearHandlersMap<BoolHandlersMap>(m_boolHandlersMap);
+	clearHandlersMap<StringHandlersMap>(m_stringHandlersMap);
+}
 
-	while(!boolPropertyListeners.empty()) {
-		BoolListenerPair pair = boolPropertyListeners.back();
-		boolPropertyListeners.pop_back();
-		unregisterPropertyListener<BoolKey>(pair.first);
-		pair.second->onDetach();
-	}
-
-	while(!stringPropertyListeners.empty()) {
-		StringListenerPair pair = stringPropertyListeners.back();
-		stringPropertyListeners.pop_back();
-		unregisterPropertyListener<StringKey>(pair.first);
-		pair.second->onDetach();
+template <typename MAP_T>
+void SettingsManager::clearHandlersMap(MAP_T map)
+{
+	for (auto &it : map) {
+		unregisterPropertyHandler<decltype(it.first)>(it.first);
+		delete it.second;
 	}
 }
 
@@ -67,7 +59,7 @@ ResultCode SettingsManager::getIntProperty(IntKey key, int &value)
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getIntValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
 
 }
 
@@ -85,11 +77,11 @@ ResultCode SettingsManager::setBoolProperty(BoolKey key, bool value)
 
 ResultCode SettingsManager::getBoolProperty(BoolKey key, bool &value)
 {
-	notifyIntListenersForChanges(VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT);
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getBoolValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
+
 }
 
 ResultCode SettingsManager::setStringProperty(StringKey key, const std::string &value)
@@ -109,7 +101,7 @@ ResultCode SettingsManager::getStringProperty(StringKey key, std::string &value)
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getStringValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
 }
 
 const char* SettingsManager::convertPropertyKeyToVconfKey(IntKey key)
@@ -194,7 +186,7 @@ StringKey SettingsManager::convertVconfKeyToStringKey(const char *vconfKey)
 		return STRING_KEY_UNDEFINED;
 }
 
-ResultCode SettingsManager::getIntValueByVconfKey(const char *vconfKey, int &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, int &value)
 {
 	int vconfValue = 0;
 	if (vconf_get_int(vconfKey, &vconfValue) < 0) {
@@ -206,7 +198,7 @@ ResultCode SettingsManager::getIntValueByVconfKey(const char *vconfKey, int &val
 	}
 }
 
-ResultCode SettingsManager::getBoolValueByVconfKey(const char *vconfKey, bool &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, bool &value)
 {
 	int vconfValue = 0;
 	if (vconf_get_bool(vconfKey, &vconfValue) < 0) {
@@ -218,7 +210,7 @@ ResultCode SettingsManager::getBoolValueByVconfKey(const char *vconfKey, bool &v
 	}
 }
 
-ResultCode SettingsManager::getStringValueByVconfKey(const char *vconfKey, std::string &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, std::string &value)
 {
 	char *vconfValue = vconf_get_str(vconfKey);
 	if (!vconfValue) {
@@ -233,7 +225,7 @@ ResultCode SettingsManager::getStringValueByVconfKey(const char *vconfKey, std::
 }
 
 template <typename KEY_TYPE>
-ResultCode SettingsManager::registerPropertyListener(KEY_TYPE key)
+ResultCode SettingsManager::registerPropertyHandler(KEY_TYPE key)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
@@ -245,7 +237,7 @@ ResultCode SettingsManager::registerPropertyListener(KEY_TYPE key)
 }
 
 template <typename KEY_TYPE>
-void SettingsManager::unregisterPropertyListener(KEY_TYPE key)
+void SettingsManager::unregisterPropertyHandler(KEY_TYPE key)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETM_IF(!vconfKey, "Key was not found");
@@ -265,142 +257,112 @@ void SettingsManager::onVconfPropertyChangeNotifyCb(keynode_t *node, void *userD
 	int vconfType = vconf_keynode_get_type(node);
 	switch(vconfType) {
 	case VCONF_TYPE_INT:
-		manager->notifyIntListenersForChanges(vconfKey);
+		manager->invokeIntPropertyHandlers(vconfKey);
 		break;
 	case VCONF_TYPE_BOOL:
-		manager->notifyBoolListenersForChanges(vconfKey);
+		manager->invokeBoolPropertyHandlers(vconfKey);
 		break;
 	case VCONF_TYPE_STRING:
-		manager->notifyStringListenersForChanges(vconfKey);
+		manager->invokeStringPropertyHandlers(vconfKey);
 		break;
 	default:
 		WARN("Unsupported Type! Ignore it");
 	}
 }
 
-void SettingsManager::notifyIntListenersForChanges(const char *vconfKey)
+void SettingsManager::invokeIntPropertyHandlers(const char *vconfKey)
 {
-	int value = 0;
 	IntKey key = convertVconfKeyToIntKey(vconfKey);
-	if (getIntValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != INT_KEY_UNDEFINED) {
-		for(auto item : intPropertyListeners) {
-			if(item.first == key) {
-				item.second->onPropertyChanged(value);
-			}
-		}
-	}
+	RETM_IF(key == STRING_KEY_UNDEFINED, "Key value is not valid!");
+
+	invokeHandlersImpl<IntKey, int, IntHandlersMap>(key, m_intHandlersMap, vconfKey);
 }
 
-void SettingsManager::notifyBoolListenersForChanges(const char *vconfKey)
+void SettingsManager::invokeBoolPropertyHandlers(const char *vconfKey)
 {
-	bool value = false;
 	BoolKey key = convertVconfKeyToBoolKey(vconfKey);
-	if (getBoolValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != BOOL_KEY_UNDEFINED) {
-		for(auto item : boolPropertyListeners) {
-			if(item.first == key)
-				item.second->onPropertyChanged(value);
-		}
-	}
+	RETM_IF(key == STRING_KEY_UNDEFINED, "Key value is not valid!");
+
+	invokeHandlersImpl<BoolKey, bool, BoolHandlersMap>(key, m_boolHandlersMap, vconfKey);
 }
 
-void SettingsManager::notifyStringListenersForChanges(const char *vconfKey)
+void SettingsManager::invokeStringPropertyHandlers(const char *vconfKey)
 {
-	std::string value;
 	StringKey key = convertVconfKeyToStringKey(vconfKey);
-	if (getStringValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != STRING_KEY_UNDEFINED) {
-		for(auto item : stringPropertyListeners) {
-			if(item.first == key)
-				item.second->onPropertyChanged(value);
+	RETM_IF(key == STRING_KEY_UNDEFINED, "Key value is not valid!");
+
+	invokeHandlersImpl<StringKey, std::string, StringHandlersMap>(key, m_stringHandlersMap, vconfKey);
+}
+
+template<typename KEY_T, typename VALUE_T, typename HANDL_MAP_T>
+void SettingsManager::invokeHandlersImpl(KEY_T key, HANDL_MAP_T &handlMap, const char *vconfKey)
+{
+	VALUE_T value;
+	if (getValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS) {
+		auto *collection = handlMap.find(key)->second;
+		collection->invoke(value);
+	}
+}
+
+ResultCode SettingsManager::addPropertyHandler(IntKey key, IntPropertyHandler handler)
+{
+	return addHandlerImpl<IntKey, IntPropertyHandler, IntHandlersCollection>(key, handler, m_intHandlersMap);
+}
+
+ResultCode SettingsManager::addPropertyHandler(BoolKey key, BoolPropertyHandler handler)
+{
+	return addHandlerImpl<BoolKey, BoolPropertyHandler, BoolHandlersCollection>(key, handler, m_boolHandlersMap);
+}
+
+ResultCode SettingsManager::addPropertyHandler(StringKey key, StringPropertyHandler handler)
+{
+	return addHandlerImpl<StringKey, StringPropertyHandler, StringHandlersCollection>(key, handler, m_stringHandlersMap);
+}
+
+void SettingsManager::removePropertyHandler(IntKey key, IntPropertyHandler handler)
+{
+	removeHandlerImpl<IntKey, IntPropertyHandler, IntHandlersCollection>(key, handler, m_intHandlersMap);
+}
+
+void SettingsManager::removePropertyHandler(BoolKey key, BoolPropertyHandler handler)
+{
+	removeHandlerImpl<BoolKey, BoolPropertyHandler, BoolHandlersCollection>(key, handler, m_boolHandlersMap);
+}
+
+void SettingsManager::removePropertyHandler(StringKey key, StringPropertyHandler handler)
+{
+	removeHandlerImpl<StringKey, StringPropertyHandler, StringHandlersCollection>(key, handler, m_stringHandlersMap);
+}
+
+template <typename KEY_T, typename HANDL_T, typename COLLECTION_T>
+ResultCode SettingsManager::addHandlerImpl(KEY_T key, HANDL_T handler, std::map<KEY_T, COLLECTION_T*> &handlMap)
+{
+	auto it = handlMap.find(key);
+	if (it == handlMap.end()) {
+		ResultCode res = registerPropertyHandler<decltype(key)>(key);
+		RETVM_IF(res != SETTINGS_RES_SUCCESS, res, "Failed to register vconf change callback!");
+
+		COLLECTION_T *newCollection = new COLLECTION_T();
+		*newCollection += handler;
+		handlMap[key] = newCollection;
+	} else {
+		*(it->second) += handler;
+	}
+
+	return SETTINGS_RES_SUCCESS;
+}
+
+template <typename KEY_T, typename HANDL_T, typename COLLECTION_T>
+void SettingsManager::removeHandlerImpl(KEY_T key, HANDL_T handler, std::map<KEY_T, COLLECTION_T*> &handlMap)
+{
+	auto it = handlMap.find(key);
+	if (it != handlMap.end()) {
+		COLLECTION_T *collection = handlMap[key];
+		*collection -= handler;
+		if(collection->isEmpty()) {
+			unregisterPropertyHandler<KEY_T>(key);
+			delete collection;
+			handlMap.erase(it);
 		}
 	}
-}
-
-ResultCode SettingsManager::addPropertyListener(BoolKey key, PropertyListener<bool> *listener)
-{
-	ResultCode res = registerPropertyListener<BoolKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			boolPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-ResultCode SettingsManager::addPropertyListener(IntKey key, PropertyListener<int> *listener)
-{
-	ResultCode res = registerPropertyListener<IntKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			intPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-ResultCode SettingsManager::addPropertyListener(StringKey key, PropertyListener<std::string> *listener)
-{
-	ResultCode res = registerPropertyListener<StringKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			stringPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<bool> *listener)
-{
-	auto it = find_if(boolPropertyListeners.begin(), boolPropertyListeners.end(), [&listener](const boolListenerPair &item) {
-			return item.second == listener;
-	});
-
-	if (it == boolPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	BoolListenerPair listenerPair = *it;
-	unregisterPropertyListener<BoolKey>(listenerPair.first);
-
-	boolPropertyListeners.erase(it);
-	listener->onDetach();
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<int> *listener)
-{
-	auto it = find_if(intPropertyListeners.begin(), intPropertyListeners.end(), [&listener](const IntListenerPair &item) {
-				return item.second == listener;
-	});
-
-	if (it == intPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	IntListenerPair listenerPair = *it;
-	unregisterPropertyListener<IntKey>(listenerPair.first);
-
-	intPropertyListeners.erase(it);
-	listener->onDetach();
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<std::string> *listener)
-{
-	auto it = find_if(stringPropertyListeners.begin(), stringPropertyListeners.end(), [&listener](const StringListenerPair &item) {
-				return item.second == listener;
-	});
-
-	if (it == stringPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	StringListenerPair listenerPair = *it;
-	unregisterPropertyListener<StringKey>(listenerPair.first);
-
-	stringPropertyListeners.erase(it);
-	listener->onDetach();
 }

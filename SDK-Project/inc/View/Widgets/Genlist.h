@@ -18,7 +18,6 @@
 #ifndef GENLIST_H_
 #define GENLIST_H_
 
-
 #include "View/Widgets/Widget.h"
 #include "View/Widgets/WidgetItem.h"
 #include "View/Widgets/GenlistItem.h"
@@ -34,10 +33,10 @@ namespace Widgets {
 		static GENLIST_ITEM_TYPE *prependItem(Genlist &genlist);
 
 		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *insertAfter(Genlist &genlist, WidgetItem &afterItem);
+		static GENLIST_ITEM_TYPE *insertAfter(Genlist &genlist, GenlistItem &afterItem);
 
 		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *insertBefore(Genlist &genlist, WidgetItem &beforeItem);
+		static GENLIST_ITEM_TYPE *insertBefore(Genlist &genlist, GenlistItem &beforeItem);
 
 		void update();
 
@@ -87,10 +86,10 @@ namespace Widgets {
 	}
 
 	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::insertAfter(Genlist &genlist, WidgetItem &afterItem)
+	GENLIST_ITEM_TYPE *Genlist::insertAfter(Genlist &genlist, GenlistItem &afterItem)
 	{
-		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
-			[](Genlist &list, WidgetItem &afterItem, GenlistItem *listItem) -> Elm_Object_Item * {
+		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(genlist, afterItem,
+			[](Genlist &list, GenlistItem &afterItem, GenlistItem *listItem) -> Elm_Object_Item * {
 				return elm_genlist_item_insert_after(list.getEvasObject(),
 						listItem->getItemClass(),
 						listItem,
@@ -105,10 +104,10 @@ namespace Widgets {
 	}
 
 	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::insertBefore(Genlist &genlist, WidgetItem &beforeItem)
+	GENLIST_ITEM_TYPE *Genlist::insertBefore(Genlist &genlist, GenlistItem &beforeItem)
 	{
-		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
-			[](Genlist &list, WidgetItem &beforeItem, GenlistItem *listItem) -> Elm_Object_Item * {
+		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(genlist, beforeItem,
+			[](Genlist &list, GenlistItem &beforeItem, GenlistItem *listItem) -> Elm_Object_Item * {
 				return elm_genlist_item_insert_after(list.getEvasObject(),
 						listItem->getItemClass(),
 						listItem,

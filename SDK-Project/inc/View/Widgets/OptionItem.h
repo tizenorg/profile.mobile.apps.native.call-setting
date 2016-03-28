@@ -15,21 +15,34 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#ifndef OPTION_ITEMS_H
+#define OPTION_ITEMS_H
 
 #include "View/Widgets/GenlistItem.h"
+#include "View/Widgets/Checkbox.h"
 
-namespace MainView {
+namespace Widgets {
 
-	class MoreOption : public Widgets::GenlistItem {
+	class OptionItem : public GenlistItem {
 	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+		OptionItem();
+		virtual ~OptionItem();
+		void setCheckState(bool state);
+		void setClickHandler(NotifyHandler handler);
+
+	protected:
+		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
+
+	protected:
+		Checkbox *m_pCheckbox;
+		NotifyHandler m_clickHandler;
+		bool m_pCheckState;
 
 	private:
-		virtual char *getText(const char *part) override;
+		void onItemSelected();
+		void onCheckChanged();
+		void onCheckboxDestroyed();
 	};
 }
 
-#endif /* MORE_OPTION_H_ */
+#endif /* OPTION_ITEMS_H */

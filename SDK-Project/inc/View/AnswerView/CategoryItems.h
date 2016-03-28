@@ -15,21 +15,40 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#ifndef CATEGORY_ITEM_H_
+#define CATEGORY_ITEM_H_
 
 #include "View/Widgets/GenlistItem.h"
 
-namespace MainView {
+namespace AnswerView {
+	using namespace Widgets;
 
-	class MoreOption : public Widgets::GenlistItem {
+	class CategoryItem : public Widgets::GenlistItem {
 	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+		CategoryItem() {}
+		virtual ~CategoryItem() {}
+		virtual Elm_Genlist_Item_Class *getItemClass() override;
+	};
+
+	class AnswerCategory : public CategoryItem {
+	public:
+		AnswerCategory() {}
+		virtual ~AnswerCategory() {}
 
 	private:
 		virtual char *getText(const char *part) override;
+
+	};
+
+	class RejectCategory : public CategoryItem {
+	public:
+		RejectCategory() {}
+		virtual ~RejectCategory() {}
+
+	private:
+		virtual char *getText(const char *part) override;
+
 	};
 }
 
-#endif /* MORE_OPTION_H_ */
+#endif /* CATEGORY_ITEM_H_ */

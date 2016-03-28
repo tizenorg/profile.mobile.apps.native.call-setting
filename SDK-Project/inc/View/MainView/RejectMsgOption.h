@@ -15,10 +15,10 @@
  *
  */
 
-#include "View/Widgets/GenlistItem.h"
-
 #ifndef REJECT_MSG_OPTION_H_
 #define REJECT_MSG_OPTION_H_
+
+#include "View/Widgets/GenlistItem.h"
 
 namespace MainView {
 

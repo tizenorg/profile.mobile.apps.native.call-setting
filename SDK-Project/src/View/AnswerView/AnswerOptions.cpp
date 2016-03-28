@@ -15,21 +15,25 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#include <app_i18n.h>
 
-#include "View/Widgets/GenlistItem.h"
+#include "View/AnswerView/AnswerOptions.h"
 
-namespace MainView {
+namespace AnswerView {
 
-	class MoreOption : public Widgets::GenlistItem {
-	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+	char *AnswerOption::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0) {
+			return strdup(_("IDS_CST_MBODY_PRESSING_THE_HOME_KEY"));
+		}
+		return nullptr;
+	}
 
-	private:
-		virtual char *getText(const char *part) override;
-	};
+	char *RejectOption::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0) {
+			return strdup(_("IDS_CST_MBODY_PRESSING_THE_POWER_KEY"));
+		}
+		return nullptr;
+	}
 }
-
-#endif /* MORE_OPTION_H_ */

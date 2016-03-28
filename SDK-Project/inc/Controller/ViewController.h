@@ -37,15 +37,18 @@ namespace Controller {
 
 	protected:
 		typedef enum {
-			UPDATE_LANGUAGE = 1,
-			UPDATE_REGION_FORMAT = 2,
-			UPDATE_ORIENTATION = 4,
+			UPDATE_INITIAL = 1,
+			UPDATE_LANGUAGE = 2,
+			UPDATE_REGION_FORMAT = 4,
+			UPDATE_ORIENTATION = 8,
+			UPDATE_WAS_PAUSED = 16,
 		} UpdateFlag;
 
 		ViewController (AppCore &core, DestroyRequestHandler handler);
 		bool initialize();
 		void finalize();
-		virtual bool createView() { return false;}
+		virtual bool onInitizlize() { return true;}
+		virtual BaseView *createView() = 0;
 		virtual void onShow() {}
 		virtual void onHide() {}
 		virtual void onUpdate(int updateFlag) {}
@@ -57,13 +60,13 @@ namespace Controller {
 	protected:
 		App::AppCore &m_Core;
 		DestroyRequestHandler m_destroyRequestHandler;
-		View::BaseView *m_pView;
 
 	private:
 		bool m_isActivated;
 		bool m_isVisible;
 		bool m_isDestroying;
 		int m_updateFlag;
+		View::BaseView *m_pView;
 
 	private:
 		void onSystemEvent(SystemEvent event);

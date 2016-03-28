@@ -15,38 +15,38 @@
  *
  */
 
-#ifndef MAIN_VIEW_CONTROLLER_H_
-#define MAIN_VIEW_CONTROLLER_H_
+#ifndef ANSWER_VIEW_CONTROLLER_H_
+#define ANSWER_VIEW_CONTROLLER_H_
 
 #include "Controller/ViewController.h"
-#include "Controller/AnswerView/AnswerViewController.h"
-#include "View/MainView/MainView.h"
+#include "View/AnswerView/AnswerView.h"
 
-namespace MainController {
-	using namespace View;
+namespace AnsweringController {
 	using namespace App;
 	using namespace Controller;
 
-	class MainViewController : public Controller::ViewController {
+	class AnswerViewController : public Controller::ViewController {
 	public:
-		virtual ~MainViewController() {}
+		virtual ~AnswerViewController();
 
 	private:
 		friend class ViewController;
 
-		MainViewController(AppCore &core, DestroyRequestHandler handler);
-		virtual BaseView *createView();
-		virtual void onBackKeyPressed();
-		virtual void onUpdate(int updateFlag);
-		void onRejectMsgClick();
-		void onCallAnsweringClick();
-		void onMoreClick();
-		void destroyRequestHandler(ViewController *controller);
+		AnswerViewController(AppCore &core, DestroyRequestHandler handler);
+		virtual bool onInitizlize() override;
+		virtual BaseView *createView() override;
+		virtual void onBackKeyPressed() override;
+		virtual void onUpdate(int updateFlag) override;
 
-	private:
-		AnsweringController::AnswerViewController *m_pAnswerCallController;
-		MainView::MainView *m_pMainView;
+		void answerOptionHandler(bool isEnabled);
+		void rejectOptionHandler(bool isEnabled);
+		void onAnswerOptionClick();
+		void onRejectOptionClick();
+
+		AnswerView::AnswerView *m_pAnswerView;
+		bool m_isAnswerByHomeSet;
+		bool m_isRejectByPowerSet;
 	};
 }
 
-#endif /* MAIN_VIEW_CONTROLLER_H_ */
+#endif /* ANSWER_VIEW_CONTROLLER_H_ */

@@ -15,21 +15,38 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#ifndef CHECKBOX_H_
+#define CHECKBOX_H_
 
-#include "View/Widgets/GenlistItem.h"
+#include "View/Widgets/Widget.h"
+#include "Utils/Common.h"
 
-namespace MainView {
+namespace Widgets {
 
-	class MoreOption : public Widgets::GenlistItem {
+	class Checkbox : public Widget {
 	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+		typedef enum {
+			CHECKBOX_DEFAULT,
+			CHECKBOX_SWITCHER,
+			CHECKBOX_STAR,
+		} CheckboxType;
+
+		bool isChecked();
+		void setChecked(bool checkedState);
+		void setCheckHandler(NotifyHandler handler);
 
 	private:
-		virtual char *getText(const char *part) override;
+		friend Widget; // to be used in Widget::create
+
+		Checkbox();
+		virtual ~Checkbox();
+		bool initialize(const Widget &parent, CheckboxType type);
+		void onChecked(Evas_Object *obj, void *event_info);
+
+	private:
+		NotifyHandler m_checkHandler;
+
 	};
 }
 
-#endif /* MORE_OPTION_H_ */
+#endif /* CHECKBOX_H_ */

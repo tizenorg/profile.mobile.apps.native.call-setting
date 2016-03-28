@@ -15,21 +15,31 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#include <app_i18n.h>
 
-#include "View/Widgets/GenlistItem.h"
+#include "View/AnswerView/CategoryItems.h"
 
-namespace MainView {
+namespace AnswerView {
 
-	class MoreOption : public Widgets::GenlistItem {
-	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+	Elm_Genlist_Item_Class *CategoryItem::getItemClass()
+	{
+		static Elm_Genlist_Item_Class itc = createItemClass("group_index");
+		return &itc;
+	}
 
-	private:
-		virtual char *getText(const char *part) override;
-	};
+	char *AnswerCategory::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0) {
+			return strdup(_("IDS_CST_HEADER_ANSWER_CALLS_BY"));
+		}
+		return nullptr;
+	}
+
+	char *RejectCategory::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0) {
+			return strdup(_("IDS_CST_HEADER_END_CALLS_BY"));
+		}
+		return nullptr;
+	}
 }
-
-#endif /* MORE_OPTION_H_ */

@@ -24,17 +24,25 @@ namespace Controller {
 	ViewController::ViewController(AppCore &core, DestroyRequestHandler handler) :
 		m_Core (core),
 		m_destroyRequestHandler(handler),
-		m_pView(nullptr),
 		m_isActivated(false),
 		m_isVisible(false),
 		m_isDestroying(false),
-		m_updateFlag(0)
+		m_updateFlag(0),
+		m_pView(nullptr)
 	{
 	}
 
 	ViewController::~ViewController()
 	{
+		DBG("ViewController");
 		finalize();
+
+		ViewManager &viewManager = m_Core.getViewManager();
+		if(viewManager.isTopView(m_pView)) {
+			viewManager.popView();
+		} else {
+			BaseView::destroy(m_pView);
+		}
 	}
 
 	bool ViewController::initialize()
@@ -45,7 +53,13 @@ namespace Controller {
 		m_Core.getViewManager().addViewEventHandler(
 				makeHandler(ViewEventHandler, ViewController, onViewEvent, this));
 
-		return createView();
+		RETVM_IF(!onInitizlize(), false, "Failed to initialize controller data!");
+
+		m_updateFlag |= UPDATE_INITIAL;
+		m_pView = createView();
+		RETVM_IF(!m_pView, false, "Failed to create view instance!");
+
+		return true;
 	}
 
 	void ViewController::finalize()
@@ -61,11 +75,11 @@ namespace Controller {
 	{
 		switch(event) {
 		case SYS_EVENT_LANGUAGE_CHANGE:
-			m_updateFlag &= UPDATE_LANGUAGE;
+			m_updateFlag |= UPDATE_LANGUAGE;
 			doUpdate();
 			break;
 		case SYS_EVENT_REGION_FMT_CHANGE:
-			m_updateFlag &= UPDATE_REGION_FORMAT;
+			m_updateFlag |= UPDATE_REGION_FORMAT;
 			doUpdate();
 			break;
 		case SYS_EVENT_PAUSE:
@@ -93,7 +107,7 @@ namespace Controller {
 			handleBackKeyPress();
 			break;
 		case ORIENTATION_CHANGED:
-			m_updateFlag &= UPDATE_ORIENTATION;
+			m_updateFlag |= UPDATE_ORIENTATION;
 			doUpdate();
 			break;
 		}
@@ -105,6 +119,8 @@ namespace Controller {
 			doDeactivate();
 			doHide();
 		}
+
+		m_updateFlag |= UPDATE_WAS_PAUSED;
 	}
 
 	void ViewController::doResume()
@@ -192,7 +208,9 @@ namespace Controller {
 	void ViewController::makeDestroyReqeuest()
 	{
 		m_isDestroying = true;
-		m_destroyRequestHandler(this);
+		if (m_destroyRequestHandler.assigned()) {
+			m_destroyRequestHandler(this);
+		}
 	}
 
 }

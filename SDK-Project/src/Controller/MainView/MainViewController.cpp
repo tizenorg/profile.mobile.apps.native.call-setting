@@ -16,34 +16,35 @@
  */
 
 #include "Controller/MainView/MainViewController.h"
-#include "View/MainView/MainView.h"
 #include "View/ViewManager/ViewManager.h"
 
-namespace Controller {
+namespace MainController {
 
 	MainViewController::MainViewController (App::AppCore &core, DestroyRequestHandler handler) :
-			ViewController(core, handler)
+			ViewController(core, handler),
+			m_pAnswerCallController(nullptr),
+			m_pMainView(nullptr)
 	{
 	}
 
-	bool MainViewController::createView()
+	BaseView *MainViewController::createView()
 	{
-		m_pView = ViewManager::pushView<MainView::MainView>(m_Core.getViewManager(), true);
-		RETVM_IF(!m_pView, false, "Failed to create MainView");
+		m_pMainView = ViewManager::pushView<MainView::MainView>(m_Core.getViewManager(), true);
+		return m_pMainView;
+	}
 
-		MainView::MainView *view = dynamic_cast<MainView::MainView *>(m_pView);
-		view->setRejectMsgHandler(makeNotifyHandler(MainViewController, onRejectMsgClick, this));
-		view->setCallAceptHandler(makeNotifyHandler(MainViewController, onCallAceptClick, this));
-		view->setMoreHandler(makeNotifyHandler(MainViewController, onMoreClick, this));
-
-		return true;
+	void MainViewController::onUpdate(int updateFlag)
+	{
+		if (updateFlag & UPDATE_INITIAL) {
+			m_pMainView->setRejectMsgHandler(NotifyHandler::wrap<MainViewController, &MainViewController::onRejectMsgClick>(this));
+			m_pMainView->setCallAceptHandler(NotifyHandler::wrap<MainViewController, &MainViewController::onCallAnsweringClick>(this));
+			m_pMainView->setMoreHandler(NotifyHandler::wrap<MainViewController, &MainViewController::onMoreClick>(this));
+		}
 	}
 
 	void MainViewController::onBackKeyPressed()
 	{
-		if (m_destroyRequestHandler.assigned()) {
-			m_destroyRequestHandler(this);
-		}
+		makeDestroyReqeuest();
 	}
 
 	/*TODO Child view creation will be added here */
@@ -52,13 +53,25 @@ namespace Controller {
 		DBG("Reject message option selected");
 	}
 
-	void MainViewController::onCallAceptClick()
+	void MainViewController::onCallAnsweringClick()
 	{
 		DBG("Answer/End call option selected");
+		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_Core,
+				makeHandler(DestroyRequestHandler, MainViewController, destroyRequestHandler, this));
 	}
 
 	void MainViewController::onMoreClick()
 	{
 		DBG("More option selected");
 	}
+
+	void MainViewController::destroyRequestHandler(ViewController *controller)
+	{
+		if (controller == m_pAnswerCallController) {
+			m_pAnswerCallController = nullptr;
+		}
+
+		delete controller;
+	}
+
 }

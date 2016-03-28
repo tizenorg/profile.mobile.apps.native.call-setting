@@ -15,36 +15,36 @@
  *
  */
 
-#ifndef MAIN_VIEW_H_
-#define MAIN_VIEW_H_
+#ifndef ANSWER_VIEW_
+#define ANSWER_VIEW_
 
-#include "View/MainView/RejectMsgOption.h"
-#include "View/MainView/CallAceptOption.h"
-#include "View/MainView/MoreOption.h"
+#include "View/AnswerView/CategoryItems.h"
+#include "View/AnswerView/AnswerOptions.h"
 #include "View/ViewManager/BaseView.h"
 #include "View/Widgets/Genlist.h"
 
-namespace MainView {
+namespace AnswerView {
 
-	class MainView : public View::BaseView {
+	class AnswerView : public View::BaseView {
 	public:
-		void setRejectMsgHandler(NotifyHandler handler);
-		void setCallAceptHandler(NotifyHandler handler);
-		void setMoreHandler(NotifyHandler handler);
+		void setAnswerOptionHandler(NotifyHandler handler) {m_pAnswerOption->setClickHandler(handler);}
+		void setRejectOptionHandler(NotifyHandler handler) {m_pRejectOption->setClickHandler(handler);}
+
+		void checkAnswerOption(bool checked) {m_pAnswerOption->setCheckState(checked);}
+		void checkRejectOption(bool checked) {m_pRejectOption->setCheckState(checked);}
 
 	private:
 		friend class BaseView;
 
-		MainView(Widgets::NaviItem *naviItem);
-		virtual ~MainView();
+		AnswerView(Widgets::NaviItem *naviItem);
+		virtual ~AnswerView();
 		virtual bool createViewContent() override;
 
 	private:
 		Widgets::Genlist *m_pGenlist;
-		RejectMsgOption *m_pRejectMsgOption;
-		CallAceptOption *m_pCallAceptOption;
-		MoreOption *m_pMoreOption;
+		AnswerOption *m_pAnswerOption;
+		RejectOption *m_pRejectOption;
 	};
 }
 
-#endif /* MAIN_VIEW_H_ */
+#endif /* ANSWER_VIEW_ */

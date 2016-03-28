@@ -27,7 +27,8 @@
 using namespace Utils;
 
 typedef Delegate<void()> NotifyHandler;
-typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasSmartCb;
+typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EOEventSmartCb;
+typedef Callback<void(Evas_Object *obj, void *event_info)> EOSmartCb;
 
 #define makeNotifyHandler(classType, classMethod, data) \
 		NotifyHandler::wrap<classType, &classType::classMethod>(data)

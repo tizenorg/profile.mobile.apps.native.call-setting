@@ -27,9 +27,19 @@ namespace Widgets {
 
 	class Genlist;
 	class GenlistItem : public WidgetItem {
+
+	public:
+	typedef enum {
+		GENLIST_ITEM_FIELD_TEXT,
+		GENLIST_ITEM_FIELD_CONTENT,
+		GENLIST_ITEM_FIELD_STATE,
+	} GenlistPartType;
+
 	public:
 		void setSelectHandler(NotifyHandler handler);
 		virtual Elm_Genlist_Item_Class *getItemClass();
+		void update();
+		void updatePart(const char *parts, GenlistPartType partType);
 
 	protected:
 		GenlistItem();
@@ -38,7 +48,7 @@ namespace Widgets {
 		virtual void onRealized() {}
 		virtual void onUnrealized() {}
 		virtual char *getText(const char *part) {return nullptr;}
-		virtual Evas_Object *getContent(const char *part) {return nullptr;}
+		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) {return nullptr;}
 		virtual Eina_Bool getState(const char *part) {return EINA_FALSE;}
 		Elm_Genlist_Item_Class createItemClass(const char *style = "default");
 

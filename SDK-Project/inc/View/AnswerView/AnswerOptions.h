@@ -15,21 +15,30 @@
  *
  */
 
-#ifndef MORE_OPTION_H_
-#define MORE_OPTION_H_
+#ifndef ANSWER_OPTIONS_H
+#define ANSWER_OPTIONS_H
 
-#include "View/Widgets/GenlistItem.h"
+#include "View/Widgets/OptionItem.h"
 
-namespace MainView {
+namespace AnswerView {
 
-	class MoreOption : public Widgets::GenlistItem {
-	public:
-		MoreOption() {};
-		virtual ~MoreOption() {};
+	class AnswerOption : public Widgets::OptionItem {
+		public:
+			AnswerOption() {}
+			virtual ~AnswerOption() {}
 
-	private:
-		virtual char *getText(const char *part) override;
-	};
+		private:
+			virtual char *getText(const char *part);
+		};
+
+		class RejectOption : public Widgets::OptionItem {
+		public:
+			RejectOption() {}
+			virtual ~RejectOption() {}
+
+		private:
+			virtual char *getText(const char *part);
+		};
 }
 
-#endif /* MORE_OPTION_H_ */
+#endif /* ANSWER_OPTIONS_H */
