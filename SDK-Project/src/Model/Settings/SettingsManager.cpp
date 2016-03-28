@@ -27,29 +27,13 @@ SettingsManager::SettingsManager()
 
 SettingsManager::~SettingsManager()
 {
-	while(!intPropertyListeners.empty()) {
-		IntListenerPair pair = intPropertyListeners.back();
-		intPropertyListeners.pop_back();
-		unregisterPropertyListener<IntKey>(pair.first);
-		pair.second->onDetach();
-	}
-
-	while(!boolPropertyListeners.empty()) {
-		BoolListenerPair pair = boolPropertyListeners.back();
-		boolPropertyListeners.pop_back();
-		unregisterPropertyListener<BoolKey>(pair.first);
-		pair.second->onDetach();
-	}
-
-	while(!stringPropertyListeners.empty()) {
-		StringListenerPair pair = stringPropertyListeners.back();
-		stringPropertyListeners.pop_back();
-		unregisterPropertyListener<StringKey>(pair.first);
-		pair.second->onDetach();
+	for (auto &it : m_handlersMap) {
+		unregisterVconfKeyChangeCb(it.first);
+		delete it.second;
 	}
 }
 
-ResultCode SettingsManager::setIntProperty(IntKey key, int value)
+ResultCode SettingsManager::setProperty(IntKey key, int value)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
@@ -62,16 +46,16 @@ ResultCode SettingsManager::setIntProperty(IntKey key, int value)
 	}
 }
 
-ResultCode SettingsManager::getIntProperty(IntKey key, int &value)
+ResultCode SettingsManager::getProperty(IntKey key, int &value)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getIntValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
 
 }
 
-ResultCode SettingsManager::setBoolProperty(BoolKey key, bool value)
+ResultCode SettingsManager::setProperty(BoolKey key, bool value)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
@@ -83,16 +67,16 @@ ResultCode SettingsManager::setBoolProperty(BoolKey key, bool value)
 	}
 }
 
-ResultCode SettingsManager::getBoolProperty(BoolKey key, bool &value)
+ResultCode SettingsManager::getProperty(BoolKey key, bool &value)
 {
-	notifyIntListenersForChanges(VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT);
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getBoolValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
+
 }
 
-ResultCode SettingsManager::setStringProperty(StringKey key, const std::string &value)
+ResultCode SettingsManager::setProperty(StringKey key, const std::string &value)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
@@ -104,41 +88,28 @@ ResultCode SettingsManager::setStringProperty(StringKey key, const std::string &
 	}
 }
 
-ResultCode SettingsManager::getStringProperty(StringKey key, std::string &value)
+ResultCode SettingsManager::getProperty(StringKey key, std::string &value)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
 
-	return getStringValueByVconfKey(vconfKey, value);
+	return getValueByVconfKey(vconfKey, value);
 }
 
-const char* SettingsManager::convertPropertyKeyToVconfKey(IntKey key)
+const char* SettingsManager::convertPropertyKeyToVconfKey(int key)
 {
 	switch(key) {
+	// IntKey Conversion //
 	case INT_KEY_SHOW_CALLER_ID:
 		return VCONFKEY_TELEPHONY_SS_CLI_STATE;
 	case INT_KEY_REJECT_MSG_COUNT:
 		return VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT;
-	default:
-		return NULL;
-	}
-}
-
-const char* SettingsManager::convertPropertyKeyToVconfKey(BoolKey key)
-{
-	switch(key) {
+	// BoolKey Conversion //
 	case BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY:
 		return VCONFKEY_CISSAPPL_ANSWERING_KEY_BOOL;
 	case BOOL_KEY_CALL_ENDING_BY_POWER_KEY:
 		return VCONFKEY_CISSAPPL_POWER_KEY_ENDS_CALL_BOOL;
-	default:
-		return NULL;
-	}
-}
-
-const char* SettingsManager::convertPropertyKeyToVconfKey(StringKey key)
-{
-	switch(key) {
+	// StringKey Conversion //
 	case STRING_KEY_REJECT_MSG_ITEM_1:
 		return VCONFKEY_CISSAPPL_USER_CREATE_MSG1_STR;
 	case STRING_KEY_REJECT_MSG_ITEM_2:
@@ -152,32 +123,25 @@ const char* SettingsManager::convertPropertyKeyToVconfKey(StringKey key)
 	case STRING_KEY_REJECT_MSG_ITEM_6:
 		return VCONFKEY_CISSAPPL_USER_CREATE_MSG6_STR;
 	default:
-		return NULL;
+		return nullptr;
 	}
 }
 
-IntKey SettingsManager::convertVconfKeyToIntKey(const char *vconfKey)
+int SettingsManager::convertVconfKeyToPropertyKey(const char *vconfKey)
 {
+	// IntKey Conversion //
 	if (!strcmp(VCONFKEY_TELEPHONY_SS_CLI_STATE, vconfKey))
 		return INT_KEY_SHOW_CALLER_ID;
 	else if (!strcmp(VCONFKEY_CISSAPPL_REJECT_CALL_MSG_INT, vconfKey))
 		return INT_KEY_REJECT_MSG_COUNT;
-	else
-		return INT_KEY_UNDEFINED;
-}
 
-BoolKey SettingsManager::convertVconfKeyToBoolKey(const char *vconfKey)
-{
+	// BoolKey Conversion //
 	if (!strcmp(VCONFKEY_CISSAPPL_ANSWERING_KEY_BOOL, vconfKey))
 		return BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY;
 	else if (!strcmp(VCONFKEY_CISSAPPL_POWER_KEY_ENDS_CALL_BOOL, vconfKey))
 		return BOOL_KEY_CALL_ENDING_BY_POWER_KEY;
-	else
-		return BOOL_KEY_UNDEFINED;
-}
 
-StringKey SettingsManager::convertVconfKeyToStringKey(const char *vconfKey)
-{
+	// StringKey Conversion //
 	if (!strcmp(VCONFKEY_CISSAPPL_USER_CREATE_MSG1_STR, vconfKey))
 		return STRING_KEY_REJECT_MSG_ITEM_1;
 	else if (!strcmp(VCONFKEY_CISSAPPL_USER_CREATE_MSG2_STR, vconfKey))
@@ -190,11 +154,11 @@ StringKey SettingsManager::convertVconfKeyToStringKey(const char *vconfKey)
 		return STRING_KEY_REJECT_MSG_ITEM_5;
 	else if (!strcmp(VCONFKEY_CISSAPPL_USER_CREATE_MSG6_STR, vconfKey))
 		return STRING_KEY_REJECT_MSG_ITEM_6;
-	else
-		return STRING_KEY_UNDEFINED;
+
+	return -1;
 }
 
-ResultCode SettingsManager::getIntValueByVconfKey(const char *vconfKey, int &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, int &value)
 {
 	int vconfValue = 0;
 	if (vconf_get_int(vconfKey, &vconfValue) < 0) {
@@ -206,7 +170,7 @@ ResultCode SettingsManager::getIntValueByVconfKey(const char *vconfKey, int &val
 	}
 }
 
-ResultCode SettingsManager::getBoolValueByVconfKey(const char *vconfKey, bool &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, bool &value)
 {
 	int vconfValue = 0;
 	if (vconf_get_bool(vconfKey, &vconfValue) < 0) {
@@ -218,7 +182,7 @@ ResultCode SettingsManager::getBoolValueByVconfKey(const char *vconfKey, bool &v
 	}
 }
 
-ResultCode SettingsManager::getStringValueByVconfKey(const char *vconfKey, std::string &value)
+ResultCode SettingsManager::getValueByVconfKey(const char *vconfKey, std::string &value)
 {
 	char *vconfValue = vconf_get_str(vconfKey);
 	if (!vconfValue) {
@@ -232,8 +196,7 @@ ResultCode SettingsManager::getStringValueByVconfKey(const char *vconfKey, std::
 	}
 }
 
-template <typename KEY_TYPE>
-ResultCode SettingsManager::registerPropertyListener(KEY_TYPE key)
+ResultCode SettingsManager::registerVconfKeyChangeCb(int key)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETVM_IF(!vconfKey, SETTINGS_RES_FAIL_KEY_UNKNOWN, "Key was not found");
@@ -244,8 +207,7 @@ ResultCode SettingsManager::registerPropertyListener(KEY_TYPE key)
 	return SETTINGS_RES_SUCCESS;
 }
 
-template <typename KEY_TYPE>
-void SettingsManager::unregisterPropertyListener(KEY_TYPE key)
+void SettingsManager::unregisterVconfKeyChangeCb(int key)
 {
 	const char *vconfKey = convertPropertyKeyToVconfKey(key);
 	RETM_IF(!vconfKey, "Key was not found");
@@ -262,145 +224,76 @@ void SettingsManager::onVconfPropertyChangeNotifyCb(keynode_t *node, void *userD
 	char *vconfKey = vconf_keynode_get_name(node);
 	RETM_IF(!vconfKey, "Failed to get vconf key name");
 
-	int vconfType = vconf_keynode_get_type(node);
-	switch(vconfType) {
-	case VCONF_TYPE_INT:
-		manager->notifyIntListenersForChanges(vconfKey);
-		break;
-	case VCONF_TYPE_BOOL:
-		manager->notifyBoolListenersForChanges(vconfKey);
-		break;
-	case VCONF_TYPE_STRING:
-		manager->notifyStringListenersForChanges(vconfKey);
-		break;
-	default:
-		WARN("Unsupported Type! Ignore it");
-	}
+	manager->invokePropertyHandlers(vconfKey);
+
 }
 
-void SettingsManager::notifyIntListenersForChanges(const char *vconfKey)
+void SettingsManager::invokePropertyHandlers(const char *vconfKey)
 {
-	int value = 0;
-	IntKey key = convertVconfKeyToIntKey(vconfKey);
-	if (getIntValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != INT_KEY_UNDEFINED) {
-		for(auto item : intPropertyListeners) {
-			if(item.first == key) {
-				item.second->onPropertyChanged(value);
-			}
+	int key = convertVconfKeyToPropertyKey(vconfKey);
+	RETM_IF(key == -1, "Failed to convert vconfKey name!");
+
+	auto *collection = m_handlersMap.find(key)->second;
+	collection->invoke();
+}
+
+ResultCode SettingsManager::addPropertyHandler(IntKey key, NotifyHandler handler)
+{
+	return addHandlerImpl(key, handler);
+}
+
+ResultCode SettingsManager::addPropertyHandler(BoolKey key, NotifyHandler handler)
+{
+	return addHandlerImpl(key, handler);
+}
+
+ResultCode SettingsManager::addPropertyHandler(StringKey key, NotifyHandler handler)
+{
+	return addHandlerImpl(key, handler);
+}
+
+void SettingsManager::removePropertyHandler(IntKey key, NotifyHandler handler)
+{
+	removeHandlerImpl(key, handler);
+}
+
+void SettingsManager::removePropertyHandler(BoolKey key, NotifyHandler handler)
+{
+	removeHandlerImpl(key, handler);
+}
+
+void SettingsManager::removePropertyHandler(StringKey key, NotifyHandler handler)
+{
+	removeHandlerImpl(key, handler);
+}
+
+ResultCode SettingsManager::addHandlerImpl(int key, NotifyHandler handler)
+{
+	auto it = m_handlersMap.find(key);
+	if (it == m_handlersMap.end()) {
+		ResultCode res = registerVconfKeyChangeCb(key);
+		RETVM_IF(res != SETTINGS_RES_SUCCESS, res, "Failed to register vconf change callback!");
+
+		HandlersCollection *newCollection = new HandlersCollection();
+		*newCollection += handler;
+		m_handlersMap[key] = newCollection;
+	} else {
+		*(it->second) += handler;
+	}
+
+	return SETTINGS_RES_SUCCESS;
+}
+
+void SettingsManager::removeHandlerImpl(int key, NotifyHandler handler)
+{
+	auto it = m_handlersMap.find(key);
+	if (it != m_handlersMap.end()) {
+		HandlersCollection *collection = m_handlersMap[key];
+		*collection -= handler;
+		if(collection->isEmpty()) {
+			unregisterVconfKeyChangeCb(key);
+			delete collection;
+			m_handlersMap.erase(it);
 		}
 	}
-}
-
-void SettingsManager::notifyBoolListenersForChanges(const char *vconfKey)
-{
-	bool value = false;
-	BoolKey key = convertVconfKeyToBoolKey(vconfKey);
-	if (getBoolValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != BOOL_KEY_UNDEFINED) {
-		for(auto item : boolPropertyListeners) {
-			if(item.first == key)
-				item.second->onPropertyChanged(value);
-		}
-	}
-}
-
-void SettingsManager::notifyStringListenersForChanges(const char *vconfKey)
-{
-	std::string value;
-	StringKey key = convertVconfKeyToStringKey(vconfKey);
-	if (getStringValueByVconfKey(vconfKey, value) == SETTINGS_RES_SUCCESS && key != STRING_KEY_UNDEFINED) {
-		for(auto item : stringPropertyListeners) {
-			if(item.first == key)
-				item.second->onPropertyChanged(value);
-		}
-	}
-}
-
-ResultCode SettingsManager::addPropertyListener(BoolKey key, PropertyListener<bool> *listener)
-{
-	ResultCode res = registerPropertyListener<BoolKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			boolPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-ResultCode SettingsManager::addPropertyListener(IntKey key, PropertyListener<int> *listener)
-{
-	ResultCode res = registerPropertyListener<IntKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			intPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-ResultCode SettingsManager::addPropertyListener(StringKey key, PropertyListener<std::string> *listener)
-{
-	ResultCode res = registerPropertyListener<StringKey>(key);
-	if (res == SETTINGS_RES_SUCCESS) {
-		if (listener->onAttach(this)) {
-			stringPropertyListeners.push_back(std::make_pair(key, listener));
-		}
-	}
-
-	return res;
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<bool> *listener)
-{
-	auto it = find_if(boolPropertyListeners.begin(), boolPropertyListeners.end(), [&listener](const boolListenerPair &item) {
-			return item.second == listener;
-	});
-
-	if (it == boolPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	BoolListenerPair listenerPair = *it;
-	unregisterPropertyListener<BoolKey>(listenerPair.first);
-
-	boolPropertyListeners.erase(it);
-	listener->onDetach();
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<int> *listener)
-{
-	auto it = find_if(intPropertyListeners.begin(), intPropertyListeners.end(), [&listener](const IntListenerPair &item) {
-				return item.second == listener;
-	});
-
-	if (it == intPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	IntListenerPair listenerPair = *it;
-	unregisterPropertyListener<IntKey>(listenerPair.first);
-
-	intPropertyListeners.erase(it);
-	listener->onDetach();
-}
-
-void SettingsManager::removePropertyListener(PropertyListener<std::string> *listener)
-{
-	auto it = find_if(stringPropertyListeners.begin(), stringPropertyListeners.end(), [&listener](const StringListenerPair &item) {
-				return item.second == listener;
-	});
-
-	if (it == stringPropertyListeners.end()) {
-		WARN("Try to unregister listener which is not set");
-		return;
-	}
-
-	StringListenerPair listenerPair = *it;
-	unregisterPropertyListener<StringKey>(listenerPair.first);
-
-	stringPropertyListeners.erase(it);
-	listener->onDetach();
 }

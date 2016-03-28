@@ -20,24 +20,27 @@
 
 #include <string>
 #include "Model/Settings/SettingsTypes.h"
-#include "Model/Settings/PropertyListener.h"
 
 namespace Model { namespace Settings {
 	class ISettingsManager {
 	public:
+
 		virtual ~ISettingsManager(){}
-		virtual ResultCode addPropertyListener(BoolKey key, PropertyListener<bool> *listener) = 0;
-		virtual ResultCode addPropertyListener(IntKey key, PropertyListener<int> *listener) = 0;
-		virtual ResultCode addPropertyListener(StringKey key, PropertyListener<std::string> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<bool> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<int> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<std::string> *listener) = 0;
-		virtual ResultCode setIntProperty(IntKey key, int value) = 0;
-		virtual ResultCode getIntProperty(IntKey key, int &value) = 0;
-		virtual ResultCode setBoolProperty(BoolKey key, bool value) = 0;
-		virtual ResultCode getBoolProperty(BoolKey key, bool &value) = 0;
-		virtual ResultCode setStringProperty(StringKey key, const std::string &value) = 0;
-		virtual ResultCode getStringProperty(StringKey key, std::string &value) = 0;
+
+		virtual ResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(IntKey key, NotifyHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(StringKey key, NotifyHandler handler) = 0;
+
+		virtual void removePropertyHandler(BoolKey key, NotifyHandler handler) = 0;
+		virtual void removePropertyHandler(IntKey key, NotifyHandler handler) = 0;
+		virtual void removePropertyHandler(StringKey key, NotifyHandler handler) = 0;
+
+		virtual ResultCode setProperty(IntKey key, int value) = 0;
+		virtual ResultCode getProperty(IntKey key, int &value) = 0;
+		virtual ResultCode setProperty(BoolKey key, bool value) = 0;
+		virtual ResultCode getProperty(BoolKey key, bool &value) = 0;
+		virtual ResultCode setProperty(StringKey key, const std::string &value) = 0;
+		virtual ResultCode getProperty(StringKey key, std::string &value) = 0;
 	};
 } }
 

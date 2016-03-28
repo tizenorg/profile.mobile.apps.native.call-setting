@@ -18,7 +18,10 @@
 #ifndef SETTINGS_TYPES_H_
 #define SETTINGS_TYPES_H_
 
+#include "Utils/Common.h"
+
 namespace Model { namespace Settings {
+
 	typedef enum {
 		SETTINGS_RES_SUCCESS,
 		SETTINGS_RES_FAIL_KEY_UNKNOWN,
@@ -29,20 +32,17 @@ namespace Model { namespace Settings {
 	} ResultCode;
 
 	typedef enum {
-		BOOL_KEY_UNDEFINED = -1,
-		BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY,
-		BOOL_KEY_CALL_ENDING_BY_POWER_KEY,
-	} BoolKey;
-
-	typedef enum {
-		INT_KEY_UNDEFINED = -1,
-		INT_KEY_SHOW_CALLER_ID,
+		INT_KEY_SHOW_CALLER_ID = 0,
 		INT_KEY_REJECT_MSG_COUNT,
 	} IntKey;
 
 	typedef enum {
-		STRING_KEY_UNDEFINED = -1,
-		STRING_KEY_REJECT_MSG_ITEM_1,
+		BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY = 10,
+		BOOL_KEY_CALL_ENDING_BY_POWER_KEY,
+	} BoolKey;
+
+	typedef enum {
+		STRING_KEY_REJECT_MSG_ITEM_1 = 20,
 		STRING_KEY_REJECT_MSG_ITEM_2,
 		STRING_KEY_REJECT_MSG_ITEM_3,
 		STRING_KEY_REJECT_MSG_ITEM_4,
