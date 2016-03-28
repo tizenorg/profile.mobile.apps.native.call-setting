@@ -20,18 +20,20 @@
 
 #include <string>
 #include "Model/Settings/SettingsTypes.h"
-#include "Model/Settings/PropertyListener.h"
 
 namespace Model { namespace Settings {
 	class ISettingsManager {
 	public:
+
 		virtual ~ISettingsManager(){}
-		virtual ResultCode addPropertyListener(BoolKey key, PropertyListener<bool> *listener) = 0;
-		virtual ResultCode addPropertyListener(IntKey key, PropertyListener<int> *listener) = 0;
-		virtual ResultCode addPropertyListener(StringKey key, PropertyListener<std::string> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<bool> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<int> *listener) = 0;
-		virtual void removePropertyListener(PropertyListener<std::string> *listener) = 0;
+		virtual ResultCode addPropertyHandler(BoolKey key, BoolPropertyHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(IntKey key, IntPropertyHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(StringKey key, StringPropertyHandler handler) = 0;
+
+		virtual void removePropertyHandler(BoolKey key, BoolPropertyHandler handler) = 0;
+		virtual void removePropertyHandler(IntKey key, IntPropertyHandler handler) = 0;
+		virtual void removePropertyHandler(StringKey key, StringPropertyHandler handler) = 0;
+
 		virtual ResultCode setIntProperty(IntKey key, int value) = 0;
 		virtual ResultCode getIntProperty(IntKey key, int &value) = 0;
 		virtual ResultCode setBoolProperty(BoolKey key, bool value) = 0;

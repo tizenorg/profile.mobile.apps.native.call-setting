@@ -43,8 +43,7 @@ namespace Utils {
 		void operator+=(const Delegate<R(Args...)> &delegate)
 		{
 			if (delegate.assigned() &&
-				std::find(m_delegates.begin(), m_delegates.end(), delegate) == m_delegates.end())
-			{
+				std::find(m_delegates.begin(), m_delegates.end(), delegate) == m_delegates.end()) {
 				m_delegates.push_back(delegate);
 			}
 		}
@@ -53,17 +52,22 @@ namespace Utils {
 		{
 			const typename DelegateVector::iterator it = std::find(
 				m_delegates.begin(), m_delegates.end(), delegate);
-			if (it != m_delegates.end())
-			{
-				if (m_locked)
-				{
+			if (it != m_delegates.end()) {
+				if (m_locked) {
 					it->reset();
 					m_isFragmented = true;
-				}
-				else
-				{
+				} else {
 					m_delegates.erase(it);
 				}
+			}
+		}
+
+		bool isEmpty()
+		{
+			if (m_locked) {
+				return false;
+			} else {
+				return m_delegates.empty();
 			}
 		}
 
@@ -72,11 +76,11 @@ namespace Utils {
 		{
 			m_locked = true;
 			size_t i = 0;
-			while (i < m_delegates.size())
-			{
-				if (!dispatch(m_delegates[i], std::forward<Args>(args)..., pred))
-				{
-					break;
+			while (i < m_delegates.size()) {
+				if (m_delegates[i].assigned()) {
+					if (!dispatch(m_delegates[i], std::forward<Args>(args)..., pred)) {
+						break;
+					}
 				}
 				++i;
 			}
@@ -88,9 +92,10 @@ namespace Utils {
 		{
 			m_locked = true;
 			size_t i = 0;
-			while (i < m_delegates.size())
-			{
-				(void)m_delegates[i](std::forward<Args>(args)...);
+			while (i < m_delegates.size()) {
+				if (m_delegates[i].assigned()) {
+					(void)m_delegates[i](std::forward<Args>(args)...);
+				}
 				++i;
 			}
 			m_locked = false;
@@ -113,14 +118,13 @@ namespace Utils {
 
 		void defrag()
 		{
-			if (m_isFragmented)
-			{
+			if (m_isFragmented) {
 				m_delegates.erase(std::remove_if(m_delegates.begin(), m_delegates.end(),
-					[](const Delegate <R(Args...)> &delegate) -> bool
-					{
+					[](const Delegate <R(Args...)> &delegate) -> bool {
 						return !delegate.assigned();
 					}),
 					m_delegates.end());
+
 				m_isFragmented = false;
 			}
 		}

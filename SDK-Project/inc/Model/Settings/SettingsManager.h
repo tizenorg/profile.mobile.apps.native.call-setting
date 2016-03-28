@@ -18,27 +18,31 @@
 #ifndef SETTINGS_MANAGER_H_
 #define SETTINGS_MANAGER_H_
 
-#include <vector>
+#include <map>
 #include <vconf.h>
+
 #include "Model/Settings/ISettingsManager.h"
 
 namespace Model { namespace Settings {
+
 	class SettingsManager: public ISettingsManager {
 	public:
 		SettingsManager();
 		virtual ~SettingsManager();
-		virtual ResultCode addPropertyListener(BoolKey key, PropertyListener<bool> *listener);
-		virtual ResultCode addPropertyListener(IntKey key, PropertyListener<int> *listener);
-		virtual ResultCode addPropertyListener(StringKey key, PropertyListener<std::string> *listener);
-		virtual void removePropertyListener(PropertyListener<bool> *listener);
-		virtual void removePropertyListener(PropertyListener<int> *listener);
-		virtual void removePropertyListener(PropertyListener<std::string> *listener);
-		virtual ResultCode setIntProperty(IntKey key, int value);
-		virtual ResultCode getIntProperty(IntKey key, int &value);
-		virtual ResultCode setBoolProperty(BoolKey key, bool value);
-		virtual ResultCode getBoolProperty(BoolKey key, bool &value);
-		virtual ResultCode setStringProperty(StringKey key, const std::string &value);
-		virtual ResultCode getStringProperty(StringKey key, std::string &value);
+		virtual ResultCode addPropertyHandler(BoolKey key, BoolPropertyHandler handler) override;
+		virtual ResultCode addPropertyHandler(IntKey key, IntPropertyHandler handler) override;
+		virtual ResultCode addPropertyHandler(StringKey key, StringPropertyHandler handler) override;
+
+		virtual void removePropertyHandler(BoolKey key, BoolPropertyHandler handler) override;
+		virtual void removePropertyHandler(IntKey key, IntPropertyHandler handler) override;
+		virtual void removePropertyHandler(StringKey key, StringPropertyHandler handler) override;
+
+		virtual ResultCode setIntProperty(IntKey key, int value) override;
+		virtual ResultCode getIntProperty(IntKey key, int &value) override;
+		virtual ResultCode setBoolProperty(BoolKey key, bool value) override;
+		virtual ResultCode getBoolProperty(BoolKey key, bool &value) override;
+		virtual ResultCode setStringProperty(StringKey key, const std::string &value) override;
+		virtual ResultCode getStringProperty(StringKey key, std::string &value) override;
 
 	private:
 		const char* convertPropertyKeyToVconfKey(IntKey key);
@@ -49,29 +53,45 @@ namespace Model { namespace Settings {
 		BoolKey convertVconfKeyToBoolKey(const char *VconfKey);
 		StringKey convertVconfKeyToStringKey(const char *VconfKey);
 
-		ResultCode getIntValueByVconfKey(const char *VconfKey, int &value);
-		ResultCode getBoolValueByVconfKey(const char *VconfKey, bool &value);
-		ResultCode getStringValueByVconfKey(const char *VconfKey, std::string &value);
+		ResultCode getValueByVconfKey(const char *VconfKey, int &value);
+		ResultCode getValueByVconfKey(const char *VconfKey, bool &value);
+		ResultCode getValueByVconfKey(const char *VconfKey, std::string &value);
 
 		template <typename KEY_TYPE>
-		ResultCode registerPropertyListener(KEY_TYPE key);
+		ResultCode registerPropertyHandler(KEY_TYPE key);
 
 		template <typename KEY_TYPE>
-		void unregisterPropertyListener(KEY_TYPE key);
+		void unregisterPropertyHandler(KEY_TYPE key);
+
+		template <typename MAP_T>
+		void clearHandlersMap(MAP_T map);
+
+		template <typename KEY_T, typename HANDL_T, typename COLLECTION_T>
+		ResultCode addHandlerImpl(KEY_T key, HANDL_T handler, std::map<KEY_T, COLLECTION_T*> &handlMap);
+
+		template <typename KEY_T, typename HANDL_T, typename COLLECTION_T>
+		void removeHandlerImpl(KEY_T key, HANDL_T handler, std::map<KEY_T, COLLECTION_T*> &handlMap);
 
 		static void onVconfPropertyChangeNotifyCb(keynode_t *node, void *userData);
-		void notifyIntListenersForChanges(const char *VconfKey);
-		void notifyBoolListenersForChanges(const char *VconfKey);
-		void notifyStringListenersForChanges(const char *VconfKey);
+		void invokeIntPropertyHandlers(const char *VconfKey);
+		void invokeBoolPropertyHandlers(const char *VconfKey);
+		void invokeStringPropertyHandlers(const char *VconfKey);
+
+		template<typename KEY_T, typename VALUE_T, typename HANDL_MAP_T>
+		void invokeHandlersImpl(KEY_T key, HANDL_MAP_T &handlMap, const char *vconfKey);
 
 	private:
-		typedef std::pair<IntKey, PropertyListener<int> *> IntListenerPair;
-		typedef std::pair<BoolKey,PropertyListener<bool> *> BoolListenerPair;
-		typedef std::pair<StringKey,PropertyListener<std::string> *> StringListenerPair;
+		typedef Delegation<void(int)> IntHandlersCollection;
+		typedef Delegation<void(bool)> BoolHandlersCollection;
+		typedef Delegation<void(std::string)> StringHandlersCollection;
 
-		std::vector<IntListenerPair> intPropertyListeners;
-		std::vector<BoolListenerPair> boolPropertyListeners;
-		std::vector<StringListenerPair> stringPropertyListeners;
+		typedef std::map<IntKey, IntHandlersCollection *> IntHandlersMap;
+		typedef std::map<BoolKey, BoolHandlersCollection *> BoolHandlersMap;
+		typedef std::map<StringKey, StringHandlersCollection *> StringHandlersMap;
+
+		IntHandlersMap m_intHandlersMap;
+		BoolHandlersMap m_boolHandlersMap;
+		StringHandlersMap m_stringHandlersMap;
 	};
 } }
 

@@ -18,7 +18,14 @@
 #ifndef SETTINGS_TYPES_H_
 #define SETTINGS_TYPES_H_
 
+#include "Utils/Common.h"
+
 namespace Model { namespace Settings {
+
+	typedef Delegate<void(bool)> BoolPropertyHandler;
+	typedef Delegate<void(int)> IntPropertyHandler;
+	typedef Delegate<void(std::string)> StringPropertyHandler;
+
 	typedef enum {
 		SETTINGS_RES_SUCCESS,
 		SETTINGS_RES_FAIL_KEY_UNKNOWN,
