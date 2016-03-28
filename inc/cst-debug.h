@@ -16,6 +16,7 @@
  */
 
 #include <dlog.h>
+#include <dlog-internal.h>
 #include <stdio.h>
 #ifndef CST_LOG_TAG
 #define CST_LOG_TAG "CST"
