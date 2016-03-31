@@ -18,22 +18,33 @@
 #ifndef MAIN_VIEW_CONTROLLER_H_
 #define MAIN_VIEW_CONTROLLER_H_
 
+#include "App/AppCore.h"
 #include "Controller/ViewController.h"
+#include "View/MainView/MainView.h"
 
-namespace Controller {
+namespace MainController {
+
 	class MainViewController : public Controller::ViewController {
-	public:
-		virtual ~MainViewController() {}
+	protected:
+		virtual ~MainViewController();
 
 	private:
 		friend class ViewController;
 
-		MainViewController (App::AppCore &core, DestroyRequestHandler handler);
-		virtual bool createView();
+		MainViewController(App::AppCore &core, NotifyHandler handler);
 		virtual void onBackKeyPressed();
+		virtual void updateView(int updateFlag);
+
+		bool initialize();
 		void onRejectMsgClick();
-		void onCallAceptClick();
+		void onCallAnsweringClick();
 		void onMoreClick();
+		void onAnswerControllerDestroy();
+
+
+	private:
+		App::AppCore &m_appCore;
+		MainView::MainView *m_pMainView;
 	};
 }
 

@@ -22,8 +22,8 @@
 namespace Widgets {
 
 	NaviItem::NaviItem() :
-			WidgetItem(),
-			m_pBackButton(nullptr)
+		WidgetItem(),
+		m_pBackButton(nullptr)
 	{
 	}
 
@@ -38,7 +38,6 @@ namespace Widgets {
 
 		m_pEOItem = item;
 		m_pBackButton = backButton;
-
 		return true;
 	}
 

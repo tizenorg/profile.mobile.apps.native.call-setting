@@ -17,6 +17,7 @@
 
 #include "View/Widgets/Widget.h"
 #include "Utils/Logger.h"
+#include <typeinfo>
 
 namespace Widgets {
 
@@ -56,11 +57,14 @@ namespace Widgets {
 		}
 	}
 
-	void Widget::prepare(Widget *widget)
+	bool Widget::prepare(Widget *widget)
 	{
+		RETVM_IF(!widget->m_pEvasObject, false, "Object is null");
 		widget->m_isOwner = true;
 		evas_object_event_callback_add(widget->m_pEvasObject, EVAS_CALLBACK_DEL,
 				makeEvasEventCb(Widget, &Widget::onEvasObjectDelBase), widget);
+
+		return true;
 	}
 
 	void Widget::setDestroyHandler(NotifyHandler handler)

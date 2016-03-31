@@ -15,22 +15,29 @@
  *
  */
 
-#include "View/Widgets/GenlistItem.h"
 
-#ifndef REJECT_MSG_OPTION_H_
-#define REJECT_MSG_OPTION_H_
 
-namespace MainView {
+#include "View/Widgets/OptionItem.h"
 
-	class RejectMsgOption : public Widgets::GenlistItem {
-	public:
-		RejectMsgOption() {};
-		virtual ~RejectMsgOption() {};
-		virtual Elm_Genlist_Item_Class *getItemClass() override;
+namespace Widgets {
 
-	private:
-		virtual char *getText(const char *part) override;
-	};
+	OptionItem::OptionItem()
+	{
+	}
+
+	Elm_Genlist_Item_Class *OptionItem::getItemClass()
+	{
+		static Elm_Genlist_Item_Class itc = createItemClass("multiline");
+		return &itc;
+	}
+
+	char *OptionItem::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text.multiline") == 0) {
+			return makeTextLabel(m_subText, m_isSubTextLocalized);
+		} else {
+			return SimpleTextItem::getText(part);
+		}
+	}
+
 }
-
-#endif /* REJECT_MSG_OPTION_H_ */

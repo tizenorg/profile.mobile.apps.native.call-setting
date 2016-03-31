@@ -172,20 +172,19 @@ namespace View {
 
 	bool ViewManager::popView()
 	{
-		RETVM_IF(isTransitionState, false, "Transition in progress, pop is not allowed now");
-
 		Elm_Object_Item *topItem = elm_naviframe_top_item_get(m_pNaviframe);
 		RETVM_IF(!topItem, false, "View stack is empty, no need to pop!");
 
-		if (topItem == elm_naviframe_bottom_item_get(m_pNaviframe)) {
-			ERR("Last view in stack! unable to make pop");
-			return false;
-		}
-
-		elm_naviframe_item_pop(m_pNaviframe);
 		m_ViewList.pop_front();
-		isTransitionState = true;
-		m_ViewEventHandlers.invoke(VIEW_CHANGE_BEGIN);
+		if (!isTransitionState) {
+			elm_naviframe_item_pop(m_pNaviframe);
+			isTransitionState = true;
+			m_ViewEventHandlers.invoke(VIEW_CHANGE_BEGIN);
+		} else {
+			elm_object_item_del(topItem);
+			m_ViewEventHandlers.invoke(VIEW_CHANGE_BEGIN);
+			m_ViewEventHandlers.invoke(VIEW_CHANGE_END);
+		}
 
 		return true;
 	}
