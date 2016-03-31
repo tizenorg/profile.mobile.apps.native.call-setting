@@ -18,7 +18,7 @@
 #ifndef VIEW_CONTROLLER_H_
 #define VIEW_CONTROLLER_H_
 
-#include "App/AppCore.h"
+#include "App/BaseApplication.h"
 #include "Utils/Common.h"
 
 namespace Controller {
@@ -40,7 +40,8 @@ namespace Controller {
 			UF_WAS_PAUSED = 16,
 		} UpdateFlag;
 
-		ViewController (App::AppCore &core, NotiHandler destroyHandler);
+
+		ViewController (App::BaseApplication &app, NotiHandler destroyHandler);
 		virtual void onShow() {}
 		virtual void onHide() {}
 		virtual void updateView(int updateFlag) {}
@@ -52,7 +53,8 @@ namespace Controller {
 		void setBaseView(View::BaseView *view);
 
 	protected:
-		App::AppCore &m_Core;
+
+		App::BaseApplication &m_Core;
 		NotiHandler m_destroyRequestHandler;
 		bool m_isActivated;
 		bool m_isVisible;

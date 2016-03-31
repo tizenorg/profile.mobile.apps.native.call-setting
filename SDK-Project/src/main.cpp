@@ -19,5 +19,5 @@
 
 int main(int argc, char *argv[])
 {
-	return App::Application().appRun(argc, argv);
+	return App::Application().run(argc, argv);
 }

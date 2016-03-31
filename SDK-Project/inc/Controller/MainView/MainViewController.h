@@ -18,7 +18,7 @@
 #ifndef MAIN_VIEW_CONTROLLER_H_
 #define MAIN_VIEW_CONTROLLER_H_
 
-#include "App/AppCore.h"
+#include "App/Application.h"
 #include "Controller/ViewController.h"
 #include "Controller/AnswerView/AnswerViewController.h"
 #include "View/MainView/MainView.h"
@@ -32,10 +32,9 @@ namespace MainController {
 	private:
 		friend class ViewController;
 
-		MainViewController(App::AppCore &core, NotiHandler handler);
+		MainViewController(App::Application &app, NotiHandler handler);
 		virtual void onBackKeyPressed();
 		virtual void updateView(int updateFlag);
-
 		bool initialize();
 		void onRejectMsgClick();
 		void onCallAnsweringClick();
@@ -44,9 +43,9 @@ namespace MainController {
 
 
 	private:
-		App::AppCore &m_appCore;
-		MainView::MainView *m_pMainView;
+		App::Application &m_app;
 		AnsweringController::AnswerViewController *m_pAnswerCallController;
+		MainView::MainView *m_pMainView;
 	};
 }
 

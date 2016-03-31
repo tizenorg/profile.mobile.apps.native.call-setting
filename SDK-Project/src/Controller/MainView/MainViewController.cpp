@@ -22,11 +22,11 @@ namespace MainController {
 	using namespace App;
 	using namespace View;
 
-	MainViewController::MainViewController (AppCore &core, NotiHandler handler) :
-			ViewController(core, handler),
-			m_appCore(core),
-			m_pMainView(nullptr),
-			m_pAnswerCallController(nullptr)
+	MainViewController::MainViewController (Application &app, NotiHandler handler) :
+			ViewController(app, handler),
+			m_app(app),
+			m_pAnswerCallController(nullptr),
+			m_pMainView(nullptr)
 	{
 	}
 
@@ -42,7 +42,7 @@ namespace MainController {
 	{
 		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
 
-		m_pMainView = ViewManager::pushView<MainView::MainView>(m_appCore.getViewManager(), true);
+		m_pMainView = ViewManager::pushView<MainView::MainView>(m_app.getViewManager(), true);
 		RETVM_IF(!m_pMainView, false, "Failed to create view");
 
 		setBaseView(m_pMainView);
@@ -77,7 +77,8 @@ namespace MainController {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		DBG("Answer/End call option selected");
-		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_Core,
+
+		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_app,
 				NotiHandler::wrap<MainViewController, &MainViewController::onAnswerControllerDestroy>(this));
 	}
 

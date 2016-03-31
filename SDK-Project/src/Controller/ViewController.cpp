@@ -24,7 +24,7 @@ namespace Controller {
 	using namespace App;
 	using namespace View;
 
-	ViewController::ViewController(App::AppCore &core, NotiHandler handler) :
+	ViewController::ViewController(App::BaseApplication &core, NotiHandler handler) :
 		m_Core (core),
 		m_destroyRequestHandler(handler),
 		m_isActivated(false),
