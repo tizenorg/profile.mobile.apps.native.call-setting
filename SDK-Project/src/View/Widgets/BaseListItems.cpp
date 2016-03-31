@@ -24,14 +24,14 @@ namespace Widgets {
 	{
 	}
 
-	bool SimpleTextItem::initialize(ItemAddMethod createItem, const char *text, bool isLocalized)
+	bool SimpleTextItem::initialize(ItemAddMethod createItem, const char *text, bool isLocalized, ItemSelectionMode selectMode)
 	{
 		if (text) {
 			m_text.assign(text);
 			m_isTextLocalized = isLocalized;
 		}
 
-		return GenlistItem::initialize(createItem);
+		return GenlistItem::initialize(createItem, selectMode);
 	}
 
 	void SimpleTextItem::setText(const char *text, bool isLocalized)
@@ -68,14 +68,14 @@ namespace Widgets {
 	}
 
 	bool DoubleTextItem::initialize(GenlistItem::ItemAddMethod createItem, const char *text, const char *subText,
-				bool isTextLocalized, bool isSubTextLocalized)
+				bool isTextLocalized, bool isSubTextLocalized, ItemSelectionMode selectMode)
 	{
 		if (subText) {
 			m_subText.assign(subText);
 			m_isSubTextLocalized = isSubTextLocalized;
 		}
 
-		return SimpleTextItem::initialize(createItem, text, isTextLocalized);
+		return SimpleTextItem::initialize(createItem, text, isTextLocalized, selectMode);
 	}
 	void DoubleTextItem::setSubText(const char *subtext, bool isLocalized)
 	{

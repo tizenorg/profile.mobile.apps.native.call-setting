@@ -21,7 +21,6 @@
 #include <app_i18n.h>
 
 #include "View/Widgets/GenlistItem.h"
-#include "Utils/Common.h"
 
 namespace Widgets {
 
@@ -31,7 +30,8 @@ namespace Widgets {
 	protected:
 		SimpleTextItem();
 		virtual ~SimpleTextItem() {}
-		bool initialize(ItemAddMethod createItem, const char *text = nullptr, bool isLocalized = true);
+		bool initialize(ItemAddMethod createItem, const char *text = nullptr, bool isLocalized = true,
+				ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual char *getText(const char *part) override;
 		static char *makeTextLabel(const std::string &text, bool isLocalized);
 
@@ -41,6 +41,7 @@ namespace Widgets {
 
 	private:
 		friend class WidgetItem;
+
 	};
 
 
@@ -51,7 +52,7 @@ namespace Widgets {
 		DoubleTextItem();
 		virtual ~DoubleTextItem() {}
 		bool initialize(ItemAddMethod createItem, const char *text = nullptr, const char *subText = nullptr,
-				bool isTextLocalized = true, bool isSubTextLocalized = true);
+				bool isTextLocalized = true, bool isSubTextLocalized = true, ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual char *getText(const char *part) override;
 
 	protected:
