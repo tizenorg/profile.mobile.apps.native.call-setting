@@ -15,32 +15,45 @@
  *
  */
 
-#ifndef APPCORE_H_
-#define APPCORE_H_
+#ifndef BASE_APPLICATION_H_
+#define BASE_APPLICATION_H_
+
+#include <app.h>
 
 #include "App/SystemEventManager.h"
 #include "View/ViewManager/ViewManager.h"
-#include "Model/Settings/SettingsManager.h"
 
 namespace App {
-	using namespace Model;
-	using namespace View;
 
-	class AppCore : private NonCopyable {
+	class BaseApplication : private NonCopyable {
 	public:
-		static AppCore *initialize();
-		static void finalize(AppCore *core);
+		BaseApplication();
+		virtual ~BaseApplication();
+
+		int appRun(int argc, char *argv[]);
+		void appTerminate();
 
 		SystemEventManager &getSystemEventManager();
-		Settings::SettingsManager &getSettingsManager();
-		ViewManager &getViewManager();
+		View::ViewManager &getViewManager();
+
+	protected:
+		virtual bool onAppCreate() {return false;}
+		virtual void onAppTerminate() {}
+		virtual void onAppPause() {}
+		virtual void onAppResume() {}
+		virtual void onAppControl(app_control_h request) {}
 
 	private:
-		AppCore();
-		~AppCore();
+		bool AppCreateCb();
+		void AppTerminateCb();
+		void AppPauseCb();
+		void AppResumeCb();
+		void AppControlCb(app_control_h request);
+
+	private:
 		SystemEventManager *m_pEventManager;
-		Settings::SettingsManager *m_pSettingsManager;
 		View::ViewManager *m_pViewManager;
 	};
 }
-#endif /* APPCORE_H_ */
+
+#endif /* BASE_APPLICATION_H_ */
