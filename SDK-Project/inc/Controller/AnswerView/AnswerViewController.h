@@ -18,6 +18,7 @@
 #ifndef ANSWER_VIEW_CONTROLLER_H_
 #define ANSWER_VIEW_CONTROLLER_H_
 
+#include "App/Application.h"
 #include "Controller/ViewController.h"
 #include "View/AnswerView/AnswerView.h"
 
@@ -25,12 +26,13 @@ namespace AnsweringController {
 
 	class AnswerViewController : public Controller::ViewController {
 	public:
+		AnswerViewController();
 		virtual ~AnswerViewController();
 
 	private:
 		friend class ViewController;
 
-		AnswerViewController(App::AppCore &core, NotifyHandler handler);
+		AnswerViewController(App::Application &core, NotifyHandler handler);
 		virtual void onBackKeyPressed() override;
 		virtual void updateView(int updateFlag) override;
 		bool initialize();
@@ -45,6 +47,7 @@ namespace AnsweringController {
 		void updateRejectOption();
 
 	private:
+		App::Application &m_appCore;
 		AnswerView::AnswerView *m_pAnswerView;
 		bool m_needUpdateAnswering;
 		bool m_needUpdateRejection;

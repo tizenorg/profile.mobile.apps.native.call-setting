@@ -22,11 +22,11 @@ namespace MainController {
 	using namespace App;
 	using namespace View;
 
-	MainViewController::MainViewController (AppCore &core, NotifyHandler handler) :
+	MainViewController::MainViewController (Application &core, NotifyHandler handler) :
 			ViewController(core, handler),
 			m_appCore(core),
-			m_pMainView(nullptr),
-			m_pAnswerCallController(nullptr)
+			m_pAnswerCallController(nullptr),
+			m_pMainView(nullptr)
 	{
 	}
 
@@ -67,7 +67,7 @@ namespace MainController {
 	void MainViewController::onCallAnsweringClick()
 	{
 		DBG("Answer/End call option selected");
-		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_Core,
+		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_appCore,
 				NotifyHandler::wrap<MainViewController, &MainViewController::onAnswerControllerDestroy>(this));
 	}
 
