@@ -21,7 +21,6 @@
 #include <app_i18n.h>
 
 #include "View/Widgets/GenlistItem.h"
-#include "Utils/Common.h"
 
 namespace Widgets {
 
@@ -40,6 +39,7 @@ namespace Widgets {
 
 	private:
 		friend class WidgetItem;
+
 	};
 
 
