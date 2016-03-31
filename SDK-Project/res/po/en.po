@@ -12,3 +12,15 @@ msgstr "Answering/ending calls"
 
 msgid "IDS_COM_BODY_MORE"
 msgstr "More"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Answer calls by"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Pressing the home key"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "End calls by"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Pressing the power key"

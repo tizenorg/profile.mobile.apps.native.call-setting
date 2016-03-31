@@ -20,10 +20,9 @@
 
 #include <app.h>
 #include "App/AppCore.h"
-#include "Controller/MainView/MainViewController.h"
+#include "Controller/ViewController.h"
 
 namespace App {
-	using namespace Controller;
 
 	class Application : private NonCopyable {
 	public:
@@ -42,7 +41,7 @@ namespace App {
 
 	private:
 		AppCore *m_pAppCore;
-		ViewController *m_pMainViewController;
+		Controller::ViewController *m_pMainViewController;
 
 	};
 }
