@@ -20,6 +20,7 @@
 
 #include "App/AppCore.h"
 #include "Controller/ViewController.h"
+#include "Controller/AnswerView/AnswerViewController.h"
 #include "View/MainView/MainView.h"
 
 namespace MainController {
@@ -45,6 +46,7 @@ namespace MainController {
 	private:
 		App::AppCore &m_appCore;
 		MainView::MainView *m_pMainView;
+		AnsweringController::AnswerViewController *m_pAnswerCallController;
 	};
 }
 
