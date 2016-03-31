@@ -22,6 +22,7 @@
 #include "Controller/MainView/MainViewController.h"
 
 namespace App {
+	using namespace Controller;
 
 	Application::Application()
 		:m_pAppCore(nullptr),

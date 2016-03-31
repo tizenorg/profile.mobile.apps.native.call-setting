@@ -63,7 +63,6 @@ namespace MainView {
 
 	void MainView::setCallAceptHandler(NotifyHandler handler)
 	{
-
 		m_pCallAceptOption->setSelectHandler(handler);
 	}
 

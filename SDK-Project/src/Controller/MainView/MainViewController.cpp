@@ -25,7 +25,8 @@ namespace MainController {
 	MainViewController::MainViewController (AppCore &core, NotifyHandler handler) :
 			ViewController(core, handler),
 			m_appCore(core),
-			m_pMainView(nullptr)
+			m_pMainView(nullptr),
+			m_pAnswerCallController(nullptr)
 	{
 	}
 
@@ -75,6 +76,8 @@ namespace MainController {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		DBG("Answer/End call option selected");
+		m_pAnswerCallController = ViewController::create<AnsweringController::AnswerViewController>(m_Core,
+				NotifyHandler::wrap<MainViewController, &MainViewController::onAnswerControllerDestroy>(this));
 	}
 
 	void MainViewController::onMoreClick()
@@ -85,6 +88,8 @@ namespace MainController {
 
 	void MainViewController::onAnswerControllerDestroy()
 	{
+		delete m_pAnswerCallController;
+		m_pAnswerCallController = nullptr;
 	}
 
 }
