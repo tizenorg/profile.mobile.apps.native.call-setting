@@ -16,14 +16,14 @@
  */
 
 #include "Controller/AnswerView/AnswerViewController.h"
-#include "Model/Settings/SettingsManager.h"
 
 namespace AnsweringController {
 
 	using namespace Model::Settings;
 
-	AnswerViewController::AnswerViewController (App::AppCore &core, NotifyHandler handler) :
+	AnswerViewController::AnswerViewController (App::Application &core, NotifyHandler handler) :
 		ViewController(core, handler),
+		m_appCore(core),
 		m_pAnswerView(nullptr),
 		m_needUpdateAnswering(true),
 		m_needUpdateRejection(true)
@@ -32,7 +32,7 @@ namespace AnsweringController {
 
 	AnswerViewController::~AnswerViewController()
 	{
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 
 		settingsManager.removePropertyHandler(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY,
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerOptionChanged>(this));
@@ -43,8 +43,10 @@ namespace AnsweringController {
 
 	bool AnswerViewController::initialize()
 	{
+
 		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 
 		ResultCode res = settingsManager.addPropertyHandler(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY,
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerOptionChanged>(this));
@@ -54,7 +56,7 @@ namespace AnsweringController {
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionChanged>(this));
 		RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to setup rejecting option listener");
 
-		m_pAnswerView = View::ViewManager::pushView<AnswerView::AnswerView>(m_Core.getViewManager(), true);
+		m_pAnswerView = View::ViewManager::pushView<AnswerView::AnswerView>(m_appCore.getViewManager(), true);
 		RETVM_IF(!m_pAnswerView, false, "Failed to create view instance!");
 		setBaseView(m_pAnswerView);
 
@@ -62,13 +64,13 @@ namespace AnsweringController {
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerOptionCheck>(this));
 
 		m_pAnswerView->setRejectCheckHandler(
-						NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionCheck>(this));
+				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionCheck>(this));
 
 		m_pAnswerView->setAnswerItemClickHandler(
-						NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerItemClick>(this));
+				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerItemClick>(this));
 
 		m_pAnswerView->setRejectItemClickHandler(
-						NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectItemClick>(this));
+				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectItemClick>(this));
 
 		return true;
 	}
@@ -76,7 +78,7 @@ namespace AnsweringController {
 	void AnswerViewController::onAnswerOptionCheck()
 	{
 		bool state = m_pAnswerView->getAnswerOptionState();
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		ResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY, state);
 		if (res != SETTINGS_RES_SUCCESS) {
 			ERR("Failed to change Answer option");
@@ -87,7 +89,7 @@ namespace AnsweringController {
 	void AnswerViewController::onRejectOptionCheck()
 	{
 		bool state = m_pAnswerView->getRejectOptionState();
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		ResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, state);
 		if (res != SETTINGS_RES_SUCCESS) {
 			ERR("Failed to change Reject option");
@@ -99,7 +101,8 @@ namespace AnsweringController {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		bool state = m_pAnswerView->getAnswerOptionState();
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, !state);
 	}
 
@@ -107,7 +110,8 @@ namespace AnsweringController {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		bool state = m_pAnswerView->getRejectOptionState();
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, state);
 	}
 
@@ -133,7 +137,7 @@ namespace AnsweringController {
 	{
 		m_needUpdateAnswering = false;
 		bool isEnabled = false;
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		ResultCode res = settingsManager.getProperty(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY, isEnabled);
 		if (res != SETTINGS_RES_SUCCESS) {
 			m_pAnswerView->checkAnswerOption(false);
@@ -147,7 +151,7 @@ namespace AnsweringController {
 	{
 		m_needUpdateRejection = false;
 		bool isEnabled = false;
-		SettingsManager &settingsManager = m_Core.getSettingsManager();
+		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 		ResultCode res = settingsManager.getProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, isEnabled);
 		if (res != SETTINGS_RES_SUCCESS) {
 			m_pAnswerView->checkRejectOption(false);
