@@ -17,6 +17,7 @@
 
 #include "View/MainView/MainView.h"
 #include "View/Widgets/NaviItem.h"
+#include "View/Widgets/OptionItem.h"
 
 namespace MainView {
 
@@ -40,9 +41,12 @@ namespace MainView {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
-		m_pRejectMsgOption = Genlist::appendItem<RejectMsgOption>(*m_pGenlist);
-		m_pCallAceptOption = Genlist::appendItem<CallAceptOption>(*m_pGenlist);
-		m_pMoreOption = Genlist::appendItem<MoreOption>(*m_pGenlist);
+		m_pRejectMsgOption = m_pGenlist->appendItem<OptionItem>(
+				"IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB",
+				"IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS");
+
+		m_pCallAceptOption = m_pGenlist->appendItem<OptionItem>("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
+		m_pMoreOption = m_pGenlist->appendItem<OptionItem>("IDS_COM_BODY_MORE");
 
 		RETVM_IF(!m_pRejectMsgOption || !m_pCallAceptOption || !m_pMoreOption, false, "Internal error");
 
@@ -59,6 +63,7 @@ namespace MainView {
 
 	void MainView::setCallAceptHandler(NotifyHandler handler)
 	{
+
 		m_pCallAceptOption->setSelectHandler(handler);
 	}
 

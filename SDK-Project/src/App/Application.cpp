@@ -19,6 +19,7 @@
 #include "App/AppConfig.h"
 #include "App/Application.h"
 #include "Utils/Common.h"
+#include "Controller/MainView/MainViewController.h"
 
 namespace App {
 
@@ -74,8 +75,8 @@ namespace App {
 		elm_app_base_scale_set(UI_BASE_SCALE);
 		elm_config_preferred_engine_set("opengl_x11");
 
-		m_pMainViewController = ViewController::create<MainViewController>(*m_pAppCore,
-				makeHandler(DestroyRequestHandler, Application, onDestroyRequest, this));
+		m_pMainViewController = ViewController::create<MainController::MainViewController>(*m_pAppCore,
+				NotifyHandler::wrap<Application, &Application::onDestroyRequest>(this));
 
 		if (m_pMainViewController) {
 			return true;
@@ -108,16 +109,11 @@ namespace App {
 
 	void Application::onAppControl(app_control_h request)
 	{
-		INF("onAppControl callback");
+		INF("onAppControl callback ++");
 	}
 
-	void Application::onDestroyRequest(ViewController *controller)
+	void Application::onDestroyRequest()
 	{
-		DBG("onDestroyRequest");
-
-		if (controller == m_pMainViewController) {
-			delete m_pMainViewController;
-			appTerminate();
-		}
+		appTerminate();
 	}
 }

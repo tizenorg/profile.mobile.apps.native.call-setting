@@ -29,7 +29,8 @@ namespace Widgets {
 		RETVM_IF(!m_pEvasObject, false, "Failed to create genlist: Internal error");
 
 		elm_genlist_mode_set(m_pEvasObject, ELM_LIST_COMPRESS);
-		elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
+		//FIXME Temporary removed due to EFL issue
+		//elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
 		elm_scroller_policy_set(m_pEvasObject, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 		elm_scroller_content_min_limit(m_pEvasObject, EINA_FALSE, EINA_TRUE);
 
@@ -43,36 +44,42 @@ namespace Widgets {
 		return true;
 	}
 
+	GenlistItem *Genlist::toGenlistItem(void *eventInfo)
+	{
+		RETVM_IF(!eventInfo, nullptr, "Event Info data is null!");
+
+		Elm_Object_Item *objectItem = static_cast<Elm_Object_Item *>(eventInfo);
+		void *data = elm_object_item_data_get(objectItem);
+		return GenlistItem::fromData(data);
+	}
+
 	void Genlist::onItemSelected(Evas_Object *obj, void *eventInfo)
 	{
-		Elm_Object_Item *objectItem = static_cast<Elm_Object_Item *>(eventInfo);
-		RETM_IF(!objectItem, "Callback data is invalid!");
-
-		GenlistItem *item = (GenlistItem *) elm_object_item_data_get(objectItem);
+		GenlistItem *item = toGenlistItem(eventInfo);
 		if (item) {
 			item->onSelected();
+		} else {
+			ERR("Invalid data!");
 		}
 	}
 
 	void Genlist::onItemRealized(Evas_Object *obj, void *eventInfo)
 	{
-		Elm_Object_Item *objectItem = static_cast<Elm_Object_Item *>(eventInfo);
-		RETM_IF(!objectItem, "Callback data is invalid!");
-
-		GenlistItem *item = (GenlistItem *) elm_object_item_data_get(objectItem);
+		GenlistItem *item = toGenlistItem(eventInfo);
 		if (item) {
 			item->onRealized();
+		} else {
+			ERR("Invalid data!");
 		}
 	}
 
 	void Genlist::onItemUnrealized(Evas_Object *obj, void *eventInfo)
 	{
-		Elm_Object_Item *objectItem = static_cast<Elm_Object_Item *>(eventInfo);
-		RETM_IF(!objectItem, "Callback data is invalid!");
-
-		GenlistItem *item = (GenlistItem *) elm_object_item_data_get(objectItem);
+		GenlistItem *item = toGenlistItem(eventInfo);
 		if (item) {
 			item->onUnrealized();
+		} else {
+			ERR("Invalid data!");
 		}
 	}
 

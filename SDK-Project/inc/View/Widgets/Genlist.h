@@ -18,26 +18,26 @@
 #ifndef GENLIST_H_
 #define GENLIST_H_
 
-
 #include "View/Widgets/Widget.h"
 #include "View/Widgets/WidgetItem.h"
 #include "View/Widgets/GenlistItem.h"
+#include "Utils/Common.h"
 
 namespace Widgets {
 	class Genlist : public Widget {
 
 	public:
-		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *appendItem(Genlist &genlist);
+		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+		GENLIST_ITEM_TYPE *appendItem(TYPE_ARGS&&... args);
 
-		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *prependItem(Genlist &genlist);
+		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+		GENLIST_ITEM_TYPE *prependItem(TYPE_ARGS&&... args);
 
-		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *insertAfter(Genlist &genlist, WidgetItem &afterItem);
+		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+		GENLIST_ITEM_TYPE *insertAfter(GenlistItem &afterItem, TYPE_ARGS&&... args);
 
-		template <class GENLIST_ITEM_TYPE>
-		static GENLIST_ITEM_TYPE *insertBefore(Genlist &genlist, WidgetItem &beforeItem);
+		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+		GENLIST_ITEM_TYPE *insertBefore(GenlistItem &beforeItem, TYPE_ARGS&&... args);
 
 		void update();
 
@@ -50,74 +50,83 @@ namespace Widgets {
 		void onItemSelected(Evas_Object *obj, void *eventInfo);
 		void onItemRealized(Evas_Object *obj, void *eventInfo);
 		void onItemUnrealized(Evas_Object *obj, void *eventInfo);
+		static GenlistItem *toGenlistItem(void *eventInfo);
 	};
 
-	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::appendItem(Genlist &genlist)
-	{
-		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(genlist,
-			[](Genlist &list, GenlistItem *listItem) -> Elm_Object_Item *{
-				return elm_genlist_item_append(list.getEvasObject(),
-						listItem->getItemClass(),
-						listItem,
-						NULL,
-						ELM_GENLIST_ITEM_NONE,
-						NULL,
-						NULL);
-			});
-
-		return instance;
-	}
-
-	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::prependItem(Genlist &genlist)
-	{
-		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(genlist,
-			[](Genlist &list, GenlistItem *listItem) -> Elm_Object_Item *{
-				return elm_genlist_item_prepend(list.getEvasObject(),
-						listItem->getItemClass(),
-						listItem,
-						NULL,
-						ELM_GENLIST_ITEM_NONE,
-						NULL,
-						NULL);
-			});
-
-		return instance;
-	}
-
-	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::insertAfter(Genlist &genlist, WidgetItem &afterItem)
+	template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+	GENLIST_ITEM_TYPE *Genlist::appendItem(TYPE_ARGS&&... args)
 	{
 		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
-			[](Genlist &list, WidgetItem &afterItem, GenlistItem *listItem) -> Elm_Object_Item * {
-				return elm_genlist_item_insert_after(list.getEvasObject(),
+			[this](GenlistItem *listItem) -> Elm_Object_Item *{
+				RETVM_IF(!listItem, nullptr, "Invalid data set!");
+				return elm_genlist_item_append(m_pEvasObject,
 						listItem->getItemClass(),
-						listItem,
+						static_cast<WidgetItem *>(listItem),
+						NULL,
+						ELM_GENLIST_ITEM_NONE,
+						NULL,
+						NULL);
+			},
+			std::forward<TYPE_ARGS>(args)...);
+
+		return instance;
+	}
+
+	template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+	GENLIST_ITEM_TYPE *Genlist::prependItem(TYPE_ARGS&&... args)
+	{
+		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
+			[this](GenlistItem *listItem) -> Elm_Object_Item *{
+				RETVM_IF(!listItem, nullptr, "Invalid data set!");
+				return elm_genlist_item_prepend(m_pEvasObject,
+						listItem->getItemClass(),
+						static_cast<WidgetItem *>(listItem),
+						NULL,
+						ELM_GENLIST_ITEM_NONE,
+						NULL,
+						NULL);
+			},
+			std::forward<TYPE_ARGS>(args)...);
+
+		return instance;
+	}
+
+	template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+	GENLIST_ITEM_TYPE *Genlist::insertAfter(GenlistItem &afterItem, TYPE_ARGS&&... args)
+	{
+		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
+			[this, &afterItem](GenlistItem *listItem) -> Elm_Object_Item * {
+				RETVM_IF(!listItem, nullptr, "Invalid data set!");
+				return elm_genlist_item_insert_after(m_pEvasObject,
+						listItem->getItemClass(),
+						static_cast<WidgetItem *>(listItem),
 						NULL,
 						afterItem.getElmObjectItem(),
 						ELM_GENLIST_ITEM_NONE,
 						NULL,
 						NULL);
-			});
+			},
+			std::forward<TYPE_ARGS>(args)...);
 
 		return instance;
 	}
 
-	template <class GENLIST_ITEM_TYPE>
-	GENLIST_ITEM_TYPE *Genlist::insertBefore(Genlist &genlist, WidgetItem &beforeItem)
+	template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
+	GENLIST_ITEM_TYPE *Genlist::insertBefore(GenlistItem &beforeItem, TYPE_ARGS&&... args)
 	{
 		GENLIST_ITEM_TYPE *instance = WidgetItem::create<GENLIST_ITEM_TYPE>(
-			[](Genlist &list, WidgetItem &beforeItem, GenlistItem *listItem) -> Elm_Object_Item * {
-				return elm_genlist_item_insert_after(list.getEvasObject(),
+			[this, &beforeItem](GenlistItem *listItem) -> Elm_Object_Item * {
+				RETVM_IF(!listItem, nullptr, "Invalid data set!");
+				return elm_genlist_item_insert_before(m_pEvasObject,
 						listItem->getItemClass(),
-						listItem,
+						static_cast<WidgetItem *>(listItem),
 						NULL,
 						beforeItem.getElmObjectItem(),
 						ELM_GENLIST_ITEM_NONE,
 						NULL,
 						NULL);
-			});
+			},
+			std::forward<TYPE_ARGS>(args)...);
 
 		return instance;
 	}
