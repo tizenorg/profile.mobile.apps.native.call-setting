@@ -18,31 +18,29 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
-#include <app.h>
-#include "App/AppCore.h"
+#include "App/BaseApplication.h"
+
+#include "Model/Settings/SettingsManager.h"
+#include "Model/Telephony/TelephonyManager.h"
 #include "Controller/ViewController.h"
 
 namespace App {
 
-	class Application : private NonCopyable {
+	class Application : public BaseApplication {
 	public:
 		Application();
-		~Application();
-		int appRun(int argc, char *argv[]);
-		void appTerminate();
+		virtual ~Application();
+		Model::Settings::SettingsManager &getSettingsManager();
 
 	private:
-		bool onAppCreate();
-		void onAppTerminate();
-		void onAppPause();
-		void onAppResume();
-		void onAppControl(app_control_h request);
+		virtual bool onAppCreate() override;
+		virtual void onAppTerminate() override;
 		void onDestroyRequest();
 
 	private:
-		AppCore *m_pAppCore;
+		Model::Settings::SettingsManager *m_pSettingsManager;
+		Model::Telephony::TelephonyManager *m_pTelephonyManager;
 		Controller::ViewController *m_pMainViewController;
-
 	};
 }
 
