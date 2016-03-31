@@ -35,6 +35,9 @@ namespace View {
 		static ViewClass *create(NaviItem *naviItem);
 		static void destroy(BaseView *view);
 		void setDestroyHandler(ViewDestroyHandler handler);
+		void enableInputEvents();
+		void disableInputEvents();
+
 
 	protected:
 		BaseView(Widgets::NaviItem *naviItem);
@@ -50,7 +53,6 @@ namespace View {
 		bool m_isDestroying;
 
 	private:
-		BaseView() = delete;
 		bool createBaseLayout();
 		void onViewLayoutDestroy();
 		void onNaviItemDestroy();

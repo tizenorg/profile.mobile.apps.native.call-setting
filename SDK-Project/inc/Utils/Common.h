@@ -26,11 +26,11 @@
 
 using namespace Utils;
 
-typedef Delegate<void()> NotifyHandler;
+typedef Delegate<void()> NotiHandler;
 typedef Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasSmartCb;
 
-#define makeNotifyHandler(classType, classMethod, data) \
-		NotifyHandler::wrap<classType, &classType::classMethod>(data)
+#define makeNotiHandler(classType, classMethod, data) \
+		NotiHandler::wrap<classType, &classType::classMethod>(data)
 
 #define makeHandler(handlerType, classType, classMethod, data) \
 		handlerType::wrap<classType, &classType::classMethod>(data)

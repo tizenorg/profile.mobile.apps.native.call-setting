@@ -30,13 +30,13 @@ namespace Model { namespace Settings {
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		virtual ResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) override;
-		virtual ResultCode addPropertyHandler(IntKey key, NotifyHandler handler) override;
-		virtual ResultCode addPropertyHandler(StringKey key, NotifyHandler handler) override;
+		virtual ResultCode addPropertyHandler(BoolKey key, NotiHandler handler) override;
+		virtual ResultCode addPropertyHandler(IntKey key, NotiHandler handler) override;
+		virtual ResultCode addPropertyHandler(StringKey key, NotiHandler handler) override;
 
-		virtual void removePropertyHandler(BoolKey key, NotifyHandler handler) override;
-		virtual void removePropertyHandler(IntKey key, NotifyHandler handler) override;
-		virtual void removePropertyHandler(StringKey key, NotifyHandler handler) override;
+		virtual void removePropertyHandler(BoolKey key, NotiHandler handler) override;
+		virtual void removePropertyHandler(IntKey key, NotiHandler handler) override;
+		virtual void removePropertyHandler(StringKey key, NotiHandler handler) override;
 
 		virtual ResultCode setProperty(IntKey key, int value) override;
 		virtual ResultCode getProperty(IntKey key, int &value) override;
@@ -53,8 +53,8 @@ namespace Model { namespace Settings {
 		ResultCode getValueByVconfKey(const char *VconfKey, std::string &value);
 		ResultCode registerVconfKeyChangeCb(int key);
 		void unregisterVconfKeyChangeCb(int key);
-		ResultCode addHandlerImpl(int key, NotifyHandler handler);
-		void removeHandlerImpl(int key, NotifyHandler handler);
+		ResultCode addHandlerImpl(int key, NotiHandler handler);
+		void removeHandlerImpl(int key, NotiHandler handler);
 		static void onVconfPropertyChangeNotifyCb(keynode_t *node, void *userData);
 		void invokePropertyHandlers(const char *vconfKey);
 

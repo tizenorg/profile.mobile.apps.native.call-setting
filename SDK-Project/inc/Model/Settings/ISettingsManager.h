@@ -27,13 +27,13 @@ namespace Model { namespace Settings {
 
 		virtual ~ISettingsManager(){}
 
-		virtual ResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) = 0;
-		virtual ResultCode addPropertyHandler(IntKey key, NotifyHandler handler) = 0;
-		virtual ResultCode addPropertyHandler(StringKey key, NotifyHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(BoolKey key, NotiHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(IntKey key, NotiHandler handler) = 0;
+		virtual ResultCode addPropertyHandler(StringKey key, NotiHandler handler) = 0;
 
-		virtual void removePropertyHandler(BoolKey key, NotifyHandler handler) = 0;
-		virtual void removePropertyHandler(IntKey key, NotifyHandler handler) = 0;
-		virtual void removePropertyHandler(StringKey key, NotifyHandler handler) = 0;
+		virtual void removePropertyHandler(BoolKey key, NotiHandler handler) = 0;
+		virtual void removePropertyHandler(IntKey key, NotiHandler handler) = 0;
+		virtual void removePropertyHandler(StringKey key, NotiHandler handler) = 0;
 
 		virtual ResultCode setProperty(IntKey key, int value) = 0;
 		virtual ResultCode getProperty(IntKey key, int &value) = 0;

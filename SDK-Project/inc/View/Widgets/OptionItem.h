@@ -15,18 +15,23 @@
  *
  */
 
-#include <app_i18n.h>
+#ifndef OPTION_ITEM_H
+#define OPTION_ITEM_H
 
-#include "View/MainView/MoreOption.h"
+#include "View/Widgets/BaseListItems.h"
 
-namespace MainView {
+namespace Widgets {
 
-	char *MoreOption::getText(const char *part)
-	{
-		if (strcmp(part, "elm.text") == 0) {
-			return strdup(_("IDS_COM_BODY_MORE"));
-		}
+	class OptionItem : public DoubleTextItem {
+	protected:
+		OptionItem();
+		virtual ~OptionItem() {}
+		virtual Elm_Genlist_Item_Class *getItemClass() override;
+		virtual char *getText(const char *part) override;
 
-		return nullptr;
-	}
+	private:
+		friend class WidgetItem;
+	};
 }
+
+#endif /* OPTION_ITEM_H */

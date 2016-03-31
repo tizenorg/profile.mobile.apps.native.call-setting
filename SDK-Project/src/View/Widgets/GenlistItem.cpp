@@ -21,56 +21,89 @@
 namespace Widgets {
 
 	GenlistItem::GenlistItem() :
-		WidgetItem(),
-		m_pItemClass(nullptr),
-		m_onSelectHandler()
+		WidgetItem()
 	{
 	}
 
 	GenlistItem::~GenlistItem()
 	{
-		if (m_pItemClass) {
-			elm_genlist_item_class_free(m_pItemClass);
+	}
+
+	void GenlistItem::update()
+	{
+		if (m_pEOItem) {
+			elm_genlist_item_update(m_pEOItem);
 		}
 	}
 
-	bool GenlistItem::initialize(Genlist &list, ItemAddMethod itemAdd)
+	void GenlistItem::update(const char *parts, int updateFlag)
 	{
-		RETVM_IF(m_pEOItem, false, "Second initialize of WidgetItem is forbidden");
-		RETVM_IF(!itemAdd, false, "Invalid fabric method");
-
-		m_pEOItem = itemAdd(list, this);
+		RETM_IF(!parts, "Invalid args");
+		RETM_IF(!updateFlag, "Invalid args");
 
 		if (m_pEOItem) {
-			return true;
-		}
+				int itemFieldType = 0;
+				if (updateFlag & GL_PART_TYPE_TEXT) {
+					itemFieldType |= ELM_GENLIST_ITEM_FIELD_TEXT;
+				}
 
-		return false;
+				if (updateFlag & GL_PART_TYPE_CONTENT) {
+					itemFieldType |= ELM_GENLIST_ITEM_FIELD_CONTENT;
+				}
+
+				if (updateFlag & GL_PART_TYPE_STATE) {
+					itemFieldType |= ELM_GENLIST_ITEM_FIELD_STATE;
+				}
+
+				if (itemFieldType) {
+					elm_genlist_item_fields_update(m_pEOItem, parts,
+							static_cast<Elm_Genlist_Item_Field_Type>(itemFieldType));
+				}
+		}
 	}
 
-	bool GenlistItem::initialize(Genlist &list, GenlistItem &parentItem, ItemInsertMethod itemInsert)
+	void GenlistItem::setSelectHandler(NotiHandler handler)
 	{
-		RETVM_IF(m_pEOItem, false, "Second initialize of WidgetItem is forbidden");
-		RETVM_IF(!itemInsert, false, "Invalid fabric method");
-
-		m_pEOItem = itemInsert(list, parentItem, this);
-
-		if (m_pEOItem) {
-			return true;
-		}
-
-		return false;
+		m_selectHandler = handler;
 	}
 
-	void GenlistItem::setSelectHandler(NotifyHandler handler)
+	void GenlistItem::setSelectionMode(ItemSelectionMode mode)
 	{
-		m_onSelectHandler = handler;
+		RETM_IF(!m_pEOItem, "Object is null");
+
+		switch(mode) {
+		case GENLIST_ITEM_SELECT_MODE_ONCE:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_DEFAULT);
+			break;
+		case GENLIST_ITEM_SELECT_MODE_ALWAYS:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_ALWAYS);
+			break;
+		case GENLIST_ITEM_SELECT_MODE_NONE:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_NONE);
+			break;
+		}
+	}
+
+	bool GenlistItem::initialize(ItemAddMethod createItem, ItemSelectionMode itemSelectMode)
+	{
+		m_pEOItem = createItem(this);
+		if (!m_pEOItem) {
+			return false;
+		}
+
+		setSelectionMode(itemSelectMode);
+		return true;
 	}
 
 	Elm_Genlist_Item_Class *GenlistItem::getItemClass()
 	{
 		static Elm_Genlist_Item_Class itc = createItemClass("type1");
 		return &itc;
+	}
+
+	GenlistItem *GenlistItem::fromData(void *data)
+	{
+		return static_cast<GenlistItem *>(static_cast<WidgetItem *>(data));
 	}
 
 	Elm_Genlist_Item_Class GenlistItem::createItemClass(const char *style)
@@ -80,15 +113,18 @@ namespace Widgets {
 		itc.decorate_item_style = NULL;
 		itc.decorate_all_item_style = NULL;
 		itc.func.text_get = [](void *data, Evas_Object *obj, const char *part) -> char * {
-				return static_cast<GenlistItem *>(data)->getText(part);
+				RETVM_IF(!data, nullptr, "Data is null!");
+				return fromData(data)->getText(part);
 			};
 
 		itc.func.content_get = [](void *data, Evas_Object *obj, const char *part) -> Evas_Object * {
-				return static_cast<GenlistItem *>(data)->getContent(part);
+				RETVM_IF(!data, nullptr, "Data is null!");
+				return fromData(data)->getContent(obj, part);
 			};
 
 		itc.func.state_get = [](void *data, Evas_Object *obj, const char *part) -> Eina_Bool {
-				return static_cast<GenlistItem *>(data)->getState(part);
+				RETVM_IF(!data, false, "Data is null!");
+				return fromData(data)->getState(part);
 			};
 
 		itc.func.del = NULL;
@@ -99,8 +135,8 @@ namespace Widgets {
 	{
 		elm_genlist_item_selected_set(m_pEOItem, EINA_FALSE);
 
-		if (m_onSelectHandler.assigned()) {
-			m_onSelectHandler();
+		if (m_selectHandler.assigned()) {
+			m_selectHandler();
 		}
 	}
 }

@@ -237,37 +237,37 @@ void SettingsManager::invokePropertyHandlers(const char *vconfKey)
 	collection->invoke();
 }
 
-ResultCode SettingsManager::addPropertyHandler(IntKey key, NotifyHandler handler)
+ResultCode SettingsManager::addPropertyHandler(IntKey key, NotiHandler handler)
 {
 	return addHandlerImpl(key, handler);
 }
 
-ResultCode SettingsManager::addPropertyHandler(BoolKey key, NotifyHandler handler)
+ResultCode SettingsManager::addPropertyHandler(BoolKey key, NotiHandler handler)
 {
 	return addHandlerImpl(key, handler);
 }
 
-ResultCode SettingsManager::addPropertyHandler(StringKey key, NotifyHandler handler)
+ResultCode SettingsManager::addPropertyHandler(StringKey key, NotiHandler handler)
 {
 	return addHandlerImpl(key, handler);
 }
 
-void SettingsManager::removePropertyHandler(IntKey key, NotifyHandler handler)
+void SettingsManager::removePropertyHandler(IntKey key, NotiHandler handler)
 {
 	removeHandlerImpl(key, handler);
 }
 
-void SettingsManager::removePropertyHandler(BoolKey key, NotifyHandler handler)
+void SettingsManager::removePropertyHandler(BoolKey key, NotiHandler handler)
 {
 	removeHandlerImpl(key, handler);
 }
 
-void SettingsManager::removePropertyHandler(StringKey key, NotifyHandler handler)
+void SettingsManager::removePropertyHandler(StringKey key, NotiHandler handler)
 {
 	removeHandlerImpl(key, handler);
 }
 
-ResultCode SettingsManager::addHandlerImpl(int key, NotifyHandler handler)
+ResultCode SettingsManager::addHandlerImpl(int key, NotiHandler handler)
 {
 	auto it = m_handlersMap.find(key);
 	if (it == m_handlersMap.end()) {
@@ -284,7 +284,7 @@ ResultCode SettingsManager::addHandlerImpl(int key, NotifyHandler handler)
 	return SETTINGS_RES_SUCCESS;
 }
 
-void SettingsManager::removeHandlerImpl(int key, NotifyHandler handler)
+void SettingsManager::removeHandlerImpl(int key, NotiHandler handler)
 {
 	auto it = m_handlersMap.find(key);
 	if (it != m_handlersMap.end()) {

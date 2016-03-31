@@ -32,7 +32,7 @@ namespace Widgets {
 		static WIDGET_TYPE *create(TYPE_ARGS&&... args);
 
 		static void destroy(Widget *widget);
-		void setDestroyHandler(NotifyHandler handler);
+		void setDestroyHandler(NotiHandler handler);
 		Evas_Object *getEvasObject() const;
 
 	protected:
@@ -44,11 +44,11 @@ namespace Widgets {
 		Evas_Object *m_pEvasObject;
 
 	private:
-		static void prepare(Widget *widget);
+		static bool prepare(Widget *widget);
 		void onEvasObjectDelBase(Evas *e, Evas_Object *obj, void *event_info);
 
 	private:
-		NotifyHandler m_destroyHandler;
+		NotiHandler m_destroyHandler;
 		bool m_isDestroying;
 		bool m_isOwner;
 	};
@@ -63,13 +63,12 @@ namespace Widgets {
 	WIDGET_TYPE *Widget::create(TYPE_ARGS&&... args)
 	{
 		WIDGET_TYPE *instance = new WIDGET_TYPE();
-		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...) || !instance->m_pEvasObject) {
+		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...) || !prepare(instance)) {
 			ERR("Failed to create Widget instance!");
 			Widget::destroy(instance);
 			return nullptr;
 		}
 
-		prepare(instance);
 		return instance;
 	}
 }
