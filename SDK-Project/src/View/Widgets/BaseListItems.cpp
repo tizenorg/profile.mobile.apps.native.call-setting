@@ -24,8 +24,7 @@ namespace Widgets {
 	{
 	}
 
-	bool SimpleTextItem::initialize(ItemAddMethod createItem, const char *text, bool isLocalized,
-			ItemSelectionMode selectMode)
+	bool SimpleTextItem::initialize(ItemAddMethod createItem, const char *text, bool isLocalized, ItemSelectionMode selectMode)
 	{
 		if (text) {
 			m_text.assign(text);
