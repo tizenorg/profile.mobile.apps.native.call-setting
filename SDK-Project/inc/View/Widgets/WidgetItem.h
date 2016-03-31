@@ -37,7 +37,7 @@ namespace Widgets {
 		WidgetItem();
 		virtual ~WidgetItem();
 		virtual void onElmObjectItemDel() {};
-		static void prepare(WidgetItem *widgetItem);
+		static bool prepare(WidgetItem *widgetItem);
 
 	protected:
 		Elm_Object_Item *m_pEOItem;
@@ -55,13 +55,12 @@ namespace Widgets {
 	{
 		ITEM_TYPE *instance = new ITEM_TYPE();
 
-		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...)) {
+		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...) || !prepare(instance)) {
 			ERR("Failed to create WidgetItem instance instance!");
 			delete instance;
 			return nullptr;
 		}
 
-		prepare(instance);
 		return instance;
 	}
 }

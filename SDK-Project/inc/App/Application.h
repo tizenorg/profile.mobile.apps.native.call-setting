@@ -38,11 +38,11 @@ namespace App {
 		void onAppPause();
 		void onAppResume();
 		void onAppControl(app_control_h request);
-		void onDestroyRequest(ViewController *controller);
+		void onDestroyRequest();
 
 	private:
 		AppCore *m_pAppCore;
-		MainViewController *m_pMainViewController;
+		ViewController *m_pMainViewController;
 
 	};
 }

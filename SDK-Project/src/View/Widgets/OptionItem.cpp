@@ -15,28 +15,38 @@
  *
  */
 
-#include <app_i18n.h>
 
-#include "View/MainView/RejectMsgOption.h"
 
-namespace MainView {
+#include "View/Widgets/OptionItem.h"
 
-	Elm_Genlist_Item_Class *RejectMsgOption::getItemClass()
+namespace Widgets {
+
+	OptionItem::OptionItem() :
+		TwoLineTextItem()
+	{
+	}
+
+	Elm_Genlist_Item_Class *OptionItem::getItemClass()
 	{
 		static Elm_Genlist_Item_Class itc = createItemClass("multiline");
 		return &itc;
 	}
 
-	char *RejectMsgOption::getText(const char *part)
+	bool OptionItem::initialize(GenlistItem::ItemAddMethod createItem, const char *text, const char *subText,
+			bool isTextLocalized, bool isSubTextLocalized)
 	{
-		if (strcmp(part, "elm.text") == 0) {
-			return strdup(_("IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"));
-		} else if (strcmp(part, "elm.text.multiline") == 0) {
-			return strdup(_("IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"));
+		return TwoLineTextItem::initialize(createItem, text, subText, isTextLocalized, isSubTextLocalized);
+	}
+
+	char *OptionItem::getText(const char *part)
+	{
+		if (strcmp(part, "elm.text") == 0 && !m_text.empty()) {
+			return makeTextLabel(m_text, m_isTextLocalized);
+		} else if (strcmp(part, "elm.text.multiline") == 0 && !m_subText.empty()) {
+			return makeTextLabel(m_subText, m_isSubTextLocalized);
 		}
 
 		return nullptr;
-
 	}
 
 }
