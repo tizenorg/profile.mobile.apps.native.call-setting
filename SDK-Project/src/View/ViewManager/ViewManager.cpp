@@ -185,8 +185,8 @@ namespace View {
 		elm_naviframe_item_pop(m_pNaviframe);
 		m_ViewList.pop_front();
 		isTransitionState = true;
-		m_ViewEventHandlers.invoke(VIEW_CHANGE_BEGIN);
 
+		m_ViewEventHandlers.invoke(VIEW_CHANGE_BEGIN);
 		return true;
 	}
 

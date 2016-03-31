@@ -21,56 +21,76 @@
 namespace Widgets {
 
 	GenlistItem::GenlistItem() :
-		WidgetItem(),
-		m_pItemClass(nullptr),
-		m_onSelectHandler()
+		WidgetItem()
 	{
 	}
 
 	GenlistItem::~GenlistItem()
 	{
-		if (m_pItemClass) {
-			elm_genlist_item_class_free(m_pItemClass);
-		}
 	}
 
-	bool GenlistItem::initialize(Genlist &list, ItemAddMethod itemAdd)
+	void GenlistItem::update(const char *parts, int updateFlag)
 	{
-		RETVM_IF(m_pEOItem, false, "Second initialize of WidgetItem is forbidden");
-		RETVM_IF(!itemAdd, false, "Invalid fabric method");
-
-		m_pEOItem = itemAdd(list, this);
+		RETM_IF(!parts, "Invalid args!");
 
 		if (m_pEOItem) {
-			return true;
+			if (parts && updateFlag) {
+				if (updateFlag & GENLIST_ITEM_FIELD_TEXT) {
+					elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_TEXT);
+				}
+
+				if (updateFlag & GENLIST_ITEM_FIELD_CONTENT) {
+					elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_CONTENT);
+				}
+
+				if (updateFlag & GENLIST_ITEM_FIELD_STATE) {
+					elm_genlist_item_fields_update(m_pEOItem, parts, ELM_GENLIST_ITEM_FIELD_STATE);
+				}
+			} else {
+				elm_genlist_item_update(m_pEOItem);
+			}
 		}
-
-		return false;
-	}
-
-	bool GenlistItem::initialize(Genlist &list, GenlistItem &parentItem, ItemInsertMethod itemInsert)
-	{
-		RETVM_IF(m_pEOItem, false, "Second initialize of WidgetItem is forbidden");
-		RETVM_IF(!itemInsert, false, "Invalid fabric method");
-
-		m_pEOItem = itemInsert(list, parentItem, this);
-
-		if (m_pEOItem) {
-			return true;
-		}
-
-		return false;
 	}
 
 	void GenlistItem::setSelectHandler(NotifyHandler handler)
 	{
-		m_onSelectHandler = handler;
+		m_selectHandler = handler;
+	}
+
+	void GenlistItem::setSelectionMode(ItemSelectionMode mode)
+	{
+		RETM_IF(!m_pEOItem, "Object is null");
+
+		switch(mode) {
+		case GENLIST_ITEM_SELECT_MODE_ONCE:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_DEFAULT);
+			break;
+		case GENLIST_ITEM_SELECT_MODE_ALWAYS:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_ALWAYS);
+			break;
+		case GENLIST_ITEM_SELECT_MODE_NONE:
+			elm_genlist_item_select_mode_set(m_pEOItem, ELM_OBJECT_SELECT_MODE_NONE);
+			break;
+		}
+	}
+
+	bool GenlistItem::initialize(ItemSelectionMode itemSelectMode)
+	{
+		RETVM_IF(!m_pEOItem, false, "Object is null");
+
+		setSelectionMode(itemSelectMode);
+		return true;
 	}
 
 	Elm_Genlist_Item_Class *GenlistItem::getItemClass()
 	{
 		static Elm_Genlist_Item_Class itc = createItemClass("type1");
 		return &itc;
+	}
+
+	GenlistItem *GenlistItem::fromData(void *data)
+	{
+		return static_cast<GenlistItem *>(static_cast<WidgetItem *>(data));
 	}
 
 	Elm_Genlist_Item_Class GenlistItem::createItemClass(const char *style)
@@ -80,15 +100,18 @@ namespace Widgets {
 		itc.decorate_item_style = NULL;
 		itc.decorate_all_item_style = NULL;
 		itc.func.text_get = [](void *data, Evas_Object *obj, const char *part) -> char * {
-				return static_cast<GenlistItem *>(data)->getText(part);
+				RETVM_IF(!data, nullptr, "Data is null!");
+				return fromData(data)->getText(part);
 			};
 
 		itc.func.content_get = [](void *data, Evas_Object *obj, const char *part) -> Evas_Object * {
-				return static_cast<GenlistItem *>(data)->getContent(part);
+				RETVM_IF(!data, nullptr, "Data is null!");
+				return fromData(data)->getContent(obj, part);
 			};
 
 		itc.func.state_get = [](void *data, Evas_Object *obj, const char *part) -> Eina_Bool {
-				return static_cast<GenlistItem *>(data)->getState(part);
+				RETVM_IF(!data, false, "Data is null!");
+				return fromData(data)->getState(part);
 			};
 
 		itc.func.del = NULL;
@@ -99,8 +122,8 @@ namespace Widgets {
 	{
 		elm_genlist_item_selected_set(m_pEOItem, EINA_FALSE);
 
-		if (m_onSelectHandler.assigned()) {
-			m_onSelectHandler();
+		if (m_selectHandler.assigned()) {
+			m_selectHandler();
 		}
 	}
 }

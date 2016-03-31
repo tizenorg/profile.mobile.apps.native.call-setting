@@ -15,15 +15,12 @@
  *
  */
 
-#include "View/MainView/RejectMsgOption.h"
-#include "View/MainView/CallAceptOption.h"
-#include "View/MainView/MoreOption.h"
-
-#include "View/ViewManager/BaseView.h"
-#include "View/Widgets/Genlist.h"
-
 #ifndef MAIN_VIEW_H_
 #define MAIN_VIEW_H_
+
+#include "View/ViewManager/BaseView.h"
+#include "View/Widgets/OptionItem.h"
+#include "View/Widgets/Genlist.h"
 
 namespace MainView {
 
@@ -42,9 +39,9 @@ namespace MainView {
 
 	private:
 		Widgets::Genlist *m_pGenlist;
-		RejectMsgOption *m_pRejectMsgOption;
-		CallAceptOption *m_pCallAceptOption;
-		MoreOption *m_pMoreOption;
+		Widgets::OptionItem *m_pRejectMsgOption;
+		Widgets::OptionItem *m_pCallAceptOption;
+		Widgets::OptionItem *m_pMoreOption;
 	};
 }
 

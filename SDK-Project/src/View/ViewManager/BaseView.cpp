@@ -47,8 +47,8 @@ namespace View {
 		}
 
 		m_pNaviItem->setContent(*m_pViewLayout);
-		m_pNaviItem->setDestroyHandler(makeHandler(NotifyHandler, BaseView, onNaviItemDestroy, this));
-		m_pViewLayout->setDestroyHandler(makeHandler(NotifyHandler, BaseView, onViewLayoutDestroy, this));
+		m_pNaviItem->setDestroyHandler(NotifyHandler::wrap<BaseView, &BaseView::onNaviItemDestroy>(this));
+		m_pViewLayout->setDestroyHandler(NotifyHandler::wrap<BaseView, &BaseView::onViewLayoutDestroy>(this));
 
 		return true;
 	}
@@ -85,6 +85,7 @@ namespace View {
 	void BaseView::onNaviItemDestroy()
 	{
 		m_pNaviItem = nullptr;
+
 		if (m_pViewLayout) {
 			Widget::destroy(m_pViewLayout);
 			m_pViewLayout = nullptr;
@@ -98,6 +99,16 @@ namespace View {
 	void BaseView::onViewLayoutDestroy()
 	{
 		m_pViewLayout = nullptr;
+	}
+
+	void BaseView::enableInputEvents()
+	{
+		evas_object_freeze_events_set(m_pViewLayout->getEvasObject(), EINA_FALSE);
+	}
+
+	void BaseView::disableInputEvents()
+	{
+		evas_object_freeze_events_set(m_pViewLayout->getEvasObject(), EINA_TRUE);
 	}
 
 }

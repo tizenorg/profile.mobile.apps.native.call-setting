@@ -22,52 +22,46 @@
 #include "Utils/Common.h"
 
 namespace Controller {
-	using namespace App;
-	using namespace View;
-
-	class ViewController;
-	typedef Delegate<void(ViewController *)> DestroyRequestHandler;
 
 	class ViewController : private NonCopyable {
 	public:
-		template <class ViewController>
-		static ViewController *create(App::AppCore &core, DestroyRequestHandler handler);
+		template <typename CONTROLLER_T, typename APP_T, typename ...TYPE_ARGS>
+		static CONTROLLER_T *create(APP_T &app, NotifyHandler handler, TYPE_ARGS&&... args);
+
 		virtual ~ViewController();
 		void makeDestroyReqeuest();
 
 	protected:
 		typedef enum {
-			UPDATE_LANGUAGE = 1,
-			UPDATE_REGION_FORMAT = 2,
-			UPDATE_ORIENTATION = 4,
+			UF_INITIAL = 1,
+			UF_LANGUAGE = 2,
+			UF_REGION_FORMAT = 4,
+			UF_ORIENTATION = 8,
+			UF_WAS_PAUSED = 16,
 		} UpdateFlag;
 
-		ViewController (AppCore &core, DestroyRequestHandler handler);
-		bool initialize();
-		void finalize();
-		virtual bool createView() { return false;}
+		ViewController (App::AppCore &core, NotifyHandler destroyHandler);
 		virtual void onShow() {}
 		virtual void onHide() {}
-		virtual void onUpdate(int updateFlag) {}
+		virtual void updateView(int updateFlag) {}
 		virtual void onActivate() {}
 		virtual void onDeactivate() {}
 		virtual void onMenuKeyPressed() {}
 		virtual void onBackKeyPressed() {}
+		bool initialize();
+		void setBaseView(View::BaseView *view);
 
 	protected:
 		App::AppCore &m_Core;
-		DestroyRequestHandler m_destroyRequestHandler;
-		View::BaseView *m_pView;
-
-	private:
+		NotifyHandler m_destroyRequestHandler;
 		bool m_isActivated;
 		bool m_isVisible;
 		bool m_isDestroying;
 		int m_updateFlag;
 
 	private:
-		void onSystemEvent(SystemEvent event);
-		void onViewEvent(ViewEvent event);
+		void onSystemEvent(App::SystemEvent event);
+		void onViewEvent(View::ViewEvent event);
 
 		void handleViewChangeBegin();
 		void handleViewChangeEnd();
@@ -81,13 +75,17 @@ namespace Controller {
 		void doDeactivate();
 		void doShow();
 		void doHide();
+
+	private:
+		View::BaseView *m_pView;
+
 	};
 
-	template <class CONTROLLER_TYPE>
-	CONTROLLER_TYPE *ViewController::create(AppCore &core, DestroyRequestHandler handler)
+	template <typename CONTROLLER_T, typename APP_T, typename ...TYPE_ARGS>
+	CONTROLLER_T *ViewController::create(APP_T &app, NotifyHandler handler, TYPE_ARGS&&... args)
 	{
-		CONTROLLER_TYPE *instance = new CONTROLLER_TYPE(core, handler);
-		if (!instance->initialize()) {
+		CONTROLLER_T *instance = new CONTROLLER_T(app, handler);
+		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...)) {
 			ERR("Failed to create controller instance!");
 			delete instance;
 			return nullptr;
