@@ -15,22 +15,25 @@
  *
  */
 
-#include "View/Widgets/GenlistItem.h"
+#ifndef OPTION_ITEM_H
+#define OPTION_ITEM_H
 
-#ifndef REJECT_MSG_OPTION_H_
-#define REJECT_MSG_OPTION_H_
+#include "View/Widgets/BaseListItems.h"
 
-namespace MainView {
+namespace Widgets {
 
-	class RejectMsgOption : public Widgets::GenlistItem {
-	public:
-		RejectMsgOption() {};
-		virtual ~RejectMsgOption() {};
+	class OptionItem : public TwoLineTextItem {
+	protected:
+		OptionItem();
+		virtual ~OptionItem() {}
 		virtual Elm_Genlist_Item_Class *getItemClass() override;
+		virtual char *getText(const char *part) override;
+		bool initialize(ItemAddMethod createItem, const char *text = nullptr, const char *subText = nullptr,
+								bool isTextLocalized = true, bool isSubTextLocalized = true);
 
 	private:
-		virtual char *getText(const char *part) override;
+		friend class WidgetItem;
 	};
 }
 
-#endif /* REJECT_MSG_OPTION_H_ */
+#endif /* OPTION_ITEM_H */

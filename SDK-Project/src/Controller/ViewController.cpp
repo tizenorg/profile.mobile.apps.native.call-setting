@@ -21,20 +21,36 @@
 
 namespace Controller {
 
-	ViewController::ViewController(AppCore &core, DestroyRequestHandler handler) :
+	using namespace App;
+	using namespace View;
+
+	ViewController::ViewController(App::AppCore &core, NotifyHandler handler) :
 		m_Core (core),
 		m_destroyRequestHandler(handler),
-		m_pView(nullptr),
 		m_isActivated(false),
 		m_isVisible(false),
 		m_isDestroying(false),
-		m_updateFlag(0)
+		m_updateFlag(0),
+		m_pView(nullptr)
 	{
 	}
 
 	ViewController::~ViewController()
 	{
-		finalize();
+		m_Core.getSystemEventManager().removeSystemEventHandler(
+				makeHandler(SystemEventHandler, ViewController, onSystemEvent, this));
+
+		m_Core.getViewManager().removeViewEventHandler(
+				makeHandler(ViewEventHandler, ViewController, onViewEvent, this));
+
+		RETM_IF(!m_pView, "View is nullptr, abort View destroying");
+
+		ViewManager &viewManager = m_Core.getViewManager();
+		if(viewManager.isTopView(m_pView)) {
+			viewManager.popView();
+		} else {
+			BaseView::destroy(m_pView);
+		}
 	}
 
 	bool ViewController::initialize()
@@ -45,27 +61,25 @@ namespace Controller {
 		m_Core.getViewManager().addViewEventHandler(
 				makeHandler(ViewEventHandler, ViewController, onViewEvent, this));
 
-		return createView();
+		m_updateFlag |= UF_INITIAL;
+
+		return true;
 	}
 
-	void ViewController::finalize()
+	void ViewController::setBaseView(View::BaseView *view)
 	{
-		m_Core.getSystemEventManager().removeSystemEventHandler(
-				makeHandler(SystemEventHandler, ViewController, onSystemEvent, this));
-
-		m_Core.getViewManager().removeViewEventHandler(
-				makeHandler(ViewEventHandler, ViewController, onViewEvent, this));
+		m_pView = view;
 	}
 
 	void ViewController::onSystemEvent(SystemEvent event)
 	{
 		switch(event) {
 		case SYS_EVENT_LANGUAGE_CHANGE:
-			m_updateFlag &= UPDATE_LANGUAGE;
+			m_updateFlag |= UF_LANGUAGE;
 			doUpdate();
 			break;
 		case SYS_EVENT_REGION_FMT_CHANGE:
-			m_updateFlag &= UPDATE_REGION_FORMAT;
+			m_updateFlag |= UF_REGION_FORMAT;
 			doUpdate();
 			break;
 		case SYS_EVENT_PAUSE:
@@ -93,7 +107,7 @@ namespace Controller {
 			handleBackKeyPress();
 			break;
 		case ORIENTATION_CHANGED:
-			m_updateFlag &= UPDATE_ORIENTATION;
+			m_updateFlag |= UF_ORIENTATION;
 			doUpdate();
 			break;
 		}
@@ -105,6 +119,8 @@ namespace Controller {
 			doDeactivate();
 			doHide();
 		}
+
+		m_updateFlag |= UF_WAS_PAUSED;
 	}
 
 	void ViewController::doResume()
@@ -137,6 +153,7 @@ namespace Controller {
 	{
 		if (!m_isActivated && !m_isDestroying) {
 			m_isActivated = true;
+			m_pView->enableInputEvents();
 			onActivate();
 		}
 	}
@@ -145,6 +162,7 @@ namespace Controller {
 	{
 		if (m_isActivated) {
 			m_isActivated = false;
+			m_pView->disableInputEvents();
 			onDeactivate();
 		}
 	}
@@ -170,7 +188,7 @@ namespace Controller {
 	void ViewController::doUpdate()
 	{
 		if (m_updateFlag && m_isVisible && !m_isDestroying) {
-			onUpdate(m_updateFlag);
+			updateView(m_updateFlag);
 			m_updateFlag = 0;
 		}
 	}
@@ -192,7 +210,8 @@ namespace Controller {
 	void ViewController::makeDestroyReqeuest()
 	{
 		m_isDestroying = true;
-		m_destroyRequestHandler(this);
+		if (m_destroyRequestHandler.assigned()) {
+			m_destroyRequestHandler();
+		}
 	}
-
 }

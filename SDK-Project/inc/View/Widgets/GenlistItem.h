@@ -27,9 +27,27 @@ namespace Widgets {
 
 	class Genlist;
 	class GenlistItem : public WidgetItem {
+
 	public:
-		void setSelectHandler(NotifyHandler handler);
+	typedef enum {
+		GENLIST_ITEM_FIELD_TEXT = 1,
+		GENLIST_ITEM_FIELD_CONTENT = 2,
+		GENLIST_ITEM_FIELD_STATE = 4,
+	} GenlistPartType;
+
+	typedef enum {
+		GENLIST_ITEM_SELECT_MODE_ONCE, /*Item is selected only once, select callback calls only once*/
+		GENLIST_ITEM_SELECT_MODE_ALWAYS, /*Item selected callbacks will be called every time for click events*/
+		GENLIST_ITEM_SELECT_MODE_NONE, /*Item never be selected and no callback will be invoked*/
+	} ItemSelectionMode;
+
+	typedef std::function<Elm_Object_Item *(GenlistItem *item)> ItemAddMethod;
+
+	public:
 		virtual Elm_Genlist_Item_Class *getItemClass();
+		void setSelectHandler(NotifyHandler handler);
+		void setSelectionMode(ItemSelectionMode mode);
+		void update(const char *parts = nullptr, int updateFlag = 0);
 
 	protected:
 		GenlistItem();
@@ -38,23 +56,17 @@ namespace Widgets {
 		virtual void onRealized() {}
 		virtual void onUnrealized() {}
 		virtual char *getText(const char *part) {return nullptr;}
-		virtual Evas_Object *getContent(const char *part) {return nullptr;}
+		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) {return nullptr;}
 		virtual Eina_Bool getState(const char *part) {return EINA_FALSE;}
 		Elm_Genlist_Item_Class createItemClass(const char *style = "default");
+		bool initialize(ItemSelectionMode itemSelectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 
 	private:
-		friend class WidgetItem;
 		friend class Genlist;
-
-		typedef std::function<Elm_Object_Item *(Genlist &list, GenlistItem *item)> ItemAddMethod;
-		bool initialize(Genlist &list, ItemAddMethod createItem);
-
-		typedef std::function<Elm_Object_Item *(Genlist &list, GenlistItem &parentItem, GenlistItem *item)> ItemInsertMethod;
-		bool initialize(Genlist &list, GenlistItem &parentItem, ItemInsertMethod createItem);
+		static GenlistItem *fromData(void *data);
 
 	private:
-		Elm_Genlist_Item_Class *m_pItemClass;
-		NotifyHandler m_onSelectHandler;
+		NotifyHandler m_selectHandler;
 	};
 }
 #endif /* GENLIST_ITEM_H_ */

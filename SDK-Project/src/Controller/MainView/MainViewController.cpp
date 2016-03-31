@@ -16,43 +16,54 @@
  */
 
 #include "Controller/MainView/MainViewController.h"
-#include "View/MainView/MainView.h"
-#include "View/ViewManager/ViewManager.h"
 
-namespace Controller {
+namespace MainController {
 
-	MainViewController::MainViewController (App::AppCore &core, DestroyRequestHandler handler) :
-			ViewController(core, handler)
+	using namespace App;
+	using namespace View;
+
+	MainViewController::MainViewController (AppCore &core, NotifyHandler handler) :
+			ViewController(core, handler),
+			m_appCore(core),
+			m_pMainView(nullptr)
 	{
 	}
 
-	bool MainViewController::createView()
+	bool MainViewController::initialize()
 	{
-		m_pView = ViewManager::pushView<MainView::MainView>(m_Core.getViewManager(), true);
-		RETVM_IF(!m_pView, false, "Failed to create MainView");
+		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
+		
+		m_pMainView = ViewManager::pushView<MainView::MainView>(m_appCore.getViewManager(), true);
+		RETVM_IF(!m_pMainView, false, "Failed to create view");
 
-		MainView::MainView *view = dynamic_cast<MainView::MainView *>(m_pView);
-		view->setRejectMsgHandler(makeNotifyHandler(MainViewController, onRejectMsgClick, this));
-		view->setCallAceptHandler(makeNotifyHandler(MainViewController, onCallAceptClick, this));
-		view->setMoreHandler(makeNotifyHandler(MainViewController, onMoreClick, this));
-
+		setBaseView(m_pMainView);
 		return true;
+	}
+
+	void MainViewController::updateView(int updateFlag)
+	{
+		if (updateFlag & UF_INITIAL) {
+			m_pMainView->setRejectMsgHandler(
+					NotifyHandler::wrap<MainViewController, &MainViewController::onRejectMsgClick>(this));
+			m_pMainView->setCallAceptHandler(
+					NotifyHandler::wrap<MainViewController, &MainViewController::onCallAnsweringClick>(this));
+			m_pMainView->setMoreHandler(
+					NotifyHandler::wrap<MainViewController, &MainViewController::onMoreClick>(this));
+		}
 	}
 
 	void MainViewController::onBackKeyPressed()
 	{
-		if (m_destroyRequestHandler.assigned()) {
-			m_destroyRequestHandler(this);
-		}
+		makeDestroyReqeuest();
 	}
 
-	/*TODO Child view creation will be added here */
 	void MainViewController::onRejectMsgClick()
 	{
 		DBG("Reject message option selected");
+
 	}
 
-	void MainViewController::onCallAceptClick()
+	void MainViewController::onCallAnsweringClick()
 	{
 		DBG("Answer/End call option selected");
 	}
@@ -61,4 +72,9 @@ namespace Controller {
 	{
 		DBG("More option selected");
 	}
+
+	void MainViewController::onAnswerControllerDestroy()
+	{
+	}
+
 }

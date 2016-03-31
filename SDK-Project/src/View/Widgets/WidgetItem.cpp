@@ -26,6 +26,15 @@ namespace Widgets {
 	{
 	}
 
+	WidgetItem::~WidgetItem()
+	{
+		elm_object_item_del(m_pEOItem);
+
+		if (m_destroyHandler.assigned()) {
+			m_destroyHandler();
+		}
+	}
+
 	void WidgetItem::destroy(WidgetItem *item)
 	{
 		if (item) {
@@ -37,27 +46,26 @@ namespace Widgets {
 	void WidgetItem::onElmObjectItemDelBase(Evas_Object *obj, void *event_info)
 	{
 		m_pEOItem = nullptr;
-		onElmObjectItemDel();
 		if (! m_isDestroying) {
 			delete this;
 		}
 	}
 
-	void WidgetItem::prepare(WidgetItem *widgetItem)
+	bool WidgetItem::prepare(WidgetItem *widgetItem)
 	{
-		elm_object_item_data_set(widgetItem->m_pEOItem, widgetItem);
+		WidgetItem *itemData = static_cast<WidgetItem *>(elm_object_item_data_get(widgetItem->m_pEOItem));
+
+		if (!itemData) {
+			elm_object_item_data_set(widgetItem->m_pEOItem, widgetItem);
+		} else if (itemData != widgetItem) {
+			ERR("Item data pointer is not set!");
+			return false;
+		}
+
 		elm_object_item_del_cb_set(widgetItem->m_pEOItem,
 			makeEvasSmartCb(WidgetItem, &WidgetItem::onElmObjectItemDelBase));
 
-	}
-
-	WidgetItem::~WidgetItem()
-	{
-		elm_object_item_del(m_pEOItem);
-
-		if (m_destroyHandler.assigned()) {
-			m_destroyHandler();
-		}
+		return true;
 	}
 
 	Elm_Object_Item *WidgetItem::getElmObjectItem()
