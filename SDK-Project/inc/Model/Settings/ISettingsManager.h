@@ -15,33 +15,32 @@
  *
  */
 
-#ifndef I_SETTINGS_MANAGER_H_
-#define I_SETTINGS_MANAGER_H_
+#ifndef _MODEL_I_SETTINGS_MANAGER_H_
+#define _MODEL_I_SETTINGS_MANAGER_H_
 
-#include <string>
-#include "Model/Settings/SettingsTypes.h"
+#include "SettingsTypes.h"
 
-namespace Model { namespace Settings {
+namespace CallSettings { namespace Model {
+
 	class ISettingsManager {
 	public:
-
 		virtual ~ISettingsManager(){}
 
-		virtual ResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) = 0;
-		virtual ResultCode addPropertyHandler(IntKey key, NotifyHandler handler) = 0;
-		virtual ResultCode addPropertyHandler(StringKey key, NotifyHandler handler) = 0;
+		virtual SettingResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) = 0;
+		virtual SettingResultCode addPropertyHandler(IntKey key, NotifyHandler handler) = 0;
+		virtual SettingResultCode addPropertyHandler(StringKey key, NotifyHandler handler) = 0;
 
 		virtual void removePropertyHandler(BoolKey key, NotifyHandler handler) = 0;
 		virtual void removePropertyHandler(IntKey key, NotifyHandler handler) = 0;
 		virtual void removePropertyHandler(StringKey key, NotifyHandler handler) = 0;
 
-		virtual ResultCode setProperty(IntKey key, int value) = 0;
-		virtual ResultCode getProperty(IntKey key, int &value) = 0;
-		virtual ResultCode setProperty(BoolKey key, bool value) = 0;
-		virtual ResultCode getProperty(BoolKey key, bool &value) = 0;
-		virtual ResultCode setProperty(StringKey key, const std::string &value) = 0;
-		virtual ResultCode getProperty(StringKey key, std::string &value) = 0;
+		virtual SettingResultCode setProperty(IntKey key, int value) = 0;
+		virtual SettingResultCode getProperty(IntKey key, int &value) = 0;
+		virtual SettingResultCode setProperty(BoolKey key, bool value) = 0;
+		virtual SettingResultCode getProperty(BoolKey key, bool &value) = 0;
+		virtual SettingResultCode setProperty(StringKey key, const std::string &value) = 0;
+		virtual SettingResultCode getProperty(StringKey key, std::string &value) = 0;
 	};
 } }
 
-#endif /* I_SETTINGS_MANAGER_H_ */
+#endif /* _MODEL_I_SETTINGS_MANAGER_H_ */

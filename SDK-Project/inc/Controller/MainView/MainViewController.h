@@ -15,24 +15,25 @@
  *
  */
 
-#ifndef MAIN_VIEW_CONTROLLER_H_
-#define MAIN_VIEW_CONTROLLER_H_
+#ifndef _CONTROLLER_MAIN_VIEW_CONTROLLER_H_
+#define _CONTROLLER_MAIN_VIEW_CONTROLLER_H_
+
+#include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
-#include "Controller/ViewController.h"
 #include "Controller/AnswerView/AnswerViewController.h"
 #include "View/MainView/MainView.h"
 
-namespace MainController {
+namespace CallSettings { namespace Controller {
 
-	class MainViewController : public Controller::ViewController {
+	class MainViewController : public gui::ViewController {
 	protected:
 		virtual ~MainViewController();
 
 	private:
 		friend class ViewController;
 
-		MainViewController(App::Application &core, NotifyHandler handler);
+		MainViewController(Application &appCore, NotifyHandler handler);
 		virtual void onBackKeyPressed();
 		virtual void updateView(int updateFlag);
 		bool initialize();
@@ -43,10 +44,10 @@ namespace MainController {
 
 
 	private:
-		App::Application &m_appCore;
-		AnsweringController::AnswerViewController *m_pAnswerCallController;
-		MainView::MainView *m_pMainView;
+		Application &m_appCore;
+		AnswerViewController *m_pAnswerCallController;
+		View::MainView *m_pMainView;
 	};
-}
+} }
 
-#endif /* MAIN_VIEW_CONTROLLER_H_ */
+#endif /* _CONTROLLER_MAIN_VIEW_CONTROLLER_H_ */

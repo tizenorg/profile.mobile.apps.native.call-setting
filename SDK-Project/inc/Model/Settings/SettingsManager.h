@@ -15,55 +15,54 @@
  *
  */
 
-#ifndef SETTINGS_MANAGER_H_
-#define SETTINGS_MANAGER_H_
+#ifndef _MODEL_SETTINGS_MANAGER_H_
+#define _MODEL_SETTINGS_MANAGER_H_
 
-#include <map>
 #include <vconf.h>
 
-#include "Model/Settings/ISettingsManager.h"
+#include "ISettingsManager.h"
 
-namespace Model { namespace Settings {
+namespace CallSettings { namespace Model {
 
 	class SettingsManager: public ISettingsManager {
 	public:
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		virtual ResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) override;
-		virtual ResultCode addPropertyHandler(IntKey key, NotifyHandler handler) override;
-		virtual ResultCode addPropertyHandler(StringKey key, NotifyHandler handler) override;
+		virtual SettingResultCode addPropertyHandler(BoolKey key, NotifyHandler handler) override;
+		virtual SettingResultCode addPropertyHandler(IntKey key, NotifyHandler handler) override;
+		virtual SettingResultCode addPropertyHandler(StringKey key, NotifyHandler handler) override;
 
 		virtual void removePropertyHandler(BoolKey key, NotifyHandler handler) override;
 		virtual void removePropertyHandler(IntKey key, NotifyHandler handler) override;
 		virtual void removePropertyHandler(StringKey key, NotifyHandler handler) override;
 
-		virtual ResultCode setProperty(IntKey key, int value) override;
-		virtual ResultCode getProperty(IntKey key, int &value) override;
-		virtual ResultCode setProperty(BoolKey key, bool value) override;
-		virtual ResultCode getProperty(BoolKey key, bool &value) override;
-		virtual ResultCode setProperty(StringKey key, const std::string &value) override;
-		virtual ResultCode getProperty(StringKey key, std::string &value) override;
+		virtual SettingResultCode setProperty(IntKey key, int value) override;
+		virtual SettingResultCode getProperty(IntKey key, int &value) override;
+		virtual SettingResultCode setProperty(BoolKey key, bool value) override;
+		virtual SettingResultCode getProperty(BoolKey key, bool &value) override;
+		virtual SettingResultCode setProperty(StringKey key, const std::string &value) override;
+		virtual SettingResultCode getProperty(StringKey key, std::string &value) override;
 
 	private:
 		const char* convertPropertyKeyToVconfKey(int key);
 		int convertVconfKeyToPropertyKey(const char *VconfKey);
-		ResultCode getValueByVconfKey(const char *VconfKey, int &value);
-		ResultCode getValueByVconfKey(const char *VconfKey, bool &value);
-		ResultCode getValueByVconfKey(const char *VconfKey, std::string &value);
-		ResultCode registerVconfKeyChangeCb(int key);
+		SettingResultCode getValueByVconfKey(const char *VconfKey, int &value);
+		SettingResultCode getValueByVconfKey(const char *VconfKey, bool &value);
+		SettingResultCode getValueByVconfKey(const char *VconfKey, std::string &value);
+		SettingResultCode registerVconfKeyChangeCb(int key);
 		void unregisterVconfKeyChangeCb(int key);
-		ResultCode addHandlerImpl(int key, NotifyHandler handler);
+		SettingResultCode addHandlerImpl(int key, NotifyHandler handler);
 		void removeHandlerImpl(int key, NotifyHandler handler);
 		static void onVconfPropertyChangeNotifyCb(keynode_t *node, void *userData);
 		void invokePropertyHandlers(const char *vconfKey);
 
 	private:
-		typedef Delegation<void()> HandlersCollection;
+		typedef util::Delegation<void()> HandlersCollection;
 		typedef std::map<int, HandlersCollection *> HandlersMap;
 
 		HandlersMap m_handlersMap;
 	};
 } }
 
-#endif /* SETTINGSMANAGER_H_ */
+#endif /* _MODEL_SETTINGS_MANAGER_H_ */

@@ -19,5 +19,5 @@
 
 int main(int argc, char *argv[])
 {
-	return App::Application().appRun(argc, argv);
+	return CallSettings::Application().appRun(argc, argv);
 }

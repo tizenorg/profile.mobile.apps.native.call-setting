@@ -15,13 +15,14 @@
  *
  */
 
+#include "gui/Widgets/CategoryItem.h"
+
 #include "View/AnswerView/AnswerView.h"
-#include "View/Widgets/CategoryItem.h"
 
-namespace AnswerView {
-	using namespace Widgets;
+namespace CallSettings { namespace View {
+	using namespace gui;
 
-	AnswerView::AnswerView(Widgets::NaviItem *naviItem) :
+	AnswerView::AnswerView(NaviItem *naviItem) :
 		BaseView(naviItem),
 		m_pGenlist(nullptr),
 		m_pAnswerOption(nullptr),
@@ -51,4 +52,4 @@ namespace AnswerView {
 
 		return setViewContent(*m_pGenlist);
 	}
-}
+} }

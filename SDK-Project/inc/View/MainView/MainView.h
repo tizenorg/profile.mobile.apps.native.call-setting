@@ -15,16 +15,16 @@
  *
  */
 
-#ifndef MAIN_VIEW_H_
-#define MAIN_VIEW_H_
+#ifndef _VIEW_MAIN_VIEW_H_
+#define _VIEW_MAIN_VIEW_H_
 
-#include "View/ViewManager/BaseView.h"
-#include "View/Widgets/OptionItem.h"
-#include "View/Widgets/Genlist.h"
+#include "gui/Base/BaseView.h"
+#include "gui/Widgets/Genlist.h"
+#include "gui/Widgets/OptionItem.h"
 
-namespace MainView {
+namespace CallSettings { namespace View {
 
-	class MainView : public View::BaseView {
+	class MainView : public gui::BaseView {
 	public:
 		void setRejectMsgHandler(NotifyHandler handler);
 		void setCallAceptHandler(NotifyHandler handler);
@@ -33,16 +33,16 @@ namespace MainView {
 	private:
 		friend class BaseView;
 
-		MainView(Widgets::NaviItem *naviItem);
+		MainView(gui::NaviItem *naviItem);
 		virtual ~MainView();
 		virtual bool createViewContent() override;
 
 	private:
-		Widgets::Genlist *m_pGenlist;
-		Widgets::OptionItem *m_pRejectMsgOption;
-		Widgets::OptionItem *m_pCallAceptOption;
-		Widgets::OptionItem *m_pMoreOption;
+		gui::Genlist *m_pGenlist;
+		gui::OptionItem *m_pRejectMsgOption;
+		gui::OptionItem *m_pCallAceptOption;
+		gui::OptionItem *m_pMoreOption;
 	};
-}
+} }
 
-#endif /* MAIN_VIEW_H_ */
+#endif /* _VIEW_MAIN_VIEW_H_ */

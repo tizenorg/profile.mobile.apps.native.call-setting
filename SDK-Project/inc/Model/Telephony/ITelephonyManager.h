@@ -15,27 +15,29 @@
  *
  */
 
-#ifndef I_TELEPHONY_MANAGER_H_
-#define I_TELEPHONY_MANAGER_H_
+#ifndef _MODEL_I_TELEPHONY_MANAGER_H_
+#define _MODEL_I_TELEPHONY_MANAGER_H_
 
-#include "Model/Telephony/TelephonyTypes.h"
+#include "TelephonyTypes.h"
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
+
 	class SimpleRequestListener;
 	template <typename VALUE_TYPE> class RequestListener;
+
 	class ITelephonyManager {
 	public:
 		virtual ~ITelephonyManager(){}
-		virtual ResultCode requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener) = 0;
-		virtual ResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener) = 0;
-		virtual ResultCode requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener) = 0;
-		virtual ResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener) = 0;
+		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener) = 0;
+		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener) = 0;
+		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener) = 0;
+		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener) = 0;
 		virtual void cancelRequest(int requestId) = 0;
 		virtual SimCardState getSimState() = 0;
 		virtual int getSimSlotCount() = 0;
-		virtual ResultCode setActiveSlot(SimSlot slotId) = 0;
+		virtual TelResultCode setActiveSlot(SimSlot slotId) = 0;
 		virtual SimSlot getActiveSlot() = 0;
 	};
 } }
 
-#endif /* I_TELEPHONY_MANAGER_H_ */
+#endif /* _MODEL_I_TELEPHONY_MANAGER_H_ */

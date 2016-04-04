@@ -15,10 +15,11 @@
  *
  */
 
-#ifndef BASE_REQUEST_LISTENER_H_
-#define BASE_REQUEST_LISTENER_H_
+#ifndef _MODEL_BASE_REQUEST_LISTENER_H_
+#define _MODEL_BASE_REQUEST_LISTENER_H_
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
+
 	class ITelephonyManager;
 
 	class BaseRequestListener {
@@ -36,4 +37,4 @@ namespace Model { namespace Telephony {
 	};
 } }
 
-#endif /* BASE_REQUEST_LISTENER_H_ */
+#endif /* _MODEL_BASE_REQUEST_LISTENER_H_ */
