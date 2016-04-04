@@ -17,13 +17,13 @@
 
 #include "Controller/AnswerView/AnswerViewController.h"
 
-namespace AnsweringController {
+namespace CallSettings { namespace Controller {
 
-	using namespace Model::Settings;
+	using namespace Model;
 
-	AnswerViewController::AnswerViewController (App::Application &core, NotifyHandler handler) :
-		ViewController(core, handler),
-		m_appCore(core),
+	AnswerViewController::AnswerViewController (Application &appCore, NotifyHandler handler) :
+		ViewController(appCore, handler),
+		m_appCore(appCore),
 		m_pAnswerView(nullptr),
 		m_needUpdateAnswering(true),
 		m_needUpdateRejection(true)
@@ -48,7 +48,7 @@ namespace AnsweringController {
 
 		SettingsManager &settingsManager = m_appCore.getSettingsManager();
 
-		ResultCode res = settingsManager.addPropertyHandler(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY,
+		SettingResultCode res = settingsManager.addPropertyHandler(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY,
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerOptionChanged>(this));
 		RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to setup answer option listener");
 
@@ -56,7 +56,7 @@ namespace AnsweringController {
 				NotifyHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionChanged>(this));
 		RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to setup rejecting option listener");
 
-		m_pAnswerView = View::ViewManager::pushView<AnswerView::AnswerView>(m_appCore.getViewManager(), true);
+		m_pAnswerView = gui::ViewManager::pushView<View::AnswerView>(m_appCore.getViewManager(), true);
 		RETVM_IF(!m_pAnswerView, false, "Failed to create view instance!");
 		setBaseView(m_pAnswerView);
 
@@ -79,7 +79,7 @@ namespace AnsweringController {
 	{
 		bool state = m_pAnswerView->getAnswerOptionState();
 		SettingsManager &settingsManager = m_appCore.getSettingsManager();
-		ResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY, state);
+		SettingResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY, state);
 		if (res != SETTINGS_RES_SUCCESS) {
 			ERR("Failed to change Answer option");
 			updateAnswerOption();
@@ -90,7 +90,7 @@ namespace AnsweringController {
 	{
 		bool state = m_pAnswerView->getRejectOptionState();
 		SettingsManager &settingsManager = m_appCore.getSettingsManager();
-		ResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, state);
+		SettingResultCode res = settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, state);
 		if (res != SETTINGS_RES_SUCCESS) {
 			ERR("Failed to change Reject option");
 			updateRejectOption();
@@ -175,4 +175,4 @@ namespace AnsweringController {
 				updateRejectOption();
 			}
 	}
-}
+} }

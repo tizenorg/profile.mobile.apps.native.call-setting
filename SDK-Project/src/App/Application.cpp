@@ -17,14 +17,10 @@
 
 #include "App/Application.h"
 #include "Controller/MainView/MainViewController.h"
-#include "Utils/Common.h"
-#include "Controller/MainView/MainViewController.h"
 
-namespace App {
+namespace CallSettings {
+	using namespace Model;
 	using namespace Controller;
-
-	using namespace Controller;
-	using namespace MainController;
 
 	Application::Application() :
 		m_pSettingsManager(nullptr),
@@ -37,18 +33,18 @@ namespace App {
 	{
 	}
 
-	Model::Settings::SettingsManager &Application::getSettingsManager()
+	SettingsManager &Application::getSettingsManager()
 	{
 		return *m_pSettingsManager;
 	}
 
 	bool Application::onAppCreate()
 	{
-		m_pSettingsManager = new Model::Settings::SettingsManager();
-		m_pTelephonyManager = new Model::Telephony::TelephonyManager();
+		m_pSettingsManager = new SettingsManager();
+		m_pTelephonyManager = new TelephonyManager();
 		RETVM_IF(!m_pSettingsManager || !m_pTelephonyManager, false, "Failed to start application");
 
-		m_pMainViewController = ViewController::create<MainViewController>(*this,
+		m_pMainViewController = gui::ViewController::create<MainViewController>(*this,
 				NotifyHandler::wrap<Application, &Application::onDestroyRequest>(this));
 
 		if (m_pMainViewController) {

@@ -15,11 +15,12 @@
  *
  */
 
-#ifndef TELEPHONY_TYPES_H_
-#define TELEPHONY_TYPES_H_
+#ifndef _MODEL_TELEPHONY_TYPES_H_
+#define _MODEL_TELEPHONY_TYPES_H_
 
-#include <string>
-namespace Model { namespace Telephony {
+#include "Common.h"
+
+namespace CallSettings { namespace Model {
 
 	typedef enum {
 		TELEPHONY_RES_SUCCESS,
@@ -31,7 +32,7 @@ namespace Model { namespace Telephony {
 		TELEPHONY_RES_FAIL_REJECT_BY_NETWORK,
 		TELEPHONY_RES_FAIL_MEMORY_BAD_ALLOC,
 		TELEPHONY_RES_FAIL_UNKNOWN_ERROR,
-	} ResultCode;
+	} TelResultCode;
 
 	typedef enum {
 		TELEPHONY_CALLTYPE_VOICE,
@@ -108,4 +109,4 @@ namespace Model { namespace Telephony {
 
 } }
 
-#endif /* TELEPHONY_TYPES_H_ */
+#endif /* _MODEL_TELEPHONY_TYPES_H_ */

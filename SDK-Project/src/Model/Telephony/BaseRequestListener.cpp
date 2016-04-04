@@ -18,13 +18,12 @@
 #include "Model/Telephony/BaseRequestListener.h"
 #include "Model/Telephony/ITelephonyManager.h"
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
 
 	BaseRequestListener::BaseRequestListener() :
 		m_requestId(-1),
 		m_pTelephonyManager(nullptr)
 	{
-
 	}
 
 	BaseRequestListener::~BaseRequestListener()
