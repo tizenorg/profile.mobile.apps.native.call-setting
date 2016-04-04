@@ -17,7 +17,7 @@
 
 #include "Model/Telephony/RequestListener.h"
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
 
 	template <typename VALUE_TYPE>
 	bool RequestListener<VALUE_TYPE>::onAttach(ITelephonyManager *telephonyManager, int requestId)

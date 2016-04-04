@@ -15,13 +15,13 @@
  *
  */
 
-#ifndef REQUEST_LISTENER_H_
-#define REQUEST_LISTENER_H_
+#ifndef _MODEL_REQUEST_LISTENER_H_
+#define _MODEL_REQUEST_LISTENER_H_
 
-#include "Model/Telephony/TelephonyTypes.h"
-#include "Model/Telephony/BaseRequestListener.h"
+#include "TelephonyTypes.h"
+#include "BaseRequestListener.h"
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
 
 	class ITelephonyManager;
 	class BaseRequestListener;
@@ -36,12 +36,12 @@ namespace Model { namespace Telephony {
 	template <typename VALUE_TYPE>
 	class IRequestListener : public IBaseRequestListener {
 	public:
-		virtual void onRequestComplete(ResultCode result, const VALUE_TYPE *value) = 0;
+		virtual void onRequestComplete(TelResultCode result, const VALUE_TYPE *value) = 0;
 	};
 
 	class ISimpleRequestListener : public IBaseRequestListener {
 	public:
-		virtual void onRequestComplete(ResultCode result) = 0;
+		virtual void onRequestComplete(TelResultCode result) = 0;
 	};
 
 	template <typename VALUE_TYPE>
@@ -67,4 +67,4 @@ namespace Model { namespace Telephony {
 	template class RequestListener<CallFwdReqData>;
 } }
 
-#endif /* REQUEST_LISTENER_H_ */
+#endif /* _MODEL_REQUEST_LISTENER_H_ */

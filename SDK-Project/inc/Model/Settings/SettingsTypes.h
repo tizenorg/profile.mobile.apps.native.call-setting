@@ -15,12 +15,12 @@
  *
  */
 
-#ifndef SETTINGS_TYPES_H_
-#define SETTINGS_TYPES_H_
+#ifndef _MODEL_SETTINGS_TYPES_H_
+#define _MODEL_SETTINGS_TYPES_H_
 
-#include "Utils/Common.h"
+#include "Common.h"
 
-namespace Model { namespace Settings {
+namespace CallSettings { namespace Model {
 
 	typedef enum {
 		SETTINGS_RES_SUCCESS,
@@ -29,7 +29,7 @@ namespace Model { namespace Settings {
 		SETTINGS_RES_FAIL_DATA_MISSING,
 		SETTINGS_RES_FAIL_UNEXPECTED_DATA,
 		SETTINGS_RES_FAIL_UNKNOWN_ERROR,
-	} ResultCode;
+	} SettingResultCode;
 
 	typedef enum {
 		INT_KEY_SHOW_CALLER_ID = 0,
@@ -50,4 +50,5 @@ namespace Model { namespace Settings {
 		STRING_KEY_REJECT_MSG_ITEM_6,
 	} StringKey;
 } }
-#endif /* SETTINGS_TYPES_H_ */
+
+#endif /* _MODEL_SETTINGS_TYPES_H_ */

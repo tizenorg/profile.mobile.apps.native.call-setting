@@ -15,13 +15,14 @@
  *
  */
 
+#include "gui/Widgets/NaviItem.h"
+#include "gui/Widgets/OptionItem.h"
+
 #include "View/MainView/MainView.h"
-#include "View/Widgets/NaviItem.h"
-#include "View/Widgets/OptionItem.h"
 
-namespace MainView {
+namespace CallSettings { namespace View {
 
-	using namespace Widgets;
+	using namespace gui;
 
 	MainView::MainView(NaviItem *naviItem) :
 		BaseView(naviItem),
@@ -70,4 +71,4 @@ namespace MainView {
 	{
 		m_pMoreOption->setSelectHandler(handler);
 	}
-}
+} }

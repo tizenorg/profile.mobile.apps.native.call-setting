@@ -15,8 +15,6 @@
  *
  */
 
-#include <algorithm>
-#include <stdlib.h>
 #include <ITapiSim.h>
 #include <TapiUtility.h>
 #include <TelSim.h>
@@ -24,11 +22,10 @@
 
 #include "Model/Telephony/TelephonyManager.h"
 #include "Model/Telephony/RequestListener.h"
-#include "Utils/Logger.h"
 
 const int REQUEST_MAX_ID = 1000;
 
-namespace Model { namespace Telephony {
+namespace CallSettings { namespace Model {
 
 	typedef enum {
 		REQUEST_TYPE_SETUP,
@@ -95,7 +92,7 @@ namespace Model { namespace Telephony {
 		m_pListener->onDetach();
 	}
 
-	ResultCode TelephonyManager::requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener)
+	TelResultCode TelephonyManager::requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -114,7 +111,7 @@ namespace Model { namespace Telephony {
 
 	}
 
-	ResultCode TelephonyManager::requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener)
+	TelResultCode TelephonyManager::requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -132,7 +129,7 @@ namespace Model { namespace Telephony {
 		}
 	}
 
-	ResultCode TelephonyManager::requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener)
+	TelResultCode TelephonyManager::requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -150,7 +147,7 @@ namespace Model { namespace Telephony {
 		}
 	}
 
-	ResultCode TelephonyManager::requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener)
+	TelResultCode TelephonyManager::requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -219,7 +216,7 @@ namespace Model { namespace Telephony {
 		return slotCount;
 	}
 
-	ResultCode TelephonyManager::setActiveSlot(SimSlot slotId)
+	TelResultCode TelephonyManager::setActiveSlot(SimSlot slotId)
 	{
 		RETVM_IF (m_activeSlot == slotId, TELEPHONY_RES_SUCCESS, "Slot is already activated!")
 
@@ -330,7 +327,7 @@ namespace Model { namespace Telephony {
 		}
 	}
 
-	ResultCode TelephonyManager::convertFromTapiResultCode(TelSsCause_t tapiError)
+	TelResultCode TelephonyManager::convertFromTapiResultCode(TelSsCause_t tapiError)
 	{
 		switch (tapiError) {
 		case TAPI_SS_SUCCESS:
@@ -542,7 +539,7 @@ namespace Model { namespace Telephony {
 		CallWaitingReqData *reqCallWaitData = static_cast<CallWaitingReqData *>(request->m_pReqData);
 		TelSsWaitingResp_t *cwInfo = static_cast<TelSsWaitingResp_t *>(data);
 		RequestListener<CallWaitingReqData> *listener = dynamic_cast<RequestListener<CallWaitingReqData> *>(request->m_pListener);
-		ResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
+		TelResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
 
 		if (!cwInfo || !request) {
 			reqResult = TELEPHONY_RES_FAIL_DATA_MISSING;
@@ -562,7 +559,7 @@ namespace Model { namespace Telephony {
 		telManager->processNextTelephonyRequest();
 	}
 
-	ResultCode TelephonyManager::parseCWStatusRequestResponse(TelSsWaitingResp_t *cwInfo, TelephonyRequest *request)
+	TelResultCode TelephonyManager::parseCWStatusRequestResponse(TelSsWaitingResp_t *cwInfo, TelephonyRequest *request)
 	{
 		CallWaitingReqData *reqCallWaitData = static_cast<CallWaitingReqData *>(request->m_pReqData);
 		TelephonyManager *telManager =  request->m_pTelephonyManager;
@@ -586,7 +583,7 @@ namespace Model { namespace Telephony {
 		CallFwdReqData *reqCallFwdData = static_cast<CallFwdReqData *>(request->m_pReqData);
 		TelSsForwardResp_t *cfInfo = static_cast<TelSsForwardResp_t *>(data);
 		RequestListener<CallFwdReqData> *listener = dynamic_cast<RequestListener<CallFwdReqData> *>(request->m_pListener);
-		ResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
+		TelResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
 
 		if (!cfInfo || !request) {
 			reqResult = TELEPHONY_RES_FAIL_DATA_MISSING;
@@ -606,7 +603,7 @@ namespace Model { namespace Telephony {
 		telManager->processNextTelephonyRequest();
 	}
 
-	ResultCode TelephonyManager::parseCFStatusRequestResponse(TelSsForwardResp_t *cfInfo, TelephonyRequest *request)
+	TelResultCode TelephonyManager::parseCFStatusRequestResponse(TelSsForwardResp_t *cfInfo, TelephonyRequest *request)
 	{
 		CallFwdReqData *reqCallFwdData = static_cast<CallFwdReqData *>(request->m_pReqData);
 		TelephonyManager *telManager =  request->m_pTelephonyManager;

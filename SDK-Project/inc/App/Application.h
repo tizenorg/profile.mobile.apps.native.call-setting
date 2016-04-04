@@ -15,23 +15,24 @@
  *
  */
 
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+#ifndef _CST_APPLICATION_H_
+#define _CST_APPLICATION_H_
 
-#include "App/BaseApplication.h"
+#include "appfw/BaseApplication.h"
+#include "gui/Base/ViewController.h"
 
 #include "Model/Settings/SettingsManager.h"
 #include "Model/Telephony/TelephonyManager.h"
-#include "Controller/ViewController.h"
 
-namespace App {
+namespace CallSettings {
 
-	class Application : public BaseApplication {
+	class Application : public appfw::BaseApplication {
 	public:
 		Application();
 		virtual ~Application();
-		Model::Settings::ISettingsManager &getSettingsManager();
-		Model::Telephony::ITelephonyManager &getTelephonyManager();
+
+		Model::ISettingsManager &getSettingsManager();
+		Model::ITelephonyManager &getTelephonyManager();
 
 	private:
 		virtual bool onAppCreate() override;
@@ -39,10 +40,10 @@ namespace App {
 		void onDestroyRequest();
 
 	private:
-		Model::Settings::SettingsManager *m_pSettingsManager;
-		Model::Telephony::TelephonyManager *m_pTelephonyManager;
-		Controller::ViewController *m_pMainViewController;
+		Model::SettingsManager *m_pSettingsManager;
+		Model::TelephonyManager *m_pTelephonyManager;
+		gui::ViewController *m_pMainViewController;
 	};
 }
 
-#endif /* APPLICATION_H_ */
+#endif /* _CST_APPLICATION_H_ */

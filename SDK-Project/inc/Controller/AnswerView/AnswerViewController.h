@@ -15,23 +15,24 @@
  *
  */
 
-#ifndef ANSWER_VIEW_CONTROLLER_H_
-#define ANSWER_VIEW_CONTROLLER_H_
+#ifndef _CONTROLLER_ANSWER_VIEW_CONTROLLER_H_
+#define _CONTROLLER_ANSWER_VIEW_CONTROLLER_H_
+
+#include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
-#include "Controller/ViewController.h"
 #include "View/AnswerView/AnswerView.h"
 
-namespace AnsweringController {
+namespace CallSettings { namespace Controller {
 
-	class AnswerViewController : public Controller::ViewController {
+	class AnswerViewController : public gui::ViewController {
 	public:
 		virtual ~AnswerViewController();
 
 	private:
 		friend class ViewController;
 
-		AnswerViewController(App::Application &app, NotiHandler handler);
+		AnswerViewController(Application &app, NotiHandler handler);
 		virtual void onBackKeyPressed() override;
 		virtual void updateView(int updateFlag) override;
 		bool initialize();
@@ -46,11 +47,12 @@ namespace AnsweringController {
 		void updateRejectOption();
 
 	private:
-		App::Application &m_app;
-		AnswerView::AnswerView *m_pAnswerView;
+		Application &m_app;
+		View::AnswerView *m_pAnswerView;
+
 		bool m_needUpdateAnswering;
 		bool m_needUpdateRejection;
 	};
-}
+} }
 
-#endif /* ANSWER_VIEW_CONTROLLER_H_ */
+#endif /* _CONTROLLER_ANSWER_VIEW_CONTROLLER_H_ */

@@ -15,16 +15,16 @@
  *
  */
 
-#ifndef ANSWER_VIEW_
-#define ANSWER_VIEW_
+#ifndef _VIEW_ANSWER_VIEW_
+#define _VIEW_ANSWER_VIEW_
 
-#include "View/ViewManager/BaseView.h"
-#include "View/Widgets/CheckOptionItem.h"
-#include "View/Widgets/Genlist.h"
+#include "gui/Base/BaseView.h"
+#include "gui/Widgets/Genlist.h"
+#include "gui/Widgets/CheckOptionItem.h"
 
-namespace AnswerView {
+namespace CallSettings { namespace View {
 
-	class AnswerView : public View::BaseView {
+	class AnswerView : public gui::BaseView {
 	public:
 		void setAnswerCheckHandler(NotiHandler handler) {m_pAnswerOption->setCheckHandler(handler);}
 		void setRejectCheckHandler(NotiHandler handler) {m_pRejectOption->setCheckHandler(handler);}
@@ -39,15 +39,15 @@ namespace AnswerView {
 	private:
 		friend class BaseView;
 
-		AnswerView(Widgets::NaviItem *naviItem);
+		AnswerView(gui::NaviItem *naviItem);
 		virtual ~AnswerView();
 		virtual bool createViewContent() override;
 
 	private:
-		Widgets::Genlist *m_pGenlist;
-		Widgets::CheckOptionItem *m_pAnswerOption;
-		Widgets::CheckOptionItem *m_pRejectOption;
+		gui::Genlist *m_pGenlist;
+		gui::CheckOptionItem *m_pAnswerOption;
+		gui::CheckOptionItem *m_pRejectOption;
 	};
-}
+} }
 
-#endif /* ANSWER_VIEW_ */
+#endif /* _VIEW_ANSWER_VIEW_ */
