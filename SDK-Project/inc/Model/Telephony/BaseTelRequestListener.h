@@ -22,13 +22,13 @@ namespace CallSettings { namespace Model {
 
 	class ITelephonyManager;
 
-	class BaseRequestListener {
+	class BaseTelRequestListener {
 	public:
 		void cancelRequest();
 		bool isAttached();
 	protected:
-		BaseRequestListener();
-		virtual ~BaseRequestListener();
+		BaseTelRequestListener();
+		virtual ~BaseTelRequestListener();
 		bool onAttachImpl(ITelephonyManager *telephonyManager, int requestId);
 		void onDetachImpl();
 	private:

@@ -30,10 +30,14 @@ namespace CallSettings { namespace Model {
 	public:
 		TelephonyManager();
 		virtual ~TelephonyManager();
-		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener);
-		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener);
-		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener);
-		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener);
+		virtual TelResultCode addCallWaitChangeHandler(NotiHandler handler);
+		virtual void removeCallWaitChangeHandler(NotiHandler handler);
+		virtual TelResultCode addCallFwdChangeHandler(NotiHandler handler);
+		virtual void removeCallFwdChangeHandler(NotiHandler handler);
+		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, TelRequestListener<CallWaitingReqData> *listener);
+		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleTelRequestListener *listener);
+		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, TelRequestListener<CallFwdReqData> *listener);
+		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleTelRequestListener *listener);
 		virtual void cancelRequest(int requestId);
 		virtual SimCardState getSimState();
 		virtual int getSimSlotCount();
@@ -64,8 +68,16 @@ namespace CallSettings { namespace Model {
 		static void responseOnCFStatusRequest(TapiHandle *handle, int result, void *data, void *userData);
 		static TelResultCode parseCWStatusRequestResponse(TelSsWaitingResp_t *cwInfo, TelephonyRequest *request);
 		static TelResultCode parseCFStatusRequestResponse(TelSsForwardResp_t *cfInfo, TelephonyRequest *request);
+		TelResultCode addEventHandlerImpl(int key, NotiHandler handler);
+		void removeEventHandlerImpl(int key, NotiHandler handler);
+		TelResultCode registerTelephonyEventCb(int key);
+		void unregisterTelephonyEventCb(int key);
+		static void onTelephonyEventCb(TapiHandle *handle, const char *notiId, void *data, void *userData);
 
 	private:
+		typedef util::Delegation<void()> HandlersCollection;
+		typedef std::map<int, HandlersCollection *> HandlersMap;
+
 		std::deque <TelephonyRequest *> m_requestQueue;
 		int m_requestCounter;
 		int slotCount;
@@ -73,6 +85,7 @@ namespace CallSettings { namespace Model {
 		TapiHandle *m_pSim2Handler;
 		TapiHandle *m_pActiveSimHandler;
 		SimSlot m_activeSlot;
+		HandlersMap m_eventHandlersMap;
 	};
 } }
 

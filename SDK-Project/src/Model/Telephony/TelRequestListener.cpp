@@ -15,38 +15,38 @@
  *
  */
 
-#include "Model/Telephony/RequestListener.h"
+#include "Model/Telephony/TelRequestListener.h"
 
 namespace CallSettings { namespace Model {
 
 	template <typename VALUE_TYPE>
-	bool RequestListener<VALUE_TYPE>::onAttach(ITelephonyManager *telephonyManager, int requestId)
+	bool TelRequestListener<VALUE_TYPE>::onAttach(ITelephonyManager *telephonyManager, int requestId)
 	{
 		if (telephonyManager) {
-			return BaseRequestListener::onAttachImpl(telephonyManager, requestId);
+			return BaseTelRequestListener::onAttachImpl(telephonyManager, requestId);
 		} else {
 			return false;
 		}
 	}
 
 	template <typename VALUE_TYPE>
-	void RequestListener<VALUE_TYPE>::onDetach()
+	void TelRequestListener<VALUE_TYPE>::onDetach()
 	{
-		BaseRequestListener::onDetachImpl();
+		BaseTelRequestListener::onDetachImpl();
 	}
 
-	bool SimpleRequestListener::onAttach(ITelephonyManager *telephonyManager, int requestId)
+	bool SimpleTelRequestListener::onAttach(ITelephonyManager *telephonyManager, int requestId)
 	{
 		if (telephonyManager) {
-			return BaseRequestListener::onAttachImpl(telephonyManager, requestId);
+			return BaseTelRequestListener::onAttachImpl(telephonyManager, requestId);
 		} else {
 			return false;
 		}
 	}
 
-	void SimpleRequestListener::onDetach()
+	void SimpleTelRequestListener::onDetach()
 	{
-		BaseRequestListener::onDetachImpl();
+		BaseTelRequestListener::onDetachImpl();
 	}
 
 } }

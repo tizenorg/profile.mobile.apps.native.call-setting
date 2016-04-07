@@ -22,16 +22,20 @@
 
 namespace CallSettings { namespace Model {
 
-	class SimpleRequestListener;
-	template <typename VALUE_TYPE> class RequestListener;
+	class SimpleTelRequestListener;
+	template <typename VALUE_TYPE> class TelRequestListener;
 
 	class ITelephonyManager {
 	public:
 		virtual ~ITelephonyManager(){}
-		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener) = 0;
-		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener) = 0;
-		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener) = 0;
-		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener) = 0;
+		virtual TelResultCode addCallWaitChangeHandler(NotiHandler handler) = 0;
+		virtual void removeCallWaitChangeHandler(NotiHandler handler) = 0;
+		virtual TelResultCode addCallFwdChangeHandler(NotiHandler handler) = 0;
+		virtual void removeCallFwdChangeHandler(NotiHandler handler) = 0;
+		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, TelRequestListener<CallWaitingReqData> *listener) = 0;
+		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleTelRequestListener *listener) = 0;
+		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, TelRequestListener<CallFwdReqData> *listener) = 0;
+		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleTelRequestListener *listener) = 0;
 		virtual void cancelRequest(int requestId) = 0;
 		virtual SimCardState getSimState() = 0;
 		virtual int getSimSlotCount() = 0;

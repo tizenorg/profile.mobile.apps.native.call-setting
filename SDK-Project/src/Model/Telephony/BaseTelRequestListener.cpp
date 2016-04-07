@@ -15,32 +15,32 @@
  *
  */
 
-#include "Model/Telephony/BaseRequestListener.h"
+#include "Model/Telephony/BaseTelRequestListener.h"
 #include "Model/Telephony/ITelephonyManager.h"
 
 namespace CallSettings { namespace Model {
 
-	BaseRequestListener::BaseRequestListener() :
+	BaseTelRequestListener::BaseTelRequestListener() :
 		m_requestId(-1),
 		m_pTelephonyManager(nullptr)
 	{
 	}
 
-	BaseRequestListener::~BaseRequestListener()
+	BaseTelRequestListener::~BaseTelRequestListener()
 	{
 		if (isAttached()) {
 			cancelRequest();
 		}
 	}
 
-	void BaseRequestListener::cancelRequest()
+	void BaseTelRequestListener::cancelRequest()
 	{
 		if (isAttached()) {
 			m_pTelephonyManager->cancelRequest(m_requestId);
 		}
 	}
 
-	bool BaseRequestListener::isAttached()
+	bool BaseTelRequestListener::isAttached()
 	{
 		if (m_pTelephonyManager && m_requestId != -1) {
 			return true;
@@ -49,7 +49,7 @@ namespace CallSettings { namespace Model {
 		}
 	}
 
-	bool BaseRequestListener::onAttachImpl(ITelephonyManager *telephonyManager, int requestId)
+	bool BaseTelRequestListener::onAttachImpl(ITelephonyManager *telephonyManager, int requestId)
 	{
 		if (!isAttached()) {
 			m_pTelephonyManager = telephonyManager;
@@ -60,7 +60,7 @@ namespace CallSettings { namespace Model {
 		}
 	}
 
-	void BaseRequestListener::onDetachImpl()
+	void BaseTelRequestListener::onDetachImpl()
 	{
 		if (isAttached()) {
 			m_pTelephonyManager = nullptr;

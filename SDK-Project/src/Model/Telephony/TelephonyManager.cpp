@@ -21,11 +21,16 @@
 #include <ITapiSs.h>
 
 #include "Model/Telephony/TelephonyManager.h"
-#include "Model/Telephony/RequestListener.h"
+#include "Model/Telephony/TelRequestListener.h"
 
 const int REQUEST_MAX_ID = 1000;
 
 namespace CallSettings { namespace Model {
+
+	typedef enum {
+		TEL_EVENT_WAIT_STATUS_CHANGED = 1,
+		TEL_EVENT_FORWARD_STATUS_CHANGED = 2,
+	} TelephonyEvents;
 
 	typedef enum {
 		REQUEST_TYPE_SETUP,
@@ -48,7 +53,7 @@ namespace CallSettings { namespace Model {
 		requestOperation m_reqOperation;
 		requestState m_reqState;
 		int m_requestId;
-		IBaseRequestListener *m_pListener;
+		IBaseTelRequestListener *m_pListener;
 		TelephonyManager *m_pTelephonyManager;
 		TapiHandle *m_pSimHandler;
 		void *m_pReqData;
@@ -76,6 +81,52 @@ namespace CallSettings { namespace Model {
 		clearRequestQueue();
 	}
 
+	void TelephonyManager::initTelephonyManager()
+	{
+		char **cpList = nullptr;
+		cpList = tel_get_cp_name_list();
+		RETM_IF(!cpList, "Failed to get CP list");
+
+		m_pSim1Handler = tel_init(cpList[0]);
+		free(cpList[0]);
+
+		m_pSim2Handler = tel_init(cpList[1]);
+		free(cpList[1]);
+
+		free(cpList);
+		RETM_IF(!m_pSim1Handler && !m_pSim2Handler, "Failed to init any Sim Slot");
+
+		if (m_pSim1Handler && m_pSim2Handler && m_pSim1Handler != m_pSim2Handler) {
+			INF("Dual Sim Phone detected, use Slot 1 by default");
+			m_pActiveSimHandler = m_pSim1Handler;
+			slotCount = 2;
+		} else {
+			if (m_pSim1Handler) {
+				m_pActiveSimHandler = m_pSim1Handler;
+				m_activeSlot = TELEPHONY_SIM_SLOT_1;
+			} else {
+				m_pActiveSimHandler = m_pSim2Handler;
+				m_activeSlot = TELEPHONY_SIM_SLOT_2;
+			}
+			slotCount = 1;
+		}
+	}
+
+	void TelephonyManager::deinitTelephonyManager()
+	{
+		if (m_pSim1Handler) {
+			tel_deinit(m_pSim1Handler);
+			m_pSim1Handler = nullptr;
+		}
+
+		if (m_pSim2Handler) {
+			tel_deinit(m_pSim2Handler);
+			m_pSim2Handler = nullptr;
+		}
+
+		m_pActiveSimHandler = nullptr;
+	}
+
 	TelephonyRequest::TelephonyRequest(requestType reqType, requestOperation reqOperation) :
 		m_reqType(reqType),
 		m_reqOperation(reqOperation),
@@ -89,10 +140,12 @@ namespace CallSettings { namespace Model {
 	}
 
 	TelephonyRequest::~TelephonyRequest() {
-		m_pListener->onDetach();
+		if (m_pListener) {
+			m_pListener->onDetach();
+		}
 	}
 
-	TelResultCode TelephonyManager::requestCallWaitState(CallWaitingReqData *reqData, RequestListener<CallWaitingReqData> *listener)
+	TelResultCode TelephonyManager::requestCallWaitState(CallWaitingReqData *reqData, TelRequestListener<CallWaitingReqData> *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -111,7 +164,7 @@ namespace CallSettings { namespace Model {
 
 	}
 
-	TelResultCode TelephonyManager::requestCallWaitSetup(CallWaitingReqData *reqData, SimpleRequestListener *listener)
+	TelResultCode TelephonyManager::requestCallWaitSetup(CallWaitingReqData *reqData, SimpleTelRequestListener *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -129,7 +182,7 @@ namespace CallSettings { namespace Model {
 		}
 	}
 
-	TelResultCode TelephonyManager::requestCallFwdState(CallFwdReqData *reqData, RequestListener<CallFwdReqData> *listener)
+	TelResultCode TelephonyManager::requestCallFwdState(CallFwdReqData *reqData, TelRequestListener<CallFwdReqData> *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -147,7 +200,7 @@ namespace CallSettings { namespace Model {
 		}
 	}
 
-	TelResultCode TelephonyManager::requestCallFwdSetup(CallFwdReqData *reqData, SimpleRequestListener *listener)
+	TelResultCode TelephonyManager::requestCallFwdSetup(CallFwdReqData *reqData, SimpleTelRequestListener *listener)
 	{
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
@@ -162,6 +215,111 @@ namespace CallSettings { namespace Model {
 		} else {
 			ERR("Request is already attached!");
 			return TELEPHONY_RES_FAIL_UNEXPECTED_DATA;
+		}
+	}
+
+	TelResultCode TelephonyManager::addCallWaitChangeHandler(NotiHandler handler)
+	{
+		return addEventHandlerImpl(TEL_EVENT_WAIT_STATUS_CHANGED, handler);
+	}
+
+	void TelephonyManager::removeCallWaitChangeHandler(NotiHandler handler)
+	{
+		removeEventHandlerImpl(TEL_EVENT_WAIT_STATUS_CHANGED, handler);
+	}
+
+	TelResultCode TelephonyManager::addCallFwdChangeHandler(NotiHandler handler)
+	{
+		return addEventHandlerImpl(TEL_EVENT_FORWARD_STATUS_CHANGED, handler);
+	}
+
+	void TelephonyManager::removeCallFwdChangeHandler(NotiHandler handler)
+	{
+		removeEventHandlerImpl(TEL_EVENT_FORWARD_STATUS_CHANGED, handler);
+	}
+
+	TelResultCode TelephonyManager::addEventHandlerImpl(int key, NotiHandler handler)
+	{
+		auto it = m_eventHandlersMap.find(key);
+		if (it == m_eventHandlersMap.end()) {
+			TelResultCode res = registerTelephonyEventCb(key);
+			RETVM_IF(res != TELEPHONY_RES_SUCCESS, res, "Failed to register telephony event callback!");
+
+			HandlersCollection *newCollection = new HandlersCollection();
+			*newCollection += handler;
+			m_eventHandlersMap[key] = newCollection;
+		} else {
+			*(it->second) += handler;
+		}
+
+		return TELEPHONY_RES_SUCCESS;
+	}
+
+	void TelephonyManager::removeEventHandlerImpl(int key, NotiHandler handler)
+	{
+		auto it = m_eventHandlersMap.find(key);
+		if (it != m_eventHandlersMap.end()) {
+			HandlersCollection *collection = m_eventHandlersMap[key];
+			*collection -= handler;
+			if(collection->isEmpty()) {
+				unregisterTelephonyEventCb(key);
+				delete collection;
+				m_eventHandlersMap.erase(it);
+			}
+		}
+	}
+
+	TelResultCode TelephonyManager::registerTelephonyEventCb(int key)
+	{
+		int res = TAPI_API_SUCCESS;
+
+		switch(key) {
+		case TEL_EVENT_WAIT_STATUS_CHANGED:
+			res = tel_register_noti_event(m_pActiveSimHandler, TAPI_NOTI_SS_WAITING_STATUS, onTelephonyEventCb, this);
+			break;
+		case TEL_EVENT_FORWARD_STATUS_CHANGED:
+			res = tel_register_noti_event(m_pActiveSimHandler, TAPI_NOTI_SS_FORWARD_STATUS, onTelephonyEventCb, this);
+			break;
+		}
+
+		if (res != TAPI_API_SUCCESS) {
+			ERR("Failed: tel_register_noti_event failed, err(%d)", res);
+			return TELEPHONY_RES_FAIL_NETWORK_API_FAILED;
+		}
+
+		return TELEPHONY_RES_SUCCESS;
+	}
+
+	void TelephonyManager::unregisterTelephonyEventCb(int key)
+	{
+		switch(key) {
+		case TEL_EVENT_WAIT_STATUS_CHANGED:
+			tel_deregister_noti_event(m_pActiveSimHandler, TAPI_NOTI_SS_WAITING_STATUS);
+			break;
+		case TEL_EVENT_FORWARD_STATUS_CHANGED:
+			tel_deregister_noti_event(m_pActiveSimHandler, TAPI_NOTI_SS_FORWARD_STATUS);
+			break;
+		}
+	}
+
+	void TelephonyManager::onTelephonyEventCb(TapiHandle *handle, const char *notiId, void *data, void *userData)
+	{
+		RETM_IF(!data || !userData, "Invalid args!");
+
+		TelephonyManager *manager = static_cast<TelephonyManager *>(userData);
+		if (manager->m_pActiveSimHandler != handle) {
+			INF("Event from another sim slot, skip it.");
+		}
+
+		HandlersCollection *collection = nullptr;
+		if (!strcmp(TAPI_NOTI_SS_WAITING_STATUS, notiId)) {
+			collection = manager->m_eventHandlersMap.find(TEL_EVENT_WAIT_STATUS_CHANGED)->second;
+		} else if(!strcmp(TAPI_NOTI_SS_FORWARD_STATUS, notiId)) {
+			collection = manager->m_eventHandlersMap.find(TEL_EVENT_FORWARD_STATUS_CHANGED)->second;
+		}
+
+		if (collection) {
+			collection->invoke();
 		}
 	}
 
@@ -175,7 +333,9 @@ namespace CallSettings { namespace Model {
 			TelephonyRequest *item = *it;
 			if (item->m_reqState == REQUEST_STATE_PROCESSING) {
 				item->m_reqState = REQUEST_STATE_CANCELED;
-			} else {
+				item->m_pListener = nullptr;
+				item->m_pReqData = nullptr;
+			} else if (item->m_reqState == REQUEST_STATE_PENDING) {
 				m_requestQueue.erase(it);
 			}
 		}
@@ -237,52 +397,6 @@ namespace CallSettings { namespace Model {
 	SimSlot TelephonyManager::getActiveSlot()
 	{
 		return m_activeSlot;
-	}
-
-	void TelephonyManager::initTelephonyManager()
-	{
-		char **cpList = nullptr;
-		cpList = tel_get_cp_name_list();
-		RETM_IF(!cpList, "Failed to get CP list");
-
-		m_pSim1Handler = tel_init(cpList[0]);
-		free(cpList[0]);
-
-		m_pSim2Handler = tel_init(cpList[1]);
-		free(cpList[1]);
-
-		free(cpList);
-		RETM_IF(!m_pSim1Handler && !m_pSim2Handler, "Failed to init any Sim Slot");
-
-		if (m_pSim1Handler && m_pSim2Handler && m_pSim1Handler != m_pSim2Handler) {
-			INF("Dual Sim Phone detected, use Slot 1 by default");
-			m_pActiveSimHandler = m_pSim1Handler;
-			slotCount = 2;
-		} else {
-			if (m_pSim1Handler) {
-				m_pActiveSimHandler = m_pSim1Handler;
-				m_activeSlot = TELEPHONY_SIM_SLOT_1;
-			} else {
-				m_pActiveSimHandler = m_pSim2Handler;
-				m_activeSlot = TELEPHONY_SIM_SLOT_2;
-			}
-			slotCount = 1;
-		}
-	}
-
-	void TelephonyManager::deinitTelephonyManager()
-	{
-		if (m_pSim1Handler) {
-			tel_deinit(m_pSim1Handler);
-			m_pSim1Handler = nullptr;
-		}
-
-		if (m_pSim2Handler) {
-			tel_deinit(m_pSim2Handler);
-			m_pSim2Handler = nullptr;
-		}
-
-		m_pActiveSimHandler = nullptr;
 	}
 
 	void TelephonyManager::putRequestToQueue(TelephonyRequest *request)
@@ -513,15 +627,17 @@ namespace CallSettings { namespace Model {
 	void TelephonyManager::responseOnSetupRequest(TapiHandle *handle, int result, void *data, void *userData)
 	{
 		RETM_IF(!userData, "Callback Data is NULL");
-
 		TelephonyRequest *request = static_cast<TelephonyRequest *>(userData);
 		TelephonyManager *telManager = request->m_pTelephonyManager;
-		SimpleRequestListener *listener = dynamic_cast<SimpleRequestListener *>(request->m_pListener);
-		if (listener->isAttached() && request->m_reqState != REQUEST_STATE_CANCELED) {
-			if (result == TAPI_SS_SUCCESS) {
-				listener->onRequestComplete(TELEPHONY_RES_SUCCESS);
-			} else {
-				listener->onRequestComplete(telManager->convertFromTapiResultCode((TelSsCause_t)result));
+
+		if (request->m_reqState != REQUEST_STATE_CANCELED) {
+			SimpleTelRequestListener *listener = dynamic_cast<SimpleTelRequestListener *>(request->m_pListener);
+			if (listener->isAttached()) {
+				if (result == TAPI_SS_SUCCESS) {
+					listener->onRequestComplete(TELEPHONY_RES_SUCCESS);
+				} else {
+					listener->onRequestComplete(telManager->convertFromTapiResultCode((TelSsCause_t)result));
+				}
 			}
 		}
 
@@ -533,25 +649,24 @@ namespace CallSettings { namespace Model {
 	void TelephonyManager::responseOnCWStatusRequest(TapiHandle *handle, int result, void *data, void *userData)
 	{
 		RETM_IF(!userData, "Callback Data is NULL");
-
 		TelephonyRequest *request = static_cast<TelephonyRequest *>(userData);
 		TelephonyManager *telManager = request->m_pTelephonyManager;
-		CallWaitingReqData *reqCallWaitData = static_cast<CallWaitingReqData *>(request->m_pReqData);
 		TelSsWaitingResp_t *cwInfo = static_cast<TelSsWaitingResp_t *>(data);
-		RequestListener<CallWaitingReqData> *listener = dynamic_cast<RequestListener<CallWaitingReqData> *>(request->m_pListener);
 		TelResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
 
 		if (!cwInfo || !request) {
 			reqResult = TELEPHONY_RES_FAIL_DATA_MISSING;
 		}
 
-		if (listener->isAttached() && request->m_reqState != REQUEST_STATE_CANCELED) {
-
-			if (reqResult == TELEPHONY_RES_SUCCESS) {
-				reqResult = parseCWStatusRequestResponse(cwInfo, request);
+		if (request->m_reqState != REQUEST_STATE_CANCELED) {
+			CallWaitingReqData *reqCallWaitData = static_cast<CallWaitingReqData *>(request->m_pReqData);
+			TelRequestListener<CallWaitingReqData> *listener = dynamic_cast<TelRequestListener<CallWaitingReqData> *>(request->m_pListener);
+			if (listener->isAttached()) {
+				if (reqResult == TELEPHONY_RES_SUCCESS) {
+					reqResult = parseCWStatusRequestResponse(cwInfo, request);
+				}
+				listener->onRequestComplete(reqResult, reqCallWaitData);
 			}
-
-			listener->onRequestComplete(reqResult, reqCallWaitData);
 		}
 
 		delete request;
@@ -580,22 +695,22 @@ namespace CallSettings { namespace Model {
 
 		TelephonyRequest *request = static_cast<TelephonyRequest *>(userData);
 		TelephonyManager *telManager = request->m_pTelephonyManager;
-		CallFwdReqData *reqCallFwdData = static_cast<CallFwdReqData *>(request->m_pReqData);
 		TelSsForwardResp_t *cfInfo = static_cast<TelSsForwardResp_t *>(data);
-		RequestListener<CallFwdReqData> *listener = dynamic_cast<RequestListener<CallFwdReqData> *>(request->m_pListener);
 		TelResultCode reqResult = telManager->convertFromTapiResultCode((TelSsCause_t)result);
 
 		if (!cfInfo || !request) {
 			reqResult = TELEPHONY_RES_FAIL_DATA_MISSING;
 		}
 
-		if (listener->isAttached() && request->m_reqState != REQUEST_STATE_CANCELED) {
-
-			if (reqResult == TELEPHONY_RES_SUCCESS) {
-				reqResult = parseCFStatusRequestResponse(cfInfo, request);
+		if (request->m_reqState != REQUEST_STATE_CANCELED) {
+			CallFwdReqData *reqCallFwdData = static_cast<CallFwdReqData *>(request->m_pReqData);
+			TelRequestListener<CallFwdReqData> *listener = dynamic_cast<TelRequestListener<CallFwdReqData> *>(request->m_pListener);
+			if (listener->isAttached()) {
+				if (reqResult == TELEPHONY_RES_SUCCESS) {
+					reqResult = parseCFStatusRequestResponse(cfInfo, request);
+				}
+				listener->onRequestComplete(reqResult, reqCallFwdData);
 			}
-
-			listener->onRequestComplete(reqResult, reqCallFwdData);
 		}
 
 		delete request;
@@ -650,7 +765,7 @@ namespace CallSettings { namespace Model {
 		if (request->m_reqType == REQUEST_TYPE_GET_STATE) {
 			res = tel_get_ss_forward_status(request->m_pSimHandler, callClass, forwardCondition, responseOnCFStatusRequest, request);
 			if (res != TAPI_API_SUCCESS) {
-				dynamic_cast<RequestListener<CallFwdReqData> *>(request->m_pListener)->onRequestComplete(TELEPHONY_RES_FAIL_NETWORK_API_FAILED, reqCallFwdData);
+				dynamic_cast<TelRequestListener<CallFwdReqData> *>(request->m_pListener)->onRequestComplete(TELEPHONY_RES_FAIL_NETWORK_API_FAILED, reqCallFwdData);
 			}
 		} else if (request->m_reqType == REQUEST_TYPE_SETUP) {
 			TelSsForwardInfo_t cfInfo;
@@ -671,7 +786,7 @@ namespace CallSettings { namespace Model {
 
 			res = tel_set_ss_forward(request->m_pSimHandler, &cfInfo, responseOnSetupRequest, request);
 			if (res != TAPI_API_SUCCESS) {
-				dynamic_cast<SimpleRequestListener *>(request->m_pListener)->onRequestComplete(TELEPHONY_RES_FAIL_NETWORK_API_FAILED);
+				dynamic_cast<SimpleTelRequestListener *>(request->m_pListener)->onRequestComplete(TELEPHONY_RES_FAIL_NETWORK_API_FAILED);
 			}
 		}
 
@@ -686,13 +801,13 @@ namespace CallSettings { namespace Model {
 	{
 		int res = TAPI_API_SUCCESS;
 		CallWaitingReqData *reqCallWaitingData = static_cast<CallWaitingReqData *>(request->m_pReqData);
-		TelSsClass_t callClass = convertToTapiCallClassType(reqCallWaitingData->callType);
 
+		TelSsClass_t callClass = convertToTapiCallClassType(reqCallWaitingData->callType);
 		if (request->m_reqType == REQUEST_TYPE_GET_STATE) {
 			res = tel_get_ss_waiting_status(request->m_pSimHandler, callClass, responseOnCWStatusRequest, (void *)request);
 		} else if (request->m_reqType == REQUEST_TYPE_SETUP) {
 			TelSsWaitingInfo_t cwInfo;
-			memset(&cwInfo, 0x0, sizeof(TelSsForwardInfo_t));
+			memset(&cwInfo, 0x0, sizeof(TelSsWaitingInfo_t));
 			cwInfo.Class = callClass;
 			cwInfo.Mode = convertToTapiCallWaitingMode(reqCallWaitingData->mode);
 			res = tel_set_ss_waiting(request->m_pSimHandler, &cwInfo, responseOnSetupRequest, (void *)request);

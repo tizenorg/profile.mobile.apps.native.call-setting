@@ -19,52 +19,52 @@
 #define _MODEL_REQUEST_LISTENER_H_
 
 #include "TelephonyTypes.h"
-#include "BaseRequestListener.h"
+#include "BaseTelRequestListener.h"
 
 namespace CallSettings { namespace Model {
 
 	class ITelephonyManager;
-	class BaseRequestListener;
+	class BaseTelRequestListener;
 
-	class IBaseRequestListener {
+	class IBaseTelRequestListener {
 	public:
-		virtual ~IBaseRequestListener(){}
+		virtual ~IBaseTelRequestListener(){}
 		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
 		virtual void onDetach() = 0;
 	};
 
 	template <typename VALUE_TYPE>
-	class IRequestListener : public IBaseRequestListener {
+	class ITelRequestListener : public IBaseTelRequestListener {
 	public:
 		virtual void onRequestComplete(TelResultCode result, const VALUE_TYPE *value) = 0;
 	};
 
-	class ISimpleRequestListener : public IBaseRequestListener {
+	class ISimpleTelRequestListener : public IBaseTelRequestListener {
 	public:
 		virtual void onRequestComplete(TelResultCode result) = 0;
 	};
 
 	template <typename VALUE_TYPE>
-	class RequestListener : public BaseRequestListener,
-							public IRequestListener<VALUE_TYPE> {
+	class TelRequestListener : public BaseTelRequestListener,
+							public ITelRequestListener<VALUE_TYPE> {
 	public:
-		RequestListener(){}
-		virtual ~RequestListener(){}
+		TelRequestListener(){}
+		virtual ~TelRequestListener(){}
 		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
 
-	class SimpleRequestListener : public BaseRequestListener,
-								public ISimpleRequestListener {
+	class SimpleTelRequestListener : public BaseTelRequestListener,
+								public ISimpleTelRequestListener {
 	public:
-		SimpleRequestListener(){}
-		virtual ~SimpleRequestListener(){}
+		SimpleTelRequestListener(){}
+		virtual ~SimpleTelRequestListener(){}
 		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};
 
-	template class RequestListener<CallWaitingReqData>;
-	template class RequestListener<CallFwdReqData>;
+	template class TelRequestListener<CallWaitingReqData>;
+	template class TelRequestListener<CallFwdReqData>;
 } }
 
 #endif /* _MODEL_REQUEST_LISTENER_H_ */
