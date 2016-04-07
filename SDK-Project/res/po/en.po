@@ -24,3 +24,24 @@ msgstr "End calls by"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
 msgstr "Pressing the power key"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "My caller ID"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Hide"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Show"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "By network"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Call forwarding"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Call waiting"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Receive call alerts during calls."

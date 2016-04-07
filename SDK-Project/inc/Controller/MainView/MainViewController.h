@@ -22,6 +22,7 @@
 
 #include "App/Application.h"
 #include "Controller/AnswerView/AnswerViewController.h"
+#include "Controller/MoreView/MoreViewController.h"
 #include "View/MainView/MainView.h"
 
 namespace CallSettings { namespace Controller {
@@ -41,11 +42,13 @@ namespace CallSettings { namespace Controller {
 		void onCallAnsweringClick();
 		void onMoreClick();
 		void onAnswerControllerDestroy();
+		void onMoreControllerDestroy();
 
 
 	private:
 		Application &m_app;
-		AnswerViewController *m_pAnswerCallController;
+		AnswerViewController *m_pAnswerViewController;
+		MoreViewController *m_pMoreViewController;
 		View::MainView *m_pMainView;
 	};
 } }

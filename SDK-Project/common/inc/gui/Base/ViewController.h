@@ -29,7 +29,6 @@ namespace gui {
 		static CONTROLLER_T *create(APP_T &app, NotiHandler handler, TYPE_ARGS&&... args);
 
 		virtual ~ViewController();
-		void makeDestroyReqeuest();
 
 	protected:
 		typedef enum {
@@ -40,9 +39,8 @@ namespace gui {
 			UF_WAS_PAUSED = 16,
 		} UpdateFlag;
 
-
-
 		ViewController (appfw::BaseApplication &app, NotiHandler destroyHandler);
+		void makeDestroyReqeuest();
 		virtual void onShow() {}
 		virtual void onHide() {}
 		virtual void updateView(int updateFlag) {}
