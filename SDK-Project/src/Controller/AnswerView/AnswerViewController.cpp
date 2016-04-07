@@ -57,7 +57,6 @@ namespace CallSettings { namespace Controller {
 		res = settingsManager.addPropertyHandler(BOOL_KEY_CALL_ENDING_BY_POWER_KEY,
 				NotiHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionChanged>(this));
 		RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to setup rejecting option listener");
-
 		m_pAnswerView =  gui::ViewManager::pushView<View::AnswerView>(m_app.getViewManager(), true);
 		RETVM_IF(!m_pAnswerView, false, "Failed to create view instance!");
 		setBaseView(m_pAnswerView);
