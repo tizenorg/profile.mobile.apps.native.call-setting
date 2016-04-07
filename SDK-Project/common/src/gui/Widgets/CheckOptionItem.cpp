@@ -21,7 +21,8 @@ namespace gui {
 
 	CheckOptionItem::CheckOptionItem() :
 		m_pCheckbox(nullptr),
-		m_checkState(false)
+		m_checkState(false),
+		m_checkPending(false)
 	{
 	}
 
@@ -43,6 +44,19 @@ namespace gui {
 		return m_checkState;
 	}
 
+	void CheckOptionItem::setCheckPendingState(bool pendingState)
+	{
+		if (m_checkPending != pendingState) {
+			m_checkPending = pendingState;
+			update("elm.swallow.end", GL_PART_TYPE_CONTENT);
+		}
+	}
+
+	bool CheckOptionItem::getCheckPendingState()
+	{
+		return m_checkPending;
+	}
+
 	void CheckOptionItem::setCheckHandler(NotiHandler handler)
 	{
 		m_checkHandler = handler;
@@ -52,15 +66,22 @@ namespace gui {
 	{
 
 		if (strcmp(part, "elm.swallow.end") == 0) {
-			m_pCheckbox = Widget::create<Checkbox>(WidgetWrapper(genlist), CHECKBOX_SWITCHER);
-			RETVM_IF(!m_pCheckbox, nullptr, "Failed to create checkbox!");
+			if(!m_checkPending) {
+				m_pCheckbox = Widget::create<Checkbox>(WidgetWrapper(genlist), CHECKBOX_SWITCHER);
+				RETVM_IF(!m_pCheckbox, nullptr, "Failed to create checkbox!");
 
-			m_pCheckbox->setChecked(m_checkState);
-			m_pCheckbox->setCheckHandler(
-					NotiHandler::wrap<CheckOptionItem, &CheckOptionItem::onCheckChanged>(this));
-			m_pCheckbox->setDestroyHandler(
-					NotiHandler::wrap<CheckOptionItem, &CheckOptionItem::onCheckboxDestroyed>(this));
-			return m_pCheckbox->getEvasObject();
+				m_pCheckbox->setChecked(m_checkState);
+				m_pCheckbox->setCheckHandler(
+						NotiHandler::wrap<CheckOptionItem, &CheckOptionItem::onCheckChanged>(this));
+				m_pCheckbox->setDestroyHandler(
+						NotiHandler::wrap<CheckOptionItem, &CheckOptionItem::onCheckboxDestroyed>(this));
+				return m_pCheckbox->getEvasObject();
+			} else {
+				ProcessingCircle *circlePendingItem = Widget::create<ProcessingCircle>(WidgetWrapper(genlist));
+				RETVM_IF(!circlePendingItem, nullptr, "Failed to create processing item");
+
+				return circlePendingItem->getEvasObject();
+			}
 		}
 
 		return nullptr;

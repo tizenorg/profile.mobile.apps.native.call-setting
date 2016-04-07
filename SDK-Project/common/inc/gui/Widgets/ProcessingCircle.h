@@ -15,31 +15,32 @@
  *
  */
 
-#ifndef _GUI_CHECKBOX_H_
-#define _GUI_CHECKBOX_H_
+#ifndef _GUI_PROGRESSING_CIRCLE_H_
+#define _GUI_PROGRESSING_CIRCLE_H_
 
 #include "gui/Base/Widget.h"
 
 namespace gui {
 
-	class Checkbox : public Widget {
+	typedef enum {
+		PROCESSING_TYPE_SMALL,
+		PROCESSING_TYPE_MID,
+		PROCESSING_TYPE_LARGE,
+	} ProcessingType;
+
+	class ProcessingCircle : public Widget {
 	public:
-		bool isChecked();
-		void setChecked(bool checkedState);
-		void setCheckHandler(NotiHandler handler);
+		void setStyle(ProcessingType type);
+
+	protected:
+		bool initialize(const Widget &parent, ProcessingType type = PROCESSING_TYPE_MID);
 
 	private:
 		friend Widget; // to be used in Widget::create
 
-		Checkbox();
-		virtual ~Checkbox();
-		bool initialize(const Widget &parent, CheckboxType type = CHECKBOX_DEFAULT);
-		void onChecked(Evas_Object *obj, void *event_info);
-
-	private:
-		NotiHandler m_checkHandler;
-
+		ProcessingCircle() {}
+		virtual ~ProcessingCircle() {}
 	};
 }
 
-#endif /* _GUI_CHECKBOX_H_ */
+#endif /* _GUI_PROGRESSING_CIRCLE_H_ */
