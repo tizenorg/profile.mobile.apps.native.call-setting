@@ -24,7 +24,8 @@ namespace CallSettings { namespace Controller {
 	MainViewController::MainViewController (Application &app, NotiHandler handler) :
 			ViewController(app, handler),
 			m_app(app),
-			m_pAnswerCallController(nullptr),
+			m_pAnswerViewController(nullptr),
+			m_pMoreViewController(nullptr),
 			m_pMainView(nullptr)
 	{
 	}
@@ -34,7 +35,8 @@ namespace CallSettings { namespace Controller {
 		m_pMainView->setRejectMsgHandler(nullptr);
 		m_pMainView->setCallAceptHandler(nullptr);
 		m_pMainView->setMoreHandler(nullptr);
-		delete m_pAnswerCallController;
+		delete m_pAnswerViewController;
+		delete m_pMoreViewController;
 	}
 
 	bool MainViewController::initialize()
@@ -77,7 +79,7 @@ namespace CallSettings { namespace Controller {
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		DBG("Answer/End call option selected");
 
-		m_pAnswerCallController = ViewController::create<Controller::AnswerViewController>(m_app,
+		m_pAnswerViewController = ViewController::create<Controller::AnswerViewController>(m_app,
 				NotiHandler::wrap<MainViewController, &MainViewController::onAnswerControllerDestroy>(this));
 	}
 
@@ -85,12 +87,20 @@ namespace CallSettings { namespace Controller {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		DBG("More option selected");
+		m_pMoreViewController = ViewController::create<MoreViewController>(m_app,
+				NotiHandler::wrap<MainViewController, &MainViewController::onMoreControllerDestroy>(this));
 	}
 
 	void MainViewController::onAnswerControllerDestroy()
 	{
-		delete m_pAnswerCallController;
-		m_pAnswerCallController = nullptr;
+		delete m_pAnswerViewController;
+		m_pAnswerViewController = nullptr;
+	}
+
+	void MainViewController::onMoreControllerDestroy()
+	{
+		delete m_pMoreViewController;
+		m_pMoreViewController = nullptr;
 	}
 
 } }
