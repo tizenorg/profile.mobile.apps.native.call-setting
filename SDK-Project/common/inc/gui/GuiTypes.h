@@ -60,6 +60,12 @@ namespace gui {
 		CHECKBOX_STAR,
 	} CheckboxType;
 
+	typedef enum {
+		CIRCLE_PROGRESS_SMALL,
+		CIRCLE_PROGRESS_MEDIUM,
+		CIRCLE_PROGRESS_LARGE,
+	} CircleProgressType;
+
 }
 
 #endif /* _GUI_GUITYPES_H_ */
