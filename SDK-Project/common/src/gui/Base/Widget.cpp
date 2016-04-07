@@ -43,6 +43,16 @@ namespace gui {
 		}
 	}
 
+	void Widget::show()
+	{
+		evas_object_show(m_pEvasObject);
+	}
+
+	void Widget::hide()
+	{
+		evas_object_hide(m_pEvasObject);
+	}
+
 	void Widget::onEvasObjectDelBase(Evas *e, Evas_Object *obj, void *event_info)
 	{
 		onEvasObjectDel();

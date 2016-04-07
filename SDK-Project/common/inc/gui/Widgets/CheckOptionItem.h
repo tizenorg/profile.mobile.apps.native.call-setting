@@ -20,6 +20,7 @@
 
 #include "OptionItem.h"
 #include "Checkbox.h"
+#include "ProcessingCircle.h"
 
 namespace gui {
 
@@ -30,6 +31,8 @@ namespace gui {
 		void setCheckState(bool state);
 		bool getCheckState();
 		void setCheckHandler(NotiHandler handler);
+		void setCheckPendingState(bool pendingState);
+		bool getCheckPendingState();
 
 	protected:
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
@@ -40,7 +43,9 @@ namespace gui {
 	protected:
 		Checkbox *m_pCheckbox;
 		NotiHandler m_checkHandler;
+
 		bool m_checkState;
+		bool m_checkPending;
 
 	private:
 		friend class WidgetItem;

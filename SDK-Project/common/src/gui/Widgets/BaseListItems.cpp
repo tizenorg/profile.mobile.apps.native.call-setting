@@ -36,10 +36,14 @@ namespace gui {
 
 	void SimpleTextItem::setText(const char *text, bool isLocalized)
 	{
-		RETM_IF(!text, "Invalid args!");
+		if (!text) {
+			m_text.erase();
+			m_isTextLocalized = false;
+		} else {
+			m_text.assign(text);
+			m_isTextLocalized = isLocalized;
+		}
 
-		m_text.assign(text);
-		m_isTextLocalized = isLocalized;
 		update("*", GL_PART_TYPE_TEXT);
 	}
 
@@ -81,15 +85,20 @@ namespace gui {
 
 		return SimpleTextItem::initialize(createItem, text, isTextLocalized, selectMode);
 	}
+
 	void DoubleTextItem::setSubText(const char *subtext, bool isLocalized)
 	{
-		RETM_IF(!subtext, "Invalid args!");
+		if (!subtext) {
+			m_subText.erase();
+			m_isSubTextLocalized = false;
+		} else {
+			m_subText.assign(subtext);
+			m_isSubTextLocalized = isLocalized;
+		}
 
-		m_subText.assign(subtext);
-		m_isSubTextLocalized = isLocalized;
 		update("*", GL_PART_TYPE_TEXT);
-
 	}
+
 	char *DoubleTextItem::getText(const char *part)
 	{
 		if (strcmp(part, "elm.text.sub") == 0) {
