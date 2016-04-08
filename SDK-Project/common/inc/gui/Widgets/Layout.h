@@ -32,7 +32,7 @@ namespace gui {
 		void emitSignal(const char *signal, const char *source);
 
 	private:
-		friend Widget; // to be used in Widget::create
+		friend class Widget; // to be used in Widget::create
 		Layout() {}
 		virtual ~Layout() {}
 		bool initialize(const Widget &parent, const char *className, const char *groupName, const char *styleName);
