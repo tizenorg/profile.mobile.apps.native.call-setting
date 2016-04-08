@@ -56,7 +56,7 @@ namespace gui {
 
 	private:
 		Evas_Object *m_pWindow;
-		Evas_Object *m_pRootLayout;
+		Evas_Object *m_pConformant;
 		Evas_Object *m_pNaviframe;
 
 		std::list<BaseView *> m_ViewList;
