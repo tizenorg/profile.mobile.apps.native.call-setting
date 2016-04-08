@@ -21,12 +21,25 @@
 #include "gui/Base/BaseView.h"
 #include "gui/Widgets/Genlist.h"
 #include "gui/Widgets/CheckOptionItem.h"
+#include "gui/Widgets/Popup.h"
 
 namespace CallSettings { namespace View {
 
 	class MoreView : public gui::BaseView {
 	public:
+		typedef enum {
+			CALLER_ID_STATUS_DEFAULT,
+			CALLER_ID_STATUS_SHOW,
+			CALLER_ID_STATUS_HIDE,
+		} CallerIdStatus;
+
+		typedef util::Delegate <void(CallerIdStatus)> CallerIdStatusChangeHandler;
+
 		void setCallerIdClickHandler(NotiHandler handler) { m_pCallerIdOption->setSelectHandler(handler);}
+		void setCallerIdStatus(CallerIdStatus value);
+		void showCallerIdPopup(CallerIdStatus selectedValue, CallerIdStatusChangeHandler statusHandler, NotiHandler popupHideHandler);
+		void hideCallerIdPopup();
+
 		void setCallForwardClickHandler(NotiHandler handler) { m_pCallFwdOption->setSelectHandler(handler);}
 		void setCallWaitingClickHandler(NotiHandler handler) { m_pCallWaitingOption->setSelectHandler(handler);}
 		void setCallWaitingCheckHandler(NotiHandler handler) { m_pCallWaitingOption->setCheckHandler(handler);}
@@ -37,18 +50,24 @@ namespace CallSettings { namespace View {
 		void setWaitingOptionPending(bool isPending) {m_pCallWaitingOption->setCheckPendingState(isPending);}
 		bool isWaitingOptionPending() { return m_pCallWaitingOption->getCheckPendingState();}
 
+
 	private:
 		friend class BaseView;
 
 		MoreView(gui::NaviItem *naviItem);
 		virtual ~MoreView();
 		virtual bool createViewContent() override;
+		void onCallerIdPopupItemSelect(int value);
+		void onCallerIdPopupDestroy();
 
 	private:
 		gui::Genlist *m_pGenlist;
 		gui::OptionItem *m_pCallerIdOption;
 		gui::OptionItem *m_pCallFwdOption;
 		gui::CheckOptionItem *m_pCallWaitingOption;
+		gui::Popup *m_pCallerIdPopup;
+		CallerIdStatusChangeHandler m_idStatusHandler;
+		NotiHandler m_CallerIdPopupHideCb;
 	};
 
 } }
