@@ -28,6 +28,8 @@ namespace gui {
 		m_pEvasObject = elm_genlist_add(listParent);
 		RETVM_IF(!m_pEvasObject, false, "Failed to create genlist: Internal error");
 
+		evas_object_size_hint_weight_set(m_pEvasObject, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(m_pEvasObject, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_genlist_mode_set(m_pEvasObject, ELM_LIST_COMPRESS);
 
 		elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
