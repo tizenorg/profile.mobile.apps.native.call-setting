@@ -43,7 +43,7 @@ namespace gui {
 		void hideBackButton();
 
 	private:
-		friend WidgetItem;
+		friend class WidgetItem;
 
 		NaviItem();
 		bool initialize(Elm_Object_Item *item, Evas_Object *backButton);
