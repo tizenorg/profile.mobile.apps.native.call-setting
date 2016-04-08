@@ -76,7 +76,7 @@ namespace appfw {
 		textdomain(TEXT_DOMAIN);
 
 		elm_app_base_scale_set(UI_BASE_SCALE);
-		elm_config_accel_preference_set("3d");
+		//elm_config_accel_preference_set("3d");
 
 		m_pEventManager = new SystemEventManager();
 		m_pViewManager = gui::ViewManager::create();
