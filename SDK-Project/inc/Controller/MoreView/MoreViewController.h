@@ -58,6 +58,9 @@ namespace CallSettings { namespace Controller {
 		void updateWaitingOption();
 		void setupWaitingOption(bool state);
 
+		void onCallerIdStatusSelected(View::MoreView::CallerIdStatus value);
+		void onCallerIdPopupHide();
+
 	private:
 		Application &m_app;
 		View::MoreView *m_pMoreView;
@@ -67,7 +70,5 @@ namespace CallSettings { namespace Controller {
 		bool m_waitRequestPending;
 	};
 } }
-
-
 
 #endif /* _CONTROLLER_MORE_VIEW_CONTROLLER_H_ */
