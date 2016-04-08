@@ -21,7 +21,7 @@ namespace gui {
 
 	ViewManager::ViewManager() :
 		m_pWindow(nullptr),
-		m_pRootLayout(nullptr),
+		m_pConformant(nullptr),
 		m_pNaviframe(nullptr),
 		isTransitionState(false),
 		m_pActivateJob(nullptr)
@@ -83,18 +83,11 @@ namespace gui {
 		elm_win_resize_object_add(m_pWindow, bg);
 		evas_object_show(bg);
 
-		Evas_Object *conformant = elm_conformant_add(m_pWindow);
-		RETVM_IF(!conformant, false, "Failed to create conformant!");
-		evas_object_size_hint_weight_set(conformant, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		elm_win_resize_object_add(m_pWindow, conformant);
-		evas_object_show(conformant);
-
-		m_pRootLayout = elm_layout_add(m_pWindow);
-		RETVM_IF(!m_pRootLayout, false, "Failed to create root layout!");
-		elm_layout_theme_set(m_pRootLayout, "layout", "application", "default");
-		evas_object_size_hint_weight_set(m_pRootLayout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		elm_object_content_set(conformant, m_pRootLayout);
-		evas_object_show(m_pRootLayout);
+		m_pConformant = elm_conformant_add(m_pWindow);
+		RETVM_IF(!m_pConformant, false, "Failed to create conformant!");
+		evas_object_size_hint_weight_set(m_pConformant, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		elm_win_resize_object_add(m_pWindow, m_pConformant);
+		evas_object_show(m_pConformant);
 
 		evas_object_show(m_pWindow);
 		return true;
@@ -102,10 +95,10 @@ namespace gui {
 
 	bool ViewManager::createNaviframe()
 	{
-		m_pNaviframe = elm_naviframe_add(m_pRootLayout);
+		m_pNaviframe = elm_naviframe_add(m_pConformant);
 		RETVM_IF(!m_pNaviframe, false, "Failed to create naviframe!");
 		elm_naviframe_prev_btn_auto_pushed_set(m_pNaviframe, EINA_TRUE);
-		elm_layout_content_set(m_pRootLayout, "elm.swallow.content", m_pNaviframe);
+		elm_object_content_set(m_pConformant, m_pNaviframe);
 
 		eext_object_event_callback_add(m_pNaviframe, EEXT_CALLBACK_BACK,
 			EoSmartCb::make<ViewManager, &ViewManager::onHwBackKeyPressed>(), this);
