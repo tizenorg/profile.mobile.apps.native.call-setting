@@ -85,7 +85,7 @@ namespace gui {
 
 	void Genlist::update()
 	{
-		Eina_List *list = elm_genlist_realized_items_get(getEvasObject());
+		Eina_List *list = elm_genlist_realized_items_get(m_pEvasObject);
 		Eina_List *node = nullptr;
 		void *item = nullptr;
 
@@ -94,6 +94,11 @@ namespace gui {
 		}
 
 		eina_list_free(list);
+	}
+
+	void Genlist::clear()
+	{
+		elm_genlist_clear(m_pEvasObject);
 	}
 
 }

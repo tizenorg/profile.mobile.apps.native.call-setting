@@ -82,10 +82,14 @@ namespace gui {
 		}
 	}
 
-	bool Layout::setText(const char *textPart, const char *text)
+	void Layout::setText(const char *textPart, const char *text, bool isTranslatable)
 	{
-		RETVM_IF(!text, false, "Invalid parameters");
-		return elm_layout_text_set(m_pEvasObject, textPart, text);
+		RETM_IF(!text, "Invalid parameters");
+		if (isTranslatable) {
+			elm_object_translatable_part_text_set(m_pEvasObject, textPart, text);
+		} else {
+			elm_layout_text_set(m_pEvasObject, textPart, text);
+		}
 	}
 
 	bool Layout::themeSet(const char *className, const char *groupName, const char *styleName)
@@ -98,5 +102,11 @@ namespace gui {
 	{
 		RETVM_IF(!edjFilePath || !groupName, false, "Invalid parameters");
 		return elm_layout_file_set(m_pEvasObject, edjFilePath, groupName) ? true : false;
+	}
+
+	void Layout::emitSignal(const char *signal, const char *source)
+	{
+		RETM_IF(!signal || !source, "Invalid parameters");
+		elm_layout_signal_emit(m_pEvasObject, signal, source);
 	}
 }

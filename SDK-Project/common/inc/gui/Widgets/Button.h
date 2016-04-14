@@ -15,27 +15,31 @@
  *
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _GUI_BUTTON_H_
+#define _GUI_BUTTON_H_
 
-#include "App/AppConfig.h"
+#include "gui/Base/Widget.h"
 
-#include <algorithm>
-#include <deque>
-#include <functional>
-#include <list>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+namespace gui {
 
-#include <app_i18n.h>
-#include <stdlib.h>
+	class Button : public Widget {
+	public:
+		void setClickHandler(NotiHandler handler);
+		void setText(const char *text, bool isLocalized);
+		void setDisabled(bool disabledState);
 
-#include "util/Delegation.h"
-#include "util/Logger.h"
-#include "util/NonCopyable.h"
+	private:
+		friend Widget; // to be used in Widget::create
 
-typedef util::Delegate<void()> NotiHandler;
+		Button();
+		virtual ~Button();
+		bool initialize(const Widget &parent, const char *style, const char *text, bool isTranslatable = true);
+		void onButtonClick(Evas_Object *obj, void *event_info);
 
-#endif /* _COMMON_H_ */
+	private:
+		NotiHandler m_clickHandler;
+
+	};
+}
+
+#endif /* _GUI_BUTTON_H_ */
