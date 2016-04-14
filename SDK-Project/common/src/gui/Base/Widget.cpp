@@ -21,18 +21,12 @@ namespace gui {
 
 	Widget::Widget() :
 		m_pEvasObject(nullptr),
-		m_destroyHandler(),
-		m_isDestroying(false),
-		m_isOwner(false)
+		m_destroyHandler()
 	{
 	}
 
 	Widget::~Widget()
 	{
-		if (m_isOwner) {
-			evas_object_del(m_pEvasObject);
-		}
-
 		if (m_destroyHandler.assigned()) {
 			m_destroyHandler();
 		}
@@ -40,8 +34,15 @@ namespace gui {
 
 	void Widget::destroy(Widget *widget)
 	{
-		if (widget) {
-			widget->m_isDestroying = true;
+		if (!widget) {
+			return;
+		}
+
+		if (widget->m_pEvasObject) {
+			Evas_Object *eo = widget->m_pEvasObject;
+			widget->m_pEvasObject = nullptr;
+			evas_object_del(eo);
+		} else {
 			delete widget;
 		}
 	}
@@ -50,15 +51,13 @@ namespace gui {
 	{
 		m_pEvasObject = nullptr;
 		onEvasObjectDel();
-		if (!m_isDestroying) {
-			delete this;
-		}
+		delete this;
 	}
 
 	bool Widget::prepare(Widget *widget)
 	{
 		RETVM_IF(!widget->m_pEvasObject, false, "Object is null");
-		widget->m_isOwner = true;
+
 		evas_object_event_callback_add(widget->m_pEvasObject, EVAS_CALLBACK_DEL,
 				EvasEventCb::make<Widget, &Widget::onEvasObjectDelBase>(), widget);
 

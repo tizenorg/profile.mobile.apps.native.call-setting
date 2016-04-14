@@ -21,15 +21,12 @@ namespace gui {
 
 	WidgetItem::WidgetItem() :
 		m_pEOItem(nullptr),
-		m_destroyHandler(),
-		m_isDestroying(false)
+		m_destroyHandler()
 	{
 	}
 
 	WidgetItem::~WidgetItem()
 	{
-		elm_object_item_del(m_pEOItem);
-
 		if (m_destroyHandler.assigned()) {
 			m_destroyHandler();
 		}
@@ -37,8 +34,15 @@ namespace gui {
 
 	void WidgetItem::destroy(WidgetItem *item)
 	{
-		if (item) {
-			item->m_isDestroying = true;
+		if (!item) {
+			return;
+		}
+
+		if (item->m_pEOItem) {
+			Elm_Object_Item *eoItem = item->m_pEOItem;
+			item->m_pEOItem = nullptr;
+			elm_object_item_del(eoItem);
+		} else {
 			delete item;
 		}
 	}
@@ -46,9 +50,7 @@ namespace gui {
 	void WidgetItem::onElmObjectItemDelBase(Evas_Object *obj, void *event_info)
 	{
 		m_pEOItem = nullptr;
-		if (! m_isDestroying) {
-			delete this;
-		}
+		delete this;
 	}
 
 	bool WidgetItem::prepare(WidgetItem *widgetItem)
