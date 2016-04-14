@@ -45,3 +45,36 @@ msgstr "Call waiting"
 
 msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
 msgstr "Receive call alerts during calls."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "DELETE"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "CANCEL"
+
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d selected"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "No messages"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "After you create call-reject messages, they will be shown here."
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Sorry, I'm busy. Call you later."
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Sorry, I'm busy. Please text me."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "I can't talk now. What's up?"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "I'm in a meeting."
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Sorry, I'm driving now."
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Select all"
