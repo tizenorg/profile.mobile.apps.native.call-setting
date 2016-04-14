@@ -15,7 +15,7 @@
  *
  */
 
-#include "View/RejectMsgListView/RejectMsgListView.h"
+#include "View/RejectMsgView/RejectMsgListView.h"
 #include "gui/Widgets/DoubleTextListItem.h"
 
 #define MAX_HEADER_TEXT_LEN 256

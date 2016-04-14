@@ -142,6 +142,7 @@ namespace gui {
 			doActivate();
 		} else {
 			doHide();
+			m_updateFlag |= UF_WAS_PAUSED;
 		}
 	}
 
