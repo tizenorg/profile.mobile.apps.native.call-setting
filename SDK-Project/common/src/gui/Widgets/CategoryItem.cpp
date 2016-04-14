@@ -19,24 +19,9 @@
 
 namespace gui {
 
-	CategoryItem::CategoryItem() :
-		SimpleTextItem()
-	{
-	}
-
-	Elm_Genlist_Item_Class *CategoryItem::getItemClass()
+	Elm_Genlist_Item_Class *CategoryListItem::getItemClass()
 	{
 		static Elm_Genlist_Item_Class itc = createItemClass("group_index");
 		return &itc;
-	}
-
-	bool CategoryItem::initialize(ItemAddMethod createItem, const char *text, bool isTextLocalized, ItemSelectionMode selectMode)
-	{
-		if (!SimpleTextItem::initialize(createItem, text, isTextLocalized, selectMode)) {
-			ERR("Failed to initialize TextItem");
-			return false;
-		}
-
-		return true;
 	}
 }

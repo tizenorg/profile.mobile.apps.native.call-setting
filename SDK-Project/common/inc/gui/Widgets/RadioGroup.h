@@ -34,7 +34,7 @@ namespace gui {
 		~RadioGroup() {}
 		bool initialize(const Widget &parent);
 		bool createRadioList();
-		void onRadioItemSelected();
+		void onRadioItemSelected(WidgetItem *item);
 
 	private:
 		friend class Widget;

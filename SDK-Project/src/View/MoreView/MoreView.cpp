@@ -47,18 +47,48 @@ namespace CallSettings { namespace View {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
-		m_pCallerIdOption = m_pGenlist->appendItem<OptionItem>("IDS_CST_MBODY_MY_CALLER_ID");
-		m_pCallFwdOption = m_pGenlist->appendItem<OptionItem>("IDS_CST_BODY_CALL_FORWARDING");
-		m_pCallWaitingOption = m_pGenlist->appendItem<CheckOptionItem>(
+		m_pCallerIdOption = m_pGenlist->appendItem<DoubleTextListItem>("IDS_CST_MBODY_MY_CALLER_ID");
+		m_pCallFwdOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_BODY_CALL_FORWARDING");
+		m_pCallWaitingOption = m_pGenlist->appendItem<DoubleTextListItem>(
 				"IDS_CST_BODY_CALL_WAITING",
 				"IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB");
 
 		RETVM_IF(!m_pCallerIdOption || !m_pCallFwdOption || !m_pCallWaitingOption, false, "Internal error");
 
+		m_pCallerIdOption->setCheckMode(gui::CheckboxListItem::HIDDEN);
+		m_pCallWaitingOption->setCheckboxStyle(CHECKBOX_SWITCHER);
+		m_pCallWaitingOption->setCheckMode(gui::CheckboxListItem::AUTO_CHECK);
+
+		m_pCallerIdOption->setSelectHandler(ItemNotiHandler::wrap<MoreView, &MoreView::onOptionSelected>(this));
+		m_pCallFwdOption->setSelectHandler(ItemNotiHandler::wrap<MoreView, &MoreView::onOptionSelected>(this));
+		m_pCallWaitingOption->setCheckHandler(ItemNotiHandler::wrap<MoreView, &MoreView::onOptionSelected>(this));
+
 		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_COM_BODY_MORE");
 
 		return setViewContent(*m_pGenlist);
+	}
+
+	void MoreView::onOptionSelected(WidgetItem *item)
+	{
+		RETM_IF(!item, "Invalid args!");
+
+		if (item == static_cast<WidgetItem *>(m_pCallerIdOption) && m_callerIdClickHandeler.assigned()) {
+			m_callerIdClickHandeler();
+		} else if (item == static_cast<WidgetItem *>(m_pCallFwdOption) && m_callFwdClickHandler.assigned()) {
+			m_callFwdClickHandler();
+		} else if (item == static_cast<WidgetItem *>(m_pCallWaitingOption) && m_callWaitingCheckHandler.assigned()) {
+			m_callWaitingCheckHandler();
+		}
+	}
+
+	void MoreView::setWaitingOptionPending(bool isPending)
+	{
+		if (isPending) {
+			m_pCallWaitingOption->setCheckMode(gui::CheckboxListItem::PENDING);
+		} else {
+			m_pCallWaitingOption->setCheckMode(gui::CheckboxListItem::AUTO_CHECK);
+		}
 	}
 
 	void MoreView::setCallerIdStatus(CallerIdStatus value)
@@ -96,7 +126,7 @@ namespace CallSettings { namespace View {
 
 		m_pCallerIdPopup->setDestroyHandler(NotiHandler::wrap<MoreView, &MoreView::onCallerIdPopupDestroy>(this));
 		m_idStatusHandler = statusHandler;
-		m_CallerIdPopupHideCb = popupHideCb;
+		m_callerIdPopupHideCb = popupHideCb;
 	}
 
 	void MoreView::hideCallerIdPopup()
@@ -110,8 +140,8 @@ namespace CallSettings { namespace View {
 	void MoreView::onCallerIdPopupDestroy()
 	{
 		m_pCallerIdPopup = nullptr;
-		if (m_CallerIdPopupHideCb.assigned()) {
-			m_CallerIdPopupHideCb();
+		if (m_callerIdPopupHideCb.assigned()) {
+			m_callerIdPopupHideCb();
 		}
 	}
 

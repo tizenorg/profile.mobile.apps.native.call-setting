@@ -61,7 +61,7 @@ namespace gui {
 		}
 	}
 
-	void GenlistItem::setSelectHandler(NotiHandler handler)
+	void GenlistItem::setSelectHandler(ItemNotiHandler handler)
 	{
 		m_selectHandler = handler;
 	}
@@ -135,7 +135,7 @@ namespace gui {
 		elm_genlist_item_selected_set(m_pEOItem, EINA_FALSE);
 
 		if (m_selectHandler.assigned()) {
-			m_selectHandler();
+			m_selectHandler(this);
 		}
 	}
 }

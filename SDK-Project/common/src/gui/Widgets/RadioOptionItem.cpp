@@ -34,7 +34,7 @@ RadioOptionItem::RadioOptionItem() :
 	{
 		RETVM_IF(!radioGroup, false, "Invalid args!");
 
-		if (!SimpleTextItem::initialize(createItem, text, isLocalized, selectMode)) {
+		if (!SimpleListItem::initialize(createItem, text, isLocalized, selectMode)) {
 			ERR("Failed to initialize TextItem");
 			return false;
 		}

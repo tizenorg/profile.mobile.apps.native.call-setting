@@ -31,8 +31,8 @@ namespace gui {
 		evas_object_size_hint_weight_set(m_pEvasObject, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(m_pEvasObject, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_genlist_mode_set(m_pEvasObject, ELM_LIST_COMPRESS);
-		//FIXME Temporary removed due to EFL issue
-		//elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
+
+		elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
 		elm_scroller_policy_set(m_pEvasObject, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 		elm_scroller_content_min_limit(m_pEvasObject, EINA_FALSE, EINA_TRUE);
 
@@ -87,7 +87,7 @@ namespace gui {
 
 	void Genlist::update()
 	{
-		Eina_List *list = elm_genlist_realized_items_get(getEvasObject());
+		Eina_List *list = elm_genlist_realized_items_get(m_pEvasObject);
 		Eina_List *node = nullptr;
 		void *item = nullptr;
 
@@ -96,6 +96,11 @@ namespace gui {
 		}
 
 		eina_list_free(list);
+	}
+
+	void Genlist::clear()
+	{
+		elm_genlist_clear(m_pEvasObject);
 	}
 
 }

@@ -15,23 +15,31 @@
  *
  */
 
-#ifndef _GUI_OPTION_ITEM_H_
-#define _GUI_OPTION_ITEM_H_
+#ifndef _GUI_DOUBLE_TEXT_LISTITEM_H_
+#define _GUI_DOUBLE_TEXT_LISTITEM_H_
 
-#include "BaseListItems.h"
-
+#include "CheckboxListItem.h"
 namespace gui {
+	class DoubleTextListItem : public CheckboxListItem {
+	public:
+		void setSubText(const char *subtext, bool isLocalized = true);
 
-	class OptionItem : public DoubleTextItem {
 	protected:
-		OptionItem();
-		virtual ~OptionItem() {}
+		DoubleTextListItem();
+		virtual ~DoubleTextListItem() {}
+		bool initialize(ItemAddMethod createItem, const char *text = nullptr, const char *subText = nullptr,
+				bool isTextLocalized = true, bool isSubTextLocalized = true, bool m_isMultiline = false, ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual Elm_Genlist_Item_Class *getItemClass() override;
 		virtual char *getText(const char *part) override;
+
+	protected:
+		std::string m_subText;
+		bool m_isSubTextLocalized;
+		bool m_isMultiline;
 
 	private:
 		friend class WidgetItem;
 	};
-}
 
-#endif /* _GUI_OPTION_ITEM_H_ */
+}
+#endif /* _GUI_DOUBLE_TEXT_LISTITEM_H_ */

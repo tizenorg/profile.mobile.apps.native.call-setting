@@ -27,7 +27,8 @@ namespace gui {
 
 	class BaseView;
 	typedef util::Delegate<void(BaseView *)> ViewDestroyHandler;
-
+	class WidgetItem;
+	typedef util::Delegate <void(WidgetItem *)> ItemNotiHandler;
 	typedef util::Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasEventCb;
 	typedef util::Callback<void(Evas_Object *obj, void *event_info)> EoSmartCb;
 
@@ -58,7 +59,7 @@ namespace gui {
 		CHECKBOX_DEFAULT,
 		CHECKBOX_SWITCHER,
 		CHECKBOX_STAR,
-	} CheckboxType;
+	} CheckboxStyle;
 
 }
 

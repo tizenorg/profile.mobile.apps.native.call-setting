@@ -39,17 +39,45 @@ namespace CallSettings { namespace View {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
-		CategoryItem *answerCategory = m_pGenlist->appendItem<CategoryItem>("IDS_CST_HEADER_ANSWER_CALLS_BY");
-		CategoryItem *rejectCategory = m_pGenlist->appendItem<CategoryItem>("IDS_CST_HEADER_END_CALLS_BY");
+		CategoryListItem *answerCategory = m_pGenlist->appendItem<CategoryListItem>("IDS_CST_HEADER_ANSWER_CALLS_BY");
+		CategoryListItem *rejectCategory = m_pGenlist->appendItem<CategoryListItem>("IDS_CST_HEADER_END_CALLS_BY");
 
-		m_pAnswerOption = m_pGenlist->insertAfter<CheckOptionItem>(*answerCategory, "IDS_CST_MBODY_PRESSING_THE_HOME_KEY");
-		m_pRejectOption = m_pGenlist->insertAfter<CheckOptionItem>(*rejectCategory, "IDS_CST_MBODY_PRESSING_THE_POWER_KEY");
+		if (answerCategory) {
+			answerCategory->setCheckMode(gui::CheckboxListItem::HIDDEN);
+			answerCategory->setSelectionMode(GENLIST_ITEM_SELECT_MODE_NONE);
+		}
+
+		if (rejectCategory) {
+			rejectCategory->setCheckMode(gui::CheckboxListItem::HIDDEN);
+			rejectCategory->setSelectionMode(GENLIST_ITEM_SELECT_MODE_NONE);
+		}
+
+		m_pAnswerOption = m_pGenlist->insertAfter<CheckboxListItem>(*answerCategory, "IDS_CST_MBODY_PRESSING_THE_HOME_KEY");
+		m_pRejectOption = m_pGenlist->insertAfter<CheckboxListItem>(*rejectCategory, "IDS_CST_MBODY_PRESSING_THE_POWER_KEY");
 
 		RETVM_IF(!m_pAnswerOption || !m_pRejectOption, false, "Internal error");
+		m_pAnswerOption->setCheckboxStyle(CHECKBOX_SWITCHER);
+		m_pAnswerOption->setCheckMode(gui::CategoryListItem::AUTO_CHECK);
+		m_pRejectOption->setCheckboxStyle(CHECKBOX_SWITCHER);
+		m_pRejectOption->setCheckMode(gui::CategoryListItem::AUTO_CHECK);
 
+		m_pAnswerOption->setCheckHandler(ItemNotiHandler::wrap<AnswerView, &AnswerView::onOptionChecked>(this));
+		m_pRejectOption->setCheckHandler(ItemNotiHandler::wrap<AnswerView, &AnswerView::onOptionChecked>(this));
 		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
 
 		return setViewContent(*m_pGenlist);
+	}
+
+	void AnswerView::onOptionChecked(gui::WidgetItem *item)
+	{
+		RETM_IF(!item, "Invallid args");
+
+		CheckboxListItem *optionItem = static_cast<CheckboxListItem *>(item);
+		if (optionItem == m_pAnswerOption && m_answerCheckHandler.assigned()) {
+			m_answerCheckHandler();
+		} else if (optionItem == m_pRejectOption && m_rejectCheckHandler.assigned()) {
+			m_rejectCheckHandler();
+		}
 	}
 } }

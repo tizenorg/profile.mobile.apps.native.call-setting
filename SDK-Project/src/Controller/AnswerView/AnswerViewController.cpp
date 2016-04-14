@@ -67,12 +67,6 @@ namespace CallSettings { namespace Controller {
 		m_pAnswerView->setRejectCheckHandler(
 				NotiHandler::wrap<AnswerViewController, &AnswerViewController::onRejectOptionCheck>(this));
 
-		m_pAnswerView->setAnswerItemClickHandler(
-				NotiHandler::wrap<AnswerViewController, &AnswerViewController::onAnswerItemClick>(this));
-
-		m_pAnswerView->setRejectItemClickHandler(
-				NotiHandler::wrap<AnswerViewController, &AnswerViewController::onRejectItemClick>(this));
-
 		return true;
 	}
 
@@ -98,24 +92,6 @@ namespace CallSettings { namespace Controller {
 			ERR("Failed to change Reject option");
 			updateRejectOption();
 		}
-	}
-
-	void AnswerViewController::onAnswerItemClick()
-	{
-		RETM_IF(!m_isActivated, "View is not active, skip click event!");
-		bool state = m_pAnswerView->getAnswerOptionState();
-
-		ISettingsManager &settingsManager = m_app.getSettingsManager();
-		settingsManager.setProperty(BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY, !state);
-	}
-
-	void AnswerViewController::onRejectItemClick()
-	{
-		RETM_IF(!m_isActivated, "View is not active, skip click event!");
-		bool state = m_pAnswerView->getRejectOptionState();
-
-		ISettingsManager &settingsManager = m_app.getSettingsManager();
-		settingsManager.setProperty(BOOL_KEY_CALL_ENDING_BY_POWER_KEY, !state);
 	}
 
 	void AnswerViewController::onAnswerOptionChanged()

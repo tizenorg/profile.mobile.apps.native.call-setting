@@ -28,7 +28,7 @@ namespace gui {
 		virtual ~NaviItem();
 		void showTitle();
 		void hideTitle();
-		void setTitleText(const char *title);
+		void setTitleText(const char *title, bool isTranslatable = true);
 
 		void setContent(const Widget &content);
 		void unsetContent();

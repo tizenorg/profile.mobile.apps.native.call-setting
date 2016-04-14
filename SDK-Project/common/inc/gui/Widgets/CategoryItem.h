@@ -15,24 +15,22 @@
  *
  */
 
-#ifndef _GUI_CATEGORY_ITEM_H_
-#define _GUI_CATEGORY_ITEM_H_
+#ifndef _GUI_CATEGORY_LIST_ITEM_H_
+#define _GUI_CATEGORY_LIST_ITEM_H_
 
-#include "BaseListItems.h"
+#include "CheckboxListItem.h"
 
 namespace gui {
 
-	class CategoryItem : public SimpleTextItem {
+	class CategoryListItem : public CheckboxListItem {
 	protected:
-		CategoryItem();
-		virtual ~CategoryItem() {}
+		CategoryListItem() {}
+		virtual ~CategoryListItem() {}
 		virtual Elm_Genlist_Item_Class *getItemClass() override;
-		bool initialize(ItemAddMethod createItem, const char *text = nullptr, bool isLocalized = true,
-				ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_NONE);
 
 	private:
 		friend class WidgetItem;
 	};
 }
 
-#endif /* _GUI_CATEGORY_ITEM_H_ */
+#endif /* _GUI_CATEGORY_LIST_ITEM_H_ */

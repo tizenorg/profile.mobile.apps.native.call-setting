@@ -65,9 +65,6 @@ namespace CallSettings { namespace Controller {
 		m_pMoreView->setCallForwardClickHandler(
 				NotiHandler::wrap<MoreViewController, &MoreViewController::onForwardingItemClick>(this));
 
-		m_pMoreView->setCallWaitingClickHandler(
-				NotiHandler::wrap<MoreViewController, &MoreViewController::onWaitingItemClick>(this));
-
 		m_pMoreView->setCallWaitingCheckHandler(
 				NotiHandler::wrap<MoreViewController, &MoreViewController::onWaitingOptionCheck>(this));
 
@@ -112,17 +109,6 @@ namespace CallSettings { namespace Controller {
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 
 		DBG("Call forwarding option selected");
-	}
-
-	void MoreViewController::onWaitingItemClick()
-	{
-		RETM_IF(!m_isActivated, "View is not active, skip click event!");
-
-		DBG("Call Waiting option selected");
-		if (!m_waitRequestPending) {
-			bool state = m_pMoreView->isWaitingOptionChecked();
-			setupWaitingOption(!state);
-		}
 	}
 
 	void MoreViewController::onWaitingOptionCheck()

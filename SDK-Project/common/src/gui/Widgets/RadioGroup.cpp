@@ -49,11 +49,11 @@ namespace gui {
 		RadioOptionItem *item = m_pGenlist->appendItem<RadioOptionItem>(m_pRadioGroup, itemIndex, text, isTranslatable);
 		RETVM_IF(!item, false, "Failed to add item!");
 
-		item->setSelectHandler(NotiHandler::wrap<RadioGroup, &RadioGroup::onRadioItemSelected>(this));
+		item->setSelectHandler(ItemNotiHandler::wrap<RadioGroup, &RadioGroup::onRadioItemSelected>(this));
 		return true;
 	}
 
-	void RadioGroup::onRadioItemSelected()
+	void RadioGroup::onRadioItemSelected(WidgetItem *item)
 	{
 		if (m_radioSelectHandler.assigned()) {
 			m_radioSelectHandler(elm_radio_value_get(m_pRadioGroup));

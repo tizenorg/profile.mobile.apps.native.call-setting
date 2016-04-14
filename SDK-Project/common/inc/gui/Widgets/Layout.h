@@ -26,9 +26,10 @@ namespace gui {
 	public:
 		bool setContent(const char *swallowPart, const Widget &content);
 		bool unsetContent(const char *swallowPart);
-		bool setText(const char *textPart, const char *text);
+		void setText(const char *textPart, const char *text, bool isTranslatable = true);
 		bool themeSet(const char *className, const char *groupName, const char *styleName);
 		bool styleSet(const char *edjFilePath, const char *groupName);
+		void emitSignal(const char *signal, const char *source);
 
 	private:
 		friend class Widget; // to be used in Widget::create

@@ -15,37 +15,46 @@
  *
  */
 
-#ifndef _GUI_CHECK_OPTION_ITEM_H_
-#define _GUI_CHECK_OPTION_ITEM_H_
+#ifndef _GUI_CHECK_ITEM_H_
+#define _GUI_CHECK_ITEM_H_
 
-#include "OptionItem.h"
+#include "SimpleListItem.h"
 #include "Checkbox.h"
 #include "ProcessingCircle.h"
 
 namespace gui {
 
-	class CheckOptionItem : public OptionItem {
+	class CheckboxListItem : public SimpleListItem {
+
 	public:
-		CheckOptionItem();
-		virtual ~CheckOptionItem();
+		typedef enum {
+				NORMAL,
+				AUTO_CHECK,
+				PENDING,
+				HIDDEN,
+		} CheckMode;
+
+		CheckboxListItem();
+		virtual ~CheckboxListItem();
 		void setCheckState(bool state);
 		bool getCheckState();
-		void setCheckHandler(NotiHandler handler);
-		void setCheckPendingState(bool pendingState);
-		bool getCheckPendingState();
+		void setCheckMode(CheckMode mode);
+		CheckMode getCheckMode();
+		void setCheckboxStyle(CheckboxStyle checkStyle);
+		void setCheckHandler(ItemNotiHandler handler);
 
 	protected:
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
 		void onCheckChanged();
 		void onCheckboxDestroyed();
-		void onOptionSelected();
+		virtual void onSelected() override;
 
 	protected:
 		Checkbox *m_pCheckbox;
-		NotiHandler m_checkHandler;
-
+		CheckMode m_checkMode;
+		CheckboxStyle m_checkStyle;
 		bool m_checkState;
-		bool m_checkPending;
+		ItemNotiHandler m_checkHandler;
 
 	private:
 		friend class WidgetItem;

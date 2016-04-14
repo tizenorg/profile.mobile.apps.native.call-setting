@@ -18,11 +18,11 @@
 #ifndef _GUI_RADIO_OPTION_ITEM_H_
 #define _GUI_RADIO_OPTION_ITEM_H_
 
-#include "BaseListItems.h"
+#include "SimpleListItem.h"
 
 namespace gui {
 
-	class RadioOptionItem : public SimpleTextItem {
+	class RadioOptionItem : public SimpleListItem {
 	public:
 		RadioOptionItem();
 		virtual ~RadioOptionItem();

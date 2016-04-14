@@ -15,27 +15,30 @@
  *
  */
 
-#include "gui/Widgets/OptionItem.h"
+#ifndef _GUI_BUTTON_H_
+#define _GUI_BUTTON_H_
+
+#include "gui/Base/Widget.h"
 
 namespace gui {
 
-	OptionItem::OptionItem()
-	{
-	}
+	class Button : public Widget {
+	public:
+		void setClickHandler(NotiHandler handler);
+		void setText(const char *text, bool isLocalized);
 
-	Elm_Genlist_Item_Class *OptionItem::getItemClass()
-	{
-		static Elm_Genlist_Item_Class itc = createItemClass("multiline");
-		return &itc;
-	}
+	private:
+		friend Widget; // to be used in Widget::create
 
-	char *OptionItem::getText(const char *part)
-	{
-		if (strcmp(part, "elm.text.multiline") == 0) {
-			return makeTextLabel(m_subText, m_isSubTextLocalized);
-		} else {
-			return SimpleTextItem::getText(part);
-		}
-	}
+		Button();
+		virtual ~Button();
+		bool initialize(const Widget &parent, const char *style, const char *text, bool isTranslatable = true);
+		void onButtonClick(Evas_Object *obj, void *event_info);
 
+	private:
+		NotiHandler m_clickHandler;
+
+	};
 }
+
+#endif /* _GUI_BUTTON_H_ */

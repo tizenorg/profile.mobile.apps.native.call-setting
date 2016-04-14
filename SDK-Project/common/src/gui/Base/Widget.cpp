@@ -57,6 +57,15 @@ namespace gui {
 		evas_object_hide(m_pEvasObject);
 	}
 
+	void Widget::setDisabled(bool disabledState)
+	{
+		if (disabledState) {
+			elm_object_disabled_set(m_pEvasObject, EINA_TRUE);
+		} else {
+			elm_object_disabled_set(m_pEvasObject, EINA_FALSE);
+		}
+	}
+
 	void Widget::onEvasObjectDelBase(Evas *e, Evas_Object *obj, void *event_info)
 	{
 		m_pEvasObject = nullptr;

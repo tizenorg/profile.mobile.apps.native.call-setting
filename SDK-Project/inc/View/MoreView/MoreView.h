@@ -20,7 +20,8 @@
 
 #include "gui/Base/BaseView.h"
 #include "gui/Widgets/Genlist.h"
-#include "gui/Widgets/CheckOptionItem.h"
+#include "gui/Widgets/SimpleListItem.h"
+#include "gui/Widgets/DoubleTextListItem.h"
 #include "gui/Widgets/Popup.h"
 
 namespace CallSettings { namespace View {
@@ -35,21 +36,18 @@ namespace CallSettings { namespace View {
 
 		typedef util::Delegate <void(CallerIdStatus)> CallerIdStatusChangeHandler;
 
-		void setCallerIdClickHandler(NotiHandler handler) { m_pCallerIdOption->setSelectHandler(handler);}
 		void setCallerIdStatus(CallerIdStatus value);
 		void showCallerIdPopup(CallerIdStatus selectedValue, CallerIdStatusChangeHandler statusHandler, NotiHandler popupHideHandler);
 		void hideCallerIdPopup();
 
-		void setCallForwardClickHandler(NotiHandler handler) { m_pCallFwdOption->setSelectHandler(handler);}
-		void setCallWaitingClickHandler(NotiHandler handler) { m_pCallWaitingOption->setSelectHandler(handler);}
-		void setCallWaitingCheckHandler(NotiHandler handler) { m_pCallWaitingOption->setCheckHandler(handler);}
+		void setCallerIdClickHandler(NotiHandler handler) { m_callerIdClickHandeler = handler;}
+		void setCallForwardClickHandler(NotiHandler handler) { m_callFwdClickHandler = handler;}
+		void setCallWaitingCheckHandler(NotiHandler handler) { m_callWaitingCheckHandler = handler;}
 
 		void setCallerIdValue(int callerId);
 		void setWaitingOptionChecked(bool checked) {m_pCallWaitingOption->setCheckState(checked);}
 		bool isWaitingOptionChecked() { return m_pCallWaitingOption->getCheckState();}
-		void setWaitingOptionPending(bool isPending) {m_pCallWaitingOption->setCheckPendingState(isPending);}
-		bool isWaitingOptionPending() { return m_pCallWaitingOption->getCheckPendingState();}
-
+		void setWaitingOptionPending(bool isPending);
 
 	private:
 		friend class BaseView;
@@ -59,15 +57,19 @@ namespace CallSettings { namespace View {
 		virtual bool createViewContent() override;
 		void onCallerIdPopupItemSelect(int value);
 		void onCallerIdPopupDestroy();
+		void onOptionSelected(gui::WidgetItem *item);
 
 	private:
 		gui::Genlist *m_pGenlist;
-		gui::OptionItem *m_pCallerIdOption;
-		gui::OptionItem *m_pCallFwdOption;
-		gui::CheckOptionItem *m_pCallWaitingOption;
+		gui::DoubleTextListItem *m_pCallerIdOption;
+		gui::SimpleListItem *m_pCallFwdOption;
+		gui::DoubleTextListItem *m_pCallWaitingOption;
 		gui::Popup *m_pCallerIdPopup;
 		CallerIdStatusChangeHandler m_idStatusHandler;
-		NotiHandler m_CallerIdPopupHideCb;
+		NotiHandler m_callerIdPopupHideCb;
+		NotiHandler m_callerIdClickHandeler;
+		NotiHandler m_callFwdClickHandler;
+		NotiHandler m_callWaitingCheckHandler;
 	};
 
 } }
