@@ -46,8 +46,6 @@ namespace gui {
 
 	private:
 		NotiHandler m_destroyHandler;
-		bool m_isDestroying;
-		bool m_isOwner;
 	};
 
 	class WidgetWrapper : public Widget {

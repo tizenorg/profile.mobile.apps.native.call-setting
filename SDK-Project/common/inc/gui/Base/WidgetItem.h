@@ -45,7 +45,6 @@ namespace gui {
 
 	private:
 		NotiHandler m_destroyHandler;
-		bool m_isDestroying;
 	};
 
 	template <typename ITEM_TYPE, typename... TYPE_ARGS>
