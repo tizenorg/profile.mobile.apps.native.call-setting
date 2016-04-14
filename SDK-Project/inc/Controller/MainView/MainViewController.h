@@ -21,6 +21,7 @@
 #include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
+#include "Controller/RejectMsgListView/RejectMsgListController.h"
 #include "Controller/AnswerView/AnswerViewController.h"
 #include "View/MainView/MainView.h"
 
@@ -40,12 +41,13 @@ namespace CallSettings { namespace Controller {
 		void onRejectMsgClick();
 		void onCallAnsweringClick();
 		void onMoreClick();
+		void onRejectMsgControllerDestroy();
 		void onAnswerControllerDestroy();
-
 
 	private:
 		Application &m_app;
-		AnswerViewController *m_pAnswerCallController;
+		RejectMsgListController *m_pRejectListViewController;
+		AnswerViewController *m_pAnswerViewController;
 		View::MainView *m_pMainView;
 	};
 } }
