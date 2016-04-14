@@ -38,6 +38,7 @@ namespace gui {
 		GENLIST_ITEM_TYPE *insertBefore(GenlistItem &beforeItem, TYPE_ARGS&&... args);
 
 		void update();
+		void clear();
 
 	private:
 		friend Widget; // to be used in Widget::create

@@ -34,7 +34,7 @@ namespace gui {
 		RETVM_IF(!checkboxParent, false, "Failed to create checkbox: Parent in null");
 
 		m_pEvasObject = elm_check_add(checkboxParent);
-		RETVM_IF(!m_pEvasObject, false, "Failed to create layout: Internal error");
+		RETVM_IF(!m_pEvasObject, false, "Failed to create checkbox: Internal error");
 
 		switch (type) {
 		case CHECKBOX_SWITCHER :
