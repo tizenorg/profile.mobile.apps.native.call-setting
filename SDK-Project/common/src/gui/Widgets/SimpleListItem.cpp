@@ -36,10 +36,14 @@ namespace gui {
 
 	void SimpleListItem::setText(const char *text, bool isLocalized)
 	{
-		RETM_IF(!text, "Invalid args!");
+		if (!text) {
+			m_text.erase();
+			m_isTextLocalized = false;
+		} else {
+			m_text.assign(text);
+			m_isTextLocalized = isLocalized;
+		}
 
-		m_text.assign(text);
-		m_isTextLocalized = isLocalized;
 		update("*", GL_PART_TYPE_TEXT);
 	}
 

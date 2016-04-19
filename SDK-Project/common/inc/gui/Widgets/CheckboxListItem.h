@@ -20,6 +20,7 @@
 
 #include "SimpleListItem.h"
 #include "Checkbox.h"
+#include "ProcessingCircle.h"
 
 namespace gui {
 
