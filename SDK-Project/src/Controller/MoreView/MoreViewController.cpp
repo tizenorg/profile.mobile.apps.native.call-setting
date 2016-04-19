@@ -22,7 +22,6 @@ namespace CallSettings { namespace Controller {
 	using namespace Model;
 	using namespace View;
 
-
 	MoreViewController::MoreViewController (Application &app, NotiHandler handler) :
 		ViewController(app, handler),
 		m_app(app),
@@ -35,7 +34,6 @@ namespace CallSettings { namespace Controller {
 
 	MoreViewController::~MoreViewController()
 	{
-
 		m_app.getSettingsManager().removePropertyHandler(INT_KEY_SHOW_CALLER_ID,
 				NotiHandler::wrap<MoreViewController, &MoreViewController::onCallerIdOptionChanged>(this));
 
@@ -76,15 +74,39 @@ namespace CallSettings { namespace Controller {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 
-		//TODO Caller Id popup will be added here
-		DBG("Caller Id option selected");
+		int callerId = -1;
+		SettingResultCode res = m_app.getSettingsManager().getProperty(INT_KEY_SHOW_CALLER_ID, callerId);
+		RETM_IF(res != SETTINGS_RES_SUCCESS, "Caller Id state is undefined!");
+
+		m_isActivated = false;
+		m_pMoreView->showCallerIdPopup((MoreView::CallerIdStatus)callerId,
+				MoreView::CallerIdStatusChangeHandler::wrap<MoreViewController, &MoreViewController::onCallerIdStatusSelected>(this),
+				NotiHandler::wrap<MoreViewController, &MoreViewController::onCallerIdPopupHide>(this));
+	}
+
+	void MoreViewController::onCallerIdPopupHide()
+	{
+		m_isActivated = true;
+	}
+
+	void MoreViewController::onCallerIdStatusSelected(MoreView::CallerIdStatus value)
+	{
+		int newCallerIdState = 0;
+
+		if (value == MoreView::CALLER_ID_STATUS_SHOW) {
+			newCallerIdState = 1;
+		} else if (value == MoreView::CALLER_ID_STATUS_HIDE) {
+			newCallerIdState = 2;
+		}
+
+		m_app.getSettingsManager().setProperty(INT_KEY_SHOW_CALLER_ID, newCallerIdState);
+		m_pMoreView->hideCallerIdPopup();
 	}
 
 	void MoreViewController::onForwardingItemClick()
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 
-		//TODO Caller Id popup will be added here
 		DBG("Call forwarding option selected");
 	}
 
