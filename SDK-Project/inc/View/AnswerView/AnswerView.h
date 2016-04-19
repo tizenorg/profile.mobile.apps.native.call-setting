@@ -20,16 +20,14 @@
 
 #include "gui/Base/BaseView.h"
 #include "gui/Widgets/Genlist.h"
-#include "gui/Widgets/CheckOptionItem.h"
+#include "gui/Widgets/CheckboxListItem.h"
 
 namespace CallSettings { namespace View {
 
 	class AnswerView : public gui::BaseView {
 	public:
-		void setAnswerCheckHandler(NotiHandler handler) {m_pAnswerOption->setCheckHandler(handler);}
-		void setRejectCheckHandler(NotiHandler handler) {m_pRejectOption->setCheckHandler(handler);}
-		void setAnswerItemClickHandler(NotiHandler handler) {m_pAnswerOption->setSelectHandler(handler);}
-		void setRejectItemClickHandler(NotiHandler handler) {m_pRejectOption->setSelectHandler(handler);}
+		void setAnswerCheckHandler(NotiHandler handler) {m_answerCheckHandler = handler;}
+		void setRejectCheckHandler(NotiHandler handler) {m_rejectCheckHandler = handler;}
 
 		bool getAnswerOptionState() { return m_pAnswerOption->getCheckState();}
 		bool getRejectOptionState() { return m_pRejectOption->getCheckState();}
@@ -42,11 +40,14 @@ namespace CallSettings { namespace View {
 		AnswerView(gui::NaviItem *naviItem);
 		virtual ~AnswerView();
 		virtual bool createViewContent() override;
+		void onOptionChecked(gui::WidgetItem *item);
 
 	private:
 		gui::Genlist *m_pGenlist;
-		gui::CheckOptionItem *m_pAnswerOption;
-		gui::CheckOptionItem *m_pRejectOption;
+		gui::CheckboxListItem *m_pAnswerOption;
+		gui::CheckboxListItem *m_pRejectOption;
+		NotiHandler m_answerCheckHandler;
+		NotiHandler m_rejectCheckHandler;
 	};
 } }
 

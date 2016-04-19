@@ -28,14 +28,27 @@ namespace gui {
 	{
 	}
 
-	bool Checkbox::initialize(const Widget &parent, CheckboxType type)
+	bool Checkbox::initialize(const Widget &parent, CheckboxStyle type)
 	{
 		Evas_Object *checkboxParent = parent.getEvasObject();
 		RETVM_IF(!checkboxParent, false, "Failed to create checkbox: Parent in null");
 
 		m_pEvasObject = elm_check_add(checkboxParent);
-		RETVM_IF(!m_pEvasObject, false, "Failed to create layout: Internal error");
+		RETVM_IF(!m_pEvasObject, false, "Failed to create checkbox: Internal error");
 
+		setCheckStyle(type);
+
+		elm_check_state_set(m_pEvasObject, EINA_FALSE);
+		evas_object_repeat_events_set(m_pEvasObject, EINA_FALSE);
+		evas_object_propagate_events_set(m_pEvasObject, EINA_FALSE);
+		evas_object_smart_callback_add(m_pEvasObject, "changed",
+			EoSmartCb::make<Checkbox, &Checkbox::onChecked>(), this);
+
+		return true;
+	}
+
+	void Checkbox::setCheckStyle(CheckboxStyle type)
+	{
 		switch (type) {
 		case CHECKBOX_SWITCHER :
 			elm_object_style_set(m_pEvasObject, "on&off");
@@ -48,14 +61,6 @@ namespace gui {
 			elm_object_style_set(m_pEvasObject, "default");
 			break;
 		}
-
-		elm_check_state_set(m_pEvasObject, EINA_FALSE);
-		evas_object_repeat_events_set(m_pEvasObject, EINA_FALSE);
-		evas_object_propagate_events_set(m_pEvasObject, EINA_FALSE);
-		evas_object_smart_callback_add(m_pEvasObject, "changed",
-			EoSmartCb::make<Checkbox, &Checkbox::onChecked>(), this);
-
-		return true;
 	}
 
 	bool Checkbox::isChecked()

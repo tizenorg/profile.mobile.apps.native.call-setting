@@ -27,13 +27,14 @@ namespace gui {
 		bool isChecked();
 		void setChecked(bool checkedState);
 		void setCheckHandler(NotiHandler handler);
+		void setCheckStyle(CheckboxStyle type);
 
 	private:
 		friend Widget; // to be used in Widget::create
 
 		Checkbox();
 		virtual ~Checkbox();
-		bool initialize(const Widget &parent, CheckboxType type);
+		bool initialize(const Widget &parent, CheckboxStyle type = CHECKBOX_DEFAULT);
 		void onChecked(Evas_Object *obj, void *event_info);
 
 	private:

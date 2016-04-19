@@ -18,18 +18,20 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
+#include "App/AppConfig.h"
+
 #include <algorithm>
-#include <app_i18n.h>
 #include <deque>
 #include <functional>
 #include <list>
 #include <map>
-#include <stdlib.h>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "App/AppConfig.h"
+#include <app_i18n.h>
+#include <stdlib.h>
+
 #include "util/Delegation.h"
 #include "util/Logger.h"
 #include "util/NonCopyable.h"

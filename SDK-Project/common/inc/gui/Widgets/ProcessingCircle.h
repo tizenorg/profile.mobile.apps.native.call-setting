@@ -15,22 +15,32 @@
  *
  */
 
-#ifndef _GUI_CATEGORY_LIST_ITEM_H_
-#define _GUI_CATEGORY_LIST_ITEM_H_
+#ifndef _GUI_PROGRESSING_CIRCLE_H_
+#define _GUI_PROGRESSING_CIRCLE_H_
 
-#include "CheckboxListItem.h"
+#include "gui/Base/Widget.h"
 
 namespace gui {
 
-	class CategoryListItem : public CheckboxListItem {
+	typedef enum {
+		PROCESSING_TYPE_SMALL,
+		PROCESSING_TYPE_MID,
+		PROCESSING_TYPE_LARGE,
+	} ProcessingType;
+
+	class ProcessingCircle : public Widget {
+	public:
+		void setStyle(ProcessingType type);
+
 	protected:
-		CategoryListItem() {}
-		virtual ~CategoryListItem() {}
-		virtual Elm_Genlist_Item_Class *getItemClass() override;
+		bool initialize(const Widget &parent, ProcessingType type = PROCESSING_TYPE_MID);
 
 	private:
-		friend class WidgetItem;
+		friend Widget; // to be used in Widget::create
+
+		ProcessingCircle() {}
+		virtual ~ProcessingCircle() {}
 	};
 }
 
-#endif /* _GUI_CATEGORY_LIST_ITEM_H_ */
+#endif /* _GUI_PROGRESSING_CIRCLE_H_ */
