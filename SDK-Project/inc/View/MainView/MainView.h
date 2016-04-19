@@ -20,15 +20,15 @@
 
 #include "gui/Base/BaseView.h"
 #include "gui/Widgets/Genlist.h"
-#include "gui/Widgets/OptionItem.h"
+#include "gui/Widgets/DoubleTextListItem.h"
 
 namespace CallSettings { namespace View {
 
 	class MainView : public gui::BaseView {
 	public:
-		void setRejectMsgHandler(NotiHandler handler);
-		void setCallAceptHandler(NotiHandler handler);
-		void setMoreHandler(NotiHandler handler);
+		void setRejectMsgHandler(NotiHandler handler) { m_rejectMsgClickHandler = handler;}
+		void setCallAceptHandler(NotiHandler handler) { m_callAceptClickHandler = handler;}
+		void setMoreHandler(NotiHandler handler) { m_moreClickHandler = handler;}
 
 	private:
 		friend class BaseView;
@@ -36,12 +36,17 @@ namespace CallSettings { namespace View {
 		MainView(gui::NaviItem *naviItem);
 		virtual ~MainView();
 		virtual bool createViewContent() override;
+		void onOptionSelected(gui::WidgetItem *item);
 
 	private:
 		gui::Genlist *m_pGenlist;
-		gui::OptionItem *m_pRejectMsgOption;
-		gui::OptionItem *m_pCallAceptOption;
-		gui::OptionItem *m_pMoreOption;
+		gui::DoubleTextListItem *m_pRejectMsgOption;
+		gui::SimpleListItem *m_pCallAceptOption;
+		gui::SimpleListItem *m_pMoreOption;
+
+		NotiHandler m_rejectMsgClickHandler;
+		NotiHandler m_callAceptClickHandler;
+		NotiHandler m_moreClickHandler;
 	};
 } }
 

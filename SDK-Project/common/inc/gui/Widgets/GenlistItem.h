@@ -26,8 +26,9 @@ namespace gui {
 
 	class GenlistItem : public WidgetItem {
 	public:
+
 		virtual Elm_Genlist_Item_Class *getItemClass();
-		void setSelectHandler(NotiHandler handler);
+		void setSelectHandler(ItemNotiHandler handler);
 		void setSelectionMode(ItemSelectionMode mode);
 
 	protected:
@@ -52,7 +53,7 @@ namespace gui {
 		static GenlistItem *fromData(void *data);
 
 	private:
-		NotiHandler m_selectHandler;
+		ItemNotiHandler m_selectHandler;
 	};
 }
 #endif /* _GUI_GENLIST_ITEM_H_ */

@@ -15,19 +15,19 @@
  *
  */
 
-#ifndef _GUI_BASE_LIST_ITEMS_H_
-#define _GUI_BASE_LIST_ITEMS_H_
+#ifndef _GUI_SIMPLE_LIST_ITEMS_H_
+#define _GUI_SIMPLE_LIST_ITEMS_H_
 
 #include "GenlistItem.h"
 
 namespace gui {
 
-	class SimpleTextItem : public GenlistItem {
+	class SimpleListItem : public GenlistItem {
 	public:
 		void setText(const char *text, bool isLocalized = true);
 	protected:
-		SimpleTextItem();
-		virtual ~SimpleTextItem() {}
+		SimpleListItem();
+		virtual ~SimpleListItem() {}
 		bool initialize(ItemAddMethod createItem, const char *text = nullptr, bool isLocalized = true,
 				ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual char *getText(const char *part) override;
@@ -41,25 +41,6 @@ namespace gui {
 		friend class WidgetItem;
 
 	};
-
-
-	class DoubleTextItem : public SimpleTextItem {
-	public:
-		void setSubText(const char *subtext, bool isLocalized = true);
-	protected:
-		DoubleTextItem();
-		virtual ~DoubleTextItem() {}
-		bool initialize(ItemAddMethod createItem, const char *text = nullptr, const char *subText = nullptr,
-				bool isTextLocalized = true, bool isSubTextLocalized = true, ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
-		virtual char *getText(const char *part) override;
-
-	protected:
-			std::string m_subText;
-			bool m_isSubTextLocalized;
-
-	private:
-			friend class WidgetItem;
-		};
 }
 
-#endif /* _GUI_BASE_LIST_ITEMS_H_ */
+#endif /* _GUI_SIMPLE_LIST_ITEMS_H_ */

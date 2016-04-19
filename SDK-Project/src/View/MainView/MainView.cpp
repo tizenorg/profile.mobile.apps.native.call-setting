@@ -16,7 +16,8 @@
  */
 
 #include "gui/Widgets/NaviItem.h"
-#include "gui/Widgets/OptionItem.h"
+#include "gui/Widgets/DoubleTextListItem.h"
+#include "gui/Widgets/SimpleListItem.h"
 
 #include "View/MainView/MainView.h"
 
@@ -42,33 +43,37 @@ namespace CallSettings { namespace View {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
-		m_pRejectMsgOption = m_pGenlist->appendItem<OptionItem>(
+		m_pRejectMsgOption = m_pGenlist->appendItem<DoubleTextListItem>(
 				"IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB",
-				"IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS");
+				"IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS",
+				true, true, true);
+		m_pRejectMsgOption->setCheckMode(CheckboxListItem::HIDDEN);
 
-		m_pCallAceptOption = m_pGenlist->appendItem<OptionItem>("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
-		m_pMoreOption = m_pGenlist->appendItem<OptionItem>("IDS_COM_BODY_MORE");
+		m_pCallAceptOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
+		m_pMoreOption = m_pGenlist->appendItem<SimpleListItem>("IDS_COM_BODY_MORE");
 
 		RETVM_IF(!m_pRejectMsgOption || !m_pCallAceptOption || !m_pMoreOption, false, "Internal error");
 
 		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_CST_HEADER_CALL_SETTINGS");
 
+		m_pRejectMsgOption->setSelectHandler(ItemNotiHandler::wrap<MainView, &MainView::onOptionSelected>(this));
+		m_pCallAceptOption->setSelectHandler(ItemNotiHandler::wrap<MainView, &MainView::onOptionSelected>(this));
+		m_pMoreOption->setSelectHandler(ItemNotiHandler::wrap<MainView, &MainView::onOptionSelected>(this));
 		return setViewContent(*m_pGenlist);
 	}
 
-	void MainView::setRejectMsgHandler(NotiHandler handler)
+	void MainView::onOptionSelected(WidgetItem *item)
 	{
-		m_pRejectMsgOption->setSelectHandler(handler);
+		RETM_IF(!item, "Invalid args!");
+
+		if (item == static_cast<WidgetItem *>(m_pRejectMsgOption) && m_rejectMsgClickHandler.assigned()) {
+			m_rejectMsgClickHandler();
+		} else if (item == static_cast<WidgetItem *>(m_pCallAceptOption) && m_callAceptClickHandler.assigned()) {
+			m_callAceptClickHandler();
+		} else if (item == static_cast<WidgetItem *>(m_pMoreOption) && m_moreClickHandler.assigned()) {
+			m_moreClickHandler();
+		}
 	}
 
-	void MainView::setCallAceptHandler(NotiHandler handler)
-	{
-		m_pCallAceptOption->setSelectHandler(handler);
-	}
-
-	void MainView::setMoreHandler(NotiHandler handler)
-	{
-		m_pMoreOption->setSelectHandler(handler);
-	}
 } }

@@ -31,6 +31,9 @@ namespace gui {
 		static void destroy(Widget *widget);
 		void setDestroyHandler(NotiHandler handler);
 		Evas_Object *getEvasObject() const;
+		void setDisabled(bool disabledState);
+		void show();
+		void hide();
 
 	protected:
 		Widget();

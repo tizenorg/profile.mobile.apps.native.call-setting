@@ -50,11 +50,15 @@ namespace gui {
 		elm_naviframe_item_title_enabled_set(m_pEOItem, EINA_FALSE, EINA_FALSE);
 	}
 
-	void NaviItem::setTitleText(const char *title)
+	void NaviItem::setTitleText(const char *title, bool isTranslatable)
 	{
 		if (title) {
-			elm_object_item_translatable_part_text_set(m_pEOItem, "elm.text.title", title);
 			elm_naviframe_item_title_enabled_set(m_pEOItem, EINA_TRUE, EINA_TRUE);
+			if (isTranslatable) {
+				elm_object_item_translatable_part_text_set(m_pEOItem, "elm.text.title", title);
+			} else {
+				elm_object_item_part_text_set(m_pEOItem, "elm.text.title", title);
+			}
 		}
 	}
 
