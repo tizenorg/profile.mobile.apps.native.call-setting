@@ -31,6 +31,7 @@ namespace CallSettings { namespace View {
 		m_pCancelBtn(nullptr),
 		m_pDeleteBtn(nullptr),
 		m_pSelectAllItem(nullptr),
+		m_pMoreMenuPopup(nullptr),
 		m_isSelectModeEnabled(false)
 	{
 	}
@@ -279,6 +280,36 @@ namespace CallSettings { namespace View {
 		m_msgItemsArray.clear();
 		m_pGenlist->clear();
 		changeViewToEmpty();
+	}
+
+	bool RejectMsgListView::showMoreMenuPopup(NotiHandler createOptionHandler, NotiHandler deleteOptionHandler)
+	{
+		m_pMoreMenuPopup = Widget::create<OptionMenuPopup>(*m_pViewLayout);
+		RETVM_IF(!m_pMoreMenuPopup, false, "Failed to create menu popup!");
+
+		m_pMoreMenuPopup->setDestroyHandler(
+				NotiHandler::wrap<RejectMsgListView, &RejectMsgListView::onMenuPopupDestroy>(this));
+
+		if (createOptionHandler != nullptr) {
+			m_pMoreMenuPopup->addItem(createOptionHandler, "IDS_CST_SK3_CREATE");
+		}
+
+		if (deleteOptionHandler != nullptr) {
+			m_pMoreMenuPopup->addItem(deleteOptionHandler, "IDS_CST_HEADER_DELETE");
+		}
+
+		m_pMoreMenuPopup->show();
+		return true;
+	}
+
+	void RejectMsgListView::hideMoreMenuPopup()
+	{
+		m_pMoreMenuPopup->hide();
+	}
+
+	void RejectMsgListView::onMenuPopupDestroy()
+	{
+		m_pMoreMenuPopup = nullptr;
 	}
 
 } }

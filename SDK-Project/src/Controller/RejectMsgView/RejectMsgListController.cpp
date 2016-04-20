@@ -194,10 +194,11 @@ namespace CallSettings { namespace Controller {
 			for(int i = REJECT_MSG_1; i < REJECT_MSG_1 + m_msgTotalCount; i++) {
 				if (std::find(m_msgDeleteList.begin(), m_msgDeleteList.end(), i) == m_msgDeleteList.end()) {
 					std::string msgText;
-					RejectMsgId oldMsgId = static_cast<RejectMsgId>(i);
-					RejectMsgId newMsgId = static_cast<RejectMsgId>(msgId);
-					m_app.getSettingsManager().getProperty(convertToStringKey(oldMsgId), msgText);
-					m_app.getSettingsManager().setProperty(convertToStringKey(newMsgId), msgText);
+
+					Model::StringKey oldMsgKey = convertToStringKey(static_cast<RejectMsgId>(i));
+					Model::StringKey newMsgKey = convertToStringKey(static_cast<RejectMsgId>(msgId));
+					m_app.getSettingsManager().getProperty(oldMsgKey, msgText);
+					m_app.getSettingsManager().setProperty(newMsgKey, msgText);
 					msgId++;
 				}
 			}
@@ -259,6 +260,27 @@ namespace CallSettings { namespace Controller {
 	void RejectMsgListController::onMenuKeyPressed()
 	{
 
+		RETM_IF(!m_isActivated, "View is not activse, skip click event!");
+		if (m_viewMode == SELECT_MODE) {
+			return;
+		}
+
+		if(m_msgTotalCount == 0) {
+			m_pMsgListView->showMoreMenuPopup(
+					NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onMenuOptionCreateClick>(this),
+					nullptr
+			);
+		} else if (m_msgTotalCount < REJECT_MSG_MAX_COUNT) {
+			m_pMsgListView->showMoreMenuPopup(
+					NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onMenuOptionCreateClick>(this),
+					NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onMenuOptionDeleteClick>(this)
+			);
+		} else {
+			m_pMsgListView->showMoreMenuPopup(
+					nullptr,
+					NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onMenuOptionDeleteClick>(this)
+			);
+		}
 	}
 
 	void RejectMsgListController::onDeleteBtnClick()
@@ -277,7 +299,6 @@ namespace CallSettings { namespace Controller {
 	void RejectMsgListController::onMenuOptionDeleteClick()
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
-
 		enableSelectMode();
 	}
 
@@ -285,7 +306,8 @@ namespace CallSettings { namespace Controller {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 
-		//TODO Edit reject MSG view will be created here
+		m_pMsgEditorController =  ViewController::create<Controller::RejectMsgEditorController>(m_app,
+				NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onEditorControllerDestroy>(this));
 	}
 
 

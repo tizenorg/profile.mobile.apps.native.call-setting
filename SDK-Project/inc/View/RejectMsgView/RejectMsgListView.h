@@ -24,6 +24,7 @@
 #include "gui/Widgets/Button.h"
 #include "gui/Widgets/CategoryItem.h"
 #include "gui/Widgets/DoubleTextListItem.h"
+#include "gui/Widgets/OptionMenuPopup.h"
 
 namespace CallSettings { namespace View {
 
@@ -48,6 +49,8 @@ namespace CallSettings { namespace View {
 		void setCancelBtnClickHandler(NotiHandler clickHandler);
 		void setDeleteBtnClickHandler(NotiHandler clickHandler);
 		void setDisabledDeleteBtn(bool isDisabled);
+		bool showMoreMenuPopup(NotiHandler createOptionHandler, NotiHandler deleteOptionHandler);
+		void hideMoreMenuPopup();
 
 	protected:
 		RejectMsgListView(gui::NaviItem *naviItem);
@@ -60,6 +63,7 @@ namespace CallSettings { namespace View {
 		int getMsgItemIndex(gui::DoubleTextListItem *item);
 		void onCancelTitleBtnClick();
 		void onDeleteTitleBtnClick();
+		void onMenuPopupDestroy();
 		void onSelectAllChecked(gui::WidgetItem *item);
 
 	private:
@@ -70,6 +74,7 @@ namespace CallSettings { namespace View {
 		gui::Button *m_pCancelBtn;
 		gui::Button *m_pDeleteBtn;
 		gui::CategoryListItem *m_pSelectAllItem;
+		gui::OptionMenuPopup *m_pMoreMenuPopup;
 		bool m_isSelectModeEnabled;
 		MsgClickHandler m_msgClickHandler;
 		MsgCheckHandler m_msgCheckHandler;
