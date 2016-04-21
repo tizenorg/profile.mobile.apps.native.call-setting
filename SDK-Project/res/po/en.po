@@ -52,6 +52,9 @@ msgstr "DELETE"
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "CANCEL"
 
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "DONE"
+
 msgid "IDS_ST_HEADER_PD_SELECTED"
 msgstr "%d selected"
 
@@ -78,3 +81,12 @@ msgstr "Sorry, I'm driving now."
 
 msgid "IDS_COM_BODY_SELECT_ALL"
 msgstr "Select all"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Edit"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Create"
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Enter message."

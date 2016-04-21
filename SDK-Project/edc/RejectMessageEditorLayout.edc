@@ -1,0 +1,140 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+/************************Reject message edit view parameters*************************/
+
+#define INPUT_FIELD_BG_COLOR							250 250 250 255
+#define INPUT_CHAR_COUNTER_PART_HEIGHT					80
+#define INPUT_CHAR_COUNTER_FONT_SIZE					38
+#define INPUT_CHAR_COUNTER_TEXT_COLOR					188 188 188 255
+#define INPUT_FIELD_MIN_HEIGHT							120
+#define EDITOR_BG_COLOR									243 248 247 255
+#define EDITOR_PADDING_LEFT								32
+#define EDITOR_PADDING_RIGHT							32
+
+/*************************REJECT MESSAGE EDIT VIEW LAYOUT *************************/
+
+	group { name: "RejectMsgEditorLayout";
+		parts {
+			part { name: "background";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					color: EDITOR_BG_COLOR;
+				}
+			}
+
+			part { name: "EDITOR_PADDING_LEFT";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+					align: 0.0 0.5;
+					rel2.relative: 0.0 1.0;
+					min: EDITOR_PADDING_LEFT 0;
+					max: EDITOR_PADDING_LEFT -1;
+				}
+			}
+
+			part { name: "EDITOR_PADDING_RIGHT";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+					align: 1.0 0.5;
+					rel1.relative: 1.0 0.0;
+					min: EDITOR_PADDING_RIGHT 0;
+					max: EDITOR_PADDING_RIGHT -1;
+				}
+			}
+
+			part { name: "input_counter_bg";
+				type: RECT;
+				scale: 1;
+				description { state: "default" 0.0;
+					fixed: 0 1;
+					align: 0.5 0.0;
+					rel2.relative: 1.0 0.0;
+					min: 0 INPUT_CHAR_COUNTER_PART_HEIGHT;
+					color: INPUT_FIELD_BG_COLOR;
+				}
+			}
+
+			part { name: "entry_bg";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					align: 0.5 0.0;
+					color: INPUT_FIELD_BG_COLOR;
+					rel1 {
+						relative: 0 1; to: "input_counter_bg";
+					}
+					rel2 {
+						relative: 1 1; to: "entry_part";
+					}
+				}
+			}
+
+			part { name: "char_count_text";
+				type: TEXT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					fixed: 0 1;
+					text {
+						font: "Tizen:style=Regular";
+						size: INPUT_CHAR_COUNTER_FONT_SIZE;
+						align: 1.0 0.5;
+						text_class: "tizen";
+						ellipsis: -1;
+					}
+					color: INPUT_CHAR_COUNTER_TEXT_COLOR;
+					min: 0 INPUT_CHAR_COUNTER_PART_HEIGHT;
+					rel1 {
+						relative: 1 0;
+						to_x: "EDITOR_PADDING_LEFT";
+						to_y: "input_counter_bg";
+					}
+					rel2 {
+						relative: 0 1;
+						to_x: "EDITOR_PADDING_RIGHT";
+						to_y: "input_counter_bg";
+					}
+				}
+			}
+
+			part { name: "entry_part";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					align: 0.5 0.0;
+					min: 0 INPUT_FIELD_MIN_HEIGHT;
+					rel1 {
+						relative: 0 1;
+						to_y: "input_counter_bg";
+					}
+					rel2 {
+						relative: 1 1;
+						to_y: "input_counter_bg";
+					}
+				}
+			}
+		}
+	}
