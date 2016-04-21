@@ -21,6 +21,7 @@
 #include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
+#include "Controller/RejectMsgView/RejectMsgEditorController.h"
 #include "View/RejectMsgView/RejectMsgListView.h"
 #include "RejectMsgUtils.h"
 
@@ -29,7 +30,7 @@ namespace CallSettings { namespace Controller {
 
 	class RejectMsgListController : public gui::ViewController {
 	public:
-		~RejectMsgListController();
+		virtual ~RejectMsgListController();
 
 	protected:
 		friend class ViewController;
@@ -54,6 +55,7 @@ namespace CallSettings { namespace Controller {
 		void onCancelBtnClick();
 		void onMenuOptionDeleteClick();
 		void onMenuOptionCreateClick();
+		void onEditorControllerDestroy();
 
 	private:
 		typedef enum {
@@ -63,6 +65,7 @@ namespace CallSettings { namespace Controller {
 
 		Application &m_app;
 		View::RejectMsgListView *m_pMsgListView;
+		RejectMsgEditorController *m_pMsgEditorController;
 		ViewMode m_viewMode;
 		int m_msgTotalCount;
 		bool m_needUpdate;
