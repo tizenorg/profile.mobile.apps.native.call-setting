@@ -28,6 +28,16 @@ namespace appfw {
 		return localeDir;
 	}
 
+	const std::string &getEdjeDir()
+	{
+		static std::string localeDir;
+		if (localeDir.empty()) {
+			localeDir = getResourcePath("locale/");
+		}
+
+		return localeDir;
+	}
+
 	const std::string &getResourceDir()
 	{
 		static std::string resDir;
