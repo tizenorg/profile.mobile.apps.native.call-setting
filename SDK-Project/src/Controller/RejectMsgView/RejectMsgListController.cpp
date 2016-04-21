@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd All Rights Reserved
  *
@@ -27,6 +28,7 @@ namespace CallSettings { namespace Controller {
 		ViewController(app, handler),
 		m_app(app),
 		m_pMsgListView(nullptr),
+		m_pMsgEditorController(nullptr),
 		m_viewMode(DISPLAY_MODE),
 		m_msgTotalCount(0),
 		m_needUpdate(true),
@@ -51,6 +53,7 @@ namespace CallSettings { namespace Controller {
 		m_pMsgListView->setCancelBtnClickHandler(nullptr);
 		m_pMsgListView->setDeleteBtnClickHandler(nullptr);
 		m_pMsgListView->setSelectAllHandler(nullptr);
+		delete m_pMsgEditorController;
 	}
 
 	bool RejectMsgListController::initialize()
@@ -164,7 +167,16 @@ namespace CallSettings { namespace Controller {
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		RETM_IF(m_viewMode != DISPLAY_MODE, "View is in edit mode, skip click event!");
 
-		//TODO Msg Edit View will be called here later.
+		m_pMsgEditorController =  ViewController::create<Controller::RejectMsgEditorController>(m_app,
+				NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onEditorControllerDestroy>(this),
+				static_cast<RejectMsgId>(msgId));
+
+	}
+
+	void RejectMsgListController::onEditorControllerDestroy()
+	{
+		delete m_pMsgEditorController;
+		m_pMsgEditorController = nullptr;
 	}
 
 	void RejectMsgListController::deleteSelectedMsg()

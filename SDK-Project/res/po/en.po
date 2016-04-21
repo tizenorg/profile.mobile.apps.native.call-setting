@@ -90,3 +90,6 @@ msgstr "Create"
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
 msgstr "Enter message."
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Delete"
