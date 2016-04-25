@@ -35,6 +35,7 @@ namespace gui {
 		m_pGenlist = Widget::create<Genlist>(WidgetWrapper(m_pEvasObject));
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 		elm_box_pack_end(m_pEvasObject, m_pGenlist->getEvasObject());
+		m_pGenlist->setContentMinLimit(false, true);
 		m_pGenlist->show();
 
 		m_pRadioGroup = elm_radio_add(m_pGenlist->getEvasObject());

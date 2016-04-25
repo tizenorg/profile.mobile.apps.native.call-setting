@@ -24,7 +24,7 @@ namespace CallSettings { namespace Controller {
 	MainViewController::MainViewController (Application &app, NotiHandler handler) :
 			ViewController(app, handler),
 			m_app(app),
-			m_pRejectListViewController(nullptr),			
+			m_pRejectListViewController(nullptr),
 			m_pAnswerViewController(nullptr),
 			m_pMoreViewController(nullptr),
 			m_pMainView(nullptr)
