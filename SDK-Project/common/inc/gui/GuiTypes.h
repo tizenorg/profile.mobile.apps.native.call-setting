@@ -23,6 +23,8 @@
 
 #include "Common.h"
 
+#define TO_EINA_BOOL(b) ((b) ? EINA_TRUE : EINA_FALSE)
+
 namespace gui {
 
 	class BaseView;

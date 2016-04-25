@@ -32,8 +32,6 @@ namespace gui {
 		evas_object_size_hint_align_set(m_pEvasObject, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_genlist_mode_set(m_pEvasObject, ELM_LIST_COMPRESS);
 		elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
-		elm_scroller_policy_set(m_pEvasObject, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
-		elm_scroller_content_min_limit(m_pEvasObject, EINA_FALSE, EINA_TRUE);
 
 		evas_object_smart_callback_add(m_pEvasObject, "selected",
 			EoSmartCb::make<Genlist, &Genlist::onItemSelected>(), this);
@@ -104,11 +102,12 @@ namespace gui {
 
 	void Genlist::setHomogeneousMode(bool isHomogenModeEnabled)
 	{
-		if (isHomogenModeEnabled) {
-			elm_genlist_homogeneous_set(m_pEvasObject, EINA_TRUE);
-		} else {
-			elm_genlist_homogeneous_set(m_pEvasObject, EINA_FALSE);
-		}
+		elm_genlist_homogeneous_set(m_pEvasObject, TO_EINA_BOOL(isHomogenModeEnabled));
+	}
+
+	void Genlist::setContentMinLimit(bool w, bool h)
+	{
+		elm_scroller_content_min_limit(m_pEvasObject, TO_EINA_BOOL(w), TO_EINA_BOOL(h));
 	}
 
 }

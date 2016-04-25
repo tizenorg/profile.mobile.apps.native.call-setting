@@ -39,7 +39,9 @@ namespace gui {
 
 		void update();
 		void clear();
+
 		void setHomogeneousMode(bool isHomogenModeEnabled);
+		void setContentMinLimit(bool w, bool h);
 
 	private:
 		friend Widget; // to be used in Widget::create
