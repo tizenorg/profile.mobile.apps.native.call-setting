@@ -15,31 +15,28 @@
  *
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef _UTIL_HELPERS_H_
+#define _UTIL_HELPERS_H_
 
-#include "App/AppConfig.h"
+namespace util {
 
-#include <functional>
-#include <algorithm>
-#include <utility>
-#include <string>
-#include <vector>
-#include <deque>
-#include <list>
-#include <map>
+	inline const char *nz(const char *value, const char *zValue = "")
+	{
+		return (value ? value : zValue);
+	}
 
-#include <app_i18n.h>
-#include <libintl.h>
-#include <stdlib.h>
-#include <string.h>
+	inline bool isEmpty(const char *value)
+	{
+		return (!value || (value[0] == '\0'));
+	}
 
-#include "util/Logger.h"
-#include "util/Helpers.h"
-#include "util/TString.h"
-#include "util/Delegation.h"
-#include "util/NonCopyable.h"
+	inline char *dupNotEmptyStr(const char *value)
+	{
+		if (isEmpty(value)) {
+			return nullptr;
+		}
+		return strdup(value);
+	}
+}
 
-typedef util::Delegate<void()> NotiHandler;
-
-#endif /* _COMMON_H_ */
+#endif /*_UTIL_HELPERS_H_*/
