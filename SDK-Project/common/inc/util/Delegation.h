@@ -22,7 +22,6 @@
 #include "NonCopyable.h"
 
 #include <vector>
-#include <utility>
 #include <algorithm>
 
 namespace util {

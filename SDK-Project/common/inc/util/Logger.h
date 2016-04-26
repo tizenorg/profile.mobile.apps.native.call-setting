@@ -19,7 +19,6 @@
 #define _UTIL_LOGGER_H_
 
 #include <dlog.h>
-#include "App/AppConfig.h"
 
 #define _LOG_OUT(level, fmt, ...) dlog_print(level, LOG_TAG, "%s; %s(%d); " fmt, \
 		strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__, __func__, __LINE__, ##__VA_ARGS__)

@@ -19,8 +19,8 @@
 #define _UTIL_NON_COPYABLE_H_
 
 namespace util {
-	class NonCopyable
-	{
+
+	class NonCopyable {
 	public:
 		NonCopyable() {}
 		NonCopyable(const NonCopyable &) = delete;
@@ -28,6 +28,7 @@ namespace util {
 		NonCopyable &operator=(const NonCopyable &) = delete;
 		NonCopyable &operator=(NonCopyable &&) = delete;
 	};
+
 }
 
 #endif /*_UTIL_NON_COPYABLE_H_*/
