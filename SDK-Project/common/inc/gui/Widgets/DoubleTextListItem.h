@@ -22,19 +22,18 @@
 namespace gui {
 	class DoubleTextListItem : public CheckboxListItem {
 	public:
-		void setSubText(const char *subtext, bool isLocalized = true);
+		void setSubText(util::TString subText);
 
 	protected:
 		DoubleTextListItem();
 		virtual ~DoubleTextListItem() {}
-		bool initialize(ItemAddMethod createItem, const char *text = nullptr, const char *subText = nullptr,
-				bool isTextLocalized = true, bool isSubTextLocalized = true, bool m_isMultiline = false, ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
+		bool initialize(ItemAddMethod createItem, util::TString text = "", util::TString subText = "",
+				bool m_isMultiline = false, ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual Elm_Genlist_Item_Class *getItemClass() override;
 		virtual char *getText(const char *part) override;
 
 	protected:
-		std::string m_subText;
-		bool m_isSubTextLocalized;
+		util::TString m_subText;
 		bool m_isMultiline;
 
 	private:

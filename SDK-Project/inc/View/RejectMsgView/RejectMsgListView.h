@@ -35,7 +35,7 @@ namespace CallSettings { namespace View {
 		typedef util::Delegate<void(bool)> MsgSelectAllHandler;
 
 		void invalidateMsgList();
-		bool addListItem(int index, const std::string &msgText, bool isTranslatable = true);
+		bool addListItem(int index, util::TString msgText);
 		void removeListItem(int index);
 		bool enableSelectMode();
 		bool disableSelectMode();

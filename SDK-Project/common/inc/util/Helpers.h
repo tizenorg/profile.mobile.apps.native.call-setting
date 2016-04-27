@@ -30,12 +30,19 @@ namespace util {
 		return (!value || (value[0] == '\0'));
 	}
 
-	inline char *dupNotEmptyStr(const char *value)
+	inline bool isNotEmpty(const char *value)
 	{
-		if (isEmpty(value)) {
-			return nullptr;
-		}
-		return strdup(value);
+		return !isEmpty(value);
+	}
+
+	inline const char *ne(const char *value, const char *eValue = nullptr)
+	{
+		return (isNotEmpty(value) ? value : eValue);
+	}
+
+	inline char *strDupSafe(const char *value)
+	{
+		return (value ? strdup(value) : nullptr);
 	}
 }
 

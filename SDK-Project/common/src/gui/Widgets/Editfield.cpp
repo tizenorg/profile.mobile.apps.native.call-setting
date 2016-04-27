@@ -25,7 +25,7 @@ namespace gui {
 	{
 	}
 
-	bool Editfield::initialize(const Widget &parent, int editfieldType, const char *guideText, bool isLocalized)
+	bool Editfield::initialize(const Widget &parent, int flags, const util::TString &guideText)
 	{
 		Evas_Object *editfieldParent = parent.getEvasObject();
 		RETVM_IF(!editfieldParent, false, "Failed to create editfield: Parent in null");
@@ -33,7 +33,7 @@ namespace gui {
 		m_pEvasObject = elm_layout_add(editfieldParent);
 		RETVM_IF(!m_pEvasObject, false, "Failed to create editfield: Internal error");
 
-		if (editfieldType & EF_MULTILINE) {
+		if (flags & EF_MULTILINE) {
 			elm_layout_theme_set(m_pEvasObject, "layout", "editfield", "multiline");
 		} else {
 			elm_layout_theme_set(m_pEvasObject, "layout", "editfield", "singleline");
@@ -48,7 +48,7 @@ namespace gui {
 		elm_entry_cnp_mode_set(entry, ELM_CNP_MODE_PLAINTEXT);
 		eext_entry_selection_back_event_allow_set(entry, EINA_TRUE);
 
-		if (editfieldType & EF_MULTILINE) {
+		if (flags & EF_MULTILINE) {
 			elm_entry_single_line_set(entry, EINA_FALSE);
 			elm_entry_autocapital_type_set(entry, ELM_AUTOCAPITAL_TYPE_SENTENCE);
 		} else {
@@ -57,7 +57,7 @@ namespace gui {
 			elm_entry_autocapital_type_set(entry, ELM_AUTOCAPITAL_TYPE_NONE);
 		}
 
-		if (editfieldType & EF_PASSWORD) {
+		if (flags & EF_PASSWORD) {
 			elm_entry_prediction_allow_set(entry, EINA_FALSE);
 			elm_entry_input_panel_layout_set(entry, ELM_INPUT_PANEL_LAYOUT_PASSWORD);
 			elm_entry_password_set(entry, EINA_TRUE);
@@ -66,7 +66,7 @@ namespace gui {
 			elm_entry_input_panel_layout_set(entry, ELM_INPUT_PANEL_LAYOUT_NORMAL);
 		}
 
-		if (editfieldType & EF_CLEAR_BTN) {
+		if (flags & EF_CLEAR_BTN) {
 			clearBtn = elm_button_add(m_pEvasObject);
 			RETVM_IF(!clearBtn, false, "Failed to create editfield: Internal error");
 
@@ -93,7 +93,10 @@ namespace gui {
 		elm_entry_markup_filter_append(entry,
 				EntryFilterCb::make<Editfield, &Editfield::onInputFilterEvent>(), this);
 
-		setGuideText(guideText, isLocalized);
+		if (guideText.isNotEmpty()) {
+			setGuideText(guideText);
+		}
+
 		elm_object_part_content_set(m_pEvasObject, "elm.swallow.content", entry);
 		return true;
 	}
@@ -214,17 +217,9 @@ namespace gui {
 		elm_entry_text_style_user_push(entry, textStyle);
 	}
 
-	void Editfield::setGuideText(const char *text, bool isLocalized)
+	void Editfield::setGuideText(const util::TString &text)
 	{
-		if (!text) {
-			elm_object_part_text_set(entry, "elm.guide", "");
-		}
-
-		if (isLocalized) {
-			elm_object_translatable_part_text_set(entry, "elm.guide", text);
-		} else {
-			elm_object_part_text_set(entry, "elm.guide", text);
-		}
+		WidgetWrapper(entry).setPartText("elm.guide", text);
 	}
 
 	void Editfield::setEditfieldDisabled(bool disabledState)

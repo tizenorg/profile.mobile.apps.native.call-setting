@@ -28,7 +28,7 @@ namespace gui {
 		virtual ~RadioOptionItem();
 
 	protected:
-		bool initialize(ItemAddMethod createItem, Evas_Object *m_pRadioGroup, int value, const char *text = nullptr, bool isLocalized = true,
+		bool initialize(ItemAddMethod createItem, Evas_Object *m_pRadioGroup, int value, util::TString text,
 						ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
 		virtual void onSelected() override;

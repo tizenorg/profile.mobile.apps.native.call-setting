@@ -19,30 +19,16 @@
 
 namespace gui {
 
-	SimpleListItem::SimpleListItem() :
-		m_isTextLocalized(true)
+	bool SimpleListItem::initialize(ItemAddMethod createItem, util::TString text, ItemSelectionMode selectMode)
 	{
-	}
-
-	bool SimpleListItem::initialize(ItemAddMethod createItem, const char *text, bool isLocalized, ItemSelectionMode selectMode)
-	{
-		if (text) {
-			m_text.assign(text);
-			m_isTextLocalized = isLocalized;
-		}
+		m_text = std::move(text);
 
 		return GenlistItem::initialize(createItem, selectMode);
 	}
 
-	void SimpleListItem::setText(const char *text, bool isLocalized)
+	void SimpleListItem::setText(util::TString text)
 	{
-		if (!text) {
-			m_text.erase();
-			m_isTextLocalized = false;
-		} else {
-			m_text.assign(text);
-			m_isTextLocalized = isLocalized;
-		}
+		m_text = std::move(text);
 
 		update("*", GL_PART_TYPE_TEXT);
 	}
@@ -50,22 +36,10 @@ namespace gui {
 	char *SimpleListItem::getText(const char *part)
 	{
 		if (strcmp(part, "elm.text") == 0) {
-			return makeTextLabel(m_text, m_isTextLocalized);
+			return util::strDupSafe(util::ne(m_text.translate()));
 		}
 
 		return nullptr;
 	}
 
-	char *SimpleListItem::makeTextLabel(const std::string &text, bool isLocalized)
-	{
-		if(text.empty()) {
-			return nullptr;
-		}
-
-		if (isLocalized) {
-			return strdup(_(text.c_str()));
-		} else {
-			return strdup(text.c_str());
-		}
-	}
 }

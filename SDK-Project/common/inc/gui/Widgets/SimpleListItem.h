@@ -24,18 +24,16 @@ namespace gui {
 
 	class SimpleListItem : public GenlistItem {
 	public:
-		void setText(const char *text, bool isLocalized = true);
+		void setText(util::TString text);
 	protected:
-		SimpleListItem();
+		SimpleListItem() {}
 		virtual ~SimpleListItem() {}
-		bool initialize(ItemAddMethod createItem, const char *text = nullptr, bool isLocalized = true,
+		bool initialize(ItemAddMethod createItem, util::TString text = "",
 				ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual char *getText(const char *part) override;
-		static char *makeTextLabel(const std::string &text, bool isLocalized);
 
 	protected:
-		std::string m_text;
-		bool m_isTextLocalized;
+		util::TString m_text;
 
 	private:
 		friend class WidgetItem;

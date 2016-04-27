@@ -20,51 +20,40 @@
 
 namespace gui {
 	DoubleTextListItem::DoubleTextListItem() :
-		m_subText(),
-		m_isSubTextLocalized(false),
 		m_isMultiline(false)
 	{
 	}
 
-	bool DoubleTextListItem::initialize(ItemAddMethod createItem, const char *text, const char *subText, bool isTextLocalized,
-			bool isSubTextLocalized, bool isMultiline, ItemSelectionMode selectMode)
+	bool DoubleTextListItem::initialize(ItemAddMethod createItem, util::TString text, util::TString subText,
+			bool isMultiline, ItemSelectionMode selectMode)
 	{
-		if (subText) {
-			m_subText.assign(subText);
-			m_isSubTextLocalized = isSubTextLocalized;
-		}
-
+		m_subText = std::move(subText);
 		m_isMultiline = isMultiline;
 
-		return CheckboxListItem::initialize(createItem, text, isTextLocalized, selectMode);
+		return CheckboxListItem::initialize(createItem, std::move(text), selectMode);
 	}
 
 	Elm_Genlist_Item_Class *DoubleTextListItem::getItemClass()
 	{
-		const char *className = (m_isMultiline) ? "multiline" : "type1";
-		static Elm_Genlist_Item_Class itc = createItemClass(className);
-		return &itc;
+		if (m_isMultiline) {
+			static Elm_Genlist_Item_Class itc = createItemClass("multiline");
+			return &itc;
+		}
+		return SimpleListItem::getItemClass();
 	}
 
-	void DoubleTextListItem::setSubText(const char *subtext, bool isLocalized)
+	void DoubleTextListItem::setSubText(util::TString subText)
 	{
-		if (!subtext) {
-			m_subText.erase();
-			m_isSubTextLocalized = false;
-		} else {
-			m_subText.assign(subtext);
-			m_isSubTextLocalized = isLocalized;
-		}
+		m_subText = std::move(subText);
 
 		update("*", GL_PART_TYPE_TEXT);
 	}
 
 	char *DoubleTextListItem::getText(const char *part)
 	{
-		if (strcmp(part, "elm.text.multiline") == 0) {
-			return makeTextLabel(m_subText, m_isSubTextLocalized);
-		} else if (strcmp(part, "elm.text.sub") == 0) {
-			return makeTextLabel(m_subText, m_isSubTextLocalized);
+		if (( m_isMultiline && (strcmp(part, "elm.text.multiline") == 0)) ||
+			(!m_isMultiline && (strcmp(part, "elm.text.sub") == 0))) {
+			return util::strDupSafe(util::ne(m_subText.translate()));
 		} else {
 			return SimpleListItem::getText(part);
 		}

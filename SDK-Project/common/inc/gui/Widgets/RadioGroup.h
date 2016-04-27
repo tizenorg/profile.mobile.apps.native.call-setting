@@ -27,7 +27,7 @@ namespace gui {
 	public:
 		void selectRadioItem(int itemIndex);
 		void setSelectedCallback(RadioSelectHandler handler) {m_radioSelectHandler = handler;}
-		bool addItem(const char *text, int itemIndex, bool isTranslatable = true);
+		bool addItem(util::TString text, int itemIndex);
 
 	protected:
 		RadioGroup();

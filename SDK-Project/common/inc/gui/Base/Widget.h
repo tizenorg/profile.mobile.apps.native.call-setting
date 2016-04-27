@@ -35,6 +35,9 @@ namespace gui {
 		void show();
 		void hide();
 
+		void setText(const util::TString &text);
+		void setPartText(const char *partName, const util::TString &text);
+
 	protected:
 		Widget();
 		virtual ~Widget();

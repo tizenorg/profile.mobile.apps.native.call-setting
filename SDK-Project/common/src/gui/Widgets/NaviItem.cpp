@@ -37,6 +37,9 @@ namespace gui {
 
 		m_pEOItem = item;
 		m_pBackButton = backButton;
+
+		showBackButton();
+
 		return true;
 	}
 
@@ -50,15 +53,16 @@ namespace gui {
 		elm_naviframe_item_title_enabled_set(m_pEOItem, EINA_FALSE, EINA_FALSE);
 	}
 
-	void NaviItem::setTitleText(const char *title, bool isTranslatable)
+	void NaviItem::setTitleText(const util::TString &text)
 	{
-		if (title) {
-			elm_naviframe_item_title_enabled_set(m_pEOItem, EINA_TRUE, EINA_TRUE);
-			if (isTranslatable) {
-				elm_object_item_translatable_part_text_set(m_pEOItem, "elm.text.title", title);
+		if (text.isTranslatable()) {
+			if (text.hasDomain()) {
+				elm_object_item_domain_translatable_part_text_set(m_pEOItem, "elm.text.title", text.getDomain(), ne(text));
 			} else {
-				elm_object_item_part_text_set(m_pEOItem, "elm.text.title", title);
+				elm_object_item_translatable_part_text_set(m_pEOItem, "elm.text.title", ne(text));
 			}
+		} else {
+			elm_object_item_part_text_set(m_pEOItem, "elm.text.title", ne(text));
 		}
 	}
 

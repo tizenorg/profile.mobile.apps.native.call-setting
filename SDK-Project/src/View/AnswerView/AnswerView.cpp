@@ -62,7 +62,6 @@ namespace CallSettings { namespace View {
 		m_pRejectOption->setCheckMode(gui::CategoryListItem::AUTO_CHECK);
 		m_pRejectOption->setCheckHandler(ItemNotiHandler::wrap<AnswerView, &AnswerView::onOptionChecked>(this));
 
-		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
 
 		return setViewContent(*m_pGenlist);

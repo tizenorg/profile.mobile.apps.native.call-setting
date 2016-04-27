@@ -25,7 +25,7 @@ namespace gui {
 
 	class OptionMenuPopup : public Widget {
 	public:
-		bool addItem(NotiHandler optionSelectHandler, const char *text, bool isTranslatable = true, const Widget *icon = nullptr);
+		bool addItem(NotiHandler optionSelectHandler, const util::TString &text, const Widget *icon = nullptr);
 		void show();
 		void hide();
 

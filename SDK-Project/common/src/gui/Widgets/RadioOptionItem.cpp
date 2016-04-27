@@ -29,12 +29,12 @@ RadioOptionItem::RadioOptionItem() :
 	{
 	}
 
-	bool RadioOptionItem::initialize(ItemAddMethod createItem, Evas_Object *radioGroup, int value, const char *text, bool isLocalized,
+	bool RadioOptionItem::initialize(ItemAddMethod createItem, Evas_Object *radioGroup, int value, util::TString text,
 						ItemSelectionMode selectMode)
 	{
 		RETVM_IF(!radioGroup, false, "Invalid args!");
 
-		if (!SimpleListItem::initialize(createItem, text, isLocalized, selectMode)) {
+		if (!SimpleListItem::initialize(createItem, std::move(text), selectMode)) {
 			ERR("Failed to initialize TextItem");
 			return false;
 		}

@@ -82,7 +82,7 @@ namespace gui {
 		void setInputLimitHandler(NotiHandler handler) { m_inputLimitHandler = handler; }
 		void setInputLimit(int maxCharCount, int maxByteCount = 0);
 
-		void setGuideText(const char *text, bool isLocalized = true);
+		void setGuideText(const util::TString &text);
 		void setEntryRawText(const std::string &);
 		void setEntryMarkupText(const std::string &);
 		std::string getEntryMarkupText();
@@ -107,7 +107,7 @@ namespace gui {
 		Editfield ();
 		virtual ~Editfield() {}
 
-		bool initialize(const Widget &parent, int editfieldType = 0, const char *guideText = nullptr, bool isLocalized = true);
+		bool initialize(const Widget &parent, int flags = 0, const util::TString &guideText = "");
 		void onFocused(Evas_Object *obj, void *eventInfo);
 		void onUnfocused(Evas_Object *obj, void *eventInfo);
 		void onInputEvent(Evas_Object *obj, void *eventInfo);

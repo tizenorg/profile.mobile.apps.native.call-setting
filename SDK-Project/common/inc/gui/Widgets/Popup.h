@@ -35,11 +35,10 @@ namespace gui {
 	public:
 		typedef util::Delegate <bool()> PopupClickHandler;
 
-		void setTitle(const char *title);
-		void setText(const char *text);
+		void setTitle(const util::TString &text);
 		virtual void setContent(const Widget &parent);
 		void unsetContent();
-		bool addButton(const char *text, PopupClickHandler clickHandler, PopupButtonPosition position);
+		bool addButton(const util::TString &text, PopupClickHandler clickHandler, PopupButtonPosition position);
 		void setBackClickHandler(PopupClickHandler handler) {}
 		void setMenuClickHandler(PopupClickHandler handler) {}
 		void setBlockClickHandler(PopupClickHandler handler) {}
@@ -47,7 +46,7 @@ namespace gui {
 	protected:
 		Popup() {};
 		virtual ~Popup() {}
-		bool initialize(const Widget &parent, const char *title = nullptr, Widget *content = nullptr,  const char *text = nullptr);
+		bool initialize(const Widget &parent, const util::TString &title = "", Widget *content = nullptr, const util::TString &text = "");
 		void onButtonPressed(Evas_Object *obj, void *eventInfo);
 		void onBackPressed(Evas_Object *obj, void *eventInfo);
 		void onMenuPressed(Evas_Object *obj, void *eventInfo);

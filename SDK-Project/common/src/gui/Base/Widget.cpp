@@ -57,6 +57,34 @@ namespace gui {
 		evas_object_hide(m_pEvasObject);
 	}
 
+	void Widget::setText(const util::TString &text)
+	{
+		if (text.isTranslatable()) {
+			if (text.hasDomain()) {
+				elm_object_domain_translatable_text_set(m_pEvasObject, text.getDomain(), ne(text));
+			} else {
+				elm_object_translatable_text_set(m_pEvasObject, ne(text));
+			}
+		} else {
+			elm_object_text_set(m_pEvasObject, ne(text));
+		}
+	}
+
+	void Widget::setPartText(const char *partName, const util::TString &text)
+	{
+		RETM_IF(!partName, "partName is null");
+
+		if (text.isTranslatable()) {
+			if (text.hasDomain()) {
+				elm_object_domain_translatable_part_text_set(m_pEvasObject, partName, text.getDomain(), ne(text));
+			} else {
+				elm_object_translatable_part_text_set(m_pEvasObject, partName, ne(text));
+			}
+		} else {
+			elm_object_part_text_set(m_pEvasObject, partName, ne(text));
+		}
+	}
+
 	void Widget::setDisabled(bool disabledState)
 	{
 		if (disabledState) {

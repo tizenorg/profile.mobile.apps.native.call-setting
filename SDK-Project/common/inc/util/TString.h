@@ -41,6 +41,7 @@ namespace util {
 		inline TString &operator=(TString &&tmp);
 
 		inline bool isEmpty() const;
+		inline bool isNotEmpty() const;
 
 		inline bool isTranslatable() const;
 		inline bool hasDomain() const;
@@ -120,6 +121,11 @@ namespace util {
 	bool TString::isEmpty() const
 	{
 		return m_str.empty();
+	}
+
+	bool TString::isNotEmpty() const
+	{
+		return !m_str.empty();
 	}
 
 	const std::string &TString::getStr() const

@@ -45,9 +45,9 @@ namespace gui {
 		return true;
 	}
 
-	bool RadioGroup::addItem(const char *text, int itemIndex, bool isTranslatable)
+	bool RadioGroup::addItem(util::TString text, int itemIndex)
 	{
-		RadioOptionItem *item = m_pGenlist->appendItem<RadioOptionItem>(m_pRadioGroup, itemIndex, text, isTranslatable);
+		RadioOptionItem *item = m_pGenlist->appendItem<RadioOptionItem>(m_pRadioGroup, itemIndex, std::move(text));
 		RETVM_IF(!item, false, "Failed to add item!");
 
 		item->setSelectHandler(ItemNotiHandler::wrap<RadioGroup, &RadioGroup::onRadioItemSelected>(this));

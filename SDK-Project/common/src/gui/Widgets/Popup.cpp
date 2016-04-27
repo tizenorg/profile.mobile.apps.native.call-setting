@@ -21,7 +21,7 @@ namespace gui {
 
 	const char *buttonParts[POPUP_BUTTON_MAX_COUNT] = { "button1", "button3", "button2"};
 
-	bool Popup::initialize(const Widget &parent, const char *title, Widget *content, const char *text)
+	bool Popup::initialize(const Widget &parent, const util::TString &title, Widget *content, const util::TString &text)
 	{
 		m_pEvasObject = elm_popup_add(parent.getEvasObject());
 		RETVM_IF(!m_pEvasObject, false, "Failed to create Popup");
@@ -37,11 +37,11 @@ namespace gui {
 		evas_object_smart_callback_add(m_pEvasObject, "block,clicked",
 			EoSmartCb::make<Popup, &Popup::onBlockAreaClick>(), this);
 
-		if (title) {
+		if (title.isNotEmpty()) {
 			setTitle(title);
 		}
 
-		if (text) {
+		if (text.isNotEmpty()) {
 			setText(text);
 		}
 
@@ -53,16 +53,9 @@ namespace gui {
 		return true;
 	}
 
-	void Popup::setTitle(const char *title)
+	void Popup::setTitle(const util::TString &text)
 	{
-		RETM_IF(!title, "Invalid Args");
-		elm_object_translatable_part_text_set(m_pEvasObject, "title,text", title);
-	}
-
-	void Popup::setText(const char *text)
-	{
-		RETM_IF(!text, "Invalid Args");
-		elm_object_translatable_text_set(m_pEvasObject, text);
+		setPartText("title,text", text);
 	}
 
 	void Popup::setContent(const Widget &parent)
@@ -76,13 +69,13 @@ namespace gui {
 		elm_object_content_unset(m_pEvasObject);
 	}
 
-	bool Popup::addButton(const char *text, PopupClickHandler clickHandler, PopupButtonPosition position)
+	bool Popup::addButton(const util::TString &text, PopupClickHandler clickHandler, PopupButtonPosition position)
 	{
 		Evas_Object *button = elm_button_add(m_pEvasObject);
 		RETVM_IF(!button, false, "Failed to create button");
 
 		elm_object_style_set(button, "bottom");
-		elm_object_translatable_text_set(button, text);
+		WidgetWrapper(button).setText(text);
 		elm_object_part_content_set(m_pEvasObject, buttonParts[position], button);
 
 		m_buttonHandlers[position] = clickHandler;

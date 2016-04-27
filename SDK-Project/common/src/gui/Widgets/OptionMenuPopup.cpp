@@ -35,22 +35,25 @@ namespace gui {
 		return true;
 	}
 
-	bool OptionMenuPopup::addItem(NotiHandler optionSelectHandler, const char *text, bool isTranslatable, const Widget *icon)
+	bool OptionMenuPopup::addItem(NotiHandler optionSelectHandler, const util::TString &text, const Widget *icon)
 	{
 		Elm_Object_Item *item = nullptr;
 		if (icon && icon->getEvasObject()) {
-			item = elm_ctxpopup_item_append(m_pEvasObject, text, icon->getEvasObject(),
+			item = elm_ctxpopup_item_append(m_pEvasObject, ne(text), icon->getEvasObject(),
 					EoSmartCb::make<OptionMenuPopup, &OptionMenuPopup::onItemSelected>(), this);
 		} else {
-			item = elm_ctxpopup_item_append(m_pEvasObject, text, nullptr,
+			item = elm_ctxpopup_item_append(m_pEvasObject, ne(text), nullptr,
 					EoSmartCb::make<OptionMenuPopup, &OptionMenuPopup::onItemSelected>(), this);
 		}
 
-		if (isTranslatable) {
-			elm_object_item_text_translatable_set(item, EINA_TRUE);
-		} else {
-			elm_object_item_text_translatable_set(item, EINA_FALSE);
+		if (text.isTranslatable()) {
+			if (text.hasDomain()) {
+				elm_object_item_domain_part_text_translatable_set(item, nullptr, text.getDomain(), EINA_TRUE);
+			} else {
+				elm_object_item_text_translatable_set(item, EINA_TRUE);
+			}
 		}
+
 		m_itemSelectHandlers.push_back(std::make_pair(item, optionSelectHandler));
 		return true;
 	}

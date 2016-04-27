@@ -41,8 +41,8 @@ namespace CallSettings { namespace View {
 		m_pNoContentLayout = Widget::create<Layout>(*m_pViewLayout, "layout", "nocontents", "default");
 		RETVM_IF(!m_pNoContentLayout, false, "Failed to create no content layout, unknown error");
 
-		m_pNoContentLayout->setText("elm.text", "IDS_CST_NPBODY_NO_MESSAGES");
-		m_pNoContentLayout->setText("elm.help.text",
+		m_pNoContentLayout->setPartText("elm.text", "IDS_CST_NPBODY_NO_MESSAGES");
+		m_pNoContentLayout->setPartText("elm.help.text",
 				"IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE");
 
 		m_pNoContentLayout->emitSignal("align.center", "elm");
@@ -53,15 +53,14 @@ namespace CallSettings { namespace View {
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 		m_pGenlist->setHomogeneousMode(false);
 
-		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB");
 
 		return setViewContent(*m_pGenlist);
 	}
 
-	bool RejectMsgListView::addListItem(int index, const std::string &msgText, bool isTranslatable)
+	bool RejectMsgListView::addListItem(int index, util::TString msgText)
 	{
-		DoubleTextListItem *msgItem = m_pGenlist->appendItem<DoubleTextListItem>(nullptr, msgText.c_str(), false, isTranslatable, true);
+		DoubleTextListItem *msgItem = m_pGenlist->appendItem<DoubleTextListItem>("", std::move(msgText), true);
 		RETVM_IF(!msgItem, false, "Failed to append item");
 
 		if (m_isSelectModeEnabled) {
@@ -264,11 +263,11 @@ namespace CallSettings { namespace View {
 
 		if (m_isSelectModeEnabled) {
 			snprintf(headerText, sizeof(char)*MAX_HEADER_TEXT_LEN, _("IDS_ST_HEADER_PD_SELECTED"), msgCount);
-			m_pNaviItem->setTitleText(headerText, false);
+			m_pNaviItem->setTitleText(util::TString(headerText, false));
 		} else {
 			if (msgCount > 0) {
 				snprintf(headerText, sizeof(char)*MAX_HEADER_TEXT_LEN, "%s (%d/6)", _("IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"), msgCount);
-				m_pNaviItem->setTitleText(headerText, false);
+				m_pNaviItem->setTitleText(util::TString(headerText, false));
 			} else {
 				m_pNaviItem->setTitleText("IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB");
 			}

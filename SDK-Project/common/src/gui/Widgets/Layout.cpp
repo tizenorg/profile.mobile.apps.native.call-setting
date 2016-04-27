@@ -82,16 +82,6 @@ namespace gui {
 		}
 	}
 
-	void Layout::setText(const char *textPart, const char *text, bool isTranslatable)
-	{
-		RETM_IF(!text, "Invalid parameters");
-		if (isTranslatable) {
-			elm_object_translatable_part_text_set(m_pEvasObject, textPart, text);
-		} else {
-			elm_layout_text_set(m_pEvasObject, textPart, text);
-		}
-	}
-
 	bool Layout::themeSet(const char *className, const char *groupName, const char *styleName)
 	{
 		RETVM_IF(!className || !groupName || !styleName, false, "Invalid parameters");

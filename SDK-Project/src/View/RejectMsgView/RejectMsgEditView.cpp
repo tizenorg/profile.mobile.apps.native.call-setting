@@ -53,6 +53,8 @@ namespace CallSettings { namespace View {
 			return false;
 		}
 
+		m_pNaviItem->hideBackButton();
+
 		m_pScroller->setContent(*m_pEditorLayout);
 		m_pCancelBtn = Widget::create<Button>(*m_pViewLayout, "naviframe/title_left", "IDS_MSG_ACBUTTON_CANCEL_ABB");
 		RETVM_IF(!m_pCancelBtn, false, "Internal error");
@@ -74,12 +76,12 @@ namespace CallSettings { namespace View {
 	{
 		char countText[256] = {0,};
 		snprintf(countText, sizeof(char)*256, "%d/%d", inputCount, maxCount);
-		m_pEditorLayout->setText(EDITOR_CHAR_COUNTER_TEXT_PART, countText, false);
+		m_pEditorLayout->setPartText(EDITOR_CHAR_COUNTER_TEXT_PART, util::TString(countText, false));
 	}
 
 	void RejectMsgEditView::hideInputCharCount()
 	{
-		m_pEditorLayout->setText(EDITOR_CHAR_COUNTER_TEXT_PART, "", false);
+		m_pEditorLayout->setPartText(EDITOR_CHAR_COUNTER_TEXT_PART, "");
 	}
 
 } }

@@ -46,7 +46,7 @@ namespace CallSettings { namespace View {
 		m_pRejectMsgOption = m_pGenlist->appendItem<DoubleTextListItem>(
 				"IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB",
 				"IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS",
-				true, true, true);
+				true);
 
 		m_pCallAceptOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
 		m_pMoreOption = m_pGenlist->appendItem<SimpleListItem>("IDS_COM_BODY_MORE");
@@ -55,7 +55,6 @@ namespace CallSettings { namespace View {
 
 		m_pRejectMsgOption->setCheckMode(CheckboxListItem::HIDDEN);
 
-		m_pNaviItem->showBackButton();
 		m_pNaviItem->setTitleText("IDS_CST_HEADER_CALL_SETTINGS");
 
 		m_pRejectMsgOption->setSelectHandler(ItemNotiHandler::wrap<MainView, &MainView::onOptionSelected>(this));

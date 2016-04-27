@@ -27,7 +27,7 @@ namespace gui {
 	{
 	}
 
-	bool Button::initialize(const Widget &parent, const char *style, const char *text, bool isTranslatable)
+	bool Button::initialize(const Widget &parent, const char *style, const util::TString &text)
 	{
 		Evas_Object *btnParent = parent.getEvasObject();
 		RETVM_IF(!btnParent, false, "Failed to create checkbox: Parent in null");
@@ -40,23 +40,12 @@ namespace gui {
 			elm_object_style_set(m_pEvasObject, "default");
 		}
 
-		setText(text, isTranslatable);
+		setText(text);
 		evas_object_smart_callback_add(m_pEvasObject, "clicked",
 			EoSmartCb::make<Button, &Button::onButtonClick>(), this);
 
 		evas_object_show(m_pEvasObject);
 		return true;
-	}
-
-	void Button::setText(const char *text, bool isLocalized)
-	{
-		if (text) {
-			if (isLocalized) {
-				elm_object_translatable_text_set(m_pEvasObject, text);
-			} else {
-				elm_object_text_set(m_pEvasObject, text);
-			}
-		}
 	}
 
 	void Button::setClickHandler(NotiHandler handler)
