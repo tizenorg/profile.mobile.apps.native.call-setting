@@ -37,7 +37,9 @@ namespace util {
 		inline TString(const char *str, const char *domain = "");
 		inline TString(const char *str, bool translatable);
 
+		inline TString(const TString &src);
 		inline TString(TString &&tmp);
+		inline TString &operator=(const TString &src);
 		inline TString &operator=(TString &&tmp);
 
 		inline bool isEmpty() const;
@@ -105,10 +107,23 @@ namespace util {
 	{
 	}
 
+	TString::TString(const TString &src) :
+			m_str(src.m_str),
+			m_domain(src.m_domain)
+	{
+	}
+
 	TString::TString(TString &&tmp) :
 			m_str(std::move(tmp.m_str)),
 			m_domain(tmp.m_domain)
 	{
+	}
+
+	TString &TString::operator=(const TString &src)
+	{
+		m_str = src.m_str;
+		m_domain = src.m_domain;
+		return *this;
 	}
 
 	TString &TString::operator=(TString &&tmp)

@@ -93,3 +93,15 @@ msgstr "Enter message."
 
 msgid "IDS_CST_HEADER_DELETE"
 msgstr "Delete"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Always forward"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Forward when busy"
+
+msgid "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED"
+msgstr "Forward when unanswered"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Forward when unreachable"
