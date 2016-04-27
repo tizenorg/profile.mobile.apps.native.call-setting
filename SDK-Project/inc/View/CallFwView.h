@@ -15,33 +15,39 @@
  *
  */
 
-#ifndef _GUI_CHECKBOX_H_
-#define _GUI_CHECKBOX_H_
+#ifndef _VIEW_CALL_FW_VIEW_
+#define _VIEW_CALL_FW_VIEW_
 
-#include "gui/Base/Widget.h"
+#include "gui/Widgets/DoubleTextListItem.h"
 
-namespace gui {
+#include "GenlistView.h"
 
-	class Checkbox : public Widget {
+namespace CallSettings { namespace View {
+
+	class CallFwView : public GenlistView {
 	public:
-		bool isChecked();
-		void setChecked(bool checkedState);
-		void setCheckHandler(NotiHandler handler);
-		void setCheckStyle(CheckboxStyle type);
-		void setSkipEvents(bool skipEvents);
+		typedef enum {
+			ITEM_TYPE_ALWAYS_FORWARD,
+			ITEM_TYPE_FORWARD_WHEN_BUSY,
+			ITEM_TYPE_FORWARD_WHEN_UNANSWERED,
+			ITEM_TYPE_FORWARD_WHEN_UNREACHABLE,
+			ITEM_TYPE_COUNT
+		} ItemType;
+
+	public:
+		gui::DoubleTextListItem *getItem(ItemType itemType);
 
 	private:
-		friend Widget; // to be used in Widget::create
+		friend class BaseView;
+		CallFwView(gui::NaviItem *naviItem);
+		virtual ~CallFwView();
 
-		Checkbox();
-		virtual ~Checkbox();
-		bool initialize(const Widget &parent, CheckboxStyle type = CHECKBOX_DEFAULT, bool skipEvents = false);
-		void onChecked(Evas_Object *obj, void *event_info);
+		bool initialize();
 
 	private:
-		NotiHandler m_checkHandler;
-
+		gui::DoubleTextListItem *m_pItems[ITEM_TYPE_COUNT];
 	};
-}
 
-#endif /* _GUI_CHECKBOX_H_ */
+}}
+
+#endif /* _VIEW_CALL_FW_VIEW_ */

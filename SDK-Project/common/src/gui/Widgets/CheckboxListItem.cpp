@@ -78,7 +78,8 @@ namespace gui {
 					RETVM_IF(!circlePendingItem, nullptr, "Failed to create processing item");
 					return circlePendingItem->getEvasObject();
 			} else if (m_checkMode == NORMAL || m_checkMode == AUTO_CHECK) {
-					m_pCheckbox = Widget::create<Checkbox>(WidgetWrapper(genlist), m_checkStyle);
+					m_pCheckbox = Widget::create<Checkbox>(WidgetWrapper(genlist),
+							m_checkStyle, (m_checkMode == SKIP_EVENTS));
 					RETVM_IF(!m_pCheckbox, nullptr, "Failed to create checkbox!");
 
 					m_pCheckbox->setChecked(m_checkState);

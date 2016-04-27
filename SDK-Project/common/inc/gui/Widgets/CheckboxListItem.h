@@ -29,6 +29,7 @@ namespace gui {
 		typedef enum {
 				NORMAL,
 				AUTO_CHECK,
+				SKIP_EVENTS,
 				PENDING,
 				HIDDEN,
 		} CheckMode;
