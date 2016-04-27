@@ -35,7 +35,8 @@ namespace CallSettings { namespace View {
 
 		MainView(gui::NaviItem *naviItem);
 		virtual ~MainView();
-		virtual bool createViewContent() override;
+
+		bool initialize();
 		void onOptionSelected(gui::WidgetItem *item);
 
 	private:

@@ -20,18 +20,15 @@
 namespace gui {
 
 	BaseView::BaseView(NaviItem *naviItem) :
-		m_pViewLayout(nullptr),
 		m_pNaviItem(naviItem),
-		m_destroyHandler(),
+		m_pViewLayout(nullptr),
 		m_isDestroying(false)
 	{
 	}
 
 	BaseView::~BaseView()
 	{
-		if (m_pNaviItem) {
-			WidgetItem::destroy(m_pNaviItem);
-		}
+		WidgetItem::destroy(m_pNaviItem);
 
 		if (m_destroyHandler.assigned()) {
 			m_destroyHandler(this);
@@ -40,10 +37,13 @@ namespace gui {
 
 	bool BaseView::initialize()
 	{
-		if (!createBaseLayout() || !createViewContent()) {
-			ERR("Failed to create view content");
-			return false;
-		}
+		RETVM_IF(!m_pNaviItem, false, "Error: View is not attached to naviframe!");
+
+		Evas_Object *parent = m_pNaviItem->getParent();
+		m_pViewLayout = Widget::create<Layout>(WidgetWrapper(parent), "layout", "application", "default");
+		RETVM_IF(!m_pViewLayout, false, "Error: base view layout create failed!");
+
+		m_pNaviItem->setContent(*m_pViewLayout);
 
 		m_pNaviItem->setDestroyHandler(NotiHandler::wrap<BaseView, &BaseView::onNaviItemDestroy>(this));
 		m_pViewLayout->setDestroyHandler(NotiHandler::wrap<BaseView, &BaseView::onViewLayoutDestroy>(this));
@@ -62,16 +62,6 @@ namespace gui {
 	void BaseView::setDestroyHandler(ViewDestroyHandler handler)
 	{
 		m_destroyHandler = handler;
-	}
-
-	bool BaseView::createBaseLayout()
-	{
-		RETVM_IF(!m_pNaviItem, false, "Error: View is not attached to naviframe!");
-
-		Evas_Object *parent = m_pNaviItem->getParent();
-		m_pViewLayout = Widget::create<Layout>(WidgetWrapper(parent), "layout", "application", "default");
-		m_pNaviItem->setContent(*m_pViewLayout);
-		return  m_pViewLayout ? true : false;
 	}
 
 	bool BaseView::setViewContent(Widget &content)

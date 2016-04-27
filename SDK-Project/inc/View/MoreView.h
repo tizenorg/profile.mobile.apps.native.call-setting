@@ -55,7 +55,8 @@ namespace CallSettings { namespace View {
 
 		MoreView(gui::NaviItem *naviItem);
 		virtual ~MoreView();
-		virtual bool createViewContent() override;
+
+		bool initialize();
 		void onOptionSelected(gui::WidgetItem *item);
 		void onCallerIdPopupDestroy();
 		void onCallerIdPopupItemSelect(int value);

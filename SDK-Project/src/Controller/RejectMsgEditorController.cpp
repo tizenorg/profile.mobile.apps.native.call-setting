@@ -15,8 +15,7 @@
  *
  */
 
-#include "Controller/RejectMsgView/RejectMsgEditorController.h"
-#include "View/RejectMsgView/RejectMsgEditView.h"
+#include "Controller/RejectMsgEditorController.h"
 
 #include "msg.h"
 

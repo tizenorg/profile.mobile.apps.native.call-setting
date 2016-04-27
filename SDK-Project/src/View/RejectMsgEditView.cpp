@@ -15,9 +15,9 @@
  *
  */
 
-#include "View/RejectMsgView/RejectMsgEditView.h"
-
 #include "appfw/Path.h"
+
+#include "View/RejectMsgEditView.h"
 
 #define EDITOR_LAYOUT_GROUP					"RejectMsgEditorLayout"
 #define EDITOR_CHAR_COUNTER_TEXT_PART		"char_count_text"
@@ -37,8 +37,10 @@ namespace CallSettings { namespace View {
 	{
 	}
 
-	bool RejectMsgEditView::createViewContent()
+	bool RejectMsgEditView::initialize()
 	{
+		RETVM_IF(!BaseView::initialize(), false, "Failed to initialize BaseView!");
+
 		m_pScroller = Widget::create<Scroller>(*m_pViewLayout);
 		RETVM_IF(!m_pScroller, false, "Failed to create scroller, unknown error");
 

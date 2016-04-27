@@ -19,11 +19,12 @@
 #define _CONTROLLER_MORE_VIEW_CONTROLLER_H_
 
 #include "gui/Base/ViewController.h"
-#include "Model/Telephony/TelRequestListener.h"
-#include "Model/Telephony/TelephonyTypes.h"
 
 #include "App/Application.h"
-#include "View/MoreView/MoreView.h"
+#include "View/MoreView.h"
+
+#include "Model/Telephony/TelRequestListener.h"
+#include "Model/Telephony/TelephonyTypes.h"
 
 namespace CallSettings { namespace Controller {
 

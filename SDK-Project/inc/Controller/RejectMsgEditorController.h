@@ -21,8 +21,9 @@
 #include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
-#include "View/RejectMsgView/RejectMsgEditView.h"
-#include "Controller/RejectMsgView/RejectMsgUtils.h"
+#include "View/RejectMsgEditView.h"
+
+#include "RejectMsgUtils.h"
 
 namespace CallSettings { namespace Controller {
 

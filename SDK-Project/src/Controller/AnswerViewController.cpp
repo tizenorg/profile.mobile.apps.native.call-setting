@@ -15,7 +15,7 @@
  *
  */
 
-#include "Controller/AnswerView/AnswerViewController.h"
+#include "Controller/AnswerViewController.h"
 
 namespace CallSettings { namespace Controller {
 

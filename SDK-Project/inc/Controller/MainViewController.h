@@ -21,10 +21,11 @@
 #include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
-#include "Controller/RejectMsgView/RejectMsgListController.h"
-#include "Controller/AnswerView/AnswerViewController.h"
-#include "Controller/MoreView/MoreViewController.h"
-#include "View/MainView/MainView.h"
+#include "View/MainView.h"
+
+#include "RejectMsgListController.h"
+#include "AnswerViewController.h"
+#include "MoreViewController.h"
 
 namespace CallSettings { namespace Controller {
 

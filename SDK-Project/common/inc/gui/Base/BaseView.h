@@ -37,18 +37,16 @@ namespace gui {
 	protected:
 		BaseView(NaviItem *naviItem);
 		virtual ~BaseView();
-		virtual bool createViewContent() { return false; }
 		bool initialize();
 		bool setViewContent(Widget &content);
 
 	protected:
-		Layout *m_pViewLayout;
 		NaviItem *m_pNaviItem;
+		Layout *m_pViewLayout;
 		ViewDestroyHandler m_destroyHandler;
 		bool m_isDestroying;
 
 	private:
-		bool createBaseLayout();
 		void onViewLayoutDestroy();
 		void onNaviItemDestroy();
 	};

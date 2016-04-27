@@ -15,7 +15,7 @@
  *
  */
 
-#include "Controller/MoreView/MoreViewController.h"
+#include "Controller/MoreViewController.h"
 
 namespace CallSettings { namespace Controller {
 

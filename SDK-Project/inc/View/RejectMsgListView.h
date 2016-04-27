@@ -55,7 +55,8 @@ namespace CallSettings { namespace View {
 	protected:
 		RejectMsgListView(gui::NaviItem *naviItem);
 		virtual ~RejectMsgListView() {}
-		virtual bool createViewContent() override;
+
+		bool initialize();
 		void changeViewToMsgList();
 		void changeViewToEmpty();
 		void onMsgItemClicked(gui::WidgetItem *item);

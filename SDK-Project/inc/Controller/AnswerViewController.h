@@ -21,7 +21,7 @@
 #include "gui/Base/ViewController.h"
 
 #include "App/Application.h"
-#include "View/AnswerView/AnswerView.h"
+#include "View/AnswerView.h"
 
 namespace CallSettings { namespace Controller {
 

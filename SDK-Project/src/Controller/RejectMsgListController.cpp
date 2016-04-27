@@ -16,8 +16,7 @@
  *
  */
 
-#include "Controller/RejectMsgView/RejectMsgListController.h"
-#include "View/RejectMsgView/RejectMsgListView.h"
+#include "Controller/RejectMsgListController.h"
 
 namespace CallSettings { namespace Controller {
 

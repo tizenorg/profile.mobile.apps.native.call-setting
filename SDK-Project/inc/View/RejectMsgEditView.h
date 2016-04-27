@@ -45,7 +45,7 @@ namespace CallSettings { namespace View {
 		RejectMsgEditView(gui::NaviItem *naviItem);
 		virtual ~RejectMsgEditView() {}
 
-		virtual bool createViewContent() override;
+		bool initialize();
 
 	private:
 		gui::Layout *m_pEditorLayout;

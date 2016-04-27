@@ -15,8 +15,9 @@
  *
  */
 
+#include "Controller/MainViewController.h"
+
 #include "App/Application.h"
-#include "Controller/MainView/MainViewController.h"
 
 namespace CallSettings {
 	using namespace Model;

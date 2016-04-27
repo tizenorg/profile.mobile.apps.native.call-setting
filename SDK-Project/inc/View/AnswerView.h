@@ -39,7 +39,8 @@ namespace CallSettings { namespace View {
 
 		AnswerView(gui::NaviItem *naviItem);
 		virtual ~AnswerView();
-		virtual bool createViewContent() override;
+
+		bool initialize();
 		void onOptionChecked(gui::WidgetItem *item);
 
 	private:

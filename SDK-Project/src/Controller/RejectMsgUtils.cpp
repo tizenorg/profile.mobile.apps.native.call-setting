@@ -15,7 +15,8 @@
  *
  */
 
-#include "Controller/RejectMsgView/RejectMsgUtils.h"
+#include "Controller/RejectMsgUtils.h"
+
 namespace CallSettings { namespace Controller {
 
 	Model::StringKey convertToStringKey(RejectMsgId id) {

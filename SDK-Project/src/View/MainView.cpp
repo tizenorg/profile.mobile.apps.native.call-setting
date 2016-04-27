@@ -19,7 +19,7 @@
 #include "gui/Widgets/DoubleTextListItem.h"
 #include "gui/Widgets/SimpleListItem.h"
 
-#include "View/MainView/MainView.h"
+#include "View/MainView.h"
 
 namespace CallSettings { namespace View {
 
@@ -38,8 +38,10 @@ namespace CallSettings { namespace View {
 	{
 	}
 
-	bool MainView::createViewContent()
+	bool MainView::initialize()
 	{
+		RETVM_IF(!BaseView::initialize(), false, "Failed to initialize BaseView!");
+
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 

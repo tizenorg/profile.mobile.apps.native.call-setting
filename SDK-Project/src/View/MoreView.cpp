@@ -18,8 +18,7 @@
 #include "gui/Widgets/NaviItem.h"
 #include "gui/Widgets/RadioGroup.h"
 
-#include "View/MoreView/MoreView.h"
-
+#include "View/MoreView.h"
 
 namespace CallSettings { namespace View {
 
@@ -42,8 +41,10 @@ namespace CallSettings { namespace View {
 		}
 	}
 
-	bool MoreView::createViewContent()
+	bool MoreView::initialize()
 	{
+		RETVM_IF(!BaseView::initialize(), false, "Failed to initialize BaseView!");
+
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 

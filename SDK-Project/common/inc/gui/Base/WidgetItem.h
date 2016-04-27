@@ -26,7 +26,9 @@ namespace gui {
 	public:
 		template <typename ITEM_TYPE, typename... TYPE_ARGS>
 		static ITEM_TYPE *create(TYPE_ARGS&&... args);
-		static void destroy(WidgetItem *widgetItem);
+
+		template <typename ITEM_TYPE>
+		static void destroy(ITEM_TYPE *widgetItem);
 
 		Elm_Object_Item *getElmObjectItem();
 		Evas_Object *getParent();
@@ -41,6 +43,7 @@ namespace gui {
 		Elm_Object_Item *m_pEOItem;
 
 	private:
+		void doDestroy();
 		void onElmObjectItemDelBase(Evas_Object *obj, void *event_info);
 
 	private:
@@ -59,6 +62,14 @@ namespace gui {
 		}
 
 		return instance;
+	}
+
+	template <typename ITEM_TYPE>
+	void WidgetItem::destroy(ITEM_TYPE *widgetItem)
+	{
+		if (widgetItem) {
+			static_cast<WidgetItem *>(widgetItem)->doDestroy();
+		}
 	}
 }
 

@@ -15,8 +15,9 @@
  *
  */
 
-#include "View/RejectMsgView/RejectMsgListView.h"
 #include "gui/Widgets/DoubleTextListItem.h"
+
+#include "View/RejectMsgListView.h"
 
 #define MAX_HEADER_TEXT_LEN 256
 
@@ -36,8 +37,10 @@ namespace CallSettings { namespace View {
 	{
 	}
 
-	bool RejectMsgListView::createViewContent()
+	bool RejectMsgListView::initialize()
 	{
+		RETVM_IF(!BaseView::initialize(), false, "Failed to initialize BaseView!");
+
 		m_pNoContentLayout = Widget::create<Layout>(*m_pViewLayout, "layout", "nocontents", "default");
 		RETVM_IF(!m_pNoContentLayout, false, "Failed to create no content layout, unknown error");
 

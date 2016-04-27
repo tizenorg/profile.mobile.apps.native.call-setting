@@ -17,7 +17,7 @@
 
 #include "gui/Widgets/CategoryItem.h"
 
-#include "View/AnswerView/AnswerView.h"
+#include "View/AnswerView.h"
 
 namespace CallSettings { namespace View {
 	using namespace gui;
@@ -34,8 +34,10 @@ namespace CallSettings { namespace View {
 	{
 	}
 
-	bool AnswerView::createViewContent()
+	bool AnswerView::initialize()
 	{
+		RETVM_IF(!BaseView::initialize(), false, "Failed to initialize BaseView!");
+
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 

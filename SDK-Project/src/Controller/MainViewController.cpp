@@ -15,7 +15,7 @@
  *
  */
 
-#include "Controller/MainView/MainViewController.h"
+#include "Controller/MainViewController.h"
 
 namespace CallSettings { namespace Controller {
 

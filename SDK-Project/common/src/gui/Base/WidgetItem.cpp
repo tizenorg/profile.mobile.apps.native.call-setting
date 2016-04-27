@@ -32,18 +32,14 @@ namespace gui {
 		}
 	}
 
-	void WidgetItem::destroy(WidgetItem *item)
+	void WidgetItem::doDestroy()
 	{
-		if (!item) {
-			return;
-		}
-
-		if (item->m_pEOItem) {
-			Elm_Object_Item *eoItem = item->m_pEOItem;
-			item->m_pEOItem = nullptr;
+		if (m_pEOItem) {
+			Elm_Object_Item *eoItem = m_pEOItem;
+			m_pEOItem = nullptr;
 			elm_object_item_del(eoItem);
 		} else {
-			delete item;
+			delete this;
 		}
 	}
 
