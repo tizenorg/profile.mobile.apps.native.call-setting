@@ -47,7 +47,7 @@ namespace gui {
 		virtual void onActivate() {}
 		virtual void onDeactivate() {}
 		virtual void onMenuKeyPressed() {}
-		virtual void onBackKeyPressed() {}
+		virtual void onBackKeyPressed();
 		bool initialize();
 		void setBaseView(BaseView *view);
 

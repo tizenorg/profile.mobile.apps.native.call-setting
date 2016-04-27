@@ -100,4 +100,9 @@ namespace gui {
 		evas_object_freeze_events_set(m_pViewLayout->getEvasObject(), EINA_TRUE);
 	}
 
+	NaviItem &BaseView::getItem()
+	{
+		return *m_pNaviItem;
+	}
+
 }

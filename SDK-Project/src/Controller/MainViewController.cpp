@@ -46,7 +46,7 @@ namespace CallSettings { namespace Controller {
 	{
 		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
 
-		m_pMainView = ViewManager::pushView<View::MainView>(m_app.getViewManager(), true);
+		m_pMainView = m_app.getViewManager().pushView<View::MainView>();
 		RETVM_IF(!m_pMainView, false, "Failed to create view");
 
 		setBaseView(m_pMainView);
@@ -63,11 +63,6 @@ namespace CallSettings { namespace Controller {
 			m_pMainView->setMoreHandler(
 					NotiHandler::wrap<MainViewController, &MainViewController::onMoreClick>(this));
 		}
-	}
-
-	void MainViewController::onBackKeyPressed()
-	{
-		makeDestroyReqeuest();
 	}
 
 	void MainViewController::onRejectMsgClick()

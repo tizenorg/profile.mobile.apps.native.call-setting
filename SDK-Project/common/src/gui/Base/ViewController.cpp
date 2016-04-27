@@ -205,9 +205,16 @@ namespace gui {
 
 	void ViewController::makeDestroyReqeuest()
 	{
-		m_isDestroying = true;
-		if (m_destroyRequestHandler.assigned()) {
-			m_destroyRequestHandler();
+		if (!m_isDestroying) {
+			m_isDestroying = true;
+			if (m_destroyRequestHandler.assigned()) {
+				m_destroyRequestHandler();
+			}
 		}
+	}
+
+	void ViewController::onBackKeyPressed()
+	{
+		makeDestroyReqeuest();
 	}
 }

@@ -71,7 +71,7 @@ namespace CallSettings { namespace Controller {
 			RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to setup mgs content listener");
 		}
 
-		m_pMsgListView =  gui::ViewManager::pushView<View::RejectMsgListView>(m_app.getViewManager(), true);
+		m_pMsgListView = m_app.getViewManager().pushView<View::RejectMsgListView>();
 		RETVM_IF(!m_pMsgListView, false, "Failed to create view instance!");
 
 		m_pMsgListView->setMsgClickHandler(

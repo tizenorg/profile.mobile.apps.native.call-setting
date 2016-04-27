@@ -28,7 +28,7 @@ namespace gui {
 	{
 	}
 
-	bool Checkbox::initialize(const Widget &parent, CheckboxStyle type)
+	bool Checkbox::initialize(const Widget &parent, CheckboxStyle type, bool skipEvents)
 	{
 		Evas_Object *checkboxParent = parent.getEvasObject();
 		RETVM_IF(!checkboxParent, false, "Failed to create checkbox: Parent in null");
@@ -37,10 +37,10 @@ namespace gui {
 		RETVM_IF(!m_pEvasObject, false, "Failed to create checkbox: Internal error");
 
 		setCheckStyle(type);
+		setSkipEvents(skipEvents);
 
 		elm_check_state_set(m_pEvasObject, EINA_FALSE);
-		evas_object_repeat_events_set(m_pEvasObject, EINA_FALSE);
-		evas_object_propagate_events_set(m_pEvasObject, EINA_FALSE);
+
 		evas_object_smart_callback_add(m_pEvasObject, "changed",
 			EoSmartCb::make<Checkbox, &Checkbox::onChecked>(), this);
 
@@ -61,6 +61,13 @@ namespace gui {
 			elm_object_style_set(m_pEvasObject, "default");
 			break;
 		}
+	}
+
+	void Checkbox::setSkipEvents(bool skipEvents)
+	{
+		evas_object_repeat_events_set(m_pEvasObject, TO_EINA_BOOL(skipEvents));
+		evas_object_propagate_events_set(m_pEvasObject, TO_EINA_BOOL(skipEvents));
+		evas_object_freeze_events_set(m_pEvasObject, TO_EINA_BOOL(skipEvents));
 	}
 
 	bool Checkbox::isChecked()

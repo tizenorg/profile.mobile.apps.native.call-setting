@@ -37,8 +37,7 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 
 		MainViewController(Application &app, NotiHandler handler);
-		virtual void onBackKeyPressed();
-		virtual void updateView(int updateFlag);
+		virtual void updateView(int updateFlag) override;
 		bool initialize();
 		void onRejectMsgClick();
 		void onCallAnsweringClick();

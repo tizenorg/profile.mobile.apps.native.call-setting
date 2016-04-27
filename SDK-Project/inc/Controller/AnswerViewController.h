@@ -33,7 +33,6 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 
 		AnswerViewController(Application &app, NotiHandler handler);
-		virtual void onBackKeyPressed() override;
 		virtual void updateView(int updateFlag) override;
 		bool initialize();
 

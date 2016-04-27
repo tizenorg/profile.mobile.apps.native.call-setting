@@ -74,7 +74,7 @@ namespace CallSettings { namespace Controller {
 	{
 		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
 
-		m_pMsgEditView =  gui::ViewManager::pushView<View::RejectMsgEditView>(m_app.getViewManager(), true);
+		m_pMsgEditView = m_app.getViewManager().pushView<View::RejectMsgEditView>();
 		RETVM_IF(!m_pMsgEditView, false, "Failed to create view instance!");
 
 		m_pMsgEditView->setDoneClickHandler(
@@ -194,11 +194,6 @@ namespace CallSettings { namespace Controller {
 		} else {
 			return true;
 		}
-	}
-
-	void RejectMsgEditorController::onBackKeyPressed()
-	{
-		makeDestroyReqeuest();
 	}
 
 	bool RejectMsgEditorController::calculateSMSTextLength(const std::string &smsText, int &charCount, int &maxCharCount)

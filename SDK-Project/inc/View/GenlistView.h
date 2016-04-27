@@ -15,33 +15,29 @@
  *
  */
 
-#ifndef _GUI_CHECKBOX_H_
-#define _GUI_CHECKBOX_H_
+#ifndef _VIEW_GENLIST_VIEW_
+#define _VIEW_GENLIST_VIEW_
 
-#include "gui/Base/Widget.h"
+#include "gui/Base/BaseView.h"
+#include "gui/Widgets/Genlist.h"
 
-namespace gui {
+namespace CallSettings { namespace View {
 
-	class Checkbox : public Widget {
+	class GenlistView : public gui::BaseView {
 	public:
-		bool isChecked();
-		void setChecked(bool checkedState);
-		void setCheckHandler(NotiHandler handler);
-		void setCheckStyle(CheckboxStyle type);
-		void setSkipEvents(bool skipEvents);
+		gui::Genlist &getGenlist();
 
-	private:
-		friend Widget; // to be used in Widget::create
+	protected:
+		friend class gui::BaseView;
+		GenlistView(gui::NaviItem *naviItem);
+		virtual ~GenlistView();
 
-		Checkbox();
-		virtual ~Checkbox();
-		bool initialize(const Widget &parent, CheckboxStyle type = CHECKBOX_DEFAULT, bool skipEvents = false);
-		void onChecked(Evas_Object *obj, void *event_info);
+		bool initialize();
 
-	private:
-		NotiHandler m_checkHandler;
-
+	protected:
+		gui::Genlist *m_pGenlist;
 	};
-}
 
-#endif /* _GUI_CHECKBOX_H_ */
+}}
+
+#endif /* _VIEW_GENLIST_VIEW_ */

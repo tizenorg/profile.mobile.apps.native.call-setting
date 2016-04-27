@@ -29,10 +29,13 @@ namespace gui {
 		template <class ViewClass>
 		static ViewClass *create(NaviItem *naviItem);
 		static void destroy(BaseView *view);
+
 		void setDestroyHandler(ViewDestroyHandler handler);
+
 		void enableInputEvents();
 		void disableInputEvents();
 
+		NaviItem &getItem();
 
 	protected:
 		BaseView(NaviItem *naviItem);
