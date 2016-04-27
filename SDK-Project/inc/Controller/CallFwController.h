@@ -15,33 +15,35 @@
  *
  */
 
-#ifndef _GUI_CHECKBOX_H_
-#define _GUI_CHECKBOX_H_
+#ifndef _CONTROLLER_CALL_FW_CONTROLLER_H_
+#define _CONTROLLER_CALL_FW_CONTROLLER_H_
 
-#include "gui/Base/Widget.h"
+#include "gui/Base/ViewController.h"
 
-namespace gui {
+#include "App/Application.h"
+#include "View/GenlistView.h"
 
-	class Checkbox : public Widget {
+namespace CallSettings { namespace Controller {
+
+	class CallFwController : public gui::ViewController {
 	public:
-		bool isChecked();
-		void setChecked(bool checkedState);
-		void setCheckHandler(NotiHandler handler);
-		void setCheckStyle(CheckboxStyle type);
-		void setSkipEvents(bool skipEvents);
+		virtual ~CallFwController();
 
 	private:
-		friend Widget; // to be used in Widget::create
+		friend class ViewController;
+		CallFwController(Application &app, NotiHandler handler);
 
-		Checkbox();
-		virtual ~Checkbox();
-		bool initialize(const Widget &parent, CheckboxStyle type = CHECKBOX_DEFAULT, bool skipEvents = false);
-		void onChecked(Evas_Object *obj, void *event_info);
+		bool initialize();
+
+		// gui::ViewController //
+
+		virtual void updateView(int updateFlag) override;
 
 	private:
-		NotiHandler m_checkHandler;
-
+		Application &m_app;
+		View::GenlistView *m_pView;
 	};
-}
 
-#endif /* _GUI_CHECKBOX_H_ */
+}}
+
+#endif /* _CONTROLLER_CALL_FW_CONTROLLER_H_ */

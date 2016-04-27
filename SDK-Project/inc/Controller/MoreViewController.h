@@ -26,6 +26,8 @@
 #include "Model/Telephony/TelRequestListener.h"
 #include "Model/Telephony/TelephonyTypes.h"
 
+#include "CallFwController.h"
+
 namespace CallSettings { namespace Controller {
 
 	class MoreViewController :
@@ -41,7 +43,6 @@ namespace CallSettings { namespace Controller {
 		MoreViewController();
 		MoreViewController(Application &app, NotiHandler handler);
 		bool initialize();
-		virtual void onBackKeyPressed() override;
 		virtual void updateView(int updateFlag) override;
 		virtual void onRequestComplete(Model::TelResultCode result, const Model::CallWaitingReqData *value) override;
 		virtual void onRequestComplete(Model::TelResultCode result) override;
@@ -61,10 +62,13 @@ namespace CallSettings { namespace Controller {
 		void onCallerIdStatusSelected(View::MoreView::CallerIdStatus value);
 		void onCallerIdPopupHide();
 
+		void onCallFwControllerDestroy();
+
 	private:
 		Application &m_app;
 		View::MoreView *m_pMoreView;
 		Model::CallWaitingReqData m_callWaitData;
+		CallFwController *m_pCallFwController;
 		bool m_needUpdateCallerId;
 		bool m_needUpdateWaiting;
 		bool m_waitRequestPending;

@@ -26,6 +26,7 @@ namespace CallSettings { namespace Controller {
 		ViewController(app, handler),
 		m_app(app),
 		m_pMoreView(nullptr),
+		m_pCallFwController(nullptr),
 		m_needUpdateCallerId(true),
 		m_needUpdateWaiting(true),
 		m_waitRequestPending(false)
@@ -43,6 +44,8 @@ namespace CallSettings { namespace Controller {
 		m_pMoreView->setCallerIdClickHandler(nullptr);
 		m_pMoreView->setCallForwardClickHandler(nullptr);
 		m_pMoreView->setCallWaitingCheckHandler(nullptr);
+
+		delete m_pCallFwController;
 	}
 
 	bool MoreViewController::initialize()
@@ -57,7 +60,7 @@ namespace CallSettings { namespace Controller {
 				NotiHandler::wrap<MoreViewController, &MoreViewController::onWaitingOptionChanged>(this));
 		RETVM_IF(telRes != TELEPHONY_RES_SUCCESS, false, "Failed to setup call waiting option listener");
 
-		m_pMoreView = gui::ViewManager::pushView<View::MoreView>(m_app.getViewManager(), true);
+		m_pMoreView = m_app.getViewManager().pushView<View::MoreView>();
 		RETVM_IF(!m_pMoreView, false, "Failed to create view instance!");
 		setBaseView(m_pMoreView);
 
@@ -109,8 +112,15 @@ namespace CallSettings { namespace Controller {
 	void MoreViewController::onForwardingItemClick()
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
-
 		DBG("Call forwarding option selected");
+		m_pCallFwController = ViewController::create<CallFwController>(m_app,
+				NotiHandler::wrap<MoreViewController, &MoreViewController::onCallFwControllerDestroy>(this));
+	}
+
+	void MoreViewController::onCallFwControllerDestroy()
+	{
+		delete m_pCallFwController;
+		m_pCallFwController = nullptr;
 	}
 
 	void MoreViewController::onWaitingOptionCheck()
@@ -189,11 +199,6 @@ namespace CallSettings { namespace Controller {
 		m_waitRequestPending = true;
 		TelResultCode res = m_app.getTelephonyManager().requestCallWaitSetup(&m_callWaitData, this);
 		RETM_IF(res != TELEPHONY_RES_SUCCESS, "Failed to send setup request, error code: %d", res);
-	}
-
-	void MoreViewController::onBackKeyPressed()
-	{
-		makeDestroyReqeuest();
 	}
 
 	void MoreViewController::updateView(int updateFlag)

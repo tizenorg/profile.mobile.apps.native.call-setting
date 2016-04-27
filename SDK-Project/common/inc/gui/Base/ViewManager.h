@@ -29,7 +29,7 @@ namespace gui {
 		static void destroy(ViewManager *instance);
 
 		template <class ViewType>
-		static ViewType* pushView(ViewManager &manager, bool showAnimation = true);
+		ViewType *pushView(bool showAnimation = true);
 		bool popView();
 
 		bool isTopView(BaseView *view);
@@ -67,15 +67,15 @@ namespace gui {
 	};
 
 	template <class ViewType>
-	ViewType* ViewManager::pushView(ViewManager &manager, bool showAnimation)
+	ViewType *ViewManager::pushView(bool showAnimation)
 	{
-		NaviItem *naviItem = manager.createNaviItem(showAnimation);
+		NaviItem *naviItem = createNaviItem(showAnimation);
 		RETVM_IF(!naviItem, nullptr, "Failed to create NaviItem!");
 
 		ViewType *view = BaseView::create<ViewType>(naviItem);
 		RETVM_IF(!view, nullptr, "Failed to create view!");
 
-		manager.attachView(view, showAnimation);
+		attachView(view, showAnimation);
 		return view;
 	}
 }

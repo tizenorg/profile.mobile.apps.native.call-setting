@@ -39,7 +39,6 @@ namespace CallSettings { namespace Controller {
 		bool initialize(RejectMsgId editableMsgId);
 		bool initializeView();
 
-		virtual void onBackKeyPressed() override;
 		void onDoneBtnClick();
 		void onCancelBtnClick();
 		void onInputEvent();
