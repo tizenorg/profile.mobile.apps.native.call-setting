@@ -35,6 +35,8 @@ static void __cst_edit_reject_message_list(void *data, Evas_Object *obj, void *e
 static void __cst_reject_msg_back_to_prev(CstAppData_t *ad);
 static int _cst_set_reject_msg_button_status(int num);
 
+#define DEFAULT_MSG_SIZE_TXT "0/160"
+
 static Elm_Genlist_Item_Class *itc_1text = NULL;
 char *header = NULL;
 static CstGlItemData_t *g_item_data = NULL;
@@ -633,8 +635,10 @@ static int __cst_reject_msg_exceed_limit_text_size(const char *text, CstAppData_
 	char buf[24] = { 0, };
 	if (text_size > 0) {
 		snprintf(buf, sizeof(buf), "%i/%i", text_size, segment_size);
+		elm_object_part_text_set(ad->entry_count, "char_count_text", buf);
+	} else {
+		elm_object_part_text_set(ad->entry_count, "char_count_text", DEFAULT_MSG_SIZE_TXT);
 	}
-	elm_object_part_text_set(ad->entry_count, "char_count_text", buf);
 
 	ad->rej_msg_seg_size = segment_size;
 	if (text_size > segment_size) {
@@ -947,6 +951,7 @@ static void __cst_on_click_reject_message_add_button(void *data, Evas_Object *ob
 			elm_object_disabled_set(save_btn, EINA_FALSE);
 		} else {
 			elm_object_disabled_set(save_btn, EINA_TRUE);
+			elm_object_part_text_set(ad->entry_count, "char_count_text", DEFAULT_MSG_SIZE_TXT);
 		}
 	}
 	evas_object_smart_callback_add(ad->nf, "transition,finished", _cst_transition_cb, navi_it);
