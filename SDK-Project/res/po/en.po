@@ -105,3 +105,9 @@ msgstr "Forward when unanswered"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
 msgstr "Forward when unreachable"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d seconds"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Waiting time"

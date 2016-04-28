@@ -280,4 +280,13 @@ namespace gui {
 		isTransitionState = false;
 	}
 
+	Evas_Object *ViewManager::getWindow()
+	{
+		return m_pWindow;
+	}
+
+	Evas_Object *ViewManager::getNaviframe()
+	{
+		return m_pNaviframe;
+	}
 }

@@ -36,6 +36,9 @@ namespace gui {
 		bool addViewEventHandler(ViewEventHandler handler);
 		void removeViewEventHandler(ViewEventHandler handler);
 
+		Evas_Object *getWindow();
+		Evas_Object *getNaviframe();
+
 	private:
 		ViewManager();
 		~ViewManager();

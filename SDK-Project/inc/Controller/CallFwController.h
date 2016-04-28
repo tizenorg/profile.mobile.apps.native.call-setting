@@ -19,6 +19,7 @@
 #define _CONTROLLER_CALL_FW_CONTROLLER_H_
 
 #include "gui/Base/ViewController.h"
+#include "gui/Widgets/Popup.h"
 
 #include "App/Application.h"
 #include "View/GenlistView.h"
@@ -35,6 +36,17 @@ namespace CallSettings { namespace Controller {
 
 		bool initialize();
 
+		void showTimeoutPopup();
+
+		// View item events
+
+		void onItemClick(gui::WidgetItem *pItem);
+
+		// Timeout select popup events
+
+		void onTimeoutPopupDel();
+		void onTimeoutValueSelected(int noReplyTimeId);
+
 		// gui::ViewController //
 
 		virtual void updateView(int updateFlag) override;
@@ -42,6 +54,7 @@ namespace CallSettings { namespace Controller {
 	private:
 		Application &m_app;
 		View::GenlistView *m_pView;
+		gui::Popup *m_pTimeoutPopup;
 	};
 
 }}
