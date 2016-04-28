@@ -282,13 +282,13 @@ namespace CallSettings { namespace Controller {
 		}
 	}
 
-	void RejectMsgListController::onDeleteBtnClick()
+	void RejectMsgListController::onDeleteBtnClick(gui::Widget &sender)
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		deleteSelectedMsg();
 	}
 
-	void RejectMsgListController::onCancelBtnClick()
+	void RejectMsgListController::onCancelBtnClick(gui::Widget &sender)
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 
@@ -331,9 +331,9 @@ namespace CallSettings { namespace Controller {
 
 		m_viewMode = SELECT_MODE;
 		m_pMsgListView->setCancelBtnClickHandler(
-				NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onCancelBtnClick>(this));
+				gui::WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onCancelBtnClick>(this));
 		m_pMsgListView->setDeleteBtnClickHandler(
-				NotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onDeleteBtnClick>(this));
+				gui::WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onDeleteBtnClick>(this));
 
 		m_pMsgListView->setDisabledDeleteBtn(true);
 

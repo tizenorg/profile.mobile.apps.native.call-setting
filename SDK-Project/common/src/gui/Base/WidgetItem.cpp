@@ -21,7 +21,7 @@ namespace gui {
 
 	WidgetItem::WidgetItem() :
 		m_pEOItem(nullptr),
-		m_destroyHandler()
+		m_tag(0)
 	{
 	}
 
@@ -85,4 +85,15 @@ namespace gui {
 	{
 		m_destroyHandler = handler;
 	}
+
+	void WidgetItem::setTag(int tag)
+	{
+		m_tag = tag;
+	}
+
+	int WidgetItem::getTag() const
+	{
+		return m_tag;
+	}
+
 }

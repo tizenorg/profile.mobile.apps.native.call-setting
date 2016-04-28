@@ -100,7 +100,7 @@ namespace gui {
 		if (m_checkState != isChecked) {
 			m_checkState = isChecked;
 			if (m_checkHandler.assigned()) {
-				m_checkHandler(this);
+				m_checkHandler(*this);
 			}
 		}
 	}
@@ -117,7 +117,7 @@ namespace gui {
 			m_pCheckbox->setChecked(m_checkState);
 			elm_genlist_item_selected_set(m_pEOItem, EINA_FALSE);
 			if (m_checkHandler.assigned()) {
-				m_checkHandler(this);
+				m_checkHandler(*this);
 			}
 		} else {
 			GenlistItem::onSelected();

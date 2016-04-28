@@ -69,30 +69,35 @@ namespace gui {
 		elm_object_content_unset(m_pEvasObject);
 	}
 
-	bool Popup::addButton(const util::TString &text, PopupClickHandler clickHandler, PopupButtonPosition position)
+	bool Popup::addButton(PopupButtonPosition position, const util::TString &text, PopupClickHandler clickHandler)
 	{
-		Evas_Object *button = elm_button_add(m_pEvasObject);
+		Button *button = Widget::create<Button>(*this, "popup", text);
 		RETVM_IF(!button, false, "Failed to create button");
 
-		elm_object_style_set(button, "bottom");
-		WidgetWrapper(button).setText(text);
-		elm_object_part_content_set(m_pEvasObject, buttonParts[position], button);
+		setPartContent(buttonParts[position], button);
 
-		m_buttonHandlers[position] = clickHandler;
-		evas_object_smart_data_set(button, &m_buttonHandlers[position]);
-		evas_object_smart_callback_add(button, "clicked",
-				EoSmartCb::make<Popup, &Popup::onButtonPressed>(), this);
+		button->setTag(position);
+
+		m_buttons[position].clickHandler = clickHandler;
+		m_buttons[position].pButton = button;
+
+		button->setClickHandler(WidgetNotiHandler::wrap<Popup, &Popup::onButtonPressed>(this));
 
 		return true;
 	}
 
-	void Popup::onButtonPressed(Evas_Object *obj, void *eventInfo)
+	void Popup::setButtonDisabled(PopupButtonPosition position, bool disabled)
 	{
-		RETM_IF(!obj, "Invalid data!");
+		if (m_buttons[position].pButton) {
+			m_buttons[position].pButton->setDisabled(disabled);
+		}
+	}
 
-		PopupClickHandler &handler = *(PopupClickHandler *) evas_object_smart_data_get(obj);
-		if (handler.assigned() && handler()) {
-			destroy(this);
+	void Popup::onButtonPressed(Widget &sender)
+	{
+		PopupButton &btn = m_buttons[sender.getTag()];
+		if (btn.clickHandler.assigned() && btn.clickHandler()) {
+			Widget::destroy(this);
 		}
 	}
 

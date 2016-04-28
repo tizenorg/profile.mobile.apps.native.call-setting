@@ -54,7 +54,7 @@ namespace gui {
 		return true;
 	}
 
-	void RadioGroup::onRadioItemSelected(WidgetItem *item)
+	void RadioGroup::onRadioItemSelected(WidgetItem &item)
 	{
 		if (m_radioSelectHandler.assigned()) {
 			m_radioSelectHandler(elm_radio_value_get(m_pRadioGroup));

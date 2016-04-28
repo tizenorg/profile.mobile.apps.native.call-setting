@@ -31,6 +31,9 @@ namespace CallSettings { namespace Controller {
 		virtual ~CallFwController();
 
 	private:
+		class EditPopup;
+
+	private:
 		friend class ViewController;
 		CallFwController(Application &app, NotiHandler handler);
 
@@ -40,12 +43,16 @@ namespace CallSettings { namespace Controller {
 
 		// View item events
 
-		void onItemClick(gui::WidgetItem *pItem);
+		void onItemClick(gui::WidgetItem &item);
 
 		// Timeout select popup events
 
 		void onTimeoutPopupDel();
 		void onTimeoutValueSelected(int noReplyTimeId);
+
+		// Edit popup events
+
+		void onEditPopupDel();
 
 		// gui::ViewController //
 
@@ -55,6 +62,7 @@ namespace CallSettings { namespace Controller {
 		Application &m_app;
 		View::GenlistView *m_pView;
 		gui::Popup *m_pTimeoutPopup;
+		EditPopup *m_pEditPopup;
 	};
 
 }}

@@ -46,8 +46,8 @@ namespace CallSettings { namespace View {
 		void setSelectAllChecked(bool chackedState);
 		bool isSelectAllChecked();
 		void setAllMsgSelected(bool chackedState);
-		void setCancelBtnClickHandler(NotiHandler clickHandler);
-		void setDeleteBtnClickHandler(NotiHandler clickHandler);
+		void setCancelBtnClickHandler(gui::WidgetNotiHandler clickHandler);
+		void setDeleteBtnClickHandler(gui::WidgetNotiHandler clickHandler);
 		void setDisabledDeleteBtn(bool isDisabled);
 		bool showMoreMenuPopup(NotiHandler createOptionHandler, NotiHandler deleteOptionHandler);
 		void hideMoreMenuPopup();
@@ -59,13 +59,13 @@ namespace CallSettings { namespace View {
 		bool initialize();
 		void changeViewToMsgList();
 		void changeViewToEmpty();
-		void onMsgItemClicked(gui::WidgetItem *item);
-		void onMsgItemChecked(gui::WidgetItem *item);
+		void onMsgItemClicked(gui::WidgetItem &item);
+		void onMsgItemChecked(gui::WidgetItem &item);
 		int getMsgItemIndex(gui::DoubleTextListItem *item);
 		void onCancelTitleBtnClick();
 		void onDeleteTitleBtnClick();
 		void onMenuPopupDestroy();
-		void onSelectAllChecked(gui::WidgetItem *item);
+		void onSelectAllChecked(gui::WidgetItem &item);
 
 	private:
 		friend class BaseView;

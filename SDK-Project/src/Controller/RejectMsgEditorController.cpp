@@ -78,10 +78,10 @@ namespace CallSettings { namespace Controller {
 		RETVM_IF(!m_pMsgEditView, false, "Failed to create view instance!");
 
 		m_pMsgEditView->setDoneClickHandler(
-				NotiHandler::wrap<RejectMsgEditorController, &RejectMsgEditorController::onDoneBtnClick>(this));
+				WidgetNotiHandler::wrap<RejectMsgEditorController, &RejectMsgEditorController::onDoneBtnClick>(this));
 
 		m_pMsgEditView->setCancelClickHandler(
-				NotiHandler::wrap<RejectMsgEditorController, &RejectMsgEditorController::onCancelBtnClick>(this));
+				WidgetNotiHandler::wrap<RejectMsgEditorController, &RejectMsgEditorController::onCancelBtnClick>(this));
 
 		m_pMsgEditView->setInputEventHandler(
 				NotiHandler::wrap<RejectMsgEditorController, &RejectMsgEditorController::onInputEvent>(this));
@@ -140,7 +140,7 @@ namespace CallSettings { namespace Controller {
 		return false;
 	}
 
-	void RejectMsgEditorController::onDoneBtnClick()
+	void RejectMsgEditorController::onDoneBtnClick(Widget &sender)
 	{
 		std::string msgText = m_pMsgEditView->getMsgText();
 		if (isMsgDuplicated(msgText)) {
@@ -153,7 +153,7 @@ namespace CallSettings { namespace Controller {
 		}
 	}
 
-	void RejectMsgEditorController::onCancelBtnClick()
+	void RejectMsgEditorController::onCancelBtnClick(Widget &sender)
 	{
 		makeDestroyReqeuest();
 	}

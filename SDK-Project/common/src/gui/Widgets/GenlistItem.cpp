@@ -135,7 +135,7 @@ namespace gui {
 		elm_genlist_item_selected_set(m_pEOItem, EINA_FALSE);
 
 		if (m_selectHandler.assigned()) {
-			m_selectHandler(this);
+			m_selectHandler(*this);
 		}
 	}
 }

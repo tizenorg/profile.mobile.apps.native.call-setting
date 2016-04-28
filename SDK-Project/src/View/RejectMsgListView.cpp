@@ -98,10 +98,9 @@ namespace CallSettings { namespace View {
 		}
 	}
 
-	void RejectMsgListView::onMsgItemChecked(WidgetItem *item)
+	void RejectMsgListView::onMsgItemChecked(WidgetItem &item)
 	{
-		RETM_IF(!item, "Invalid args!");
-		auto *msgItem = static_cast<DoubleTextListItem *>(item);
+		auto *msgItem = static_cast<DoubleTextListItem *>(&item);
 
 		if (m_msgCheckHandler.assigned()) {
 			int msgIndex = getMsgItemIndex(msgItem);
@@ -111,10 +110,9 @@ namespace CallSettings { namespace View {
 		}
 	}
 
-	void RejectMsgListView::onMsgItemClicked(WidgetItem *item)
+	void RejectMsgListView::onMsgItemClicked(WidgetItem &item)
 	{
-		RETM_IF(!item, "Invalid args!");
-		auto *msgItem = static_cast<DoubleTextListItem *>(item);
+		auto *msgItem = static_cast<DoubleTextListItem *>(&item);
 		if (m_msgClickHandler.assigned()) {
 			int msgIndex = getMsgItemIndex(msgItem);
 			if (msgIndex > 0) {
@@ -136,7 +134,7 @@ namespace CallSettings { namespace View {
 		return it->first;
 	}
 
-	void RejectMsgListView::onSelectAllChecked(WidgetItem *item)
+	void RejectMsgListView::onSelectAllChecked(WidgetItem &item)
 	{
 		bool selectAllCheckState = m_pSelectAllItem->getCheckState();
 		if (m_selectAllHandler.assigned()) {
@@ -216,14 +214,14 @@ namespace CallSettings { namespace View {
 		return true;
 	}
 
-	void RejectMsgListView::setCancelBtnClickHandler(NotiHandler clickHandler)
+	void RejectMsgListView::setCancelBtnClickHandler(WidgetNotiHandler clickHandler)
 	{
 		RETM_IF(!m_pCancelBtn, "Invalid state!");
 
 		m_pCancelBtn->setClickHandler(clickHandler);
 	}
 
-	void RejectMsgListView::setDeleteBtnClickHandler(NotiHandler clickHandler)
+	void RejectMsgListView::setDeleteBtnClickHandler(WidgetNotiHandler clickHandler)
 	{
 		RETM_IF(!m_pDeleteBtn, "Invalid state!");
 
