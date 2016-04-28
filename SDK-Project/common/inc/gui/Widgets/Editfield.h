@@ -108,6 +108,7 @@ namespace gui {
 		virtual ~Editfield() {}
 
 		bool initialize(const Widget &parent, int flags = 0, const util::TString &guideText = "");
+		void updateClearBtnState();
 		void onFocused(Evas_Object *obj, void *eventInfo);
 		void onUnfocused(Evas_Object *obj, void *eventInfo);
 		void onInputEvent(Evas_Object *obj, void *eventInfo);

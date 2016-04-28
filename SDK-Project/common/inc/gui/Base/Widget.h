@@ -31,12 +31,20 @@ namespace gui {
 		static void destroy(Widget *widget);
 		void setDestroyHandler(NotiHandler handler);
 		Evas_Object *getEvasObject() const;
+
+		void setTag(int tag);
+		int getTag() const;
+
 		void setDisabled(bool disabledState);
+		void setFocus(bool focused);
 		void show();
 		void hide();
 
 		void setText(const util::TString &text);
 		void setPartText(const char *partName, const util::TString &text);
+
+		void setContent(Widget *pContent);
+		void setPartContent(const char *partName, Widget *pContent);
 
 	protected:
 		Widget();
@@ -52,6 +60,7 @@ namespace gui {
 
 	private:
 		NotiHandler m_destroyHandler;
+		int m_tag;
 	};
 
 	class WidgetWrapper : public Widget {

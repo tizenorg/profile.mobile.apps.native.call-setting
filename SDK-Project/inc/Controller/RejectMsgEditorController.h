@@ -39,8 +39,8 @@ namespace CallSettings { namespace Controller {
 		bool initialize(RejectMsgId editableMsgId);
 		bool initializeView();
 
-		void onDoneBtnClick();
-		void onCancelBtnClick();
+		void onDoneBtnClick(gui::Widget &sender);
+		void onCancelBtnClick(gui::Widget &sender);
 		void onInputEvent();
 		bool onInputFilterEvent(std::string &msgText);
 		bool updateMsgSettings();

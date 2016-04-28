@@ -63,17 +63,18 @@ namespace gui {
 			elm_entry_password_set(entry, EINA_TRUE);
 		} else {
 			elm_entry_prediction_allow_set(entry, EINA_TRUE);
-			elm_entry_input_panel_layout_set(entry, ELM_INPUT_PANEL_LAYOUT_NORMAL);
 		}
 
 		if (flags & EF_CLEAR_BTN) {
 			clearBtn = elm_button_add(m_pEvasObject);
 			RETVM_IF(!clearBtn, false, "Failed to create editfield: Internal error");
 
+			elm_object_focus_allow_set(clearBtn, EINA_FALSE);
 			elm_object_style_set(clearBtn, "editfield_clear");
 			evas_object_smart_callback_add(clearBtn, "clicked",
 					EoSmartCb::make<Editfield, &Editfield::onClearBtnClick>(), this);
 
+			evas_object_show(clearBtn);
 			elm_object_part_content_set(m_pEvasObject, "elm.swallow.button", clearBtn);
 		}
 
@@ -101,17 +102,22 @@ namespace gui {
 		return true;
 	}
 
-	void Editfield::onFocused(Evas_Object *obj, void *eventInfo)
+	void Editfield::updateClearBtnState()
 	{
-		elm_object_signal_emit(m_pEvasObject, "elm,state,focused", "");
-
 		if (clearBtn) {
-			if (!elm_entry_is_empty(entry) && elm_object_focus_get(entry)) {
+			if (elm_object_focus_get(entry) && !elm_entry_is_empty(entry)) {
 				elm_object_signal_emit(m_pEvasObject, "elm,action,show,button", "");
 			} else {
 				elm_object_signal_emit(m_pEvasObject, "elm,action,hide,button", "");
 			}
 		}
+	}
+
+	void Editfield::onFocused(Evas_Object *obj, void *eventInfo)
+	{
+		elm_object_signal_emit(m_pEvasObject, "elm,state,focused", "");
+
+		updateClearBtnState();
 
 		if (m_focusEventHandler.assigned()) {
 			m_focusEventHandler();
@@ -122,9 +128,7 @@ namespace gui {
 	{
 		elm_object_signal_emit(m_pEvasObject, "elm,state,unfocused", "");
 
-		if (clearBtn) {
-			elm_object_signal_emit(m_pEvasObject, "elm,action,hide,button", "");
-		}
+		updateClearBtnState();
 
 		if (m_unfocusEventHandler.assigned()) {
 			m_unfocusEventHandler();
@@ -138,6 +142,8 @@ namespace gui {
 
 	void Editfield::onInputEvent(Evas_Object *obj, void *eventInfo)
 	{
+		updateClearBtnState();
+
 		if (m_inputEventHandler.assigned()) {
 			m_inputEventHandler();
 		}

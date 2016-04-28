@@ -21,7 +21,7 @@ namespace gui {
 
 	Widget::Widget() :
 		m_pEvasObject(nullptr),
-		m_destroyHandler()
+		m_tag(0)
 	{
 	}
 
@@ -85,13 +85,26 @@ namespace gui {
 		}
 	}
 
+	void Widget::setContent(Widget *pContent)
+	{
+		elm_object_content_set(m_pEvasObject, (pContent ? pContent->getEvasObject() : nullptr));
+	}
+
+	void Widget::setPartContent(const char *partName, Widget *pContent)
+	{
+		RETM_IF(!partName, "partName is null");
+
+		elm_object_part_content_set(m_pEvasObject, partName, (pContent ? pContent->getEvasObject() : nullptr));
+	}
+
 	void Widget::setDisabled(bool disabledState)
 	{
-		if (disabledState) {
-			elm_object_disabled_set(m_pEvasObject, EINA_TRUE);
-		} else {
-			elm_object_disabled_set(m_pEvasObject, EINA_FALSE);
-		}
+		elm_object_disabled_set(m_pEvasObject, TO_EINA_BOOL(disabledState));
+	}
+
+	void Widget::setFocus(bool focused)
+	{
+		elm_object_focus_set(m_pEvasObject, TO_EINA_BOOL(focused));
 	}
 
 	void Widget::onEvasObjectDelBase(Evas *e, Evas_Object *obj, void *event_info)
@@ -119,5 +132,15 @@ namespace gui {
 	Evas_Object *Widget::getEvasObject() const
 	{
 		return m_pEvasObject;
+	}
+
+	void Widget::setTag(int tag)
+	{
+		m_tag = tag;
+	}
+
+	int Widget::getTag() const
+	{
+		return m_tag;
 	}
 }

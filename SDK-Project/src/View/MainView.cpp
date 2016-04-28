@@ -65,15 +65,13 @@ namespace CallSettings { namespace View {
 		return setViewContent(*m_pGenlist);
 	}
 
-	void MainView::onOptionSelected(WidgetItem *item)
+	void MainView::onOptionSelected(WidgetItem &item)
 	{
-		RETM_IF(!item, "Invalid args!");
-
-		if (item == static_cast<WidgetItem *>(m_pRejectMsgOption) && m_rejectMsgClickHandler.assigned()) {
+		if (&item == static_cast<WidgetItem *>(m_pRejectMsgOption) && m_rejectMsgClickHandler.assigned()) {
 			m_rejectMsgClickHandler();
-		} else if (item == static_cast<WidgetItem *>(m_pCallAceptOption) && m_callAceptClickHandler.assigned()) {
+		} else if (&item == static_cast<WidgetItem *>(m_pCallAceptOption) && m_callAceptClickHandler.assigned()) {
 			m_callAceptClickHandler();
-		} else if (item == static_cast<WidgetItem *>(m_pMoreOption) && m_moreClickHandler.assigned()) {
+		} else if (&item == static_cast<WidgetItem *>(m_pMoreOption) && m_moreClickHandler.assigned()) {
 			m_moreClickHandler();
 		}
 	}

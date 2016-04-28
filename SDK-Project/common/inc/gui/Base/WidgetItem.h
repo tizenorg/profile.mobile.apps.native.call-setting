@@ -34,6 +34,9 @@ namespace gui {
 		Evas_Object *getParent();
 		void setDestroyHandler(NotiHandler handler);
 
+		void setTag(int tag);
+		int getTag() const;
+
 	protected:
 		WidgetItem();
 		virtual ~WidgetItem();
@@ -48,6 +51,7 @@ namespace gui {
 
 	private:
 		NotiHandler m_destroyHandler;
+		int m_tag;
 	};
 
 	template <typename ITEM_TYPE, typename... TYPE_ARGS>
@@ -57,6 +61,9 @@ namespace gui {
 
 		if (!instance->initialize(std::forward<TYPE_ARGS>(args)...) || !prepare(instance)) {
 			ERR("Failed to create WidgetItem instance instance!");
+			if (instance->m_pEOItem) {
+				destroy(instance);
+			}
 			delete instance;
 			return nullptr;
 		}

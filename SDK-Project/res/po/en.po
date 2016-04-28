@@ -111,3 +111,12 @@ msgstr "%d seconds"
 
 msgid "IDS_CST_BODY_WAITING_TIME"
 msgstr "Waiting time"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Cancel"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Enable"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Phone number"

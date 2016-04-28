@@ -50,8 +50,8 @@ namespace CallSettings { namespace Controller {
 		void onMsgItemChecked(int msgId, bool isChecked);
 		void onMsgItemClicked(int msgId);
 		void onSelectAllItemChecked(bool isChecked);
-		void onDeleteBtnClick();
-		void onCancelBtnClick();
+		void onDeleteBtnClick(gui::Widget &sender);
+		void onCancelBtnClick(gui::Widget &sender);
 		void onMenuOptionDeleteClick();
 		void onMenuOptionCreateClick();
 		void onEditorControllerDestroy();

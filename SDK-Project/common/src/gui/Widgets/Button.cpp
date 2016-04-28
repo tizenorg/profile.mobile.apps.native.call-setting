@@ -40,7 +40,10 @@ namespace gui {
 			elm_object_style_set(m_pEvasObject, "default");
 		}
 
-		setText(text);
+		if (text.isNotEmpty()) {
+			setText(text);
+		}
+
 		evas_object_smart_callback_add(m_pEvasObject, "clicked",
 			EoSmartCb::make<Button, &Button::onButtonClick>(), this);
 
@@ -48,7 +51,7 @@ namespace gui {
 		return true;
 	}
 
-	void Button::setClickHandler(NotiHandler handler)
+	void Button::setClickHandler(WidgetNotiHandler handler)
 	{
 		m_clickHandler = handler;
 	}
@@ -57,7 +60,7 @@ namespace gui {
 	{
 
 		if (m_clickHandler.assigned()) {
-			m_clickHandler();
+			m_clickHandler(*this);
 		}
 	}
 }

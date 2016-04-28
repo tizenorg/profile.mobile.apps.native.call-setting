@@ -33,8 +33,8 @@ namespace CallSettings { namespace View {
 		void updateInputCharCount(int inputCount, int maxCount);
 		void hideInputCharCount();
 		void setDisabledDoneBtn(bool disableState) { m_pDoneBtn->setDisabled(disableState);}
-		void setDoneClickHandler(NotiHandler handler) { m_pDoneBtn->setClickHandler(handler);}
-		void setCancelClickHandler(NotiHandler handler) { m_pCancelBtn->setClickHandler(handler); }
+		void setDoneClickHandler(gui::WidgetNotiHandler handler) { m_pDoneBtn->setClickHandler(handler);}
+		void setCancelClickHandler(gui::WidgetNotiHandler handler) { m_pCancelBtn->setClickHandler(handler); }
 		void setInputEventHandler(NotiHandler handler) { m_pEditfield->setInputEventHandler(handler); }
 		void setInputFilterHandler(gui::Editfield::InputFilterHandler handler) { m_pEditfield->setInputFilterHandler(handler); }
 		void setViewTitle(const char *titleText);
