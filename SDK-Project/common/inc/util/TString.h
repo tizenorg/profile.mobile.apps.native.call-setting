@@ -58,7 +58,7 @@ namespace util {
 		inline const char *translate() const;
 
 		template <typename... ARGS>
-		std::string format(ARGS... args) const;
+		TString format(ARGS... args) const;
 
 	private:
 		inline const char *doTranslate(const char *strId) const;
@@ -195,7 +195,7 @@ namespace util {
 	}
 
 	template <typename... ARGS>
-	std::string TString::format(ARGS... args) const
+	TString TString::format(ARGS... args) const
 	{
 		const float STR_LEN_ADJUST = 1.7f;
 
@@ -221,7 +221,7 @@ namespace util {
 			strLen = n + 1;
 		}
 
-		return result;
+		return TString(result, false);
 	}
 
 }
