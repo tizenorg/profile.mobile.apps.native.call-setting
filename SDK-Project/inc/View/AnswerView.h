@@ -41,7 +41,7 @@ namespace CallSettings { namespace View {
 		virtual ~AnswerView();
 
 		bool initialize();
-		void onOptionChecked(gui::WidgetItem *item);
+		void onOptionChecked(gui::WidgetItem &item);
 
 	private:
 		gui::Genlist *m_pGenlist;

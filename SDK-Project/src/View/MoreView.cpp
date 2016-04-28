@@ -69,15 +69,13 @@ namespace CallSettings { namespace View {
 		return setViewContent(*m_pGenlist);
 	}
 
-	void MoreView::onOptionSelected(WidgetItem *item)
+	void MoreView::onOptionSelected(WidgetItem &item)
 	{
-		RETM_IF(!item, "Invalid args!");
-
-		if (item == static_cast<WidgetItem *>(m_pCallerIdOption) && m_callerIdClickHandeler.assigned()) {
+		if (&item == static_cast<WidgetItem *>(m_pCallerIdOption) && m_callerIdClickHandeler.assigned()) {
 			m_callerIdClickHandeler();
-		} else if (item == static_cast<WidgetItem *>(m_pCallFwdOption) && m_callFwdClickHandler.assigned()) {
+		} else if (&item == static_cast<WidgetItem *>(m_pCallFwdOption) && m_callFwdClickHandler.assigned()) {
 			m_callFwdClickHandler();
-		} else if (item == static_cast<WidgetItem *>(m_pCallWaitingOption) && m_callWaitingCheckHandler.assigned()) {
+		} else if (&item == static_cast<WidgetItem *>(m_pCallWaitingOption) && m_callWaitingCheckHandler.assigned()) {
 			m_callWaitingCheckHandler();
 		}
 	}

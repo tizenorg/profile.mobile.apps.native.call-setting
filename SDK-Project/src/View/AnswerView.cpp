@@ -69,11 +69,9 @@ namespace CallSettings { namespace View {
 		return setViewContent(*m_pGenlist);
 	}
 
-	void AnswerView::onOptionChecked(gui::WidgetItem *item)
+	void AnswerView::onOptionChecked(gui::WidgetItem &item)
 	{
-		RETM_IF(!item, "Invallid args");
-
-		CheckboxListItem *optionItem = static_cast<CheckboxListItem *>(item);
+		CheckboxListItem *optionItem = static_cast<CheckboxListItem *>(&item);
 		if (optionItem == m_pAnswerOption && m_answerCheckHandler.assigned()) {
 			m_answerCheckHandler();
 		} else if (optionItem == m_pRejectOption && m_rejectCheckHandler.assigned()) {

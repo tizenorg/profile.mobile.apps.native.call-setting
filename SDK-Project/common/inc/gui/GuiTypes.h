@@ -29,8 +29,13 @@ namespace gui {
 
 	class BaseView;
 	typedef util::Delegate<void(BaseView *)> ViewDestroyHandler;
+
+	class Widget;
+	typedef util::Delegate <void(Widget &)> WidgetNotiHandler;
+
 	class WidgetItem;
-	typedef util::Delegate <void(WidgetItem *)> ItemNotiHandler;
+	typedef util::Delegate <void(WidgetItem &)> ItemNotiHandler;
+
 	typedef util::Callback<void(Evas *e, Evas_Object *obj, void *event_info)> EvasEventCb;
 	typedef util::Callback<void(Evas_Object *obj, void *event_info)> EoSmartCb;
 

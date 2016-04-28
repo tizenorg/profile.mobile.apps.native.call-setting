@@ -20,6 +20,7 @@
 #define _GUI_POPUP_H_
 
 #include "gui/Base/Widget.h"
+#include "gui/Widgets/Button.h"
 
 #define POPUP_BUTTON_MAX_COUNT 3
 
@@ -31,31 +32,38 @@ namespace gui {
 		POPUP_BUTTON_RIGHT,
 	} PopupButtonPosition;
 
+	typedef util::Delegate<bool()> PopupClickHandler;
+
 	class Popup : public Widget {
 	public:
-		typedef util::Delegate <bool()> PopupClickHandler;
-
 		void setTitle(const util::TString &text);
 		virtual void setContent(const Widget &parent);
 		void unsetContent();
-		bool addButton(const util::TString &text, PopupClickHandler clickHandler, PopupButtonPosition position);
-		void setBackClickHandler(PopupClickHandler handler) {}
-		void setMenuClickHandler(PopupClickHandler handler) {}
-		void setBlockClickHandler(PopupClickHandler handler) {}
+		bool addButton(PopupButtonPosition position, const util::TString &text, PopupClickHandler clickHandler);
+		void setButtonDisabled(PopupButtonPosition position, bool disabled);
+		void setBackClickHandler(PopupClickHandler handler) { m_backClickHandler = handler; }
+		void setMenuClickHandler(PopupClickHandler handler) { m_moreClickHandler = handler; }
+		void setBlockClickHandler(PopupClickHandler handler) { m_blockClickHandler = handler; }
 
 	protected:
 		Popup() {};
 		virtual ~Popup() {}
 		bool initialize(const Widget &parent, const util::TString &title = "", Widget *content = nullptr, const util::TString &text = "");
-		void onButtonPressed(Evas_Object *obj, void *eventInfo);
+		void onButtonPressed(Widget &sender);
 		void onBackPressed(Evas_Object *obj, void *eventInfo);
 		void onMenuPressed(Evas_Object *obj, void *eventInfo);
 		void onBlockAreaClick(Evas_Object *obj, void *eventInfo);
 
 	private:
+		struct PopupButton {
+			PopupClickHandler clickHandler;
+			Button *pButton;
+		};
+
+	private:
 		friend class Widget; // to be used in Widget::create
 
-		PopupClickHandler m_buttonHandlers[POPUP_BUTTON_MAX_COUNT];
+		PopupButton m_buttons[POPUP_BUTTON_MAX_COUNT];
 		PopupClickHandler m_backClickHandler;
 		PopupClickHandler m_moreClickHandler;
 		PopupClickHandler m_blockClickHandler;

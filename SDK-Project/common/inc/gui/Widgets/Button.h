@@ -24,18 +24,18 @@ namespace gui {
 
 	class Button : public Widget {
 	public:
-		void setClickHandler(NotiHandler handler);
+		void setClickHandler(WidgetNotiHandler handler);
 
 	private:
 		friend Widget; // to be used in Widget::create
 
 		Button();
 		virtual ~Button();
-		bool initialize(const Widget &parent, const char *style, const util::TString &text);
+		bool initialize(const Widget &parent, const char *style, const util::TString &text = "");
 		void onButtonClick(Evas_Object *obj, void *event_info);
 
 	private:
-		NotiHandler m_clickHandler;
+		WidgetNotiHandler m_clickHandler;
 	};
 
 }
