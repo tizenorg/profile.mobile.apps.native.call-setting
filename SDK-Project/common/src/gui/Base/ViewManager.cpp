@@ -23,6 +23,7 @@ namespace gui {
 		m_pWindow(nullptr),
 		m_pConformant(nullptr),
 		m_pNaviframe(nullptr),
+		m_pTheme(nullptr),
 		isTransitionState(false),
 		m_pActivateJob(nullptr)
 	{
@@ -48,6 +49,7 @@ namespace gui {
 
 	void ViewManager::destroy(ViewManager *instance)
 	{
+		elm_theme_free(instance->m_pTheme);
 		evas_object_del(instance->m_pWindow);
 		delete instance;
 	}
@@ -157,6 +159,21 @@ namespace gui {
 					manager->m_pActivateJob = nullptr;
 			}, this);
 		}
+	}
+
+	bool ViewManager::setupTheme(const std::string &themePath)
+	{
+		RETVM_IF(m_pTheme, false, "Theme may be set up only once!");
+
+		m_pTheme = elm_theme_new();
+		RETVM_IF(!m_pTheme, false, "Failed to create theme object!");
+
+		elm_theme_ref_set(m_pTheme, NULL);
+		elm_theme_extension_add(m_pTheme, themePath.c_str());
+
+		elm_object_theme_set(m_pWindow, m_pTheme);
+
+		return true;
 	}
 
 	bool ViewManager::popView()
