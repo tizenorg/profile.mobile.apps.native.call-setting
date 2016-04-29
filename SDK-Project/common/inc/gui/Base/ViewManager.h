@@ -28,6 +28,8 @@ namespace gui {
 		static ViewManager *create();
 		static void destroy(ViewManager *instance);
 
+		bool setupTheme(const std::string &themePath);
+
 		template <class ViewType>
 		ViewType *pushView(bool showAnimation = true);
 		bool popView();
@@ -61,6 +63,7 @@ namespace gui {
 		Evas_Object *m_pWindow;
 		Evas_Object *m_pConformant;
 		Evas_Object *m_pNaviframe;
+		Elm_Theme *m_pTheme;
 
 		std::list<BaseView *> m_ViewList;
 		ViewEventHandlersDelegation m_ViewEventHandlers;

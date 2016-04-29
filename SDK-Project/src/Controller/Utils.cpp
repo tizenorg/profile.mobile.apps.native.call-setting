@@ -15,9 +15,11 @@
  *
  */
 
-#include "Controller/RejectMsgUtils.h"
+#include "Controller/Utils.h"
 
 namespace CallSettings { namespace Controller {
+
+	const util::TString ITEM_SUB_TEXT_COLOR_FMT("<color=#3DB9CC>%s</color>", false);
 
 	Model::StringKey convertToStringKey(RejectMsgId id) {
 		switch (id) {

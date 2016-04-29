@@ -15,14 +15,18 @@
  *
  */
 
-#ifndef _CONTROLLER_REJECT_MSG_TYPES_H_
-#define _CONTROLLER_REJECT_MSG_TYPES_H_
+#ifndef _CONTROLLER_UTILS_H_
+#define _CONTROLLER_UTILS_H_
 
 #include "Model/Settings/SettingsTypes.h"
 
 namespace CallSettings { namespace Controller {
 
-#define REJECT_MSG_MAX_COUNT 6
+	extern const util::TString ITEM_SUB_TEXT_COLOR_FMT;
+
+	enum {
+		REJECT_MSG_MAX_COUNT = 6
+	};
 
 	typedef enum {
 		REJECT_MSG_1 = 1,
@@ -38,4 +42,4 @@ namespace CallSettings { namespace Controller {
 
 } }
 
-#endif /* _CONTROLLER_REJECT_MSG_TYPES_H_ */
+#endif /* _CONTROLLER_UTILS_H_ */

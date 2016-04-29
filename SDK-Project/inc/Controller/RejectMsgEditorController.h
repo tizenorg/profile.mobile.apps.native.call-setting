@@ -23,7 +23,7 @@
 #include "App/Application.h"
 #include "View/RejectMsgEditView.h"
 
-#include "RejectMsgUtils.h"
+#include "Utils.h"
 
 namespace CallSettings { namespace Controller {
 
