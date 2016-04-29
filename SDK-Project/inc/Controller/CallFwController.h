@@ -39,6 +39,14 @@ namespace CallSettings { namespace Controller {
 
 		bool initialize();
 
+		void showPendingPopup();
+
+		// Pending popup events
+
+		void onPendingPopupDel();
+		bool onPendingPopupBlock();
+		bool onPendingPopupBack();
+
 		// View item events
 
 		void onItemClick(gui::WidgetItem &item);
@@ -55,6 +63,7 @@ namespace CallSettings { namespace Controller {
 		Application &m_app;
 		View::GenlistView *m_pView;
 		EditPopup *m_pEditPopup;
+		gui::Popup *m_pPendingPopup;
 	};
 
 }}

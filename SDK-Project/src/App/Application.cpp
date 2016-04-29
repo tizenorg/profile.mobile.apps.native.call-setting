@@ -15,6 +15,7 @@
  *
  */
 
+#include "appfw/Path.h"
 #include "Controller/MainViewController.h"
 
 #include "App/Application.h"
@@ -46,6 +47,9 @@ namespace CallSettings {
 
 	bool Application::onAppCreate()
 	{
+		RETVM_IF(!getViewManager().setupTheme(appfw::getResourcePath(APP_EDJE_THEME_PATH).c_str()), false,
+				"Theme setup failed!");
+
 		m_pSettingsManager = new SettingsManager();
 		m_pTelephonyManager = new TelephonyManager();
 		RETVM_IF(!m_pSettingsManager || !m_pTelephonyManager, false, "Failed to start application");

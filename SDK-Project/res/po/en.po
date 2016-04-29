@@ -120,3 +120,6 @@ msgstr "Enable"
 
 msgid "IDS_ST_BODY_PHONE_NUMBER"
 msgstr "Phone number"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Loading..."

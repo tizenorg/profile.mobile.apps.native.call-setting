@@ -17,6 +17,7 @@
 
 #include "gui/Widgets/DoubleTextListItem.h"
 #include "gui/Widgets/RadioGroup.h"
+#include "gui/Widgets/PendingPopupContent.h"
 
 #include "View/PhoneEditListItem.h"
 
@@ -98,6 +99,7 @@ namespace CallSettings { namespace Controller {
 	public:
 		~EditPopup()
 		{
+			Widget::destroy(m_pTimeoutPopup);
 			if (m_pPopup) {
 				m_pPopup->setDestroyHandler(nullptr);
 				Widget::destroy(m_pPopup);
@@ -197,7 +199,8 @@ namespace CallSettings { namespace Controller {
 		{
 			Widget::destroy(m_pTimeoutPopup);
 
-			m_pTimeoutPopup = Widget::create<Popup>(*m_pPopup, "IDS_CST_BODY_WAITING_TIME");
+			m_pTimeoutPopup = Widget::create<Popup>(WidgetWrapper(m_app.getViewManager().getWindow()),
+					"IDS_CST_BODY_WAITING_TIME");
 			RETM_IF(!m_pTimeoutPopup, "Failed to create timeout popup!");
 
 			m_pTimeoutPopup->setDestroyHandler(NotiHandler::wrap<
@@ -250,12 +253,14 @@ namespace CallSettings { namespace Controller {
 		ViewController(app, handler),
 		m_app(app),
 		m_pView(nullptr),
-		m_pEditPopup(nullptr)
+		m_pEditPopup(nullptr),
+		m_pPendingPopup(nullptr)
 	{
 	}
 
 	CallFwController::~CallFwController()
 	{
+		Widget::destroy(m_pPendingPopup);
 		delete m_pEditPopup;
 	}
 
@@ -267,6 +272,8 @@ namespace CallSettings { namespace Controller {
 		RETVM_IF(!m_pView, false, "Failed to create view");
 
 		setBaseView(m_pView);
+
+		showPendingPopup();
 
 		return true;
 	}
@@ -305,6 +312,44 @@ namespace CallSettings { namespace Controller {
 	void CallFwController::onEditPopupDel()
 	{
 		m_pEditPopup = nullptr;
+	}
+
+	void CallFwController::showPendingPopup()
+	{
+		Widget::destroy(m_pPendingPopup);
+
+		m_pPendingPopup = Widget::create<Popup>(WidgetWrapper(m_app.getViewManager().getWindow()));
+		RETM_IF(!m_pPendingPopup, "Failed to create pending popup!");
+
+		m_pPendingPopup->setDestroyHandler(NotiHandler::wrap<
+				CallFwController, &CallFwController::onPendingPopupDel>(this));
+		m_pPendingPopup->setBlockClickHandler(PopupClickHandler::wrap<
+				CallFwController, &CallFwController::onPendingPopupBlock>(this));
+		m_pPendingPopup->setBackClickHandler(PopupClickHandler::wrap<
+				CallFwController, &CallFwController::onPendingPopupBack>(this));
+
+		PendingPopupContent *content = Widget::create<PendingPopupContent>(*m_pPendingPopup,
+				"IDS_COM_POP_LOADING_ING");
+		RETM_IF(!content,  "Failed to create PendingPopupContent");
+
+		m_pPendingPopup->setContent(*content);
+	}
+
+	void CallFwController::onPendingPopupDel()
+	{
+		m_pPendingPopup = nullptr;
+	}
+
+	bool CallFwController::onPendingPopupBlock()
+	{
+		// TODO change to false in the future
+		return true;
+	}
+
+	bool CallFwController::onPendingPopupBack()
+	{
+		makeDestroyReqeuest();
+		return false;
 	}
 
 }}
