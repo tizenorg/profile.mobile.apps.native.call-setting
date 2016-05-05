@@ -387,17 +387,19 @@ static void __cst_contact_list_view_reply_cb(app_control_h request, app_control_
 	char buffer[CST_MAX_PHONE_NUMBER_LEN] = { 0, };
 
 	app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &numbers, &count);
-	if (numbers && numbers[0]) {
-		number_id = atoi(numbers[0]);
-	}
 
-	int i = 0;
-	for (; i < count; ++i) {
-		free(numbers[i]);
-	}
+	if (numbers) {
+		if (numbers[0]) {
+			number_id = atoi(numbers[0]);
+		}
 
-	free(numbers);
-	numbers = NULL;
+		for (int i = 0; i < count; ++i) {
+			free(numbers[i]);
+		}
+
+		free(numbers);
+		numbers = NULL;
+	}
 
 	DBG("number_id = %d", number_id);
 

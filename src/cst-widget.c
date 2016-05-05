@@ -193,10 +193,10 @@ void _cst_create_error_popup(int error)
 	ENTER(_cst_create_error_popup);
 	ret_if(error < 0);
 
-	char *error_msg;
-	error_msg = _cst_get_error_string(error);
+	char *error_msg = _cst_get_error_string(error);
 	DBG("Error message=%s", A_(error_msg));
 	_cst_create_toast_popup(A_(error_msg));
+	g_free(error_msg);
 
 	return;
 }
@@ -206,8 +206,7 @@ Evas_Object *_cst_create_error_popup_with_ok_btn(CstAppData_t *ad, int error)
 	retv_if(error < 0, NULL);
 	retv_if(ad == NULL, NULL);
 
-	char *error_msg;
-	error_msg = _cst_get_error_string(error);
+	char *error_msg = _cst_get_error_string(error);
 	DBG("Error message=%s", error_msg);
 
 	Evas_Object *popup, *btn;

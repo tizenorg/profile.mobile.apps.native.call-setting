@@ -539,6 +539,7 @@ void _cst_create_delete_list(void *data, Evas_Object *obj, void *event_info)
 	}
 
 	if (0 == delete_list_view->total_count) {
+		g_free(delete_list_view->title);
 		free(delete_list_view);
 		delete_list_view = NULL;
 		return;
