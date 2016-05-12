@@ -23,6 +23,8 @@
 
 #include "Common.h"
 
+#define GUI_COLOR_SUBITEM_TEXT_HEX "#3DB9CC"
+
 #define TO_EINA_BOOL(b) ((b) ? EINA_TRUE : EINA_FALSE)
 
 namespace gui {
