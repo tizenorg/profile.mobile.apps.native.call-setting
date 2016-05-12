@@ -2,7 +2,7 @@
 <manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.call-setting" version="1.0.0" install-location="internal-only">
 	<label>Call setting</label>
 	<description>Call setting</description>
-	<ui-application appid="org.tizen.call-setting" exec="/usr/apps/org.tizen.call-setting/bin/call-setting" nodisplay="true" multiple="false" type="capp" taskmanage="false" launch_mode="group">
+	<ui-application appid="org.tizen.call-setting" exec="/usr/apps/org.tizen.call-setting/bin/call-setting" nodisplay="true" multiple="false" type="capp" taskmanage="false" launch_mode="group" hw-acceleration="on" process-pool="true">
 		<label>Call setting</label>
 		<label xml:lang="hy-am">Զանգի կայանքներ</label>
 		<label xml:lang="az-az">Zəng parametrləri</label>
