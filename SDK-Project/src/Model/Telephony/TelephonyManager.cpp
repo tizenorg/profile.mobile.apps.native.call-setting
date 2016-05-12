@@ -23,9 +23,14 @@
 #include "Model/Telephony/TelephonyManager.h"
 #include "Model/Telephony/TelRequestListener.h"
 
-const int REQUEST_MAX_ID = 1000;
-
 namespace CallSettings { namespace Model {
+
+	const std::string TELEPHONY_NUMBER_ALLOWED_SYMBOLS = "0123456789+*#";
+	const int TELEPHONY_NUMBER_LENGTH_MAX = TAPI_CALL_DIALDIGIT_LEN_MAX;
+
+	enum {
+		REQUEST_MAX_ID = 1000,
+	};
 
 	typedef enum {
 		TEL_EVENT_WAIT_STATUS_CHANGED = 1,
@@ -205,7 +210,7 @@ namespace CallSettings { namespace Model {
 		RETVM_IF(!reqData || !listener, TELEPHONY_RES_FAIL_DATA_MISSING, "Reject request due to invalid data");
 
 		if (listener->onAttach(this, m_requestCounter)) {
-			TelephonyRequest *request = new TelephonyRequest(REQUEST_TYPE_GET_STATE, REQUEST_OPER_TYPE_CALL_FORWARD);
+			TelephonyRequest *request = new TelephonyRequest(REQUEST_TYPE_SETUP, REQUEST_OPER_TYPE_CALL_FORWARD);
 			RETVM_IF(!request,TELEPHONY_RES_FAIL_MEMORY_BAD_ALLOC, "Failed to create request");
 			request->m_pSimHandler = m_pActiveSimHandler;
 			request->m_pReqData = reqData;
@@ -633,6 +638,7 @@ namespace CallSettings { namespace Model {
 		if (request->m_reqState != REQUEST_STATE_CANCELED) {
 			SimpleTelRequestListener *listener = dynamic_cast<SimpleTelRequestListener *>(request->m_pListener);
 			if (listener->isAttached()) {
+				listener->onDetach();
 				if (result == TAPI_SS_SUCCESS) {
 					listener->onRequestComplete(TELEPHONY_RES_SUCCESS);
 				} else {
@@ -662,6 +668,7 @@ namespace CallSettings { namespace Model {
 			CallWaitingReqData *reqCallWaitData = static_cast<CallWaitingReqData *>(request->m_pReqData);
 			TelRequestListener<CallWaitingReqData> *listener = dynamic_cast<TelRequestListener<CallWaitingReqData> *>(request->m_pListener);
 			if (listener->isAttached()) {
+				listener->onDetach();
 				if (reqResult == TELEPHONY_RES_SUCCESS) {
 					reqResult = parseCWStatusRequestResponse(cwInfo, request);
 				}
@@ -706,6 +713,7 @@ namespace CallSettings { namespace Model {
 			CallFwdReqData *reqCallFwdData = static_cast<CallFwdReqData *>(request->m_pReqData);
 			TelRequestListener<CallFwdReqData> *listener = dynamic_cast<TelRequestListener<CallFwdReqData> *>(request->m_pListener);
 			if (listener->isAttached()) {
+				listener->onDetach();
 				if (reqResult == TELEPHONY_RES_SUCCESS) {
 					reqResult = parseCFStatusRequestResponse(cfInfo, request);
 				}
@@ -777,7 +785,7 @@ namespace CallSettings { namespace Model {
 				cfInfo.NoReplyConditionTimer = convertToTapiNoReplyTime(reqCallFwdData->waitTime);
 			}
 
-			std::snprintf((char *)cfInfo.szPhoneNumber, TAPI_CALL_DIALDIGIT_LEN_MAX, "%s", reqCallFwdData->telNumber.c_str());
+			std::snprintf((char *)cfInfo.szPhoneNumber, TELEPHONY_NUMBER_LENGTH_MAX, "%s", reqCallFwdData->telNumber.c_str());
 			if (cfInfo.szPhoneNumber[0] == '+') {
 				cfInfo.Ton = TAPI_SS_CF_TON_INTERNATIONAL;
 			} else {

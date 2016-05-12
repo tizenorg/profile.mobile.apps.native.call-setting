@@ -107,6 +107,9 @@ namespace CallSettings { namespace Model {
 			waitTime(TELEPHONY_CF_NO_REPLY_UNDEFINED) {}
 	};
 
+	extern const std::string TELEPHONY_NUMBER_ALLOWED_SYMBOLS;
+	extern const int TELEPHONY_NUMBER_LENGTH_MAX;
+
 } }
 
 #endif /* _MODEL_TELEPHONY_TYPES_H_ */

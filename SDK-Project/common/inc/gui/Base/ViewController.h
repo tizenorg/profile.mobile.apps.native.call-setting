@@ -30,6 +30,10 @@ namespace gui {
 
 		virtual ~ViewController();
 
+		void addCustomUpdateFlag(int flag);
+		void removeCustomUpdateFlag(int flag);
+		bool isUpdateFlagSet(int flag);
+
 	protected:
 		typedef enum {
 			UF_INITIAL = 1,
@@ -37,6 +41,7 @@ namespace gui {
 			UF_REGION_FORMAT = 4,
 			UF_ORIENTATION = 8,
 			UF_WAS_PAUSED = 16,
+			UF_WAS_POPPING = 32,
 		} UpdateFlag;
 
 		ViewController (appfw::BaseApplication &app, NotiHandler destroyHandler);

@@ -96,4 +96,9 @@ namespace gui {
 		return m_tag;
 	}
 
+	void WidgetItem::setDisabled(bool disabledState)
+	{
+		elm_object_item_disabled_set(m_pEOItem, TO_EINA_BOOL(disabledState));
+	}
+
 }
