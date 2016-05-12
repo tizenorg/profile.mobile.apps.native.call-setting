@@ -21,7 +21,9 @@ namespace gui {
 
 	Editfield::Editfield() :
 		entry(nullptr),
-		clearBtn(nullptr)
+		clearBtn(nullptr),
+		m_isInupLimitSet(false),
+		m_isCharRestrictionSet(false)
 	{
 	}
 
@@ -182,10 +184,40 @@ namespace gui {
 
 	void Editfield::setInputLimit(int maxCharCount, int maxByteCount)
 	{
+		resetInputLimit();
+
 		m_limitFilterData.max_char_count = maxCharCount;
 		m_limitFilterData.max_byte_count = maxByteCount;
 
 		elm_entry_markup_filter_append(entry, elm_entry_filter_limit_size, &m_limitFilterData);
+		m_isInupLimitSet = true;
+	}
+
+	void Editfield::resetInputLimit()
+	{
+		if (m_isInupLimitSet) {
+			elm_entry_markup_filter_remove(entry, elm_entry_filter_limit_size, &m_limitFilterData);
+			m_isInupLimitSet = false;
+		}
+	}
+
+	void Editfield::setInputCharRestriction(const std::string &acceptedChars, const std::string &rejectedChars)
+	{
+		resetInputCharRestriction();
+
+		m_charFilterData.accepted = acceptedChars.empty() ? nullptr : acceptedChars.c_str();
+		m_charFilterData.rejected = rejectedChars.empty() ? nullptr : rejectedChars.c_str();
+
+		elm_entry_markup_filter_append(entry, elm_entry_filter_accept_set, &m_charFilterData);
+		m_isCharRestrictionSet = true;
+	}
+
+	void Editfield::resetInputCharRestriction()
+	{
+		if (m_isCharRestrictionSet) {
+			elm_entry_markup_filter_remove(entry, elm_entry_filter_accept_set, &m_charFilterData);
+			m_isCharRestrictionSet = false;
+		}
 	}
 
 	void Editfield::setEntryRawText(const std::string &text)

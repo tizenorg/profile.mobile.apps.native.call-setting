@@ -123,3 +123,6 @@ msgstr "Phone number"
 
 msgid "IDS_COM_POP_LOADING_ING"
 msgstr "Loading..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Unknown"
