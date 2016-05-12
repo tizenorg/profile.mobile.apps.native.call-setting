@@ -80,7 +80,12 @@ namespace gui {
 
 		void setInputFilterHandler(InputFilterHandler handler) { m_inputFilterHandler = handler;}
 		void setInputLimitHandler(NotiHandler handler) { m_inputLimitHandler = handler; }
+
 		void setInputLimit(int maxCharCount, int maxByteCount = 0);
+		void resetInputLimit();
+
+		void setInputCharRestriction(const std::string &acceptedChars, const std::string &rejectedChars);
+		void resetInputCharRestriction();
 
 		void setGuideText(const util::TString &text);
 		void setEntryRawText(const std::string &);
@@ -94,7 +99,6 @@ namespace gui {
 		void setCopyPasteMode(CopyPasteMode mode);
 		void allowInputPrediction(bool allowPrediction);
 		void showPasswordInput(bool showPassword);
-
 
 		void setSipReturnKeydDisabled(bool disabledState);
 		void sipTypeSet(SipType type);
@@ -122,7 +126,10 @@ namespace gui {
 		typedef util::Callback<void(Evas_Object *obj, char **inputText)> EntryFilterCb;
 
 		Evas_Object *entry;
+		bool m_isInputLimitSet;
+		bool m_isCharRestrictionSet;
 		Elm_Entry_Filter_Limit_Size m_limitFilterData;
+		Elm_Entry_Filter_Accept_Set m_charFilterData;
 		Evas_Object *clearBtn;
 		NotiHandler m_inputEventHandler;
 		InputFilterHandler m_inputFilterHandler;

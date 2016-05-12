@@ -142,7 +142,7 @@ namespace gui {
 			doActivate();
 		} else {
 			doHide();
-			m_updateFlag |= UF_WAS_PAUSED;
+			m_updateFlag |= UF_IS_POPPING;
 		}
 	}
 
@@ -216,5 +216,25 @@ namespace gui {
 	void ViewController::onBackKeyPressed()
 	{
 		makeDestroyReqeuest();
+	}
+
+	void ViewController::addCustomUpdateFlags(int flags)
+	{
+		m_updateFlag |= ~(~flags | UF_BASE_FLAGS);
+		doUpdate();
+	}
+
+	void ViewController::removeCustomUpdateFlags(int flags)
+	{
+		m_updateFlag &= (~flags | UF_BASE_FLAGS);
+	}
+
+	bool ViewController::isUpdateFlagsSet(int flags) const
+	{
+		if ((m_updateFlag & flags) == flags) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

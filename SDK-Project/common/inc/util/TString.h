@@ -18,6 +18,9 @@
 #ifndef _UTIL_T_STRING_H_
 #define _UTIL_T_STRING_H_
 
+#include <string>
+#include <utility>
+
 #include "Helpers.h"
 
 namespace util {

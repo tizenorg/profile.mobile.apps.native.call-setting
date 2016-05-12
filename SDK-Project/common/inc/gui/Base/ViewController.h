@@ -30,6 +30,10 @@ namespace gui {
 
 		virtual ~ViewController();
 
+		void addCustomUpdateFlags(int flags);
+		void removeCustomUpdateFlags(int flags);
+		bool isUpdateFlagsSet(int flags) const;
+
 	protected:
 		typedef enum {
 			UF_INITIAL = 1,
@@ -37,6 +41,11 @@ namespace gui {
 			UF_REGION_FORMAT = 4,
 			UF_ORIENTATION = 8,
 			UF_WAS_PAUSED = 16,
+			UF_IS_POPPING = 32,
+
+			//Keep in sync with base flags
+			UF_CUSTOM_SHIFT = 6,
+			UF_BASE_FLAGS = ((1 << UF_CUSTOM_SHIFT) - 1)
 		} UpdateFlag;
 
 		ViewController (appfw::BaseApplication &app, NotiHandler destroyHandler);
