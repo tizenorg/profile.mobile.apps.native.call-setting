@@ -81,6 +81,7 @@ namespace gui {
 		void setInputFilterHandler(InputFilterHandler handler) { m_inputFilterHandler = handler;}
 		void setInputLimitHandler(NotiHandler handler) { m_inputLimitHandler = handler; }
 		void setInputLimit(int maxCharCount, int maxByteCount = 0);
+		void setInputCharRestriction(const std::string &acceptedChars, const std::string &rejectedChars);
 
 		void setGuideText(const util::TString &text);
 		void setEntryRawText(const std::string &);
@@ -123,6 +124,7 @@ namespace gui {
 
 		Evas_Object *entry;
 		Elm_Entry_Filter_Limit_Size m_limitFilterData;
+		Elm_Entry_Filter_Accept_Set m_charFilterData;
 		Evas_Object *clearBtn;
 		NotiHandler m_inputEventHandler;
 		InputFilterHandler m_inputFilterHandler;

@@ -107,6 +107,9 @@ namespace CallSettings { namespace Model {
 			waitTime(TELEPHONY_CF_NO_REPLY_UNDEFINED) {}
 	};
 
+	const std::string TELEPHONY_NUMBER_ALLOWED_SYMBOLS = "0123456789+*#";
+	const int TELEPHONY_NUMBER_LENGTH = 82;
+
 } }
 
 #endif /* _MODEL_TELEPHONY_TYPES_H_ */

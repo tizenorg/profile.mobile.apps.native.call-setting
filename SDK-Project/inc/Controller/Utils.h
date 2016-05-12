@@ -39,6 +39,7 @@ namespace CallSettings { namespace Controller {
 
 	Model::StringKey convertToStringKey(RejectMsgId id);
 	RejectMsgId convertToMsgId(Model::StringKey key);
+	util::TString getColoredText(const util::TString &textString);
 
 } }
 

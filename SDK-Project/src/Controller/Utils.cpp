@@ -21,6 +21,11 @@ namespace CallSettings { namespace Controller {
 
 	const util::TString ITEM_SUB_TEXT_COLOR_FMT("<color=#3DB9CC>%s</color>", false);
 
+	util::TString getColoredText(const util::TString &textString)
+	{
+		return ITEM_SUB_TEXT_COLOR_FMT.format(textString.translate());
+	}
+
 	Model::StringKey convertToStringKey(RejectMsgId id) {
 		switch (id) {
 		case REJECT_MSG_1:

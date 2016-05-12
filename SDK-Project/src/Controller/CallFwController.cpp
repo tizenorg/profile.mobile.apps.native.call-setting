@@ -24,6 +24,8 @@
 #include "Controller/Utils.h"
 #include "Controller/CallFwController.h"
 
+#include "Model/Telephony/TelRequestListener.h"
+
 namespace CallSettings { namespace Controller {
 
 	using namespace gui;
@@ -52,6 +54,7 @@ namespace CallSettings { namespace Controller {
 		};
 
 		const util::TString TIMEOUT_ITEM_FMT = "IDS_CST_BODY_PD_SECONDS";
+		const util::TString FWD_CONDITION_TIMEOUT_ITEM_FMT = "%s, %s";
 
 		util::TString getConditionLabel(CallFwdCondition condition)
 		{
@@ -90,9 +93,20 @@ namespace CallSettings { namespace Controller {
 
 		util::TString getColoredTimeoutLabel(CallFwdNoReplyTime noReplyTimeId)
 		{
-			return ITEM_SUB_TEXT_COLOR_FMT.format(
-					TIMEOUT_ITEM_FMT.format(getTimeoutDurationSec(noReplyTimeId)).getCStr());
+			return getColoredText(getTimeoutLabel(noReplyTimeId));
 		}
+
+		util::TString getConditionSublabel(const util::TString &telNumber)
+		{
+			return getColoredText(telNumber);
+		}
+
+		util::TString getConditionTimeoutSublabel(const util::TString &telNumber, CallFwdNoReplyTime noReplyTimeId)
+		{
+			return getColoredText(
+					FWD_CONDITION_TIMEOUT_ITEM_FMT.format(telNumber.getCStr() , getTimeoutLabel(noReplyTimeId).getCStr()));
+		}
+
 	}
 
 	class CallFwController::EditPopup {
@@ -109,9 +123,9 @@ namespace CallSettings { namespace Controller {
 			}
 		}
 
-		static EditPopup *create(Application &app, CallFwdCondition condition, NotiHandler delHandler)
+		static EditPopup *create(Application &app,  CallFwdReqData &callFwdData, NotiHandler delHandler, NotiHandler enableClickHandler)
 		{
-			EditPopup *obj = new EditPopup(app, condition, delHandler);
+			EditPopup *obj = new EditPopup(app, callFwdData, delHandler, enableClickHandler);
 			if (!obj->init()) {
 				delete obj;
 				return nullptr;
@@ -120,12 +134,12 @@ namespace CallSettings { namespace Controller {
 		}
 
 	private:
-		EditPopup(Application &app, CallFwdCondition condition, NotiHandler delHandler,
-				CallFwdNoReplyTime noReplyTimeId = TELEPHONY_CF_NO_REPLY_30_SEC) :
+		EditPopup(Application &app, CallFwdReqData &callFwdData, NotiHandler delHandler, NotiHandler enableClickHandler) :
 			m_app(app),
-			m_condition(condition),
+			m_callFwdReqData(callFwdData),
+			m_noReplyTimeId(m_callFwdReqData.waitTime),
 			m_delHandler(delHandler),
-			m_noReplyTimeId(noReplyTimeId),
+			m_enableClickHandler(enableClickHandler),
 			m_pPopup(nullptr),
 			m_pTimeoutPopup(nullptr),
 			m_pEditfield(nullptr),
@@ -136,7 +150,8 @@ namespace CallSettings { namespace Controller {
 		bool init()
 		{
 			m_pPopup = Widget::create<Popup>(WidgetWrapper(m_app.getViewManager().getNaviframe()),
-					getConditionLabel(m_condition));
+					getConditionLabel(m_callFwdReqData.condition));
+
 			RETVM_IF(!m_pPopup, false, "Failed to create popup!");
 
 			if (!m_pPopup->addButton(POPUP_BUTTON_LEFT, "IDS_CST_BUTTON2_CANCEL",
@@ -157,10 +172,25 @@ namespace CallSettings { namespace Controller {
 			auto *editItem = genlist->appendItem<View::PhoneEditListItem>();
 			RETVM_IF(!editItem, false, "Failed to create edit item");
 			m_pEditfield = &editItem->getEditfield();
+			m_pEditfield->setInputLimit(0, TELEPHONY_NUMBER_LENGTH);
+			m_pEditfield->setInputCharRestriction(TELEPHONY_NUMBER_ALLOWED_SYMBOLS, "");
+			m_pEditfield->setInputEventHandler(NotiHandler::wrap<EditPopup, &EditPopup::onInputEvent>(this));
 
-			if (m_condition == TELEPHONY_CF_IF_NO_REPLY) {
+			if (m_callFwdReqData.mode == TELEPHONY_CF_MODE_ACTIVATE
+					|| m_callFwdReqData.mode == TELEPHONY_CF_MODE_REGISTER) {
+				m_pEditfield->setEntryRawText(m_callFwdReqData.telNumber);
+			} else {
+				m_pEditfield->setEntryRawText("");
+			}
+
+			if (m_callFwdReqData.condition == TELEPHONY_CF_IF_NO_REPLY) {
+				if (m_noReplyTimeId == TELEPHONY_CF_NO_REPLY_UNDEFINED) {
+					m_noReplyTimeId = TELEPHONY_CF_NO_REPLY_15_SEC;
+				}
+
 				m_pTimeoutItem = genlist->appendItem<DoubleTextListItem>(
 						"IDS_CST_BODY_WAITING_TIME", getColoredTimeoutLabel(m_noReplyTimeId));
+
 				RETVM_IF(!m_pTimeoutItem, false, "Failed to create timeout item");
 				m_pTimeoutItem->setCheckMode(CheckboxListItem::HIDDEN);
 				m_pTimeoutItem->setSelectHandler(ItemNotiHandler::wrap<
@@ -172,8 +202,34 @@ namespace CallSettings { namespace Controller {
 			return true;
 		}
 
-		// Main popup events
+		void updateEnableBtnState()
+		{
+			std::string newTelNumber = m_pEditfield->getEntryRawText();
 
+			if (newTelNumber.empty() || !isInuptDataChanged()) {
+				m_pPopup->setButtonDisabled(POPUP_BUTTON_RIGHT, true);
+			} else {
+				m_pPopup->setButtonDisabled(POPUP_BUTTON_RIGHT, false);
+			}
+		}
+
+		bool isInuptDataChanged()
+		{
+			if ((m_pEditfield->getEntryRawText().compare(m_callFwdReqData.telNumber) == 0) &&
+					(m_noReplyTimeId == m_callFwdReqData.waitTime)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		// Editfield Events //
+		void onInputEvent()
+		{
+			updateEnableBtnState();
+		}
+
+		// Main popup events
 		void onPopupDel()
 		{
 			m_pPopup = nullptr;
@@ -187,6 +243,14 @@ namespace CallSettings { namespace Controller {
 
 		bool onEnableBtnClick()
 		{
+			if (m_enableClickHandler.assigned()) {
+				m_callFwdReqData.telNumber = m_pEditfield->getEntryRawText();
+				if (m_callFwdReqData.condition == TELEPHONY_CF_IF_NO_REPLY) {
+					m_callFwdReqData.waitTime = m_noReplyTimeId;
+				}
+				m_enableClickHandler();
+			}
+
 			return true;
 		}
 
@@ -235,13 +299,16 @@ namespace CallSettings { namespace Controller {
 			Widget::destroy(m_pTimeoutPopup);
 			m_noReplyTimeId = static_cast<CallFwdNoReplyTime>(noReplyTimeId);
 			m_pTimeoutItem->setSubText(getColoredTimeoutLabel(m_noReplyTimeId));
+			updateEnableBtnState();
 		}
 
 	private:
 		Application &m_app;
-		const CallFwdCondition m_condition;
-		const NotiHandler m_delHandler;
+		CallFwdReqData &m_callFwdReqData;
 		CallFwdNoReplyTime m_noReplyTimeId;
+		const NotiHandler m_delHandler;
+		const NotiHandler m_enableClickHandler;
+
 		// gui
 		Popup *m_pPopup;
 		Popup *m_pTimeoutPopup;
@@ -249,25 +316,240 @@ namespace CallSettings { namespace Controller {
 		DoubleTextListItem *m_pTimeoutItem;
 	};
 
+	class CallFwController::Item :
+			private Model::TelRequestListener<CallFwdReqData>,
+			private Model::SimpleTelRequestListener
+	{
+
+	public:
+		typedef util::Delegate<void(Item *)> StateChangeHandler;
+
+		~Item()
+		{
+			delete m_pEditPopup;
+		}
+
+		static Item *create(Application &app, CallFwdCondition condition, Genlist &gl)
+		{
+			Item *obj = new Item(app, condition);
+			{
+				if (!obj->addOptionItem(gl)) {
+					delete obj;
+					return nullptr;
+				}
+				return obj;
+			}
+		}
+
+		void initialize(StateChangeHandler updateFinishedHandler, StateChangeHandler changeBeginHandler, StateChangeHandler changeEndHandler)
+		{
+			m_pItem->setCheckMode(CheckboxListItem::PENDING);
+			m_updateFinihedHandler = updateFinishedHandler;
+			m_changeBeginHandler = changeBeginHandler;
+			m_changeEndHandler = changeEndHandler;
+			requestFwdState();
+		}
+
+		void update()
+		{
+			requestFwdState();
+		}
+
+		void setDisabled(bool isDisabled)
+		{
+			m_pItem->setDisabled(isDisabled);
+		}
+
+		CallForwardMode getOptionMode()
+		{
+			return m_callFwdReqData.mode;
+		}
+
+	private:
+		Item(Application &app, CallFwdCondition condition):
+			m_app(app),
+			m_pItem(nullptr),
+			m_pEditPopup(nullptr)
+		{
+			m_callFwdReqData.callType = TELEPHONY_CALLTYPE_VOICE;
+			m_callFwdReqData.condition = condition;
+		}
+
+		bool addOptionItem(Genlist &gl)
+		{
+			m_pItem = gl.appendItem<DoubleTextListItem>(getConditionLabel(m_callFwdReqData.condition));
+			RETVM_IF(!m_pItem, false, "Item create failed!");
+
+			m_pItem->setCheckboxStyle(CHECKBOX_SWITCHER);
+			m_pItem->setCheckMode(CheckboxListItem::SKIP_EVENTS);
+			m_pItem->setSelectHandler(ItemNotiHandler::wrap<
+					Item, &Item::onItemClick>(this));
+			m_pItem->setCheckHandler(ItemNotiHandler::wrap<
+					Item, &Item::onItemCheck>(this));
+
+			return true;
+		}
+
+		void requestFwdState()
+		{
+			m_callFwdReqData.mode = TELEPHONY_CF_MODE_UNDEFINED;
+			m_callFwdReqData.telNumber = "";
+			m_callFwdReqData.waitTime = TELEPHONY_CF_NO_REPLY_UNDEFINED;
+
+			TelResultCode res = m_app.getTelephonyManager().requestCallFwdState(&m_callFwdReqData, this);
+			RETM_IF(res != TELEPHONY_RES_SUCCESS, "Failed to send state request, error code: %d", res);
+		}
+
+		void disableFwd()
+		{
+			m_pItem->setCheckMode(CheckboxListItem::PENDING);
+			m_pItem->setSubText(nullptr);
+
+			m_callFwdReqData.mode = TELEPHONY_CF_MODE_DEACTIVATE;
+			TelResultCode res = m_app.getTelephonyManager().requestCallFwdSetup(&m_callFwdReqData, this);
+			RETM_IF(res != TELEPHONY_RES_SUCCESS, "Failed to send setup request, error code: %d", res);
+
+			if (m_changeBeginHandler.assigned()) {
+				m_changeBeginHandler(this);
+			}
+		}
+
+		void enableFwd()
+		{
+
+			m_pItem->setCheckMode(CheckboxListItem::PENDING);
+			m_pItem->setSubText(nullptr);
+
+			m_callFwdReqData.mode = TELEPHONY_CF_MODE_REGISTER;
+			TelResultCode res = m_app.getTelephonyManager().requestCallFwdSetup(&m_callFwdReqData, this);
+			RETM_IF(res != TELEPHONY_RES_SUCCESS, "Failed to send setup request, error code: %d", res);
+
+			if (m_changeBeginHandler.assigned()) {
+				m_changeBeginHandler(this);
+			}
+
+		}
+
+		virtual void onRequestComplete(TelResultCode result, const CallFwdReqData *data)
+		{
+			if (result != TELEPHONY_RES_SUCCESS) {
+				ERR("Failed to get Call Forward state for condition %d, result code: %d!", m_callFwdReqData.condition, result);
+				m_pItem->setCheckState(false);
+				m_pItem->setCheckMode(CheckboxListItem::SKIP_EVENTS);
+				m_pItem->setSubText(nullptr);
+			}
+
+			refreshView();
+
+			if (m_updateFinihedHandler.assigned()) {
+				m_updateFinihedHandler(this);
+			}
+		}
+
+		virtual void onRequestComplete(TelResultCode result)
+		{
+			if (result != TELEPHONY_RES_SUCCESS) {
+				ERR("Failed to setup Call Forward for condition %d, result code: %d!", m_callFwdReqData.condition, result);
+				// TODO
+				// Add toast popup about reject by network here in future
+			}
+
+			if (m_changeEndHandler.assigned()) {
+				m_changeEndHandler(this);
+			}
+		}
+
+		void refreshView()
+		{
+			if (m_callFwdReqData.mode == TELEPHONY_CF_MODE_ACTIVATE) {
+				m_pItem->setCheckState(true);
+			} else {
+				m_pItem->setCheckState(false);
+				m_callFwdReqData.telNumber = "";
+				m_callFwdReqData.waitTime = TELEPHONY_CF_NO_REPLY_UNDEFINED;
+			}
+
+			if (m_pItem->getCheckState()) {
+				m_pItem->setCheckMode(CheckboxListItem::NORMAL);
+
+				if (m_callFwdReqData.telNumber.empty()) {
+					m_pItem->setSubText(getConditionSublabel("IDS_COM_BODY_UNKNOWN"));
+				} else if (m_callFwdReqData.condition == TELEPHONY_CF_IF_NO_REPLY) {
+					m_pItem->setSubText(getConditionTimeoutSublabel(m_callFwdReqData.telNumber, m_callFwdReqData.waitTime));
+				} else {
+					m_pItem->setSubText(getConditionSublabel(m_callFwdReqData.telNumber));
+				}
+			} else {
+				m_pItem->setCheckMode(CheckboxListItem::SKIP_EVENTS);
+				m_pItem->setSubText(nullptr);
+			}
+		}
+
+		void onItemCheck(WidgetItem &item)
+		{
+			if (m_pItem->getCheckState() == false) {
+				disableFwd();
+			} else {
+				ERR("Invalid state!");
+			}
+		}
+
+		void onItemClick(WidgetItem &item)
+		{
+			DBG("View item clicked");
+
+			m_pEditPopup = EditPopup::create(m_app, m_callFwdReqData,
+					NotiHandler::wrap<Item, &Item::onEditPopupDel>(this),
+					NotiHandler::wrap<Item, &Item::onEditPopupEnableClick>(this));
+
+		}
+
+		void onEditPopupDel()
+		{
+			m_pEditPopup = nullptr;
+		}
+
+		void onEditPopupEnableClick()
+		{
+			enableFwd();
+		}
+
+	private:
+		Application &m_app;
+		DoubleTextListItem *m_pItem;
+		CallFwdReqData m_callFwdReqData;
+		EditPopup *m_pEditPopup;
+		StateChangeHandler m_updateFinihedHandler;
+		StateChangeHandler m_changeBeginHandler;
+		StateChangeHandler m_changeEndHandler;
+	};
+
 	CallFwController::CallFwController(Application &app, NotiHandler handler) :
 		ViewController(app, handler),
 		m_app(app),
 		m_pView(nullptr),
-		m_pEditPopup(nullptr),
-		m_pPendingPopup(nullptr)
+		m_pPendingPopup(nullptr),
+		m_needUpdate(false),
+		m_readyItemCount(0)
 	{
 	}
 
 	CallFwController::~CallFwController()
 	{
 		Widget::destroy(m_pPendingPopup);
-		delete m_pEditPopup;
+		m_app.getTelephonyManager().removeCallFwdChangeHandler(
+				NotiHandler::wrap<CallFwController, &CallFwController::onFwdStatusChanged>(this));
+		for (auto &pair : m_fwdItemsArray) {
+			delete pair.second;
+		}
 	}
 
 	bool CallFwController::initialize()
 	{
 		RETVM_IF(!ViewController::initialize(), false, "Failed to initialize ViewController!");
 
+		m_app.getTelephonyManager().addCallFwdChangeHandler(
+				NotiHandler::wrap<CallFwController, &CallFwController::onFwdStatusChanged>(this));
 		m_pView = m_app.getViewManager().pushView<View::GenlistView>();
 		RETVM_IF(!m_pView, false, "Failed to create view");
 
@@ -276,6 +558,28 @@ namespace CallSettings { namespace Controller {
 		showPendingPopup();
 
 		return true;
+	}
+
+	void CallFwController::onFwdStatusChanged()
+	{
+		if (m_isVisible) {
+			updateFwdOptions();
+		} else {
+			m_needUpdate = true;
+		}
+	}
+
+	void CallFwController::updateFwdOptions()
+	{
+		m_needUpdate = false;
+		if (m_readyItemCount != m_fwdItemsArray.size()) {
+			DBG("Update is already performing...");
+			return;
+		}
+
+		for (auto &pair : m_fwdItemsArray) {
+			pair.second->update();
+		}
 	}
 
 	void CallFwController::updateView(int updateFlag)
@@ -288,30 +592,67 @@ namespace CallSettings { namespace Controller {
 
 			for (int i = 0; i < VIEW_ITEM_COUNT; ++i) {
 				const CallFwdCondition condition = VIEW_ITEMS_COND[i];
-				DoubleTextListItem *item = gl.appendItem<DoubleTextListItem>(getConditionLabel(condition));
-				if (item) {
-					item->setTag(condition);
-					item->setCheckboxStyle(CHECKBOX_SWITCHER);
-					item->setCheckMode(CheckboxListItem::SKIP_EVENTS);
-					item->setSelectHandler(ItemNotiHandler::wrap<
-							CallFwController, &CallFwController::onItemClick>(this));
+				Item *obj =  Item::create(m_app, condition, gl);
+				if (obj) {
+					m_fwdItemsArray.push_back(std::make_pair(condition, obj));
+					obj->initialize(Item::StateChangeHandler::wrap<CallFwController, &CallFwController::onFwdOptionReady>(this),
+							Item::StateChangeHandler::wrap<CallFwController, &CallFwController::onFwdOptionChangeBegin>(this),
+							Item::StateChangeHandler::wrap<CallFwController, &CallFwController::onFwdOptionChangeEnd>(this)
+					);
 				} else {
 					ERR("Item create failed!");
 				}
 			}
 		}
+
+		if (m_needUpdate) {
+			updateFwdOptions();
+		}
 	}
 
-	void CallFwController::onItemClick(WidgetItem &item)
+	void CallFwController::onFwdOptionReady(Item *optionItem)
 	{
-		DBG("View item clicked");
-		m_pEditPopup = EditPopup::create(m_app, static_cast<CallFwdCondition>(item.getTag()),
-				NotiHandler::wrap<CallFwController, &CallFwController::onEditPopupDel>(this));
+		m_readyItemCount++;
+		if (m_readyItemCount == m_fwdItemsArray.size()) {
+			if (m_pPendingPopup) {
+				Widget::destroy(m_pPendingPopup);
+				m_pPendingPopup = nullptr;
+			}
+
+		}
+
+		auto autoFwdItemPair = std::find_if(m_fwdItemsArray.begin(), m_fwdItemsArray.end(),
+				[](std::pair<CallFwdCondition, Item*> &itemPair) {
+					return itemPair.first == TELEPHONY_CF_UNCONDITIONAL;
+				}
+		);
+
+		if (autoFwdItemPair->second->getOptionMode() == TELEPHONY_CF_MODE_ACTIVATE) {
+			for (auto &pair : m_fwdItemsArray) {
+				if(pair.second != autoFwdItemPair->second) {
+					pair.second->setDisabled(true);
+				}
+			}
+		} else {
+			for (auto &pair : m_fwdItemsArray) {
+					pair.second->setDisabled(false);
+			}
+		}
 	}
 
-	void CallFwController::onEditPopupDel()
+	void CallFwController::onFwdOptionChangeBegin(Item *optionItem)
 	{
-		m_pEditPopup = nullptr;
+		m_readyItemCount--;
+		for (auto &pair : m_fwdItemsArray) {
+			if(pair.second != optionItem) {
+				pair.second->setDisabled(true);
+			}
+		}
+	}
+
+	void CallFwController::onFwdOptionChangeEnd(Item *optionItem)
+	{
+		optionItem->update();
 	}
 
 	void CallFwController::showPendingPopup()
@@ -342,8 +683,7 @@ namespace CallSettings { namespace Controller {
 
 	bool CallFwController::onPendingPopupBlock()
 	{
-		// TODO change to false in the future
-		return true;
+		return false;
 	}
 
 	bool CallFwController::onPendingPopupBack()

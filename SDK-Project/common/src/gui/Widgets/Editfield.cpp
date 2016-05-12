@@ -188,6 +188,15 @@ namespace gui {
 		elm_entry_markup_filter_append(entry, elm_entry_filter_limit_size, &m_limitFilterData);
 	}
 
+	void Editfield::setInputCharRestriction(const std::string &acceptedChars, const std::string &rejectedChars)
+	{
+
+		m_charFilterData.accepted = acceptedChars.empty() ? nullptr : acceptedChars.c_str();
+		m_charFilterData.rejected = rejectedChars.empty() ? nullptr : rejectedChars.c_str();
+
+		elm_entry_markup_filter_append(entry, elm_entry_filter_accept_set, &m_charFilterData);
+	}
+
 	void Editfield::setEntryRawText(const std::string &text)
 	{
 		elm_entry_entry_set(entry, text.c_str());

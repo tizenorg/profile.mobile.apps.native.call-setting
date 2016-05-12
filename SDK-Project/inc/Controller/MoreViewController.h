@@ -49,7 +49,6 @@ namespace CallSettings { namespace Controller {
 
 		void onCallerIdItemClick();
 		void onForwardingItemClick();
-		void onWaitingItemClick();
 		void onWaitingOptionCheck();
 
 		void onCallerIdOptionChanged();
