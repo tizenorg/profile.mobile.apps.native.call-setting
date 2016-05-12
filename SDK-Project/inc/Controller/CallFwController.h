@@ -24,6 +24,8 @@
 #include "App/Application.h"
 #include "View/GenlistView.h"
 
+#include "Model/Telephony/TelephonyTypes.h"
+
 namespace CallSettings { namespace Controller {
 
 	class CallFwController : public gui::ViewController {
@@ -32,6 +34,7 @@ namespace CallSettings { namespace Controller {
 
 	private:
 		class EditPopup;
+		class Item;
 
 	private:
 		friend class ViewController;
@@ -40,6 +43,12 @@ namespace CallSettings { namespace Controller {
 		bool initialize();
 
 		void showPendingPopup();
+		void updateFwdOptions();
+
+		// Item events //
+		void onFwdOptionReady();
+		void onFwdOptionChangeBegin();
+		void onFwdOptionChangeEnd();
 
 		// Pending popup events
 
@@ -47,23 +56,21 @@ namespace CallSettings { namespace Controller {
 		bool onPendingPopupBlock();
 		bool onPendingPopupBack();
 
-		// View item events
-
-		void onItemClick(gui::WidgetItem &item);
-
-		// Edit popup events
-
-		void onEditPopupDel();
-
 		// gui::ViewController //
-
 		virtual void updateView(int updateFlag) override;
+
+		// model::ITeleponyManager event//
+		void onFwdStatusChanged();
 
 	private:
 		Application &m_app;
 		View::GenlistView *m_pView;
-		EditPopup *m_pEditPopup;
 		gui::Popup *m_pPendingPopup;
+		std::vector <Item *> m_fwdItemsArray;
+		Item *m_pUncondFwdItem;
+		bool m_needUpdate;
+		int m_updatingItemsCount;
+		int m_statusChangeCount;
 	};
 
 }}

@@ -48,16 +48,20 @@ namespace gui {
 
 	void CheckboxListItem::setCheckboxStyle(CheckboxStyle checkStyle)
 	{
-		m_checkStyle = checkStyle;
-		if (m_pCheckbox) {
-			m_pCheckbox->setCheckStyle(checkStyle);
+		if (m_checkStyle != checkStyle) {
+			m_checkStyle = checkStyle;
+			if (m_pCheckbox) {
+				m_pCheckbox->setCheckStyle(checkStyle);
+			}
 		}
 	}
 
 	void CheckboxListItem::setCheckMode(CheckMode mode)
 	{
-		m_checkMode = mode;
-		update("elm.swallow.end", GL_PART_TYPE_CONTENT);
+		if (m_checkMode != mode) {
+			m_checkMode = mode;
+			update("elm.swallow.end", GL_PART_TYPE_CONTENT);
+		}
 	}
 
 	CheckboxListItem::CheckMode CheckboxListItem::getCheckMode()

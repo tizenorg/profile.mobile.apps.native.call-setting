@@ -19,7 +19,6 @@
 #define _CONTROLLER_UTILS_H_
 
 #include "Model/Settings/SettingsTypes.h"
-
 namespace CallSettings { namespace Controller {
 
 	extern const util::TString ITEM_SUB_TEXT_COLOR_FMT;
@@ -39,7 +38,6 @@ namespace CallSettings { namespace Controller {
 
 	Model::StringKey convertToStringKey(RejectMsgId id);
 	RejectMsgId convertToMsgId(Model::StringKey key);
-
 } }
 
 #endif /* _CONTROLLER_UTILS_H_ */

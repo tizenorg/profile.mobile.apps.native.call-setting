@@ -34,6 +34,8 @@ namespace gui {
 		Evas_Object *getParent();
 		void setDestroyHandler(NotiHandler handler);
 
+		void setDisabled(bool disabledState);
+
 		void setTag(int tag);
 		int getTag() const;
 
