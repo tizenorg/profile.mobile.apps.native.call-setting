@@ -21,9 +21,9 @@ namespace gui {
 
 	Editfield::Editfield() :
 		entry(nullptr),
-		clearBtn(nullptr),
 		m_isInputLimitSet(false),
-		m_isCharRestrictionSet(false)
+		m_isCharRestrictionSet(false),
+		clearBtn(nullptr)
 	{
 	}
 

@@ -25,14 +25,16 @@ namespace CallSettings { namespace View {
 	using namespace gui;
 
 	PhoneEditListItem::PhoneEditListItem() :
-			m_pEditfield(nullptr)
+			m_pItemLayout(nullptr),
+			m_pEditfield(nullptr),
+			m_pContactBtn(nullptr)
 	{
 	}
 
 	PhoneEditListItem::~PhoneEditListItem()
 	{
-		if (m_pEditfield) {
-			evas_object_unref(m_pEditfield->getEvasObject());
+		if (m_pItemLayout) {
+			evas_object_unref(m_pItemLayout->getEvasObject());
 		}
 	}
 
@@ -48,38 +50,48 @@ namespace CallSettings { namespace View {
 			return false;
 		}
 
-		return initEditFiled(WidgetWrapper(getParent()));
+		return initItemLayout(WidgetWrapper(getParent()));
 	}
 
-	bool PhoneEditListItem::initEditFiled(const gui::Widget &parent)
+	bool PhoneEditListItem::initItemLayout(const gui::Widget &parent)
 	{
-		if (!m_pEditfield) {
-			m_pEditfield = Widget::create<Editfield>(parent, Editfield::EF_CLEAR_BTN, "IDS_ST_BODY_PHONE_NUMBER");
-			RETVM_IF(!m_pEditfield, false, "Failed to create Editfield!");
-			evas_object_ref(m_pEditfield->getEvasObject());
+		if (!m_pItemLayout) {
+			m_pItemLayout = Widget::create<Layout>(parent, "layout", "call_setting", "phone_edit.list_item");
+			RETVM_IF(!m_pItemLayout, false, "Failed to create Item Layout!");
 
-			m_pEditfield->sipTypeSet(Editfield::SIP_TYPE_PHONENUMBER);
-			m_pEditfield->sipReturnKeyTypeSet(Editfield::SIP_RETURN_KEY_DONE);
+			if (!m_pEditfield) {
+				m_pEditfield = createEditFiled();
+				RETVM_IF(!m_pEditfield, false, "Failed to create Editfield!");
+			}
 
-			m_pEditfield->hide();
+			if (!m_pContactBtn) {
+				m_pContactBtn = createContactButton();
+				RETVM_IF(!m_pContactBtn, false, "Failed to create Contact Button!");
+			}
+
+			m_pItemLayout->setPartContent("elm.swallow.editfield_ly", m_pEditfield);
+			m_pItemLayout->setPartContent("elm.swallow.contact_btn", m_pContactBtn);
+
+			evas_object_ref(m_pItemLayout->getEvasObject());
 		}
 		return true;
 	}
 
-	Button *PhoneEditListItem::createContactButton(Widget &parent)
+	Editfield *PhoneEditListItem::createEditFiled()
 	{
-		Button *btn = Widget::create<Button>(parent, "transparent");
+		Editfield *editfield = Widget::create<Editfield>(*m_pItemLayout, Editfield::EF_CLEAR_BTN, "IDS_ST_BODY_PHONE_NUMBER");
+		RETVM_IF(!editfield, nullptr, "Failed to create Editfield!");
+
+		editfield->sipTypeSet(Editfield::SIP_TYPE_PHONENUMBER);
+		editfield->sipReturnKeyTypeSet(Editfield::SIP_RETURN_KEY_DONE);
+
+		return editfield;
+	}
+
+	Button *PhoneEditListItem::createContactButton()
+	{
+		Button *btn = Widget::create<Button>(*m_pItemLayout, "phone_contact_button");
 		RETVM_IF(!btn, nullptr, "Failed to create button!");
-
-		Layout *icon = Widget::create<Layout>(*btn,
-				appfw::getResourcePath(APP_EDJE_THEME_PATH).c_str(), "CONTACT_ICON");
-		if (!icon) {
-			ERR("Failed to create icon!");
-			Widget::destroy(btn);
-			return nullptr;
-		}
-
-		btn->setContent(icon);
 
 		return btn;
 	}
@@ -89,23 +101,26 @@ namespace CallSettings { namespace View {
 		return *m_pEditfield;
 	}
 
+	Button &PhoneEditListItem::getContactButton()
+	{
+		return *m_pContactBtn;
+	}
+
 	Evas_Object *PhoneEditListItem::getContent(Evas_Object *genlist, const char *part)
 	{
-		if (!initEditFiled(WidgetWrapper(genlist))) {
+		if (!initItemLayout(WidgetWrapper(genlist))) {
 			return nullptr;
 		}
 
-		m_pEditfield->show();
-
-		elm_object_focus_set(m_pEditfield->getEvasObject(), EINA_TRUE);
-
-		return m_pEditfield->getEvasObject();
+		m_pItemLayout->show();
+		evas_object_smart_calculate(m_pEditfield->getEvasObject());
+		return m_pItemLayout->getEvasObject();
 	}
 
 	void PhoneEditListItem::onUnrealized()
 	{
-		if (m_pEditfield) {
-			m_pEditfield->hide();
+		if (m_pItemLayout) {
+			m_pItemLayout->hide();
 		}
 	}
 
