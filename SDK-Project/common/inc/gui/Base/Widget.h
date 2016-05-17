@@ -37,6 +37,7 @@ namespace gui {
 
 		void setDisabled(bool disabledState);
 		void setFocus(bool focused);
+		void setFocusAllowed(bool focusAllowed);
 		void show();
 		void hide();
 
