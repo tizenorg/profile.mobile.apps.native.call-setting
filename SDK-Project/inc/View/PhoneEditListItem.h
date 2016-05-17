@@ -19,6 +19,7 @@
 #define _GUI_EDITFIELD_LIST_ITEMS_H_
 
 #include "gui/Widgets/GenlistItem.h"
+#include "gui/Widgets/Layout.h"
 #include "gui/Widgets/Editfield.h"
 #include "gui/Widgets/Button.h"
 
@@ -27,6 +28,7 @@ namespace CallSettings { namespace View {
 	class PhoneEditListItem : public gui::GenlistItem {
 	public:
 		gui::Editfield &getEditfield();
+		gui::Button &getContactButton();
 
 		// GenlistItem //
 
@@ -39,8 +41,9 @@ namespace CallSettings { namespace View {
 
 		bool initialize(ItemAddMethod createItem);
 
-		bool initEditFiled(const gui::Widget &parent);
-		gui::Button *createContactButton(gui::Widget &parent);
+		bool initItemLayout(const gui::Widget &parent);
+		gui::Editfield *createEditFiled();
+		gui::Button *createContactButton();
 
 		// GenlistItem //
 
@@ -48,7 +51,9 @@ namespace CallSettings { namespace View {
 		virtual void onUnrealized() override;
 
 	protected:
+		gui::Layout *m_pItemLayout;
 		gui::Editfield *m_pEditfield;
+		gui::Button *m_pContactBtn;
 	};
 
 }}

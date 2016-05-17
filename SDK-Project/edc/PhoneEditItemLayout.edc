@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+/************************Phone Edit ListItem parameters*************************/
+
+#define CONTACT_BUTTON_PADDING_RIGHT 17
+
+/************************Phone Edit ListItem parameters*************************/
+
+group {
+	name: "phone_edit.list_item";
+	parts {
+		part {
+			name: "elm.swallow.editfield_ly";
+			type: SWALLOW;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				align: 1 0.5;
+				fixed: 1 0;
+				max: -1 0;
+				rel2 {
+					relative: 0.0 1.0; to: "elm.swallow.contact_btn";
+				}
+			}
+		}
+
+		part {
+			name: "elm.swallow.contact_btn";
+			type: SWALLOW;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 1 0.5;
+				rel1 {
+					relative: 0.0 0.0; to_x: "padding_right";
+				}
+				rel2 {
+					relative: 0.0 1.0; to_x: "padding_right";
+				}
+			}
+		}
+
+		part {
+			name: "padding_right";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				align: 1 0.5;
+				rel1.relative: 1.0 0.0;
+				min: CONTACT_BUTTON_PADDING_RIGHT 0;
+			}
+		}
+	}
+}
