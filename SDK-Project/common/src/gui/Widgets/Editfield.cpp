@@ -21,9 +21,9 @@ namespace gui {
 
 	Editfield::Editfield() :
 		entry(nullptr),
-		clearBtn(nullptr),
 		m_isInputLimitSet(false),
-		m_isCharRestrictionSet(false)
+		m_isCharRestrictionSet(false),
+		clearBtn(nullptr)
 	{
 	}
 
@@ -191,10 +191,12 @@ namespace gui {
 
 		elm_entry_markup_filter_append(entry, elm_entry_filter_limit_size, &m_limitFilterData);
 		m_isInputLimitSet = true;
+
 	}
 
 	void Editfield::resetInputLimit()
 	{
+
 		if (m_isInputLimitSet) {
 			elm_entry_markup_filter_remove(entry, elm_entry_filter_limit_size, &m_limitFilterData);
 			m_isInputLimitSet = false;

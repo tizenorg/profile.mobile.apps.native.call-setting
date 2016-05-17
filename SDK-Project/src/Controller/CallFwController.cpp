@@ -23,6 +23,7 @@
 
 #include "Controller/Utils.h"
 #include "Controller/CallFwController.h"
+#include "Controller/TelNumberPicker.h"
 
 #include "Model/Telephony/TelRequestListener.h"
 
@@ -119,6 +120,8 @@ namespace CallSettings { namespace Controller {
 				Widget::destroy(m_pPopup);
 			}
 
+			delete m_pTelNumberPicker;
+
 			if (m_delHandler.assigned()) {
 				m_delHandler();
 			}
@@ -139,11 +142,13 @@ namespace CallSettings { namespace Controller {
 			m_app(app),
 			m_callFwdReqData(callFwdData),
 			m_noReplyTimeId(m_callFwdReqData.waitTime),
+			m_pTelNumberPicker(nullptr),
 			m_delHandler(delHandler),
 			m_enableClickHandler(enableClickHandler),
 			m_pPopup(nullptr),
 			m_pTimeoutPopup(nullptr),
 			m_pEditfield(nullptr),
+			m_pContactButton(nullptr),
 			m_pTimeoutItem(nullptr)
 		{
 		}
@@ -178,12 +183,20 @@ namespace CallSettings { namespace Controller {
 			m_pEditfield->setInputEventHandler(NotiHandler::wrap<EditPopup, &EditPopup::onInputEvent>(this));
 			m_pEditfield->setSipReturnClickHandler(NotiHandler::wrap<EditPopup, &EditPopup::onSipReturnClick>(this));
 
+			m_pContactButton = &editItem->getContactButton();
+			m_pContactButton->setClickHandler(WidgetNotiHandler::wrap<
+					EditPopup, &EditPopup::onContactBtnClick>(this));
+
 			if (m_callFwdReqData.mode == TELEPHONY_CF_MODE_ACTIVATE
 					|| m_callFwdReqData.mode == TELEPHONY_CF_MODE_REGISTER) {
 				m_pEditfield->setEntryRawText(m_callFwdReqData.telNumber);
 			} else {
 				m_pEditfield->setEntryRawText("");
 			}
+
+			m_pTelNumberPicker = TelNumberPicker::create();
+			RETVM_IF(!m_pTelNumberPicker, false, "Failed to create TelNumberPicker");
+
 
 			if (m_callFwdReqData.condition == TELEPHONY_CF_IF_NO_REPLY) {
 				if (m_noReplyTimeId == TELEPHONY_CF_NO_REPLY_UNDEFINED) {
@@ -200,6 +213,8 @@ namespace CallSettings { namespace Controller {
 			}
 
 			m_pPopup->setDestroyHandler(NotiHandler::wrap<EditPopup, &EditPopup::onPopupDel>(this));
+			m_pPopup->setBlockClickHandler(PopupClickHandler::wrap<
+					EditPopup, &EditPopup::onPopupBlockClick>(this));
 
 			return true;
 		}
@@ -256,6 +271,11 @@ namespace CallSettings { namespace Controller {
 			delete this;
 		}
 
+		bool onPopupBlockClick()
+		{
+			return false;
+		}
+
 		bool onCancelBtnClick()
 		{
 			return true;
@@ -271,6 +291,25 @@ namespace CallSettings { namespace Controller {
 		{
 			applyNewData();
 			return true;
+		}
+
+		void onContactBtnClick(Widget &button)
+		{
+			auto result = m_pTelNumberPicker->launch(TelNumberPicker::ResultEventHandler::wrap<
+					EditPopup, &EditPopup::contactsReplyHandler>(this));
+			if (result != TelNumberPicker::NUM_PICKER_RES_SUCCESS) {
+				//TODO Add toast popup about contact launch faile
+				ERR("Failed to launch contacts!");
+			}
+		}
+
+		void contactsReplyHandler(TelNumberPicker::NumPickerResCode result, std::string telNumber)
+		{
+			if (result == TelNumberPicker::NUM_PICKER_RES_SUCCESS) {
+					m_pEditfield->setEntryRawText(telNumber);
+			} else {
+				ERR("Failed to get telNumber!");
+			}
 		}
 
 		void onTimeoutItemSelect(WidgetItem &item)
@@ -325,6 +364,7 @@ namespace CallSettings { namespace Controller {
 		Application &m_app;
 		CallFwdReqData &m_callFwdReqData;
 		CallFwdNoReplyTime m_noReplyTimeId;
+		TelNumberPicker *m_pTelNumberPicker;
 		const NotiHandler m_delHandler;
 		const NotiHandler m_enableClickHandler;
 
@@ -332,6 +372,7 @@ namespace CallSettings { namespace Controller {
 		Popup *m_pPopup;
 		Popup *m_pTimeoutPopup;
 		Editfield *m_pEditfield;
+		Button *m_pContactButton;
 		DoubleTextListItem *m_pTimeoutItem;
 	};
 
