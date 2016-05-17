@@ -15,6 +15,8 @@
  *
  */
 
+#include <Ecore.h>
+
 #include "gui/Widgets/DoubleTextListItem.h"
 #include "gui/Widgets/RadioGroup.h"
 #include "gui/Widgets/PendingPopupContent.h"
@@ -23,6 +25,7 @@
 
 #include "Controller/Utils.h"
 #include "Controller/CallFwController.h"
+#include "Controller/ContactTelNumberPicker.h"
 
 #include "Model/Telephony/TelRequestListener.h"
 
@@ -36,6 +39,9 @@ namespace CallSettings { namespace Controller {
 			VIEW_ITEM_COUNT = 4,
 			TIMEOUT_ITEM_COUNT = 6
 		};
+
+		const double FOCUS_TIMEOUT_FOR_POPUP_CREATE = 0.3;
+		const double FOCUS_TIMEOUT_FOR_POPUP_RESTORE = 0.1;
 
 		const CallFwdCondition VIEW_ITEMS_COND[VIEW_ITEM_COUNT] = {
 				TELEPHONY_CF_UNCONDITIONAL,
@@ -113,7 +119,18 @@ namespace CallSettings { namespace Controller {
 	public:
 		~EditPopup()
 		{
-			Widget::destroy(m_pTimeoutPopup);
+			if (m_pTimeoutPopup) {
+				m_pTimeoutPopup->setDestroyHandler(nullptr);
+				Widget::destroy(m_pTimeoutPopup);
+			}
+
+			resetEditfieldFocusTimer();
+
+			if (m_pEditfield) {
+				m_pEditfield->setInputEventHandler(nullptr);
+				m_pEditfield->setSipReturnClickHandler(nullptr);
+			}
+
 			if (m_pPopup) {
 				m_pPopup->setDestroyHandler(nullptr);
 				Widget::destroy(m_pPopup);
@@ -139,12 +156,16 @@ namespace CallSettings { namespace Controller {
 			m_app(app),
 			m_callFwdReqData(callFwdData),
 			m_noReplyTimeId(m_callFwdReqData.waitTime),
+			m_TelNumberPicker(app),
 			m_delHandler(delHandler),
 			m_enableClickHandler(enableClickHandler),
 			m_pPopup(nullptr),
 			m_pTimeoutPopup(nullptr),
 			m_pEditfield(nullptr),
-			m_pTimeoutItem(nullptr)
+			m_pContactButton(nullptr),
+			m_pTimeoutItem(nullptr),
+			m_pFocusTimer(nullptr)
+
 		{
 		}
 
@@ -172,11 +193,16 @@ namespace CallSettings { namespace Controller {
 
 			auto *editItem = genlist->appendItem<View::PhoneEditListItem>();
 			RETVM_IF(!editItem, false, "Failed to create edit item");
+
 			m_pEditfield = &editItem->getEditfield();
 			m_pEditfield->setInputLimit(0, TELEPHONY_NUMBER_LENGTH_MAX);
 			m_pEditfield->setInputCharRestriction(TELEPHONY_NUMBER_ALLOWED_SYMBOLS, "");
 			m_pEditfield->setInputEventHandler(NotiHandler::wrap<EditPopup, &EditPopup::onInputEvent>(this));
 			m_pEditfield->setSipReturnClickHandler(NotiHandler::wrap<EditPopup, &EditPopup::onSipReturnClick>(this));
+
+			m_pContactButton = &editItem->getContactButton();
+			m_pContactButton->setClickHandler(WidgetNotiHandler::wrap<
+					EditPopup, &EditPopup::onContactBtnClick>(this));
 
 			if (m_callFwdReqData.mode == TELEPHONY_CF_MODE_ACTIVATE
 					|| m_callFwdReqData.mode == TELEPHONY_CF_MODE_REGISTER) {
@@ -200,8 +226,36 @@ namespace CallSettings { namespace Controller {
 			}
 
 			m_pPopup->setDestroyHandler(NotiHandler::wrap<EditPopup, &EditPopup::onPopupDel>(this));
+			m_pPopup->setBlockClickHandler(PopupClickHandler::wrap<
+					EditPopup, &EditPopup::onPopupBlockClick>(this));
 
+			setEditfieldFocusTimer(FOCUS_TIMEOUT_FOR_POPUP_CREATE);
 			return true;
+		}
+
+		void setEditfieldFocusTimer(double timeInterval)
+		{
+			m_pFocusTimer = ecore_timer_add(timeInterval, [](void *data) {
+				RETVM_IF(!data, ECORE_CALLBACK_CANCEL, "Invalid args!");
+
+				EditPopup *instance = static_cast<EditPopup *>(data);
+				return instance->onFocusTimerCallback();
+			}, this);
+		}
+
+		void resetEditfieldFocusTimer()
+		{
+			if (m_pFocusTimer) {
+				ecore_timer_del(m_pFocusTimer);
+				m_pFocusTimer = nullptr;
+			}
+		}
+
+		Eina_Bool onFocusTimerCallback()
+		{
+			m_pFocusTimer = nullptr;
+			m_pEditfield->setFocus(true);
+			return ECORE_CALLBACK_CANCEL;
 		}
 
 		void updateEnableBtnState()
@@ -256,6 +310,11 @@ namespace CallSettings { namespace Controller {
 			delete this;
 		}
 
+		bool onPopupBlockClick()
+		{
+			return false;
+		}
+
 		bool onCancelBtnClick()
 		{
 			return true;
@@ -271,6 +330,28 @@ namespace CallSettings { namespace Controller {
 		{
 			applyNewData();
 			return true;
+		}
+
+		void onContactBtnClick(Widget &button)
+		{
+			auto result = m_TelNumberPicker.launch(ContactTelNumberPicker::ResultEventHandler::wrap<
+					EditPopup, &EditPopup::contactsReplyHandler>(this));
+			if (result != ContactTelNumberPicker::RES_SUCCESS) {
+				ERR("Failed to launch contacts!");
+			}
+		}
+
+		void contactsReplyHandler(ContactTelNumberPicker::ResultCode result, std::string telNumber)
+		{
+			if (result == ContactTelNumberPicker::RES_SUCCESS) {
+				m_pEditfield->setEntryRawText(telNumber);
+			} else if (result == ContactTelNumberPicker::RES_LAUNCH_CANCELED) {
+				DBG("Contact selection was canceled by user");
+			} else {
+				ERR("Contact launch error %d", result);
+			}
+
+			m_pEditfield->setFocus(true);
 		}
 
 		void onTimeoutItemSelect(WidgetItem &item)
@@ -310,6 +391,7 @@ namespace CallSettings { namespace Controller {
 		void onTimeoutPopupDel()
 		{
 			m_pTimeoutPopup = nullptr;
+			setEditfieldFocusTimer(FOCUS_TIMEOUT_FOR_POPUP_RESTORE);
 		}
 
 		void onTimeoutValueSelected(int noReplyTimeId)
@@ -325,6 +407,7 @@ namespace CallSettings { namespace Controller {
 		Application &m_app;
 		CallFwdReqData &m_callFwdReqData;
 		CallFwdNoReplyTime m_noReplyTimeId;
+		ContactTelNumberPicker m_TelNumberPicker;
 		const NotiHandler m_delHandler;
 		const NotiHandler m_enableClickHandler;
 
@@ -332,7 +415,9 @@ namespace CallSettings { namespace Controller {
 		Popup *m_pPopup;
 		Popup *m_pTimeoutPopup;
 		Editfield *m_pEditfield;
+		Button *m_pContactButton;
 		DoubleTextListItem *m_pTimeoutItem;
+		Ecore_Timer *m_pFocusTimer;
 	};
 
 	class CallFwController::Item :
