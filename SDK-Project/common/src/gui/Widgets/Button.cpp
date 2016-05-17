@@ -47,7 +47,8 @@ namespace gui {
 		evas_object_smart_callback_add(m_pEvasObject, "clicked",
 			EoSmartCb::make<Button, &Button::onButtonClick>(), this);
 
-		evas_object_show(m_pEvasObject);
+		show();
+		setFocusAllowed(false);
 		return true;
 	}
 

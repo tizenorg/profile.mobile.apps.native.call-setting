@@ -107,6 +107,11 @@ namespace gui {
 		elm_object_focus_set(m_pEvasObject, TO_EINA_BOOL(focused));
 	}
 
+	void Widget::setFocusAllowed(bool focusAllowed)
+	{
+		elm_object_focus_allow_set(m_pEvasObject, TO_EINA_BOOL(focusAllowed));
+	}
+
 	void Widget::onEvasObjectDelBase(Evas *e, Evas_Object *obj, void *event_info)
 	{
 		m_pEvasObject = nullptr;
