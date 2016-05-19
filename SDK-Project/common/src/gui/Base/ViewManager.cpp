@@ -17,6 +17,8 @@
 
 #include "gui/Base/ViewManager.h"
 
+#include <notification.h>
+
 namespace gui {
 
 	ViewManager::ViewManager() :
@@ -305,5 +307,17 @@ namespace gui {
 	Evas_Object *ViewManager::getNaviframe()
 	{
 		return m_pNaviframe;
+	}
+
+	void ViewManager::showToastNotification(util::TString notiText)
+	{
+		if (!notiText.isEmpty()) {
+			int res = notification_status_message_post(notiText.translate());
+			if (res != NOTIFICATION_ERROR_NONE) {
+				ERR("Failed to show notification, error code %d", res);
+			}
+		} else {
+			ERR("Text is empty!");
+		}
 	}
 }

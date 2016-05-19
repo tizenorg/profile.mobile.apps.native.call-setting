@@ -41,6 +41,8 @@ namespace gui {
 		Evas_Object *getWindow();
 		Evas_Object *getNaviframe();
 
+		void showToastNotification(util::TString notiText);
+
 	private:
 		ViewManager();
 		~ViewManager();
