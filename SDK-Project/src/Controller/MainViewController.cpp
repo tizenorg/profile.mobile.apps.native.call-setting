@@ -87,8 +87,34 @@ namespace CallSettings { namespace Controller {
 	{
 		RETM_IF(!m_isActivated, "View is not active, skip click event!");
 		DBG("More option selected");
-		m_pMoreViewController = ViewController::create<MoreViewController>(m_app,
-				NotiHandler::wrap<MainViewController, &MainViewController::onMoreControllerDestroy>(this));
+
+		if (isSimcardReady()) {
+			m_pMoreViewController = ViewController::create<MoreViewController>(m_app,
+					NotiHandler::wrap<MainViewController, &MainViewController::onMoreControllerDestroy>(this));
+		}
+	}
+
+	bool MainViewController::isSimcardReady()
+	{
+		auto simState = m_app.getTelephonyManager().getSimState();
+		DBG("Sim card state %d", simState);
+
+		if (simState != Model::TELEPHONY_SIMCARD_STATE_READY) {
+			showSimErrorNoti(simState);
+			return false;
+		}
+
+		return true;
+	}
+
+	void MainViewController::showSimErrorNoti(Model::SimCardState simState)
+	{
+		if (simState == Model::TELEPHONY_SIMCARD_STATE_REMOVED ||
+				simState == Model::TELEPHONY_SIMCARD_STATE_UNKNOWN) {
+			m_app.getViewManager().showToastNotification("IDS_COM_POP_INSERT_SIM_CARD");
+		} else {
+			m_app.getViewManager().showToastNotification("IDS_CST_POP_SERVICE_UNAVAILABLE");
+		}
 	}
 
 	void MainViewController::onAnswerControllerDestroy()

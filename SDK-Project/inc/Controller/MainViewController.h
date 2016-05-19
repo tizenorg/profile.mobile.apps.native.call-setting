@@ -46,6 +46,9 @@ namespace CallSettings { namespace Controller {
 		void onAnswerControllerDestroy();
 		void onMoreControllerDestroy();
 
+		bool isSimcardReady();
+		void showSimErrorNoti(Model::SimCardState simState);
+
 	private:
 		Application &m_app;
 		RejectMsgListController *m_pRejectListViewController;
