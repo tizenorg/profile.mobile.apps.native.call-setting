@@ -46,6 +46,10 @@ namespace CallSettings { namespace Controller {
 		void onAnswerControllerDestroy();
 		void onMoreControllerDestroy();
 
+		bool checkSimReadinessWithNoti();
+		bool isSimReady();
+		void showSimErrorNoti();
+
 	private:
 		Application &m_app;
 		RejectMsgListController *m_pRejectListViewController;

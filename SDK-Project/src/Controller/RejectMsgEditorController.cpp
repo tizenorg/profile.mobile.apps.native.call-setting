@@ -144,8 +144,7 @@ namespace CallSettings { namespace Controller {
 	{
 		std::string msgText = m_pMsgEditView->getMsgText();
 		if (isMsgDuplicated(msgText)) {
-			//TODO Add duplicated noti here!
-			DBG("MSG IS DUPLICATED!!!");
+			m_app.getViewManager().showToastNotification("IDS_CST_CALL_MESSAGE_ALREADY_EXIST");
 		} else {
 			if (updateMsgSettings()) {
 				makeDestroyReqeuest();
@@ -189,7 +188,6 @@ namespace CallSettings { namespace Controller {
 
 		if (smsCharCount > smsMaxCharCount) {
 			DBG("Input limit reached!");
-			//TODO Add notification about limit here!
 			return false;
 		} else {
 			return true;

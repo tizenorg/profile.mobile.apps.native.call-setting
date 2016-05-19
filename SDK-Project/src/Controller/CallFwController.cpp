@@ -511,8 +511,6 @@ namespace CallSettings { namespace Controller {
 			TelResultCode res = m_app.getTelephonyManager().requestCallFwdState(&m_callFwdReqData, this);
 			if (res != TELEPHONY_RES_SUCCESS) {
 				ERR("Failed to send state request, error code: %d", res);
-				//TODO
-				//Add toast popup here about fail
 			}
 		}
 
@@ -529,8 +527,7 @@ namespace CallSettings { namespace Controller {
 			TelResultCode res = m_app.getTelephonyManager().requestCallFwdSetup(&m_callFwdReqData, this);
 			if (res != TELEPHONY_RES_SUCCESS) {
 				ERR("Failed to send setup request, error code: %d", res);
-				//TODO
-				//Add toast popup here about fail
+				showErrorNotification("IDS_CST_POP_REJECTED_BY_NETWORK");
 				if (m_changeEndHandler.assigned()) {
 					m_changeEndHandler(this);
 				}
@@ -551,8 +548,6 @@ namespace CallSettings { namespace Controller {
 		{
 			if (result != TELEPHONY_RES_SUCCESS) {
 				ERR("Failed to get Call Forward state for condition %d, result code: %d!", m_callFwdReqData.condition, result);
-				//TODO
-				//Add toast popup here about fail
 			}
 
 			refreshView();
@@ -566,8 +561,7 @@ namespace CallSettings { namespace Controller {
 		{
 			if (result != TELEPHONY_RES_SUCCESS) {
 				ERR("Failed to setup Call Forward for condition %d, result code: %d!", m_callFwdReqData.condition, result);
-				// TODO
-				// Add toast popup about reject by network here in future
+				showErrorNotification("IDS_CST_POP_REJECTED_BY_NETWORK");
 			}
 
 			if (m_changeEndHandler.assigned()) {
@@ -619,6 +613,11 @@ namespace CallSettings { namespace Controller {
 		void onEditPopupEnableClick()
 		{
 			enableFwd();
+		}
+
+		void showErrorNotification(util::TString notiText)
+		{
+			m_app.getViewManager().showToastNotification(notiText);
 		}
 
 	private:
