@@ -30,48 +30,70 @@ namespace CallSettings { namespace Model {
 	public:
 		TelephonyManager();
 		virtual ~TelephonyManager();
+
 		virtual TelResultCode addCallWaitChangeHandler(NotiHandler handler);
 		virtual void removeCallWaitChangeHandler(NotiHandler handler);
+
 		virtual TelResultCode addCallFwdChangeHandler(NotiHandler handler);
 		virtual void removeCallFwdChangeHandler(NotiHandler handler);
+
 		virtual TelResultCode requestCallWaitState(CallWaitingReqData *reqData, TelRequestListener<CallWaitingReqData> *listener);
 		virtual TelResultCode requestCallWaitSetup(CallWaitingReqData *reqData, SimpleTelRequestListener *listener);
+
 		virtual TelResultCode requestCallFwdState(CallFwdReqData *reqData, TelRequestListener<CallFwdReqData> *listener);
 		virtual TelResultCode requestCallFwdSetup(CallFwdReqData *reqData, SimpleTelRequestListener *listener);
+
 		virtual void cancelRequest(int requestId);
+
 		virtual SimCardState getSimState();
 		virtual int getSimSlotCount();
+
 		virtual TelResultCode setActiveSlot(SimSlot slotId);
 		virtual SimSlot getActiveSlot();
 
 	private:
 		void initTelephonyManager();
+		void initSimSlotInfo();
 		void deinitTelephonyManager();
+
+		SimCardState getSimStateBySlotHandler(TapiHandle *handle);
+
 		void putRequestToQueue(TelephonyRequest *request);
 		void clearRequestQueue();
 		void processNextTelephonyRequest();
+
 		void processCallForwardRequest(TelephonyRequest *request);
 		void processCallWaitingRequest(TelephonyRequest *request);
-		TelResultCode convertFromTapiResultCode(TelSsCause_t tapiError);
-		TelSsForwardWhen_t convertToTapiCallFwdType(CallFwdCondition condition);
-		CallFwdCondition convertFromTapiCallFwdType(TelSsForwardWhen_t fwdTapiCondition);
-		TelSsCallWaitingMode_t convertToTapiCallWaitingMode(CallWaitingMode mode);
-		CallWaitingMode convertTapiStatusToCallWaitingMode(TelSsStatus_t tapiWaitingMode);
-		TelSsNoReplyTime_t convertToTapiNoReplyTime(CallFwdNoReplyTime waitTime);
-		CallFwdNoReplyTime convertFromTapiNoReplyTime(TelSsNoReplyTime_t tapiWaitTime);
-		TelSsForwardMode_t convertToTapiCallFwdMode(CallForwardMode state);
-		CallForwardMode convertTapiStatusToCallFwdMode(TelSsStatus_t cfStatus);
-		TelSsClass_t convertToTapiCallClassType(CallType callClassType);
-		CallType convertFromTapiCallClassType(TelSsClass_t tapiClass);
+
+		static TelResultCode convertFromTapiResultCode(TelSsCause_t tapiError);
+		static TelSsForwardWhen_t convertToTapiCallFwdType(CallFwdCondition condition);
+
+		static CallFwdCondition convertFromTapiCallFwdType(TelSsForwardWhen_t fwdTapiCondition);
+		static TelSsCallWaitingMode_t convertToTapiCallWaitingMode(CallWaitingMode mode);
+
+		static CallWaitingMode convertTapiStatusToCallWaitingMode(TelSsStatus_t tapiWaitingMode);
+		static TelSsNoReplyTime_t convertToTapiNoReplyTime(CallFwdNoReplyTime waitTime);
+
+		static CallFwdNoReplyTime convertFromTapiNoReplyTime(TelSsNoReplyTime_t tapiWaitTime);
+		static TelSsForwardMode_t convertToTapiCallFwdMode(CallForwardMode state);
+
+		static CallForwardMode convertTapiStatusToCallFwdMode(TelSsStatus_t cfStatus);
+		static TelSsClass_t convertToTapiCallClassType(CallType callClassType);
+		static CallType convertFromTapiCallClassType(TelSsClass_t tapiClass);
+
 		static void responseOnSetupRequest(TapiHandle *handle, int result, void *data, void *userData);
 		static void responseOnCWStatusRequest(TapiHandle *handle, int result, void *data, void *userData);
 		static void responseOnCFStatusRequest(TapiHandle *handle, int result, void *data, void *userData);
+
 		static TelResultCode parseCWStatusRequestResponse(TelSsWaitingResp_t *cwInfo, TelephonyRequest *request);
 		static TelResultCode parseCFStatusRequestResponse(TelSsForwardResp_t *cfInfo, TelephonyRequest *request);
+
 		TelResultCode addEventHandlerImpl(int key, NotiHandler handler);
 		void removeEventHandlerImpl(int key, NotiHandler handler);
+
 		TelResultCode registerTelephonyEventCb(int key);
 		void unregisterTelephonyEventCb(int key);
+
 		static void onTelephonyEventCb(TapiHandle *handle, const char *notiId, void *data, void *userData);
 
 	private:
@@ -80,7 +102,7 @@ namespace CallSettings { namespace Model {
 
 		std::deque <TelephonyRequest *> m_requestQueue;
 		int m_requestCounter;
-		int slotCount;
+		int m_slotCount;
 		TapiHandle *m_pSim1Handler;
 		TapiHandle *m_pSim2Handler;
 		TapiHandle *m_pActiveSimHandler;
