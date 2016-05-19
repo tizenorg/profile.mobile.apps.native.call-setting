@@ -126,3 +126,16 @@ msgstr "Loading..."
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Unknown"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Service not available."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Rejected by network."
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Insert SIM card."
+
+msgid "IDS_CST_CALL_MESSAGE_ALREADY_EXIST"
+msgstr "This call-reject message already exist"
+

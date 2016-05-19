@@ -71,7 +71,7 @@ namespace CallSettings { namespace Model {
 
 	TelephonyManager::TelephonyManager() :
 		m_requestCounter(0),
-		slotCount(0),
+		m_slotCount(0),
 		m_pSim1Handler(nullptr),
 		m_pSim2Handler(nullptr),
 		m_pActiveSimHandler(nullptr),
@@ -99,21 +99,46 @@ namespace CallSettings { namespace Model {
 		free(cpList[1]);
 
 		free(cpList);
+
+		initSimSlotInfo();
+	}
+
+	void TelephonyManager::initSimSlotInfo()
+	{
 		RETM_IF(!m_pSim1Handler && !m_pSim2Handler, "Failed to init any Sim Slot");
 
 		if (m_pSim1Handler && m_pSim2Handler && m_pSim1Handler != m_pSim2Handler) {
-			INF("Dual Sim Phone detected, use Slot 1 by default");
-			m_pActiveSimHandler = m_pSim1Handler;
-			slotCount = 2;
+			INF("Dual Sim Phone detected!");
+			m_slotCount = 2;
 		} else {
-			if (m_pSim1Handler) {
+			INF("Single Sim Phone detected!");
+			m_slotCount = 1;
+			if (m_pSim1Handler == nullptr) {
+				m_pSim1Handler = m_pSim2Handler;
 				m_pActiveSimHandler = m_pSim1Handler;
 				m_activeSlot = TELEPHONY_SIM_SLOT_1;
-			} else {
+			}
+		}
+
+		if (m_slotCount == 2) {
+			auto sim1State = getSimStateBySlotHandler(m_pSim1Handler);
+			auto sim2State = getSimStateBySlotHandler(m_pSim2Handler);
+			DBG ("SIM 1 state is [%d] , SIM 2 state is [%d]", sim1State, sim2State);
+			if (sim1State != TELEPHONY_SIMCARD_STATE_READY && sim2State == TELEPHONY_SIMCARD_STATE_READY) {
 				m_pActiveSimHandler = m_pSim2Handler;
 				m_activeSlot = TELEPHONY_SIM_SLOT_2;
+				DBG("Only Slot 2 has SimCard So it is set as active");
+			} else {
+				if (m_pSim1Handler) {
+					m_pActiveSimHandler = m_pSim1Handler;
+					m_activeSlot = TELEPHONY_SIM_SLOT_1;
+					DBG("Sim Slot 1 is set as active");
+				} else {
+					m_pActiveSimHandler = m_pSim2Handler;
+					m_activeSlot = TELEPHONY_SIM_SLOT_2;
+					DBG("Sim Slot 1 is not initialized so Sim Slot 2 is set as default");
+				}
 			}
-			slotCount = 1;
 		}
 	}
 
@@ -348,14 +373,22 @@ namespace CallSettings { namespace Model {
 
 	SimCardState TelephonyManager::getSimState()
 	{
-		RETVM_IF(!m_pActiveSimHandler, TELEPHONY_SIMCARD_STATE_UNKNOWN, "Sim slots are not available");
+		return getSimStateBySlotHandler(m_pActiveSimHandler);
+	}
+
+	SimCardState TelephonyManager::getSimStateBySlotHandler(TapiHandle *handle)
+	{
+		RETVM_IF(!handle, TELEPHONY_SIMCARD_STATE_UNKNOWN, "Sim handler is nullptr");
 
 		int tapiRes = TAPI_API_SUCCESS;
 		TelSimCardStatus_t simStatus = TAPI_SIM_STATUS_UNKNOWN;
-		tapiRes = tel_get_sim_init_info(m_pActiveSimHandler, &simStatus, NULL);
+
+		int Unused = 0;
+		tapiRes = tel_get_sim_init_info(handle, &simStatus, &Unused);
+		DBG("Sim Handler %p, TAPI SIM status: %d", handle, simStatus);
 
 		if (tapiRes != TAPI_API_SUCCESS) {
-			ERR("Failed to check sim state");
+			ERR("Failed to check sim state, tapi error %d", tapiRes);
 			return TELEPHONY_SIMCARD_STATE_UNKNOWN;
 		}
 
@@ -363,22 +396,23 @@ namespace CallSettings { namespace Model {
 		case TAPI_SIM_STATUS_CARD_NOT_PRESENT:
 		case TAPI_SIM_STATUS_CARD_REMOVED:
 		case TAPI_SIM_STATUS_CARD_POWEROFF:
+		case TAPI_SIM_STATUS_UNKNOWN:
 			return TELEPHONY_SIMCARD_STATE_REMOVED;
 		case TAPI_SIM_STATUS_CARD_ERROR:
 		case TAPI_SIM_STATUS_CARD_CRASHED:
 			return TELEPHONY_SIMCARD_STATE_CRASHED;
-		case TAPI_SIM_STATUS_CARD_BLOCKED:
-			return TELEPHONY_SIMCARD_STATE_BLOCKED;
 		case TAPI_SIM_STATUS_SIM_INITIALIZING:
 			return TELEPHONY_SIMCARD_STATE_PROCESSING;
-		default:
+		case TAPI_SIM_STATUS_SIM_INIT_COMPLETED:
 			return TELEPHONY_SIMCARD_STATE_READY;
+		default:
+			return TELEPHONY_SIMCARD_STATE_BLOCKED;
 		}
 	}
 
 	int TelephonyManager::getSimSlotCount()
 	{
-		return slotCount;
+		return m_slotCount;
 	}
 
 	TelResultCode TelephonyManager::setActiveSlot(SimSlot slotId)
