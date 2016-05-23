@@ -28,6 +28,7 @@
 #include <deque>
 #include <list>
 #include <map>
+#include <memory>
 
 #include <app_i18n.h>
 #include <libintl.h>
