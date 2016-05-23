@@ -27,17 +27,6 @@ namespace CallSettings { namespace Controller {
 		REJECT_MSG_MAX_COUNT = 6
 	};
 
-	typedef enum {
-		REJECT_MSG_1 = 1,
-		REJECT_MSG_2,
-		REJECT_MSG_3,
-		REJECT_MSG_4,
-		REJECT_MSG_5,
-		REJECT_MSG_6,
-	} RejectMsgId;
-
-	Model::StringKey convertToStringKey(RejectMsgId id);
-	RejectMsgId convertToMsgId(Model::StringKey key);
 } }
 
 #endif /* _CONTROLLER_UTILS_H_ */
