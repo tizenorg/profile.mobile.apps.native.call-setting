@@ -18,12 +18,14 @@
 #ifndef _CONTROLLER_REJECT_MSG_LIST_CONTROLLER_H_
 #define _CONTROLLER_REJECT_MSG_LIST_CONTROLLER_H_
 
-#include "gui/Base/ViewController.h"
-
 #include "App/Application.h"
-#include "View/RejectMsgListView.h"
+#include "View/GenlistView.h"
 
 #include "RejectMsgEditorController.h"
+
+#include "gui/Widgets/Button.h"
+#include "gui/Widgets/CategoryItem.h"
+#include "gui/Widgets/OptionMenuPopup.h"
 
 namespace CallSettings { namespace Controller {
 
@@ -31,30 +33,49 @@ namespace CallSettings { namespace Controller {
 	public:
 		virtual ~RejectMsgListController();
 
-	protected:
+	private:
+		class MsgItem;
 		friend class ViewController;
 
 		RejectMsgListController(Application &app, NotiHandler handler);
-		virtual void onBackKeyPressed() override;
-		virtual void onMenuKeyPressed() override;
 		virtual void updateView(int updateFlag) override;
 		bool initialize();
 
 		void onRejectMsgCountChanged();
-		void onRejectMsgTextChanged();
-		void updateRejectMsgList();
-		void updateTitleInfo();
-		void enableSelectMode();
-		void disableSelectMode();
 		void deleteSelectedMsg();
-		void onMsgItemChecked(int msgId, bool isChecked);
-		void onMsgItemClicked(int msgId);
-		void onSelectAllItemChecked(bool isChecked);
-		void onDeleteBtnClick(gui::Widget &sender);
-		void onCancelBtnClick(gui::Widget &sender);
+
+		void updateMsgList();
+		void updateTitleMsgCount();
+
+		void addMessageItem(Model::StringKey msgKey);
+
+		void changeViewToSelectMode();
+		void changeViewToDisplayMode();
+
+		gui::Button *createDeleteButton();
+		gui::Button *createCancelButton();
+		gui::CategoryListItem *createSelectAllItem();
+
+		void onDeleteButtonClick(gui::Widget &item);
+		void onCancelButtonClick(gui::Widget &item);
+		void onSelectAllChecked(gui::WidgetItem &item);
+
+		void updateDeleteBtnState();
+		void updateSelectAllItemState();
+		void setAllItemsCheckState(bool isItemChecked);
+
+		void onMsgItemClicked(MsgItem *item);
+		void onMsgItemChecked(MsgItem *item);
+
+		void showMoreMenuPopup();
 		void onMenuOptionDeleteClick();
 		void onMenuOptionCreateClick();
+		void onMenuPopupDestroy();
+
+		void onBackKeyPressed() override;
+		void onMenuKeyPressed() override;
 		void onEditorControllerDestroy();
+
 
 	private:
 		typedef enum {
@@ -63,15 +84,17 @@ namespace CallSettings { namespace Controller {
 		} ViewMode;
 
 		Application &m_app;
-		View::RejectMsgListView *m_pMsgListView;
-		RejectMsgEditorController *m_pMsgEditorController;
-		ViewMode m_viewMode;
-		int m_msgTotalCount;
-		bool m_needUpdate;
-		bool m_isOptionMenuShown;
-		bool m_isMsgListLocked;
+		View::GenlistView *m_pMsgListView;
+		gui::Button *m_pCancelBtn;
+		gui::Button *m_pDeleteBtn;
+		gui::CategoryListItem *m_pSelectAllItem;
+		gui::OptionMenuPopup *m_pMoreMenuPopup;
 
-		std::vector<int> m_msgDeleteList;
+		ViewMode m_viewMode;
+		RejectMsgEditorController *m_pMsgEditorController;
+
+		std::vector<std::unique_ptr<MsgItem>> m_msgItemsArray;
+		std::vector<MsgItem *> m_selectedMsgItems;
 	};
 
 } }
