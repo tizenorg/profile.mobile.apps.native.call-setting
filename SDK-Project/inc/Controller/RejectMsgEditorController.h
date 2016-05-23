@@ -36,7 +36,7 @@ namespace CallSettings { namespace Controller {
 
 		RejectMsgEditorController(Application &app, NotiHandler handler);
 		bool initialize();
-		bool initialize(RejectMsgId editableMsgId);
+		bool initialize(Model::StringKey editableMsgId);
 		bool initializeView();
 
 		void onDoneBtnClick(gui::Widget &sender);
@@ -56,7 +56,7 @@ namespace CallSettings { namespace Controller {
 		Application &m_app;
 		View::RejectMsgEditView *m_pMsgEditView;
 		ViewMode m_viewMode;
-		RejectMsgId m_editableMsgId;
+		Model::StringKey m_editableMsgId;
 		int m_smsInputedCharCount;
 		int m_smsMaxCharCount;
 	};
