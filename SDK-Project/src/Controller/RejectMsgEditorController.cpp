@@ -30,7 +30,7 @@ namespace CallSettings { namespace Controller {
 		m_app(app),
 		m_pMsgEditView(nullptr),
 		m_viewMode(VIEW_MODE_CREATE),
-		m_editableMsgId(REJECT_MSG_1),
+		m_editableMsgId(STRING_KEY_REJECT_MSG_ITEM_1),
 		m_smsInputedCharCount(0),
 		m_smsMaxCharCount(0)
 	{
@@ -55,12 +55,12 @@ namespace CallSettings { namespace Controller {
 
 	}
 
-	bool RejectMsgEditorController::initialize(RejectMsgId msgKey)
+	bool RejectMsgEditorController::initialize(Model::StringKey msgKey)
 	{
 		RETVM_IF(!initializeView(), false, "Internal error!");
 
 		std::string msgText;
-		SettingResultCode res = m_app.getSettingsManager().getProperty(convertToStringKey(msgKey), msgText);
+		SettingResultCode res = m_app.getSettingsManager().getProperty(msgKey, msgText);
 		RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to get mgs text");
 
 		m_viewMode = VIEW_MODE_EDIT;
@@ -98,22 +98,21 @@ namespace CallSettings { namespace Controller {
 		std::string msgText = m_pMsgEditView->getMsgText();
 		SettingResultCode res = SETTINGS_RES_SUCCESS;
 		if (m_viewMode == VIEW_MODE_EDIT) {
-			m_app.getSettingsManager().setProperty(convertToStringKey(m_editableMsgId), msgText);
+			m_app.getSettingsManager().setProperty(m_editableMsgId, msgText);
 			RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to save message, error: %d", res);
 		} else {
 			int msgCount = 0;
 			res = m_app.getSettingsManager().getProperty(INT_KEY_REJECT_MSG_COUNT, msgCount);
 			RETVM_IF(res != SETTINGS_RES_SUCCESS, false, "Failed to get mgs count");
 
-			for (int i = REJECT_MSG_1 + msgCount; i > REJECT_MSG_1; i--) {
+			for (int i = STRING_KEY_REJECT_MSG_ITEM_1 + msgCount; i > STRING_KEY_REJECT_MSG_ITEM_1; i--) {
 				std::string oldMsg;
-				RejectMsgId oldMsgId = static_cast<RejectMsgId>(i-1);
-				RejectMsgId newMsgId = static_cast<RejectMsgId>(i);
-				m_app.getSettingsManager().getProperty(convertToStringKey(oldMsgId), oldMsg);
-				m_app.getSettingsManager().setProperty(convertToStringKey(newMsgId), oldMsg);
+
+				m_app.getSettingsManager().getProperty(static_cast<StringKey>(i-1), oldMsg);
+				m_app.getSettingsManager().setProperty(static_cast<StringKey>(i), oldMsg);
 			}
 
-			m_app.getSettingsManager().setProperty(convertToStringKey(m_editableMsgId), msgText);
+			m_app.getSettingsManager().setProperty(m_editableMsgId, msgText);
 			msgCount++;
 			m_app.getSettingsManager().setProperty(INT_KEY_REJECT_MSG_COUNT, msgCount);
 
@@ -127,10 +126,9 @@ namespace CallSettings { namespace Controller {
 		int msgCount = 0;
 		m_app.getSettingsManager().getProperty(INT_KEY_REJECT_MSG_COUNT, msgCount);
 
-		for (int i = REJECT_MSG_1; i < REJECT_MSG_1 + msgCount; i++) {
+		for (int i = STRING_KEY_REJECT_MSG_ITEM_1; i < STRING_KEY_REJECT_MSG_ITEM_1 + msgCount; i++) {
 			std::string existedMsgText;
-			RejectMsgId msgId = static_cast<RejectMsgId>(i);
-			m_app.getSettingsManager().getProperty(convertToStringKey(msgId), existedMsgText);
+			m_app.getSettingsManager().getProperty(static_cast<StringKey>(i), existedMsgText);
 			if (msgText.compare(existedMsgText) == 0) {
 				DBG("Message already in use!");
 				return true;
