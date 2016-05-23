@@ -20,12 +20,15 @@
 
 #include "gui/Base/BaseView.h"
 #include "gui/Widgets/Genlist.h"
+#include "gui/Widgets/Layout.h"
 
 namespace CallSettings { namespace View {
 
 	class GenlistView : public gui::BaseView {
 	public:
 		gui::Genlist &getGenlist();
+		void showEmptyView(util::TString mainText, util::TString helpText);
+		void showListView();
 
 	protected:
 		friend class gui::BaseView;
@@ -36,6 +39,7 @@ namespace CallSettings { namespace View {
 
 	protected:
 		gui::Genlist *m_pGenlist;
+		gui::Layout *m_pNoContentLayout;
 	};
 
 }}

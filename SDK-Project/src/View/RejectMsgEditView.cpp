@@ -70,6 +70,15 @@ namespace CallSettings { namespace View {
 		m_pNaviItem->setTitleText(_(titleText));
 	}
 
+	void RejectMsgEditView::setMsgText(const util::TString &text)
+	{
+		if (text.isTranslatable()) {
+			m_pEditfield->setEntryMarkupText(text.translate());
+		} else {
+			m_pEditfield->setEntryMarkupText(text.getStr());
+		}
+	}
+
 	void RejectMsgEditView::updateInputCharCount(int inputCount, int maxCount)
 	{
 		char countText[256] = {0,};
