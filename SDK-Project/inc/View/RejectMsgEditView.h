@@ -28,7 +28,7 @@ namespace CallSettings { namespace View {
 
 	class RejectMsgEditView : public gui::BaseView {
 	public:
-		void setMsgText(const std::string &text) {m_pEditfield->setEntryMarkupText(text);}
+		void setMsgText(const util::TString &text);
 		std::string getMsgText() {return m_pEditfield->getEntryRawText();}
 		void updateInputCharCount(int inputCount, int maxCount);
 		void hideInputCharCount();

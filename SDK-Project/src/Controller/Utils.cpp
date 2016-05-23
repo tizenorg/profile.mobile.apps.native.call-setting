@@ -22,37 +22,4 @@ namespace CallSettings { namespace Controller {
 
 	const util::TString ITEM_SUB_TEXT_COLOR_FMT("<color=" GUI_COLOR_SUBITEM_TEXT_HEX ">%s</color>", false);
 
-	Model::StringKey convertToStringKey(RejectMsgId id) {
-		switch (id) {
-		case REJECT_MSG_1:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_1;
-		case REJECT_MSG_2:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_2;
-		case REJECT_MSG_3:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_3;
-		case REJECT_MSG_4:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_4;
-		case REJECT_MSG_5:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_5;
-		case REJECT_MSG_6:
-			return Model::STRING_KEY_REJECT_MSG_ITEM_6;
-		}
-	}
-
-	RejectMsgId convertToMsgId(Model::StringKey key) {
-		switch (key) {
-		case Model::STRING_KEY_REJECT_MSG_ITEM_1:
-			return REJECT_MSG_1;
-		case Model::STRING_KEY_REJECT_MSG_ITEM_2:
-			return REJECT_MSG_2;
-		case Model::STRING_KEY_REJECT_MSG_ITEM_3:
-			return REJECT_MSG_3;
-		case Model::STRING_KEY_REJECT_MSG_ITEM_4:
-			return REJECT_MSG_4;
-		case Model::STRING_KEY_REJECT_MSG_ITEM_5:
-			return REJECT_MSG_5;
-		case Model::STRING_KEY_REJECT_MSG_ITEM_6:
-			return REJECT_MSG_6;
-		}
-	}
 } }

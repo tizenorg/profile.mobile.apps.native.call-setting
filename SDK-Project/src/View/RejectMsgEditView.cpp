@@ -23,6 +23,11 @@ namespace CallSettings { namespace View {
 
 	using namespace gui;
 
+	namespace {
+
+		util::TString CHAR_COUNTER_FMT = "%d/%d";
+	}
+
 	RejectMsgEditView::RejectMsgEditView(NaviItem *naviItem) :
 		BaseView(naviItem),
 		m_pEditorLayout(nullptr),
@@ -70,11 +75,18 @@ namespace CallSettings { namespace View {
 		m_pNaviItem->setTitleText(_(titleText));
 	}
 
+	void RejectMsgEditView::setMsgText(const util::TString &text)
+	{
+		if (text.isTranslatable()) {
+			m_pEditfield->setEntryMarkupText(text.translate());
+		} else {
+			m_pEditfield->setEntryMarkupText(text.getStr());
+		}
+	}
+
 	void RejectMsgEditView::updateInputCharCount(int inputCount, int maxCount)
 	{
-		char countText[256] = {0,};
-		snprintf(countText, sizeof(char)*256, "%d/%d", inputCount, maxCount);
-		m_pEditorLayout->setPartText("char_count_text", util::TString(countText, false));
+		m_pEditorLayout->setPartText("char_count_text", CHAR_COUNTER_FMT.format(inputCount, maxCount));
 	}
 
 	void RejectMsgEditView::hideInputCharCount()
