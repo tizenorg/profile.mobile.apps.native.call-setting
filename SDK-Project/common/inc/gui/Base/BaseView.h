@@ -35,6 +35,7 @@ namespace gui {
 		void enableInputEvents();
 		void disableInputEvents();
 
+		Layout &getLayout();
 		NaviItem &getItem();
 
 	protected:

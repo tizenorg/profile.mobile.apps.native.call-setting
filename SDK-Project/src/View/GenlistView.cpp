@@ -23,7 +23,8 @@ namespace CallSettings { namespace View {
 
 	GenlistView::GenlistView(NaviItem *naviItem) :
 			BaseView(naviItem),
-			m_pGenlist(nullptr)
+			m_pGenlist(nullptr),
+			m_pNoContentLayout(nullptr)
 	{
 	}
 
@@ -44,6 +45,36 @@ namespace CallSettings { namespace View {
 	gui::Genlist &GenlistView::getGenlist()
 	{
 		return *m_pGenlist;
+	}
+
+	void GenlistView::showEmptyView(util::TString mainText, util::TString helpText)
+	{
+		if (!m_pNoContentLayout) {
+			m_pNoContentLayout = Widget::create<Layout>(*m_pViewLayout, "layout", "nocontents", "default");
+			RETM_IF(!m_pNoContentLayout, "Failed to create no content layout");
+		}
+
+		m_pNoContentLayout->setPartText("elm.text", mainText);
+		m_pNoContentLayout->setPartText("elm.help.text", helpText);
+
+		m_pNoContentLayout->emitSignal("align.center", "elm");
+		m_pNoContentLayout->emitSignal("text,disabled", "");
+
+		m_pViewLayout->unsetContent("elm.swallow.content");
+		m_pGenlist->hide();
+		m_pNoContentLayout->show();
+		m_pViewLayout->setContent("elm.swallow.content", *m_pNoContentLayout);
+	}
+
+	void GenlistView::showListView()
+	{
+		if (m_pNoContentLayout) {
+			m_pViewLayout->unsetContent("elm.swallow.content");
+			m_pNoContentLayout->hide();
+		}
+
+		m_pViewLayout->setContent("elm.swallow.content", *m_pGenlist);
+		m_pGenlist->show();
 	}
 
 }}
