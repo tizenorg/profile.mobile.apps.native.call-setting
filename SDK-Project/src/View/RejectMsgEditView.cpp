@@ -19,10 +19,6 @@
 
 #include "View/RejectMsgEditView.h"
 
-#define EDITOR_LAYOUT_GROUP					"RejectMsgEditorLayout"
-#define EDITOR_CHAR_COUNTER_TEXT_PART		"char_count_text"
-#define EDITOR_ENTRY_PART					"entry_part"
-
 namespace CallSettings { namespace View {
 
 	using namespace gui;
@@ -44,13 +40,13 @@ namespace CallSettings { namespace View {
 		m_pScroller = Widget::create<Scroller>(*m_pViewLayout);
 		RETVM_IF(!m_pScroller, false, "Failed to create scroller, unknown error");
 
-		m_pEditorLayout = Widget::create<Layout>(*m_pScroller, appfw::getResourcePath(APP_EDJE_THEME_PATH).c_str(), EDITOR_LAYOUT_GROUP);
+		m_pEditorLayout = Widget::create<Layout>(*m_pScroller, "layout", "call_setting", "reject_msg.editor_layout");
 		RETVM_IF(!m_pEditorLayout, false, "Failed to create editor layout, unknown error");
 
 		m_pEditfield = Widget::create<Editfield>(*m_pEditorLayout, Editfield::EF_MULTILINE, "IDS_CST_POP_ENTER_MESSAGE");
 		RETVM_IF(!m_pEditfield, false, "Failed to create editfield, unknown error");
 
-		if (!m_pEditorLayout->setContent(EDITOR_ENTRY_PART, *m_pEditfield)) {
+		if (!m_pEditorLayout->setContent("entry_part", *m_pEditfield)) {
 			ERR("Failed to set scroller as editor layout content!");
 			return false;
 		}
@@ -78,12 +74,12 @@ namespace CallSettings { namespace View {
 	{
 		char countText[256] = {0,};
 		snprintf(countText, sizeof(char)*256, "%d/%d", inputCount, maxCount);
-		m_pEditorLayout->setPartText(EDITOR_CHAR_COUNTER_TEXT_PART, util::TString(countText, false));
+		m_pEditorLayout->setPartText("char_count_text", util::TString(countText, false));
 	}
 
 	void RejectMsgEditView::hideInputCharCount()
 	{
-		m_pEditorLayout->setPartText(EDITOR_CHAR_COUNTER_TEXT_PART, "");
+		m_pEditorLayout->setPartText("char_count_text", "");
 	}
 
 } }
