@@ -21,14 +21,13 @@
 #define INPUT_CHAR_COUNTER_PART_HEIGHT					80
 #define INPUT_CHAR_COUNTER_FONT_SIZE					38
 #define INPUT_CHAR_COUNTER_TEXT_COLOR					188 188 188 255
-#define INPUT_FIELD_MIN_HEIGHT							120
 #define EDITOR_BG_COLOR									243 248 247 255
 #define EDITOR_PADDING_LEFT								32
 #define EDITOR_PADDING_RIGHT							32
 
 /*************************REJECT MESSAGE EDIT VIEW LAYOUT *************************/
 
-	group { name: "RejectMsgEditorLayout";
+	group { name: "elm/layout/common/reject_msg.editor_layout";
 		parts {
 			part { name: "background";
 				type: RECT;
@@ -84,7 +83,7 @@
 					align: 0.5 0.0;
 					color: INPUT_FIELD_BG_COLOR;
 					rel1 {
-						relative: 0 1; to: "input_counter_bg";
+						relative: 0 0; to: "entry_part";
 					}
 					rel2 {
 						relative: 1 1; to: "entry_part";
@@ -125,13 +124,9 @@
 				description {
 					state: "default" 0.0;
 					align: 0.5 0.0;
-					min: 0 INPUT_FIELD_MIN_HEIGHT;
+					max: -1 0;
 					rel1 {
 						relative: 0 1;
-						to_y: "input_counter_bg";
-					}
-					rel2 {
-						relative: 1 1;
 						to_y: "input_counter_bg";
 					}
 				}
