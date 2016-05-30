@@ -788,8 +788,8 @@ void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *ev
 	ret_if(NULL == data);
 	CstAppData_t *ad = (CstAppData_t *)data;
 	const char *entry_str = elm_entry_entry_get(obj);
-	char *text = NULL;
 	DBG("entry_str = %s", entry_str);
+
 	Elm_Object_Item *navi_it = elm_naviframe_top_item_get(ad->nf);
 	ret_if(!navi_it);
 	Evas_Object *btn = elm_object_item_part_content_get(navi_it,
@@ -802,46 +802,48 @@ void _cst_reject_msg_changed_editfield_cb(void *data, Evas_Object *obj, void *ev
 		if (save_btn != NULL) {
 			elm_object_disabled_set(save_btn, EINA_TRUE);
 		}
+		if (ad->entry_count) {
+			elm_object_part_text_set(ad->entry_count, "char_count_text", DEFAULT_MSG_SIZE_TXT);
+		}
+		return;
 	}
 
-	if (NULL != entry_str) {
-		text = elm_entry_markup_to_utf8(entry_str);
-		int ret = __cst_reject_msg_exceed_limit_text_size(text, ad);
-		switch (ret) {
-		case REJECT_MSG_TEXT_OVER_LIMIT_NUM:
-			if (btn != NULL) {
-				elm_object_disabled_set(btn, EINA_TRUE);
-			}
-			if (save_btn != NULL) {
-				elm_object_disabled_set(save_btn, EINA_TRUE);
-			}
-			char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ad->rej_msg_seg_size);
-			_cst_create_toast_popup(label);
-			elm_entry_prediction_allow_set(obj, EINA_FALSE);
-
-			g_free(label);
-			break;
-		case REJECT_MSG_TEXT_LIMIT_NUM:
-			if (btn != NULL) {
-				elm_object_disabled_set(btn, EINA_FALSE);
-			}
-			if (save_btn != NULL) {
-				elm_object_disabled_set(save_btn, EINA_FALSE);
-			}
-			elm_entry_prediction_allow_set(obj, EINA_FALSE);
-			break;
-		case REJECT_MSG_TEXT_UNDER_LIMIT_NUM:
-			if (btn != NULL) {
-				elm_object_disabled_set(btn, EINA_FALSE);
-			}
-			if (save_btn != NULL) {
-				elm_object_disabled_set(save_btn, EINA_FALSE);
-			}
-			elm_entry_prediction_allow_set(obj, EINA_TRUE);
-			break;
-		default:
-			ERR("Invalid case");
+	char *text = elm_entry_markup_to_utf8(entry_str);
+	int ret = __cst_reject_msg_exceed_limit_text_size(text, ad);
+	switch (ret) {
+	case REJECT_MSG_TEXT_OVER_LIMIT_NUM:
+		if (btn != NULL) {
+			elm_object_disabled_set(btn, EINA_TRUE);
 		}
+		if (save_btn != NULL) {
+			elm_object_disabled_set(save_btn, EINA_TRUE);
+		}
+		char *label = g_strdup_printf(T_(CST_STR_MAXIMUM_NUMBER_OF_CHARACTERS_REACHED_PD), ad->rej_msg_seg_size);
+		_cst_create_toast_popup(label);
+		elm_entry_prediction_allow_set(obj, EINA_FALSE);
+
+		g_free(label);
+		break;
+	case REJECT_MSG_TEXT_LIMIT_NUM:
+		if (btn != NULL) {
+			elm_object_disabled_set(btn, EINA_FALSE);
+		}
+		if (save_btn != NULL) {
+			elm_object_disabled_set(save_btn, EINA_FALSE);
+		}
+		elm_entry_prediction_allow_set(obj, EINA_FALSE);
+		break;
+	case REJECT_MSG_TEXT_UNDER_LIMIT_NUM:
+		if (btn != NULL) {
+			elm_object_disabled_set(btn, EINA_FALSE);
+		}
+		if (save_btn != NULL) {
+			elm_object_disabled_set(save_btn, EINA_FALSE);
+		}
+		elm_entry_prediction_allow_set(obj, EINA_TRUE);
+		break;
+	default:
+		ERR("Invalid case");
 	}
 
 	if (text) {
