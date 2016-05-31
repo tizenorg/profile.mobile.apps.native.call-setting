@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d таңдалды"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Жасыру"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "БАС ТАРТУ"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "ДАЙЫН"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "SIM картын енгізу."
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Бәрін бөлектеу"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Жазылуда..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Белгісіз"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Телефон нөмірі"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "ЖОЮ"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Көлік жүргізудемін."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Қазір сөйл. алмаймын. Не болды?"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Қоңыр-р кезінде қоң-у дабылдарын алыңыз."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Кіріс қоңырауларды қабылдамағанда жіберілетін жауап хабарларды жазу немесе өңдеу."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Шегеріп қойды\nЖелі кері."
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Көрсету"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Хабарлар жоқ"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Бос емеспін. Кейін қоң. шаламын."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Қоңырау шалу идентификат."
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Қол жетп-де қайта жіберу"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Бос болма. бағыт. өзгерту"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Шақыру қоңырауларын реттеу"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Қоңырау қабылдамау хабар."
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Жауап беру/аяқтау қоңыраулары"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Күту уақыты"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Бос емеспін. Хабар жазыңыз."
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d секунд"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Мен жиналыстамын."
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Қоңырауды күту"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Қоңырау бағытын өзгерту"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Желімен"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Әрқашан бағытын өзгерту"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Қоңырау қабылдамау хабарларын жасағаннан кейін олар осында көрсетіледі."
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Қоңырауларға келесі арқылы жауап беру"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Бастапқы пернесін басу"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Қоңырауды келесі арқылы аяқтау"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Қуат пернесін басу"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Жазу"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Қызмет көрсете алмайды."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Хабарды теру."
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Жою"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Қосу"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Бас тарту"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Өзгерту"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "Бұл қоңырауды қабылдамау хабары бұрыннан бар."
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "Қосымша"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "Жауап берілм. бағыт өзг-у"
+

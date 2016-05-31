@@ -68,7 +68,7 @@ namespace CallSettings { namespace Controller {
 			{
 			case TELEPHONY_CF_UNCONDITIONAL:	return "IDS_CST_BODY_ALWAYS_FORWARD";
 			case TELEPHONY_CF_IF_BUSY:			return "IDS_CST_MBODY_FORWARD_WHEN_BUSY";
-			case TELEPHONY_CF_IF_NO_REPLY:		return "IDS_COM_BODY_FORWARD_WHEN_UNANSWERED";
+			case TELEPHONY_CF_IF_NO_REPLY:		return "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB";
 			case TELEPHONY_CF_IF_NO_REACHABLE:	return "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE";
 			default:
 				ERR("Invalid CallFwdCondition: %d", static_cast<int>(condition));
