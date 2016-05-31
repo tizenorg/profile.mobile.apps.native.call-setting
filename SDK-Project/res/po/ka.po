@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d არჩეულია"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "დამალვა"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "გაუქმება"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "მზადაა"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "ჩადეთ SIM ბარათი."
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "ყველას არჩევა"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "იტვირთება..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "უცნობი"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "ტელეფონის ნომერი"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "წაშლა"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "უკაცრავად, საჭესთან ვარ."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "ახლა ვერ ვილაპარაკებ. რა ხდება?"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "საუბრის დროს მიიღეთ ზარების შეტყობინება."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "შეადგინეთ ან შეასწორეთ პასუხის ტექსტები, რომლებიც იგზავნება ზარის უარყოფის შემთხვევაში."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "უარყო ქსელმა."
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "ჩვენება"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "შეტყობინებები არ არის"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "დაკავებული ვარ. დაგირეკავ."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "ჩემი აბონენტის ID"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "გაიგზავნოს თუ მიუწვდომელ"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "დაკავებულია, გადაიგზავნოს"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "ზარის პარამეტრები"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "ზარის უარყოფის შეტყობინება"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "ზარზე პასუხი ან ზარის დასრულება"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "ლოდინის დრო"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "დაკავებული ვარ. მომწერეთ."
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d წამი"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "კრებაზე ვარ."
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "ზარის დაყოვნება"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "ზარის გადამისამართება"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "ქსელით"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "ყოველთვის გადამისამართდეს"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "როდესაც ზარის უარყოფის შეტყობინებებს შექმნით, ისინი გამოჩნდება აქ."
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "ზარებზე პასუხი"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "საწყისი ეკრანის ღილაკი"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "ზარების დასრულება"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "ჩართვის ღილაკზე დაჭერა"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "შექმ."
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "მომსახურება არ არის."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "დაწერეთ წერილი."
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "წაშლა"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "ჩართვა"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "გაუქმება"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "შეცვლა"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "ზარის უარყოფის ეს შეტყობინება უკვე არსებობს."
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "სხვა"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "გაგზავნე, თუ არ პასუხობს"
+

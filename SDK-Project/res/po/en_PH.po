@@ -80,7 +80,7 @@ msgid "IDS_CST_BODY_PD_SECONDS"
 msgstr "%d seconds"
 
 msgid "IDS_CST_BODY_IM_IN_A_MEETING"
-msgstr "I'm in a meeting."
+msgstr "I am in a meeting."
 
 msgid "IDS_CST_BODY_CALL_WAITING"
 msgstr "Call waiting"
@@ -113,7 +113,7 @@ msgid "IDS_CST_SK3_CREATE"
 msgstr "Create"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "Service unavailable."
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
 msgstr "Enter message."

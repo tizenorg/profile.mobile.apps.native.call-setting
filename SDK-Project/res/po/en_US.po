@@ -101,28 +101,28 @@ msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
 msgstr "Answer calls by"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
-msgstr "Pressing the home key"
+msgstr "Pressing the Home key"
 
 msgid "IDS_CST_HEADER_END_CALLS_BY"
 msgstr "End calls by"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
-msgstr "Pressing the power key"
+msgstr "Pressing the Power key"
 
 msgid "IDS_CST_SK3_CREATE"
 msgstr "Create"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "Service unavailable."
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
-msgstr "Enter message."
+msgstr "Enter message"
 
 msgid "IDS_CST_HEADER_DELETE"
 msgstr "Delete"
 
 msgid "IDS_CST_BUTTON_ENABLE"
-msgstr "Enable"
+msgstr "Turn on"
 
 msgid "IDS_CST_BUTTON2_CANCEL"
 msgstr "Cancel"
