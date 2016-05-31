@@ -142,7 +142,7 @@ namespace CallSettings { namespace Controller {
 	{
 		std::string msgText = m_pMsgEditView->getMsgText();
 		if (isMsgDuplicated(msgText)) {
-			m_app.getViewManager().showToastNotification("IDS_CST_CALL_MESSAGE_ALREADY_EXIST");
+			m_app.getViewManager().showToastNotification("IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS");
 		} else {
 			if (updateMsgSettings()) {
 				makeDestroyReqeuest();
