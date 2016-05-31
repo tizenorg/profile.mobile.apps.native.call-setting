@@ -1,141 +1,141 @@
 msgid "IDS_ST_HEADER_PD_SELECTED"
-msgstr "%d selected"
+msgstr "%d selecionado(s)"
 
 msgid "IDS_CST_OPT_HIDE"
-msgstr "Hide"
+msgstr "Ocultar"
 
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
-msgstr "CANCEL"
+msgstr "CANCELAR"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
-msgstr "DONE"
+msgstr "CONCLUÍDO"
 
 msgid "IDS_COM_POP_INSERT_SIM_CARD"
-msgstr "Insert SIM card."
+msgstr "Insira o cartão SIM."
 
 msgid "IDS_COM_BODY_SELECT_ALL"
-msgstr "Select all"
+msgstr "Selecionar tudo"
 
 msgid "IDS_COM_POP_LOADING_ING"
-msgstr "Loading..."
+msgstr "Carregando..."
 
 msgid "IDS_COM_BODY_UNKNOWN"
-msgstr "Unknown"
+msgstr "Desconhecido"
 
 msgid "IDS_ST_BODY_PHONE_NUMBER"
-msgstr "Phone number"
+msgstr "N° de telefone"
 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
-msgstr "DELETE"
+msgstr "EXCLUIR"
 
 msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
-msgstr "Sorry, I'm driving now."
+msgstr "Desculpe, estou dirigindo agora."
 
 msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
-msgstr "I can't talk now. What's up?"
+msgstr "Não posso falar agora. O que houve?"
 
 msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
-msgstr "Receive call alerts during calls."
+msgstr "Rec. alertas de cham. durante chamadas."
 
 msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
-msgstr "Compose or edit response messages to send when rejecting incoming calls."
+msgstr "Escreve ou edita mensagens de resposta para enviar ao recusar chamadas recebidas."
 
 msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
-msgstr "Rejected by network."
+msgstr "Rejeitado\npela rede."
 
 msgid "IDS_CST_OPT_SHOW"
-msgstr "Show"
+msgstr "Exibir"
 
 msgid "IDS_CST_NPBODY_NO_MESSAGES"
-msgstr "No messages"
+msgstr "Nenhuma mensagem"
 
 msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
-msgstr "Sorry, I'm busy. Call you later."
+msgstr "Estou ocupado. Ligo mais tarde."
 
 msgid "IDS_CST_MBODY_MY_CALLER_ID"
-msgstr "My caller ID"
+msgstr "Meu ID de originador"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
-msgstr "Forward when unreachable"
+msgstr "Encam. ao não localizar"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
-msgstr "Forward when busy"
+msgstr "Encaminhar quando ocupado"
 
 msgid "IDS_CST_HEADER_CALL_SETTINGS"
-msgstr "Call settings"
+msgstr "Config. de chamadas"
 
 msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
-msgstr "Call-reject messages"
+msgstr "Msgs. de chamada recusada"
 
 msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
-msgstr "Answering/ending calls"
+msgstr "Atender/Encerrar chamadas"
 
 msgid "IDS_CST_BODY_WAITING_TIME"
-msgstr "Waiting time"
+msgstr "Tempo de espera"
 
 msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
-msgstr "Sorry, I'm busy. Please text me."
+msgstr "Estou ocupado. Mande mensagem."
 
 msgid "IDS_CST_BODY_PD_SECONDS"
-msgstr "%d seconds"
+msgstr "%d segundos"
 
 msgid "IDS_CST_BODY_IM_IN_A_MEETING"
-msgstr "I'm in a meeting."
+msgstr "Estou em uma reunião."
 
 msgid "IDS_CST_BODY_CALL_WAITING"
-msgstr "Call waiting"
+msgstr "Chamada em espera"
 
 msgid "IDS_CST_BODY_CALL_FORWARDING"
-msgstr "Call forwarding"
+msgstr "Encaminhar chamadas"
 
 msgid "IDS_CST_BODY_BY_NETWORK"
-msgstr "By network"
+msgstr "Pela rede"
 
 msgid "IDS_CST_BODY_ALWAYS_FORWARD"
-msgstr "Always forward"
+msgstr "Encaminhar sempre"
 
 msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
-msgstr "After you create call-reject messages, they will be shown here."
+msgstr "Após criar mensagens de chamada recusada, elas serão exibidas aqui."
 
 msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
-msgstr "Answer calls by"
+msgstr "Atender chamadas pelo"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
-msgstr "Pressing the home key"
+msgstr "Pressionar a Tecla Início"
 
 msgid "IDS_CST_HEADER_END_CALLS_BY"
-msgstr "End calls by"
+msgstr "Encerrar chamadas pelo"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
-msgstr "Pressing the power key"
+msgstr "Pressionar a Tecla Ligar"
 
 msgid "IDS_CST_SK3_CREATE"
-msgstr "Create"
+msgstr "Criar"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "Serviço não disponível."
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
-msgstr "Enter message."
+msgstr "Inserir mensagem."
 
 msgid "IDS_CST_HEADER_DELETE"
-msgstr "Delete"
+msgstr "Excluir"
 
 msgid "IDS_CST_BUTTON_ENABLE"
-msgstr "Enable"
+msgstr "Ativar"
 
 msgid "IDS_CST_BUTTON2_CANCEL"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 msgid "IDS_CST_BODY_EDIT"
-msgstr "Edit"
+msgstr "Editar"
 
 msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
-msgstr "This call-reject message already exists."
+msgstr "Esta mensagem de rejeição de chamada já existe."
 
 msgid "IDS_CST_MBODY_MORE"
-msgstr "More"
+msgstr "Mais"
 
 msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
-msgstr "Forward when unanswered"
+msgstr "Encaminhar ao não atender"
 

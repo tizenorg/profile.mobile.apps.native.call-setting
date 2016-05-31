@@ -1,141 +1,141 @@
 msgid "IDS_ST_HEADER_PD_SELECTED"
-msgstr "%d selected"
+msgstr "%d seçilmişdir"
 
 msgid "IDS_CST_OPT_HIDE"
-msgstr "Hide"
+msgstr "Gizlət"
 
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
-msgstr "CANCEL"
+msgstr "LƏĞV ET"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
-msgstr "DONE"
+msgstr "HAZIR"
 
 msgid "IDS_COM_POP_INSERT_SIM_CARD"
-msgstr "Insert SIM card."
+msgstr "SIM kartı yerləşdir."
 
 msgid "IDS_COM_BODY_SELECT_ALL"
-msgstr "Select all"
+msgstr "Hamısını seç"
 
 msgid "IDS_COM_POP_LOADING_ING"
-msgstr "Loading..."
+msgstr "Yüklənir..."
 
 msgid "IDS_COM_BODY_UNKNOWN"
-msgstr "Unknown"
+msgstr "Naməlum"
 
 msgid "IDS_ST_BODY_PHONE_NUMBER"
-msgstr "Phone number"
+msgstr "Telefon nömrəsi"
 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
-msgstr "DELETE"
+msgstr "SİL"
 
 msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
-msgstr "Sorry, I'm driving now."
+msgstr "İndi sükan arxasındayam."
 
 msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
-msgstr "I can't talk now. What's up?"
+msgstr "Danışa bilmirəm. Nə baş verib?"
 
 msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
-msgstr "Receive call alerts during calls."
+msgstr "Zənglər zamanı zəng siqnallar qəbul ed."
 
 msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
-msgstr "Compose or edit response messages to send when rejecting incoming calls."
+msgstr "Daxil olan zəngləri rədd edən zaman göndərmək üçün cavab mesajları yaradın və ya redaktə edin."
 
 msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
-msgstr "Rejected by network."
+msgstr "Şəbəkə tərəfindən rədd edildi."
 
 msgid "IDS_CST_OPT_SHOW"
-msgstr "Show"
+msgstr "Göstər"
 
 msgid "IDS_CST_NPBODY_NO_MESSAGES"
-msgstr "No messages"
+msgstr "Mesaj yoxdur"
 
 msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
-msgstr "Sorry, I'm busy. Call you later."
+msgstr "Üzr ist, məşğ. Sonra zng ed."
 
 msgid "IDS_CST_MBODY_MY_CALLER_ID"
-msgstr "My caller ID"
+msgstr "Mənim zəngedən ID-m"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
-msgstr "Forward when unreachable"
+msgstr "Zəng çatmayanda yönləndir"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
-msgstr "Forward when busy"
+msgstr "Məşğul olanda yönəlt"
 
 msgid "IDS_CST_HEADER_CALL_SETTINGS"
-msgstr "Call settings"
+msgstr "Zəng parametrləri"
 
 msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
-msgstr "Call-reject messages"
+msgstr "Zəng-rədd mesajları"
 
 msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
-msgstr "Answering/ending calls"
+msgstr "Zənglərə cavab verir/bitirir"
 
 msgid "IDS_CST_BODY_WAITING_TIME"
-msgstr "Waiting time"
+msgstr "Gözləmə vaxtı"
 
 msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
-msgstr "Sorry, I'm busy. Please text me."
+msgstr "Məşğulam. Mənə sms yaz."
 
 msgid "IDS_CST_BODY_PD_SECONDS"
-msgstr "%d seconds"
+msgstr "%d saniyə"
 
 msgid "IDS_CST_BODY_IM_IN_A_MEETING"
-msgstr "I'm in a meeting."
+msgstr "Mən görüşdəyəm."
 
 msgid "IDS_CST_BODY_CALL_WAITING"
-msgstr "Call waiting"
+msgstr "Zəngin gözləməsi"
 
 msgid "IDS_CST_BODY_CALL_FORWARDING"
-msgstr "Call forwarding"
+msgstr "Zəngin ötürülməsi"
 
 msgid "IDS_CST_BODY_BY_NETWORK"
-msgstr "By network"
+msgstr "Şəbəkəyə görə"
 
 msgid "IDS_CST_BODY_ALWAYS_FORWARD"
-msgstr "Always forward"
+msgstr "Həmişə yönəlt"
 
 msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
-msgstr "After you create call-reject messages, they will be shown here."
+msgstr "Zəng-rədd mesajları yaratdıqdan sonra onlar burada görünəcək."
 
 msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
-msgstr "Answer calls by"
+msgstr "ilə zənglərə cavab verin"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
-msgstr "Pressing the home key"
+msgstr "Əsas düymənin sıxılması"
 
 msgid "IDS_CST_HEADER_END_CALLS_BY"
-msgstr "End calls by"
+msgstr "ilə zəngləri bitirin"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
-msgstr "Pressing the power key"
+msgstr "Enrj düyməsinin sıxılması"
 
 msgid "IDS_CST_SK3_CREATE"
-msgstr "Create"
+msgstr "Yarat"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "Servisdən istifadə etmək mümkün deyil."
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
-msgstr "Enter message."
+msgstr "Mesaj daxil et."
 
 msgid "IDS_CST_HEADER_DELETE"
-msgstr "Delete"
+msgstr "Sil"
 
 msgid "IDS_CST_BUTTON_ENABLE"
-msgstr "Enable"
+msgstr "Qoş"
 
 msgid "IDS_CST_BUTTON2_CANCEL"
-msgstr "Cancel"
+msgstr "Ləğv et"
 
 msgid "IDS_CST_BODY_EDIT"
-msgstr "Edit"
+msgstr "Redaktə et"
 
 msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
-msgstr "This call-reject message already exists."
+msgstr "Bu zəng-rədd mesajı artıq mövcuddur."
 
 msgid "IDS_CST_MBODY_MORE"
-msgstr "More"
+msgstr "Daha çox"
 
 msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
-msgstr "Forward when unanswered"
+msgstr "Cavab verilmyndə yönləndr"
 
