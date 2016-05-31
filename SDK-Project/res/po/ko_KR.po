@@ -1,141 +1,141 @@
 msgid "IDS_ST_HEADER_PD_SELECTED"
-msgstr "%d selected"
+msgstr "%d개 선택"
 
 msgid "IDS_CST_OPT_HIDE"
-msgstr "Hide"
+msgstr "숨기기"
 
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
-msgstr "CANCEL"
+msgstr "취소"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
-msgstr "DONE"
+msgstr "완료"
 
 msgid "IDS_COM_POP_INSERT_SIM_CARD"
-msgstr "Insert SIM card."
+msgstr "SIM 카드를 삽입하세요."
 
 msgid "IDS_COM_BODY_SELECT_ALL"
-msgstr "Select all"
+msgstr "모두 선택"
 
 msgid "IDS_COM_POP_LOADING_ING"
-msgstr "Loading..."
+msgstr "불러오는 중..."
 
 msgid "IDS_COM_BODY_UNKNOWN"
-msgstr "Unknown"
+msgstr "알 수 없음"
 
 msgid "IDS_ST_BODY_PHONE_NUMBER"
-msgstr "Phone number"
+msgstr "전화번호"
 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
-msgstr "DELETE"
+msgstr "삭제"
 
 msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
-msgstr "Sorry, I'm driving now."
+msgstr "죄송합니다. 운전 중이에요."
 
 msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
-msgstr "I can't talk now. What's up?"
+msgstr "지금은 전화를 받을 수 없습니다. 무슨 일이에요?"
 
 msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
-msgstr "Receive call alerts during calls."
+msgstr "통화 중에 전화 알림을 받습니다."
 
 msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
-msgstr "Compose or edit response messages to send when rejecting incoming calls."
+msgstr "거절 메시지를 새로 작성하거나 편집합니다."
 
 msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
-msgstr "Rejected by network."
+msgstr "네트워크에서 요청을 거절하였습니다."
 
 msgid "IDS_CST_OPT_SHOW"
-msgstr "Show"
+msgstr "보이기"
 
 msgid "IDS_CST_NPBODY_NO_MESSAGES"
-msgstr "No messages"
+msgstr "메시지가 없습니다"
 
 msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
-msgstr "Sorry, I'm busy. Call you later."
+msgstr "죄송합니다. 지금 전화를 받을 수 없습니다. 나중에 전화할게요."
 
 msgid "IDS_CST_MBODY_MY_CALLER_ID"
-msgstr "My caller ID"
+msgstr "내 발신번호 표시"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
-msgstr "Forward when unreachable"
+msgstr "연결되지 않으면 착신전환"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
-msgstr "Forward when busy"
+msgstr "통화 중 착신전환"
 
 msgid "IDS_CST_HEADER_CALL_SETTINGS"
-msgstr "Call settings"
+msgstr "통화 설정"
 
 msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
-msgstr "Call-reject messages"
+msgstr "전화 거절 메시지"
 
 msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
-msgstr "Answering/ending calls"
+msgstr "전화받기/통화 종료"
 
 msgid "IDS_CST_BODY_WAITING_TIME"
-msgstr "Waiting time"
+msgstr "대기 시간"
 
 msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
-msgstr "Sorry, I'm busy. Please text me."
+msgstr "지금은 전화를 받을 수 없으니, 문자 메시지를 보내주세요."
 
 msgid "IDS_CST_BODY_PD_SECONDS"
-msgstr "%d seconds"
+msgstr "%d초"
 
 msgid "IDS_CST_BODY_IM_IN_A_MEETING"
-msgstr "I'm in a meeting."
+msgstr "회의 중입니다."
 
 msgid "IDS_CST_BODY_CALL_WAITING"
-msgstr "Call waiting"
+msgstr "통화 중 전화알림"
 
 msgid "IDS_CST_BODY_CALL_FORWARDING"
-msgstr "Call forwarding"
+msgstr "착신전환"
 
 msgid "IDS_CST_BODY_BY_NETWORK"
-msgstr "By network"
+msgstr "네트워크 설정에 따름"
 
 msgid "IDS_CST_BODY_ALWAYS_FORWARD"
-msgstr "Always forward"
+msgstr "항상 착신전환"
 
 msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
-msgstr "After you create call-reject messages, they will be shown here."
+msgstr "새 전화 거절 메시지를 추가하면, 여기에 표시됩니다."
 
 msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
-msgstr "Answer calls by"
+msgstr "전화받기 방법"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
-msgstr "Pressing the home key"
+msgstr "홈 버튼 누르기"
 
 msgid "IDS_CST_HEADER_END_CALLS_BY"
-msgstr "End calls by"
+msgstr "전화끊기 방법"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
-msgstr "Pressing the power key"
+msgstr "전원 버튼 누르기"
 
 msgid "IDS_CST_SK3_CREATE"
-msgstr "Create"
+msgstr "추가"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "서비스를 이용할 수 없습니다."
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
-msgstr "Enter message."
+msgstr "메시지를 입력하세요."
 
 msgid "IDS_CST_HEADER_DELETE"
-msgstr "Delete"
+msgstr "삭제"
 
 msgid "IDS_CST_BUTTON_ENABLE"
-msgstr "Enable"
+msgstr "실행"
 
 msgid "IDS_CST_BUTTON2_CANCEL"
-msgstr "Cancel"
+msgstr "취소"
 
 msgid "IDS_CST_BODY_EDIT"
-msgstr "Edit"
+msgstr "편집"
 
 msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
-msgstr "This call-reject message already exists."
+msgstr "동일한 전화 거절 메시지가 있습니다."
 
 msgid "IDS_CST_MBODY_MORE"
-msgstr "More"
+msgstr "더보기"
 
 msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
-msgstr "Forward when unanswered"
+msgstr "전화를 받지 않으면 착신전환"
 

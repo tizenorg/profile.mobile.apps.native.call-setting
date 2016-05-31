@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d ընտրվել է"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Թաքցնել"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ԴԱԴԱՐԵՑՆԵԼ"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "ԱՐՎԱԾ"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Տեղադրեք SIM քարտը:"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Ընտրել բոլորը"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Բեռնում է..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Անհայտ"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Հեռախոսահամար"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "ՎԵՐԱՑՆԵԼ"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Կներեք, հիմա մեքենա եմ վարում:"
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Հիմա չեմ կ. խոսել: Ի՞նչ է եղել:"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Կանչի զգշցմներ ստանալ կանչերի ընթացքում:"
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Գրեք կամ խմբագրեք պատասխան հաղորդագրություններ, որոնք ուղարկվելու են, երբ մտից կանչեր են մերժվում:"
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Մերժված է ցանցի կողմից:"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Ցույց տալ"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Նոր հաղորդագր-ր չկան"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Ներեցեք, զբղվծ եմ: Հետո կզանգեմ:"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Իմ զանգողի ID-ն"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Փոխանցել, երբ անհասանելի"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Փոխանցել, երբ զբաղված է"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Զանգի կայանքներ"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Կանչի մերժման հղգրթյուններ"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Զանգերի պատասխանում և ավարտում"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Սպասման ժամանակ"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Կներեք, զբղվծ եմ: Տեքստ ուղրկեք:"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d վայրկյան"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Ես հանդիպման եմ:"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Զանգի սպասում"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Կանչի վերահասցեավորում"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Ցանցով"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Միշտ փոխանցել"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Կանչի մերժման մասին հաղորդագրություններ ստեղծելուց հետո դրանք կցուցադրվեն այստեղ:"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Պատասխանել կանչերին հետևյալ կերպ՝"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Սկզբի ստեղնի սեղմում"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Ավարտել կանչերը հետևյալ կերպ՝"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Սնուցման ստեղնի սեղմում"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Ստեղծել"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Ծառայությունը անհասանելի է:"
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Մուտքագրեք հաղորդագրությունը:"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Ջնջել"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Ակտիվացնլ"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Դադարեցնել"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Խմբագրել"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "Այս կանչի մերժման հաղորդագրությունն արդեն կա:"
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "Ավելին"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "Փոխանցել չպատասխ. դեպքում"
+

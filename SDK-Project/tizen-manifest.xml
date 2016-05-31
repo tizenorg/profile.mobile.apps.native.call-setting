@@ -1,72 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.call-setting-2" version="1.0.0">
     <profile name="mobile"/>
-    <ui-application appid="org.tizen.call-setting-2" exec="call-setting" hw-acceleration="on" launch_mode="caller" multiple="false" nodisplay="false" taskmanage="true" type="capp">
-        <label>call-setting</label>
-        <label xml:lang="hy-am">Զանգի կայանքներ</label>
+    <ui-application appid="org.tizen.call-setting-2" exec="call-setting" hw-acceleration="on" launch_mode="caller" multiple="false" nodisplay="false" splash-screen-display="true" taskmanage="true" type="capp">
+        <label>Call settings</label>
+        <label xml:lang="ar-ae">ضبط المكالمة</label>
         <label xml:lang="az-az">Zəng parametrləri</label>
-        <label xml:lang="eu-es">Deien konfigurazioa</label>
         <label xml:lang="bg-bg">Настройки повиквания</label>
         <label xml:lang="ca-es">Ajustaments de trucada</label>
-        <label xml:lang="zh-cn">通话设定</label>
-        <label xml:lang="zh-hk">通話設定</label>
-        <label xml:lang="zh-tw">通話設定</label>
-        <label xml:lang="hr-hr">Postavke poziva</label>
         <label xml:lang="cs-cz">Nastavení hovorů</label>
         <label xml:lang="da-dk">Opkaldsindstillinger</label>
-        <label xml:lang="nl-nl">Oproep-instellingen</label>
-        <label xml:lang="en-gb">Call setting</label>
-        <label xml:lang="en-us">Call setting 2</label>
-        <label xml:lang="et-ee">Kõne seaded</label>
-        <label xml:lang="fi-fi">Puheluasetukset</label>
-        <label xml:lang="fr-fr">Paramètres d'appel</label>
-        <label xml:lang="gl-es">Axustes de chamadas</label>
-        <label xml:lang="ka-ge">ზარის პარამეტრები</label>
         <label xml:lang="de-de">Anrufeinstellungen</label>
         <label xml:lang="el-gr">Ρυθμίσεις Κλήσεων</label>
-        <label xml:lang="hu-hu">Hívás</label>
-        <label xml:lang="is-is">Hringistillingar</label>
+        <label xml:lang="en-ph">Call settings</label>
+        <label xml:lang="en-us">Call settings</label>
+        <label xml:lang="en-gb">Call settings</label>
+        <label xml:lang="es-es">Ajustes de llamada</label>
+        <label xml:lang="es-us">Ajustes de llamadas</label>
+        <label xml:lang="et-ee">Kõne seaded</label>
+        <label xml:lang="eu-es">Deien konfigurazioa</label>
+        <label xml:lang="fi-fi">Puheluasetukset</label>
+        <label xml:lang="fr-ca">Paramètres des appels</label>
+        <label xml:lang="fr-fr">Paramètres d'appel</label>
         <label xml:lang="ga-ie">Socruithe glao</label>
+        <label xml:lang="gl-es">Axustes de chamadas</label>
+        <label xml:lang="hi-in">कॉल सेटिंग्स</label>
+        <label xml:lang="hr-hr">Postavke poziva</label>
+        <label xml:lang="hu-hu">Hívás</label>
+        <label xml:lang="hy-am">Զանգի կայանքներ</label>
+        <label xml:lang="is-is">Hringistillingar</label>
         <label xml:lang="it-it">Impostazioni chiamata</label>
         <label xml:lang="ja-jp">通話設定</label>
+        <label xml:lang="ka-ge">ზარის პარამეტრები</label>
         <label xml:lang="kk-kz">Шақыру қоңырауларын реттеу</label>
         <label xml:lang="ko-kr">통화 설정</label>
-        <label xml:lang="lv-lv">Zvana iestatījumi</label>
         <label xml:lang="lt-lt">Skambučio nustatymai</label>
-        <label xml:lang="mk-mk">Опции за повиците</label>
+        <label xml:lang="lv-lv">Zvana iestatījumi</label>
+        <label xml:lang="mk-mk">Поставувања за повиците</label>
         <label xml:lang="nb-no">Anropsinnstillinger</label>
+        <label xml:lang="nl-nl">Oproep-instellingen</label>
         <label xml:lang="pl-pl">Ustawienia połączeń</label>
+        <label xml:lang="pt-br">Config. de chamadas</label>
         <label xml:lang="pt-pt">Definições de chamada</label>
-        <label xml:lang="pt-br">Config. de chamadas</label>
         <label xml:lang="ro-ro">Setări apeluri</label>
         <label xml:lang="ru-ru">Настройки вызовов</label>
-        <label xml:lang="sr-rs">Podešavanja poziva</label>
         <label xml:lang="sk-sk">Nastavenie hovorov</label>
         <label xml:lang="sl-si">Klicne nastavitve</label>
-        <label xml:lang="es-es">Ajustes de llamada</label>
-        <label xml:lang="es-mx">Configuración de llamadas</label>
+        <label xml:lang="sr-rs">Podešavanja poziva</label>
         <label xml:lang="sv-se">Samtalsinställningar</label>
         <label xml:lang="tr-tr">Arama ayarları</label>
-        <label xml:lang="uk-ua">Установки виклику</label>
+        <label xml:lang="uk-ua">Налаштування виклику</label>
         <label xml:lang="uz-uz">Qo‘ng‘iroq parametrlari</label>
-        <label xml:lang="ar-ae">ضبط المكالمة</label>
-        <label xml:lang="zh-sg">通话设定</label>
-        <label xml:lang="hi-in">कॉल सेटिंग्स</label>
-        <label xml:lang="en-ph">Call setting</label>
-        <label xml:lang="fr-ca">Paramètres des appels</label>
-        <label xml:lang="as-in">কল ছেটিংছ</label>
-        <label xml:lang="bn-in">কল সেটিংস</label>
-        <label xml:lang="gu-in">કૉલ સેટિંગ્સ</label>
-        <label xml:lang="kn-in">ಕರೆ ಸಂಯೋಜನೆಗಳು</label>
-        <label xml:lang="ml-in">കോള്‍ ക്രമീകരണങ്ങള്‍</label>
-        <label xml:lang="mr-in">कॉल सेटिंग्स</label>
-        <label xml:lang="ne-np">कल सेटिङहरू</label>
-        <label xml:lang="or-in">କଲ୍ ସେଟିଂସ୍</label>
-        <label xml:lang="pa-in">ਕਾੱਲ ਸੈੱਟਿੰਗਸ</label>
-        <label xml:lang="si-lk">ඇමතුම් සැකසුම්</label>
-        <label xml:lang="ta-in">அழைப்பு அமைவுகள்</label>
-        <label xml:lang="te-in">కాల్ సెట్టింగులు</label>
-        <label xml:lang="ur-pk">کال کی سیٹنگز</label>
+        <label xml:lang="zh-cn">通话设置</label>
+        <label xml:lang="zh-hk">通話設定</label>
+        <label xml:lang="zh-tw">通話設定</label>
         <icon>org.tizen.call-setting.png</icon>
         <app-control>
             <operation name="http://tizen.org/appcontrol/operation/setting/call"/>
@@ -74,9 +60,9 @@
     </ui-application>
     <privileges>
         <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
-        <privilege>http://tizen.org/privilege/message.read</privilege>
-        <privilege>http://tizen.org/privilege/telephony</privilege>
         <privilege>http://tizen.org/privilege/telephony.admin</privilege>
+        <privilege>http://tizen.org/privilege/telephony</privilege>
+        <privilege>http://tizen.org/privilege/message.read</privilege>
         <privilege>http://tizen.org/privilege/contact.read</privilege>
     </privileges>
 </manifest>
