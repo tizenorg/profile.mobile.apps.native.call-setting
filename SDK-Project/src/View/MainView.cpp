@@ -51,7 +51,7 @@ namespace CallSettings { namespace View {
 				true);
 
 		m_pCallAceptOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB");
-		m_pMoreOption = m_pGenlist->appendItem<SimpleListItem>("IDS_COM_BODY_MORE");
+		m_pMoreOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_MBODY_MORE");
 
 		RETVM_IF(!m_pRejectMsgOption || !m_pCallAceptOption || !m_pMoreOption, false, "Internal error");
 
