@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "%d चयनित"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "छिपाएँ"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "रद्द करें"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "पूर्ण"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "SIM कार्ड इंसर्ट करें।"
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "सभी चुनें"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "लोड हो रहा है..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "अज्ञात"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "फोन नंबर"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "हटाएँ"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "क्षमा करें, मैं अभी गाड़ी चला रहा हूँ।"
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "मैं अभी बात नहीं कर सकता। कैसे हो?"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "कॉल्स के दौरान कॉल सतर्क प्राप्त करें।"
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "आनेवाली कॉल्स अस्वीकृत करते समय भेजने के लिए जवाब सन्देश लिखें या संपादित करें।"
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "नेटवर्क द्वारा अस्‍वीकृत किया गया।"
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "दिखाएँ"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "कोई सन्देश नहीं हैं"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "क्षमा करें, मैं व्यस्त हूँ। बाद में कॉल करता हूँ।"
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "मेरी कॉलर ID"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "पहुँच में न होने पर भेजें"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "व्‍यस्‍त में अग्रेषित करे"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "कॉल सेटिंग्स"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "कॉल-अस्वीकृत सन्देश"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "कॉल का जवाब देना/समाप्त करना"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "प्रतीक्षा समय"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "क्षमा करें, मैं व्यस्त हूँ। कृपया मुझे सन्देश भेजें।"
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d सेकंड"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "मैं एक मीटिंग में हूँ।"
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "कॉल प्रतीक्षित"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "कॉल अग्रेषण"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "नेटवर्क द्वारा"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "हमेशा अग्रेषित करें"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "आपके द्वारा कॉल-अस्वीकृत सन्देश बनाने के बाद, वे यहां दिखाए जाएँगे।"
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "इससे कॉल्स का उत्तर दें"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "होम कुँजी दबाकर"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "इससे कॉल्स समाप्त करें"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "पॉवर कुंजी दबाकर"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "बनाएँ"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "सेवा उपलब्ध नही।"
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "सन्देश प्रविष्ट करें।"
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "हटाएँ"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "सक्षम"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "रद्द करें"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "संपादित करें"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "यह कॉल-अस्वीकृत सन्देश पहले से मौजूद है।"
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "अधिक"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "अनुत्तरित होने पर भेजें"
+
