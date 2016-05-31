@@ -64,7 +64,7 @@ namespace CallSettings { namespace View {
 		m_pCallFwdOption->setSelectHandler(ItemNotiHandler::wrap<MoreView, &MoreView::onOptionSelected>(this));
 		m_pCallWaitingOption->setCheckHandler(ItemNotiHandler::wrap<MoreView, &MoreView::onOptionSelected>(this));
 
-		m_pNaviItem->setTitleText("IDS_COM_BODY_MORE");
+		m_pNaviItem->setTitleText("IDS_CST_MBODY_MORE");
 
 		return setViewContent(*m_pGenlist);
 	}

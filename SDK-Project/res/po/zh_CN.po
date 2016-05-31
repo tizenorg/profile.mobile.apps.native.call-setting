@@ -1,140 +1,141 @@
 msgid "IDS_ST_HEADER_PD_SELECTED"
-msgstr "%d selected"
+msgstr "%d 已选择"
 
 msgid "IDS_CST_OPT_HIDE"
-msgstr "Hide"
+msgstr "隐藏"
 
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
-msgstr "CANCEL"
+msgstr "取消"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
-msgstr "DONE"
+msgstr "完成"
 
 msgid "IDS_COM_POP_INSERT_SIM_CARD"
-msgstr "Insert SIM card."
+msgstr "插入 SIM 卡。"
 
 msgid "IDS_COM_BODY_SELECT_ALL"
-msgstr "Select all"
+msgstr "全选"
 
 msgid "IDS_COM_POP_LOADING_ING"
-msgstr "Loading..."
+msgstr "载入中…"
 
 msgid "IDS_COM_BODY_UNKNOWN"
-msgstr "Unknown"
+msgstr "未知"
 
 msgid "IDS_ST_BODY_PHONE_NUMBER"
-msgstr "Phone number"
+msgstr "手机号码"
 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
-msgstr "DELETE"
+msgstr "删除"
 
 msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
-msgstr "Sorry, I'm driving now."
+msgstr "抱歉，我正在开车。"
 
 msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
-msgstr "I can't talk now. What's up?"
+msgstr "我现在不方便讲话。有什么事吗？"
 
 msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
-msgstr "Receive call alerts during calls."
+msgstr "在通话期间接收来电提醒"
 
 msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
-msgstr "Compose or edit response messages to send when rejecting incoming calls."
+msgstr "添加或编辑短信内容，以在拒绝来电时发送。"
 
 msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
-msgstr "Rejected by network."
+msgstr "因网络问题而被拒绝"
 
 msgid "IDS_CST_OPT_SHOW"
-msgstr "Show"
+msgstr "显示"
 
 msgid "IDS_CST_NPBODY_NO_MESSAGES"
-msgstr "No messages"
+msgstr "无信息"
 
 msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
-msgstr "Sorry, I'm busy. Call you later."
+msgstr "对不起，我正在忙。一会给你打电话。"
 
 msgid "IDS_CST_MBODY_MY_CALLER_ID"
-msgstr "My caller ID"
+msgstr "我的来电显示"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
-msgstr "Forward when unreachable"
+msgstr "无法接通时转移"
 
 msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
-msgstr "Forward when busy"
+msgstr "忙碌时转移"
 
 msgid "IDS_CST_HEADER_CALL_SETTINGS"
-msgstr "Call settings"
+msgstr "通话设置"
 
 msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
-msgstr "Call-reject messages"
+msgstr "呼叫拒绝信息"
 
 msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
-msgstr "Answering/ending calls"
+msgstr "接听/结束通话"
 
 msgid "IDS_CST_BODY_WAITING_TIME"
-msgstr "Waiting time"
+msgstr "等待时间"
 
 msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
-msgstr "Sorry, I'm busy. Please text me."
+msgstr "对不起，我正在忙。请留言。"
 
 msgid "IDS_CST_BODY_PD_SECONDS"
-msgstr "%d seconds"
+msgstr "%d秒"
 
 msgid "IDS_CST_BODY_IM_IN_A_MEETING"
-msgstr "I'm in a meeting."
+msgstr "我正在开会。"
 
 msgid "IDS_CST_BODY_CALL_WAITING"
-msgstr "Call waiting"
+msgstr "呼叫等待"
 
 msgid "IDS_CST_BODY_CALL_FORWARDING"
-msgstr "Call forwarding"
+msgstr "呼叫转移"
 
 msgid "IDS_CST_BODY_BY_NETWORK"
-msgstr "By network"
+msgstr "经网络"
 
 msgid "IDS_CST_BODY_ALWAYS_FORWARD"
-msgstr "Always forward"
+msgstr "无条件呼叫转移"
 
 msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
-msgstr "After you create call-reject messages, they will be shown here."
+msgstr "创建呼叫拒绝信息后，其将显示在此处。"
 
 msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
-msgstr "Answer calls by"
+msgstr "接听电话通过"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
-msgstr "Pressing the home key"
+msgstr "按主屏幕键"
 
 msgid "IDS_CST_HEADER_END_CALLS_BY"
-msgstr "End calls by"
+msgstr "结束通话通过"
 
 msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
-msgstr "Pressing the power key"
+msgstr "按电源键"
 
 msgid "IDS_CST_SK3_CREATE"
-msgstr "Create"
+msgstr "新建"
 
 msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
-msgstr "Service not available."
+msgstr "服务无法正常提供。"
 
 msgid "IDS_CST_POP_ENTER_MESSAGE"
-msgstr "Enter message."
+msgstr "输入信息"
 
 msgid "IDS_CST_HEADER_DELETE"
-msgstr "Delete"
+msgstr "删除"
 
 msgid "IDS_CST_BUTTON_ENABLE"
-msgstr "Enable"
+msgstr "启用"
 
 msgid "IDS_CST_BUTTON2_CANCEL"
-msgstr "Cancel"
+msgstr "取消"
 
 msgid "IDS_CST_BODY_EDIT"
-msgstr "Edit"
+msgstr "编辑"
 
 msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
-msgstr "This call-reject message already exists."
+msgstr "该来电拒接信息已存在"
 
 msgid "IDS_CST_MBODY_MORE"
-msgstr "More"
+msgstr "更多"
 
 msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
-msgstr "Forward when unanswered"
+msgstr "无人应答时转移"
+
