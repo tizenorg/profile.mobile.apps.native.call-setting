@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "Вибрано %d"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Приховати"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "СКАСУВАТИ"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "ГОТОВО"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Вставте SIM-карту."
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Вибрати всі"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Завантаження..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Невідомо"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Номер телефону"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "ВИДАЛИТИ"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Наразі я за кермом."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Не мож.зараз говор. Що сталося?"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Отрим.сповіщ.про викл. під час викликів."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Створення або редагування повідомлень, які надсилатимуться в разі відхилення вхідного виклику за допомогою повідомлення."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Відхилено мережею."
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Показати"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Немає повідомлень"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Не можу відпов. Передз.пізніше."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Мій ідентифікат. абонента"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Переадрес., якщо недост."
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Переадр., якщо зайнято"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Налаштування виклику"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Повід. в разі відх. викл."
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Відповідь/завершення виклику"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Час очікування"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Не можу відпов. Надішліть SMS."
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d секунд"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "На нараді."
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Очікування виклику"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Переадресація"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "Встановлений мережею"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Завжди переадресовувати"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Після створення повідомлень в разі відхилення виклику вони відобразяться тут."
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Спосіб відповіді на виклик"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Клавіша «Домашній»"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Спосіб завершення викликів"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Клавіша живлення"
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Створити"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Послуга недоступна."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Введіть повідомлення."
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Видалити"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Увімкнути"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Скасувати"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Редагувати"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "Таке повідомлення відхилення вже існує."
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "Iнші"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "Переслати, якщо не відп."
+

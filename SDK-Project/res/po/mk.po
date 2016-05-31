@@ -1,0 +1,141 @@
+msgid "IDS_ST_HEADER_PD_SELECTED"
+msgstr "Избрани се %d"
+
+msgid "IDS_CST_OPT_HIDE"
+msgstr "Сокриј"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ОТКАЖИ"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "ГОТОВО"
+
+msgid "IDS_COM_POP_INSERT_SIM_CARD"
+msgstr "Вметнете SIM-картичка."
+
+msgid "IDS_COM_BODY_SELECT_ALL"
+msgstr "Избери ги сите"
+
+msgid "IDS_COM_POP_LOADING_ING"
+msgstr "Активирање..."
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Непознато"
+
+msgid "IDS_ST_BODY_PHONE_NUMBER"
+msgstr "Тел. број"
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "ИЗБРИШИ"
+
+msgid "IDS_CST_TMBODY_SORRY_IM_DRIVING_NOW"
+msgstr "Извини, возам."
+
+msgid "IDS_CST_TMBODY_I_CANT_TALK_NOW_WHATS_UP_Q"
+msgstr "Не можам да зборувам. Што има?"
+
+msgid "IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB"
+msgstr "Примај тревожења за повици при повици."
+
+msgid "IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS"
+msgstr "Составете или менувајте пораки за одговарање што ќе се праќаат кога се одбиваат повици."
+
+msgid "IDS_CST_POP_REJECTED_BY_NETWORK"
+msgstr "Одбиено од мрежата."
+
+msgid "IDS_CST_OPT_SHOW"
+msgstr "Покажи"
+
+msgid "IDS_CST_NPBODY_NO_MESSAGES"
+msgstr "Нема пораки"
+
+msgid "IDS_CST_MBODY_SORRY_IM_BUSY_CALL_YOU_LATER_ABB"
+msgstr "Зафатен сум. Ќе ти се јавам."
+
+msgid "IDS_CST_MBODY_MY_CALLER_ID"
+msgstr "Моја идентификација"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_UNREACHABLE"
+msgstr "Препрати при недостапност"
+
+msgid "IDS_CST_MBODY_FORWARD_WHEN_BUSY"
+msgstr "Препрати кога е зафатено"
+
+msgid "IDS_CST_HEADER_CALL_SETTINGS"
+msgstr "Поставувања за повиците"
+
+msgid "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB"
+msgstr "Пораки за одбивање повици"
+
+msgid "IDS_CST_HEADER_ANSWERING_ENDING_CALLS_ABB"
+msgstr "Одговарање/завршување повици"
+
+msgid "IDS_CST_BODY_WAITING_TIME"
+msgstr "Време за чекање"
+
+msgid "IDS_CST_BODY_SORRY_IM_BUSY_PLEASE_TEXT_ME_ABB"
+msgstr "Извини, зафатен сум. Прати ми SMS."
+
+msgid "IDS_CST_BODY_PD_SECONDS"
+msgstr "%d секунди"
+
+msgid "IDS_CST_BODY_IM_IN_A_MEETING"
+msgstr "Na sostanok sum."
+
+msgid "IDS_CST_BODY_CALL_WAITING"
+msgstr "Повик на чекање"
+
+msgid "IDS_CST_BODY_CALL_FORWARDING"
+msgstr "Препраќање повици"
+
+msgid "IDS_CST_BODY_BY_NETWORK"
+msgstr "По мрежа"
+
+msgid "IDS_CST_BODY_ALWAYS_FORWARD"
+msgstr "Препраќај секогаш"
+
+msgid "IDS_CST_BODY_AFTER_YOU_CREATE_CALL_REJECT_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Откако ќе направите пораки за одбивање повици, ќе се прикажат тука."
+
+msgid "IDS_CST_HEADER_ANSWER_CALLS_BY"
+msgstr "Одговарајте со"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_HOME_KEY"
+msgstr "Притискање копче Дома"
+
+msgid "IDS_CST_HEADER_END_CALLS_BY"
+msgstr "Завршувај повици со"
+
+msgid "IDS_CST_MBODY_PRESSING_THE_POWER_KEY"
+msgstr "Притискајќи на коп. вкл."
+
+msgid "IDS_CST_SK3_CREATE"
+msgstr "Ново"
+
+msgid "IDS_CST_POP_SERVICE_UNAVAILABLE"
+msgstr "Услугата е недостапна."
+
+msgid "IDS_CST_POP_ENTER_MESSAGE"
+msgstr "Внесете порака."
+
+msgid "IDS_CST_HEADER_DELETE"
+msgstr "Избриши"
+
+msgid "IDS_CST_BUTTON_ENABLE"
+msgstr "Вклучи"
+
+msgid "IDS_CST_BUTTON2_CANCEL"
+msgstr "Откажи"
+
+msgid "IDS_CST_BODY_EDIT"
+msgstr "Измени"
+
+msgid "IDS_CST_TPOP_THIS_CALL_REJECT_MESSAGE_ALREADY_EXISTS"
+msgstr "Поракава за одбивање повик веќе постои."
+
+msgid "IDS_CST_MBODY_MORE"
+msgstr "Повеќе"
+
+msgid "IDS_CST_HEADER_FORWARD_WHEN_UNANSWERED_ABB"
+msgstr "Препр. кога нема одговор"
+
