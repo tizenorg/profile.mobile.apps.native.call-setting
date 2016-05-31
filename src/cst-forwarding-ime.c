@@ -228,6 +228,7 @@ static void __cst_cf_ime_waiting_time_expand(void *data, Evas_Object *obj, void 
 		ecore_imf_context_input_panel_hide(imf_ctx);
 	}
 	waiting_time_popup = elm_popup_add(ad->nf);
+	elm_popup_align_set(waiting_time_popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	cst_util_domain_translatable_part_text_set(waiting_time_popup, "title,text", I_(CST_STR_WAITING_TIME));
 	eext_object_event_callback_add(waiting_time_popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(waiting_time_popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);

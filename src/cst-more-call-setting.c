@@ -471,6 +471,7 @@ static void __cst_gl_exp(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *box = NULL;
 	int i = 0;
 	caller_id_popup = elm_popup_add(ad->nf);
+	elm_popup_align_set(caller_id_popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(caller_id_popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(caller_id_popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(caller_id_popup, EVAS_HINT_FILL, EVAS_HINT_FILL);

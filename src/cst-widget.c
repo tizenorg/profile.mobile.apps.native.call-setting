@@ -211,6 +211,7 @@ Evas_Object *_cst_create_error_popup_with_ok_btn(CstAppData_t *ad, int error)
 
 	Evas_Object *popup, *btn;
 	ad->popup = popup = elm_popup_add(ad->nf);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	cst_util_domain_translatable_text_set(popup, error_msg);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	btn = elm_button_add(popup);

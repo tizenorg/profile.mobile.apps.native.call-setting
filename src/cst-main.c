@@ -149,13 +149,13 @@ static int __cst_create_base_eo(CstAppData_t *ad)
 	}
 
 	evas_object_smart_callback_add(ad->win_main, "delete,request", win_delete_request_cb, NULL);
-//	eext_object_event_callback_add(ad->win_main, EEXT_CALLBACK_BACK, win_back_cb, ad);
 
 	ad->conform = elm_conformant_add(ad->win_main);
 	retv_if(!ad->conform, false);
 	elm_win_indicator_mode_set(ad->win_main, ELM_WIN_INDICATOR_SHOW);
 	elm_win_indicator_opacity_set(ad->win_main, ELM_WIN_INDICATOR_OPAQUE);
 	evas_object_size_hint_weight_set(ad->conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_win_conformant_set(ad->win_main, EINA_TRUE);
 	elm_win_resize_object_add(ad->win_main, ad->conform);
 
 	evas_object_show(ad->conform);

@@ -576,6 +576,7 @@ Evas_Object *_cst_create_cf_popup(Evas_Object *parent, void *data,
 	CallSettingSSReq_t *req = (CallSettingSSReq_t *) cb_data;
 	CstAppData_t *ad = (CstAppData_t *)data;
 	ad->popup = elm_popup_add(parent);
+	elm_popup_align_set(ad->popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	evas_object_size_hint_weight_set(ad->popup, EVAS_HINT_EXPAND,
 				EVAS_HINT_EXPAND);
 
