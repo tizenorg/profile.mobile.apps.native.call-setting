@@ -33,4 +33,8 @@
 #endif
 #define	APP_EDJE_THEME_PATH "edje/call-setting-theme.edj"
 
+#ifdef APP_WIN_NAME
+#undef APP_WIN_NAME
+#endif
+#define APP_WIN_NAME "CALL_SETTING_APP_WINDOW"
 #endif /* APPCONFIG_H_ */

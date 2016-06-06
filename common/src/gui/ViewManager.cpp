@@ -68,23 +68,17 @@ namespace gui {
 
 	bool ViewManager::createWindow()
 	{
-		m_pWindow = elm_win_add(nullptr, nullptr, ELM_WIN_BASIC);
+		m_pWindow = elm_win_util_standard_add(APP_WIN_NAME, nullptr);
 		RETVM_IF(!m_pWindow, false, "Failed to create window!");
 		elm_win_indicator_mode_set(m_pWindow, ELM_WIN_INDICATOR_SHOW);
 		elm_win_conformant_set(m_pWindow, EINA_TRUE);
 
 		if (elm_win_wm_rotation_supported_get(m_pWindow)) {
-			int rotationAngels[4] = { 0, 90, 180, 270 };
-			elm_win_wm_rotation_available_rotations_set(m_pWindow, rotationAngels, 4);
+			int rotationAngels[1] = { 0 };
+			elm_win_wm_rotation_available_rotations_set(m_pWindow, rotationAngels, 1);
 			evas_object_smart_callback_add(m_pWindow, "wm,rotation,changed",
 				EoSmartCb::make<ViewManager, &ViewManager::onOrientationChanged>(), this);
 		}
-
-		Evas_Object *bg = elm_bg_add(m_pWindow);
-		RETVM_IF(!bg, false, "Failed to create bg!");
-		evas_object_size_hint_weight_set(bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		elm_win_resize_object_add(m_pWindow, bg);
-		evas_object_show(bg);
 
 		m_pConformant = elm_conformant_add(m_pWindow);
 		RETVM_IF(!m_pConformant, false, "Failed to create conformant!");
