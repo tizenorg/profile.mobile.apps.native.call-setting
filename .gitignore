@@ -1,0 +1,11 @@
+Debug
+SA_Report
+Release
+.sign
+.sdb.devicemap
+.sdk_delta.info
+.rds_delta
+.package-stamp
+*.*~
+crash-info/
+GBS_BUILD_DIR/
