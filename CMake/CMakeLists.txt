@@ -1,0 +1,75 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(call-setting CXX)
+
+SET(PKG_NAME ${APP_PKG_NAME})
+SET(BIN_DIR ${APP_BIN_DIR})
+SET(RES_DIR ${APP_RES_DIR})
+SET(LOCALE_DIR "${RES_DIR}/locale")
+SET(EDJ_DIR "${RES_DIR}/edje")
+
+SET(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}/..")
+SET(PROJECT_FILES_DIR "${PROJECT_ROOT_DIR}")
+SET(PROJECT_COMMON_DIR "${PROJECT_FILES_DIR}/common")
+
+SET(PO_DIR "${PROJECT_FILES_DIR}/res/po")
+SET(EDC_EDJE_DIR "${PROJECT_FILES_DIR}/res/edje")
+SET(EDC_PROJECT_DIR "${PROJECT_FILES_DIR}/edc")
+SET(EDC_COMMON_DIR "${PROJECT_COMMON_DIR}/edc")
+SET(EDC_COMMON_IMG_DIR "${PROJECT_COMMON_DIR}/edc/images")
+
+#source
+FILE(GLOB_RECURSE COMMON_SRC ${PROJECT_COMMON_DIR} ${PROJECT_COMMON_DIR}/src/*.cpp)
+FILE(GLOB_RECURSE PROJECT_SRC ${PROJECT_FILES_DIR} ${PROJECT_ROOT_DIR}/src/*.cpp)
+SET(SRCS ${COMMON_SRC} ${PROJECT_SRC})
+
+#include file
+INCLUDE_DIRECTORIES(
+	${PROJECT_FILES_DIR}/inc	
+	${PROJECT_COMMON_DIR}/inc	
+)
+
+INCLUDE(FindPkgConfig)
+pkg_check_modules(pkgs REQUIRED
+	appcore-efl
+	contacts-service2
+	dlog
+	ecore-imf
+	efl-extension
+	eina
+	elementary
+	msg-service
+	notification
+	tapi
+	vconf
+)
+
+FOREACH(flag ${pkgs_CFLAGS})
+	SET(EXTRA_CXXFLAGS "${EXTRA_CXXFLAGS} ${flag}")
+ENDFOREACH(flag)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXXFLAGS} -fPIE -Wall -Werror -std=c++11")
+
+ADD_EXECUTABLE(${PROJECT_NAME} ${SRCS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} "-pie" ${pkgs_LDFLAGS})
+
+ADD_CUSTOM_COMMAND(
+	OUTPUT ${CMAKE_BINARY_DIR}/call-setting-theme.edj
+	COMMAND edje_cc -id ${EDC_COMMON_IMG_DIR}
+	${EDC_EDJE_DIR}/call-setting-theme.edc ${CMAKE_BINARY_DIR}/call-setting-theme.edj
+	DEPENDS ${EDC_EDJE_DIR}/call-setting-theme.edc
+		${EDC_PROJECT_DIR}/PhoneEditItemLayout.edc
+		${EDC_PROJECT_DIR}/RejectMessageEditorLayout.edc	
+		${EDC_COMMON_DIR}/icon_button_style.edc
+		${EDC_COMMON_DIR}/theme.edc
+)
+ADD_CUSTOM_TARGET(call-setting-theme.edje ALL DEPENDS ${CMAKE_BINARY_DIR}/call-setting-theme.edj)
+
+INSTALL(FILES ${CMAKE_BINARY_DIR}/call-setting-theme.edj DESTINATION ${EDJ_DIR})
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})
+INSTALL(DIRECTORY DESTINATION ${DATADIR})
+
+# i18n
+ADD_SUBDIRECTORY(po)
+
+#for Appcontrol
+INSTALL(FILES ${PROJECT_FILES_DIR}/${PKG_NAME}.xml DESTINATION ${APP_SHARE_PACKAGES_DIR})
