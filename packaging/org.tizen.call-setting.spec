@@ -1,6 +1,6 @@
 Name:       org.tizen.call-setting
-#VCS_FROM:   profile/mobile/apps/native/call-setting#b663316eb0ccf79d25ec866c9f224693c998914d
-#RS_Ver:    20160603_2 
+#VCS_FROM:   profile/mobile/apps/native/call-setting#c578e5f46b9584c0e512c7cf98ecfb86fdd95a64
+#RS_Ver:    20160614_3 
 Summary:    Call Settings
 Version:    1.0.0
 Release:    1
@@ -26,7 +26,7 @@ Requires(post):  /usr/bin/tpk-backend
 %endif
 
 %description
-profile/mobile/apps/native/call-setting#b663316eb0ccf79d25ec866c9f224693c998914d
+#VCS_FROM:   profile/mobile/apps/native/call-setting#c578e5f46b9584c0e512c7cf98ecfb86fdd95a64
 This is a container package which have preload TPK files
 
 %prep
