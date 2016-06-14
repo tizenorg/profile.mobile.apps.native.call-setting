@@ -710,8 +710,10 @@ static const char *_cst_util_get_res_path()
 	static char res_folder_path[PATH_MAX] = {'\0'};
 	if (res_folder_path[0] == '\0') {
 		char *res_path_buff = app_get_resource_path();
-		strncpy(res_folder_path, res_path_buff, PATH_MAX-1);
-		free(res_path_buff);
+		if (res_path_buff) {
+			strncpy(res_folder_path, res_path_buff, PATH_MAX-1);
+			free(res_path_buff);
+		}
 	}
 	return res_folder_path;
 }
