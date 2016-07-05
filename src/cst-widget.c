@@ -508,10 +508,6 @@ Evas_Object *_cst_create_ime_editfield(CstAppData_t *ad, Evas_Object *parent,
 			}
 	}
 
-	if (ad->is_app_control_invoked) {
-		ecore_imf_context_input_panel_enabled_set(imf_context, EINA_FALSE);
-	}
-
 	if (NULL != entry_changed_cb) {
 		DBG("entry_changed_cb = 0x%x", entry_changed_cb);
 		evas_object_smart_callback_add(ad->dg_entry, "changed",

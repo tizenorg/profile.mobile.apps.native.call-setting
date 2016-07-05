@@ -432,8 +432,6 @@ static void __cst_contact_list_view_reply_cb(app_control_h request, app_control_
 		DBG("contacts_disconnect failed");
 	}
 
-	ad->is_app_control_invoked = false;
-
 	if (ad->dg_entry_contact_number) {
 		ecore_idler_add(__cst_imf_context_entry_focus_set_cb,
 				(const void *)ad->dg_entry_contact_number);
@@ -458,10 +456,8 @@ static void __cst_invoke_contact_single_picker(void *data)
 	app_control_add_extra_data(app_control, CST_CT_APPCONTROL_DATA_TYPE,
 			CST_CT_APPCONTROL_DATA_PHONE);
 
-	if (APP_CONTROL_ERROR_NONE == app_control_send_launch_request(app_control,
-			__cst_contact_list_view_reply_cb, (void *)ad)) {
-		ad->is_app_control_invoked = true;
-	}
+	app_control_send_launch_request(app_control, __cst_contact_list_view_reply_cb, (void *)ad);
+
 	app_control_destroy(app_control);
 }
 

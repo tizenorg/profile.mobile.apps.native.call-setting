@@ -259,7 +259,6 @@ typedef struct {
 	Evas_Object *main_layout;
 	Evas_Object *conform;
 
-	bool is_app_control_invoked;
 	Evas_Object *nf;
 	Evas_Object *controlbar;
 	Evas_Object *back_button;
