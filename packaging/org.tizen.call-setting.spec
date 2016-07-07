@@ -1,6 +1,6 @@
 Name:       org.tizen.call-setting
 #VCS_FROM:   profile/mobile/apps/native/call-setting#596dab68c3718d5608d9c3eaff4a7d0b1e8186e5
-#RS_Ver:    20160705_2 
+#RS_Ver:    20160707_1 
 Summary:    Call Settings
 Version:    1.0.0
 Release:    1
