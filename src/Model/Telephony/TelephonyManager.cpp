@@ -453,7 +453,7 @@ namespace CallSettings { namespace Model {
 
 	void TelephonyManager::clearRequestQueue()
 	{
-		while (m_requestQueue.empty()) {
+		while (!m_requestQueue.empty()) {
 			TelephonyRequest *request = m_requestQueue.front();
 			delete request;
 			m_requestQueue.pop_front();
