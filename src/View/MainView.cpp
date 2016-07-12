@@ -45,6 +45,8 @@ namespace CallSettings { namespace View {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
+		m_pGenlist->setHomogeneousMode(false);
+
 		m_pRejectMsgOption = m_pGenlist->appendItem<DoubleTextListItem>(
 				"IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB",
 				"IDS_CST_SBODY_COMPOSE_OR_EDIT_RESPONSE_MESSAGES_TO_SEND_WHEN_REJECTING_INCOMING_CALLS",

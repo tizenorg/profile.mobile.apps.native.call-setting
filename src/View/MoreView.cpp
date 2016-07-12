@@ -48,11 +48,14 @@ namespace CallSettings { namespace View {
 		m_pGenlist = Widget::create<Genlist>(*m_pViewLayout);
 		RETVM_IF(!m_pGenlist, false, "Failed to create genlist, unknown error");
 
+		m_pGenlist->setHomogeneousMode(false);
+
 		m_pCallerIdOption = m_pGenlist->appendItem<DoubleTextListItem>("IDS_CST_MBODY_MY_CALLER_ID");
 		m_pCallFwdOption = m_pGenlist->appendItem<SimpleListItem>("IDS_CST_BODY_CALL_FORWARDING");
 		m_pCallWaitingOption = m_pGenlist->appendItem<DoubleTextListItem>(
 				"IDS_CST_BODY_CALL_WAITING",
-				"IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB");
+				"IDS_CST_SBODY_RECEIVE_CALL_ALERTS_DURING_CALLS_ABB",
+				true);
 
 		RETVM_IF(!m_pCallerIdOption || !m_pCallFwdOption || !m_pCallWaitingOption, false, "Internal error");
 
