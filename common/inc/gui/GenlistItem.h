@@ -39,8 +39,6 @@ namespace gui {
 		virtual ~GenlistItem();
 		bool initialize(ItemAddMethod createItem, ItemSelectionMode itemSelectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual void onSelected();
-		virtual void onRealized() {}
-		virtual void onUnrealized() {}
 		virtual char *getText(const char *part) {return nullptr;}
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) {return nullptr;}
 		virtual Eina_Bool getState(const char *part) {return EINA_FALSE;}

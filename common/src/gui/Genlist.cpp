@@ -35,10 +35,6 @@ namespace gui {
 
 		evas_object_smart_callback_add(m_pEvasObject, "selected",
 			EoSmartCb::make<Genlist, &Genlist::onItemSelected>(), this);
-		evas_object_smart_callback_add(m_pEvasObject, "realized",
-			EoSmartCb::make<Genlist, &Genlist::onItemRealized>(), this);
-		evas_object_smart_callback_add(m_pEvasObject, "unrealized",
-			EoSmartCb::make<Genlist, &Genlist::onItemUnrealized>(), this);
 
 		return true;
 	}
@@ -57,26 +53,6 @@ namespace gui {
 		GenlistItem *item = toGenlistItem(eventInfo);
 		if (item) {
 			item->onSelected();
-		} else {
-			ERR("Invalid data!");
-		}
-	}
-
-	void Genlist::onItemRealized(Evas_Object *obj, void *eventInfo)
-	{
-		GenlistItem *item = toGenlistItem(eventInfo);
-		if (item) {
-			item->onRealized();
-		} else {
-			ERR("Invalid data!");
-		}
-	}
-
-	void Genlist::onItemUnrealized(Evas_Object *obj, void *eventInfo)
-	{
-		GenlistItem *item = toGenlistItem(eventInfo);
-		if (item) {
-			item->onUnrealized();
 		} else {
 			ERR("Invalid data!");
 		}

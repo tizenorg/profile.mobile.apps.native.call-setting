@@ -50,8 +50,6 @@ namespace gui {
 		virtual ~Genlist() {}
 		bool initialize(const Widget &parent);
 		void onItemSelected(Evas_Object *obj, void *eventInfo);
-		void onItemRealized(Evas_Object *obj, void *eventInfo);
-		void onItemUnrealized(Evas_Object *obj, void *eventInfo);
 		static GenlistItem *toGenlistItem(void *eventInfo);
 	};
 

@@ -44,11 +44,11 @@ namespace CallSettings { namespace View {
 		bool initItemLayout(const gui::Widget &parent);
 		gui::Editfield *createEditFiled();
 		gui::Button *createContactButton();
+		void onItemLayoutDel();
 
 		// GenlistItem //
 
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
-		virtual void onUnrealized() override;
 
 	protected:
 		gui::Layout *m_pItemLayout;

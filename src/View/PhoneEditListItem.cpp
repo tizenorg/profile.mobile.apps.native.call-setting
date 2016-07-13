@@ -33,8 +33,16 @@ namespace CallSettings { namespace View {
 
 	PhoneEditListItem::~PhoneEditListItem()
 	{
+		if (m_pEditfield) {
+			evas_object_unref(m_pEditfield->getEvasObject());
+		}
+
+		if (m_pContactBtn) {
+			evas_object_unref(m_pContactBtn->getEvasObject());
+		}
+
 		if (m_pItemLayout) {
-			evas_object_unref(m_pItemLayout->getEvasObject());
+			m_pItemLayout->setDestroyHandler(nullptr);
 		}
 	}
 
@@ -71,9 +79,8 @@ namespace CallSettings { namespace View {
 
 			m_pItemLayout->setPartContent("elm.swallow.editfield_ly", m_pEditfield);
 			m_pItemLayout->setPartContent("elm.swallow.contact_btn", m_pContactBtn);
-
-			evas_object_ref(m_pItemLayout->getEvasObject());
-			evas_object_smart_calculate(m_pEditfield->getEvasObject());
+			m_pItemLayout->setDestroyHandler(
+					NotiHandler::wrap<PhoneEditListItem, &PhoneEditListItem::onItemLayoutDel>(this));
 		}
 		return true;
 	}
@@ -85,6 +92,8 @@ namespace CallSettings { namespace View {
 
 		editfield->sipTypeSet(Editfield::SIP_TYPE_PHONENUMBER);
 		editfield->sipReturnKeyTypeSet(Editfield::SIP_RETURN_KEY_DONE);
+		evas_object_ref(editfield->getEvasObject());
+		evas_object_smart_calculate(editfield->getEvasObject());
 
 		return editfield;
 	}
@@ -93,6 +102,8 @@ namespace CallSettings { namespace View {
 	{
 		Button *btn = Widget::create<Button>(*m_pItemLayout, "phone_contact_button");
 		RETVM_IF(!btn, nullptr, "Failed to create button!");
+
+		evas_object_ref(btn->getEvasObject());
 
 		return btn;
 	}
@@ -117,11 +128,13 @@ namespace CallSettings { namespace View {
 		return m_pItemLayout->getEvasObject();
 	}
 
-	void PhoneEditListItem::onUnrealized()
+	void PhoneEditListItem::onItemLayoutDel()
 	{
-		if (m_pItemLayout) {
-			m_pItemLayout->hide();
+		if (m_pEditfield) {
+			m_pEditfield->hide();
 		}
+
+		m_pItemLayout = nullptr;
 	}
 
 }}
