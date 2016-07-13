@@ -31,7 +31,7 @@ namespace gui {
 	void GenlistItem::update()
 	{
 		if (m_pEOItem) {
-			elm_genlist_item_update(m_pEOItem);
+			elm_genlist_item_item_class_update(m_pEOItem, getItemClass());
 		}
 	}
 

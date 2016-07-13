@@ -30,7 +30,11 @@ namespace gui {
 	{
 		m_text = std::move(text);
 
-		update("*", GL_PART_TYPE_TEXT);
+		if (m_text.isEmpty()) {
+			update();
+		} else {
+			update("*", GL_PART_TYPE_TEXT);
+		}
 	}
 
 	char *SimpleListItem::getText(const char *part)

@@ -46,7 +46,11 @@ namespace gui {
 	{
 		m_subText = std::move(subText);
 
-		update("*", GL_PART_TYPE_TEXT);
+		if (m_subText.isEmpty()) {
+			update();
+		} else {
+			update("*", GL_PART_TYPE_TEXT);
+		}
 	}
 
 	char *DoubleTextListItem::getText(const char *part)

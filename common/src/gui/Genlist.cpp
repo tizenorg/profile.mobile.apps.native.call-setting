@@ -60,15 +60,7 @@ namespace gui {
 
 	void Genlist::update()
 	{
-		Eina_List *list = elm_genlist_realized_items_get(m_pEvasObject);
-		Eina_List *node = nullptr;
-		void *item = nullptr;
-
-		EINA_LIST_FOREACH(list, node, item) {
-			elm_genlist_item_update((Elm_Object_Item *) item);
-		}
-
-		eina_list_free(list);
+		elm_genlist_realized_items_update(m_pEvasObject);
 	}
 
 	void Genlist::clear()

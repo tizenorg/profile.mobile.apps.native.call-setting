@@ -693,6 +693,7 @@ namespace CallSettings { namespace Controller {
 			m_pView->getItem().setTitleText("IDS_CST_BODY_CALL_FORWARDING");
 
 			Genlist &gl = m_pView->getGenlist();
+			gl.setHomogeneousMode(false);
 
 			for (int i = 0; i < VIEW_ITEM_COUNT; ++i) {
 				const CallFwdCondition condition = VIEW_ITEMS_COND[i];
