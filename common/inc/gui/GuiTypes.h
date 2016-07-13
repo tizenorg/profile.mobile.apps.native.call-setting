@@ -52,6 +52,8 @@ namespace gui {
 	typedef util::Delegate<void(ViewEvent)> ViewEventHandler;
 	typedef util::Delegation<void(ViewEvent)> ViewEventHandlersDelegation;
 
+	extern const util::TString ITEM_SUB_TEXT_COLOR_FMT;
+
 }
 
 #endif /* _GUI_GUITYPES_H_ */

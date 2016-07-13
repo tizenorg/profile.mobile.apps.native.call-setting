@@ -53,10 +53,19 @@ namespace gui {
 		}
 	}
 
+	void DoubleTextListItem::setSubTextFormat(util::TString subTextFormat)
+	{
+		m_subTextFormat = std::move(subTextFormat);
+		update("*", GL_PART_TYPE_TEXT);
+	}
+
 	char *DoubleTextListItem::getText(const char *part)
 	{
 		if (( m_isMultiline && (strcmp(part, "elm.text.multiline") == 0)) ||
 			(!m_isMultiline && (strcmp(part, "elm.text.sub") == 0))) {
+			if(m_subTextFormat.isNotEmpty() && m_subText.isNotEmpty()) {
+				return util::strDupSafe(m_subTextFormat.format(m_subText.translate()));
+			}
 			return util::strDupSafe(util::ne(m_subText.translate()));
 		} else {
 			return SimpleListItem::getText(part);

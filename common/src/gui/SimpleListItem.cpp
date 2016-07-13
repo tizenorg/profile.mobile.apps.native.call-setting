@@ -37,9 +37,18 @@ namespace gui {
 		}
 	}
 
+	void SimpleListItem::setTextFormat(util::TString textFormat)
+	{
+		m_textFormat = std::move(textFormat);
+		update("*", GL_PART_TYPE_TEXT);
+	}
+
 	char *SimpleListItem::getText(const char *part)
 	{
 		if (strcmp(part, "elm.text") == 0) {
+			if(m_textFormat.isNotEmpty() && m_text.isNotEmpty()) {
+				return util::strDupSafe(m_textFormat.format(m_text.translate()));
+			}
 			return util::strDupSafe(util::ne(m_text.translate()));
 		}
 

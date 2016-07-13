@@ -70,9 +70,9 @@ namespace CallSettings { namespace View {
 		return setViewContent(*m_pScroller);
 	}
 
-	void RejectMsgEditView::setViewTitle(const char *titleText)
+	void RejectMsgEditView::setViewTitle(util::TString titleText)
 	{
-		m_pNaviItem->setTitleText(_(titleText));
+		m_pNaviItem->setTitleText(titleText);
 	}
 
 	void RejectMsgEditView::setMsgText(const util::TString &text)

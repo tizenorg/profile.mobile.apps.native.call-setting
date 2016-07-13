@@ -27,9 +27,14 @@ namespace CallSettings { namespace Controller {
 	using namespace gui;
 
 	namespace {
+		const util::TString MSG_ITEM_TEXT_FMT ("<font_size=40><color=#000000>%s</color></font_size>", false);
 		const util::TString MSG_ITEMS_HEADER_COUNTER_FMT("%s (%d/6)", false);
 		const util::TString MSG_ITEMS_HEADER_TEXT = "IDS_CST_HEADER_CALL_REJECT_MESSAGES_ABB";
 		const util::TString SELECTED_ITEMS_COUNTER_FMT = "IDS_ST_HEADER_PD_SELECTED";
+
+		enum {
+			REJECT_MSG_MAX_COUNT = 6
+		};
 	}
 
 	class RejectMsgListController::MsgItem {
@@ -104,6 +109,7 @@ namespace CallSettings { namespace Controller {
 			m_pItem = gl.appendItem<DoubleTextListItem>("", std::move(rejectMsgText), true);
 			RETVM_IF(!m_pItem, false, "Item create failed!");
 
+			m_pItem->setSubTextFormat(MSG_ITEM_TEXT_FMT);
 			m_pItem->setCheckMode(CheckboxListItem::HIDDEN);
 			m_pItem->setSelectHandler(ItemNotiHandler::wrap<MsgItem, &MsgItem::onClicked>(this));
 			m_pItem->setCheckHandler(ItemNotiHandler::wrap<MsgItem, &MsgItem::onChecked>(this));
@@ -281,20 +287,17 @@ namespace CallSettings { namespace Controller {
 	{
 		RETM_IF(m_viewMode == SELECT_MODE, "Select mode is already applied!");
 
-		auto cancelBtn = createDeleteButton();
-		auto deleteBtn = createCancelButton();
-		auto selectAllItem = createSelectAllItem();
-		if (!deleteBtn || !cancelBtn || !selectAllItem) {
+		createDeleteButton();
+		createCancelButton();
+		createSelectAllItem();
+
+		if (!m_pCancelBtn || !m_pDeleteBtn || !m_pSelectAllItem) {
 			ERR("Failed to setup select mode!");
-			Widget::destroy(deleteBtn);
-			Widget::destroy(cancelBtn);
-			WidgetItem::destroy(selectAllItem);
+			Widget::destroy(m_pCancelBtn);
+			Widget::destroy(m_pDeleteBtn);
+			WidgetItem::destroy(m_pSelectAllItem);
 			return;
 		}
-
-		m_pDeleteBtn = deleteBtn;
-		m_pCancelBtn = cancelBtn;
-		m_pSelectAllItem = selectAllItem;
 
 		m_pMsgListView->getItem().setTitleLeftBtn(*m_pCancelBtn);
 		m_pMsgListView->getItem().setTitleRightBtn(*m_pDeleteBtn);
@@ -334,34 +337,32 @@ namespace CallSettings { namespace Controller {
 		updateTitleMsgCount();
 	}
 
-	Button *RejectMsgListController::createDeleteButton()
+	void RejectMsgListController::createCancelButton()
 	{
-		Button *cancelBtn = Widget::create<Button>(m_pMsgListView->getContent(), "naviframe/title_left", "IDS_MSG_ACBUTTON_CANCEL_ABB");
-		RETVM_IF(!cancelBtn, nullptr, "Internal error: failed to create Cancel button");
+		m_pCancelBtn = Widget::create<Button>(m_pMsgListView->getContent(), "naviframe/title_left", "IDS_MSG_ACBUTTON_CANCEL_ABB");
+		RETM_IF(!m_pCancelBtn, "Internal error: failed to create Cancel button");
 
-		cancelBtn->setClickHandler(WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onCancelButtonClick>(this));
+		m_pCancelBtn->setClickHandler(WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onCancelButtonClick>(this));
 
-		return cancelBtn;
 	}
 
-	Button *RejectMsgListController::createCancelButton()
+	void RejectMsgListController::createDeleteButton()
 	{
-		Button *deleteBtn = Widget::create<Button>(m_pMsgListView->getContent(), "naviframe/title_right", "IDS_MSG_ACBUTTON_DELETE_ABB");
-		RETVM_IF(!deleteBtn, nullptr, "Internal error: failed to create Delete button");
+		m_pDeleteBtn = Widget::create<Button>(m_pMsgListView->getContent(), "naviframe/title_right", "IDS_MSG_ACBUTTON_DELETE_ABB");
+		RETM_IF(!m_pDeleteBtn, "Internal error: failed to create Delete button");
 
-		deleteBtn->setClickHandler(WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onDeleteButtonClick>(this));
-		return deleteBtn;
+		m_pDeleteBtn->setClickHandler(WidgetNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onDeleteButtonClick>(this));
 	}
 
-	CategoryListItem *RejectMsgListController::createSelectAllItem()
+	void RejectMsgListController::createSelectAllItem()
 	{
-		CategoryListItem *selectAllItem = m_pMsgListView->getGenlist().prependItem<CategoryListItem>("IDS_COM_BODY_SELECT_ALL");
-		RETVM_IF(!selectAllItem, nullptr, "Failed to add select all item");
+		m_pSelectAllItem = m_pMsgListView->getGenlist().prependItem<CheckboxListItem>();
+		RETM_IF(!m_pSelectAllItem, "Failed to add select all item");
 
-		selectAllItem->setCheckMode(CheckboxListItem::AUTO_CHECK);
-		selectAllItem->setCheckHandler(ItemNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onSelectAllChecked>(this));
-
-		return selectAllItem;
+		m_pSelectAllItem->setTextFormat(ITEM_SUB_TEXT_COLOR_FMT);
+		m_pSelectAllItem->setText("IDS_COM_BODY_SELECT_ALL");
+		m_pSelectAllItem->setCheckMode(CheckboxListItem::AUTO_CHECK);
+		m_pSelectAllItem->setCheckHandler(ItemNotiHandler::wrap<RejectMsgListController, &RejectMsgListController::onSelectAllChecked>(this));
 
 	}
 

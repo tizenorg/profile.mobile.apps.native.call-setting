@@ -25,6 +25,7 @@ namespace gui {
 	class SimpleListItem : public GenlistItem {
 	public:
 		void setText(util::TString text);
+		void setTextFormat(util::TString textFormat);
 	protected:
 		SimpleListItem() {}
 		virtual ~SimpleListItem() {}
@@ -34,6 +35,7 @@ namespace gui {
 
 	protected:
 		util::TString m_text;
+		util::TString m_textFormat;
 
 	private:
 		friend class WidgetItem;

@@ -59,6 +59,7 @@ namespace CallSettings { namespace View {
 
 		RETVM_IF(!m_pCallerIdOption || !m_pCallFwdOption || !m_pCallWaitingOption, false, "Internal error");
 
+		m_pCallerIdOption->setSubTextFormat(ITEM_SUB_TEXT_COLOR_FMT);
 		m_pCallerIdOption->setCheckMode(gui::CheckboxListItem::HIDDEN);
 		m_pCallWaitingOption->setCheckboxStyle(gui::Checkbox::CHECKBOX_SWITCHER);
 		m_pCallWaitingOption->setCheckMode(gui::CheckboxListItem::AUTO_CHECK);

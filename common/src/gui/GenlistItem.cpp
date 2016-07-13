@@ -19,6 +19,8 @@
 
 namespace gui {
 
+	const util::TString ITEM_SUB_TEXT_COLOR_FMT("<color=" GUI_COLOR_SUBITEM_TEXT_HEX ">%s</color>", false);
+
 	GenlistItem::GenlistItem() :
 		WidgetItem()
 	{
