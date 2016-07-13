@@ -83,6 +83,12 @@ namespace gui {
 		}
 	}
 
+	util::TString GenlistItem::getSubItemTextColorFmt()
+	{
+		static util::TString itemSubTextColotFmt("<color=" GUI_COLOR_SUBITEM_TEXT_HEX ">%s</color>", false);
+		return itemSubTextColotFmt;
+	}
+
 	bool GenlistItem::initialize(ItemAddMethod createItem, ItemSelectionMode itemSelectMode)
 	{
 		m_pEOItem = createItem(this);

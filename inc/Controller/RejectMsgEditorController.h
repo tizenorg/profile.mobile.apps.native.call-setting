@@ -23,8 +23,6 @@
 #include "App/Application.h"
 #include "View/RejectMsgEditView.h"
 
-#include "Utils.h"
-
 namespace CallSettings { namespace Controller {
 
 	class RejectMsgEditorController : public gui::ViewController {

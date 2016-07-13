@@ -23,7 +23,6 @@
 
 #include "View/PhoneEditListItem.h"
 
-#include "Controller/Utils.h"
 #include "Controller/CallFwController.h"
 #include "Controller/ContactTelNumberPicker.h"
 
@@ -60,7 +59,7 @@ namespace CallSettings { namespace Controller {
 		};
 
 		const util::TString TIMEOUT_ITEM_FMT = "IDS_CST_BODY_PD_SECONDS";
-		const util::TString FWD_CONDITION_TIMEOUT_ITEM_FMT = "<color=" GUI_COLOR_SUBITEM_TEXT_HEX ">%s, %s</color>";
+		const util::TString FWD_CONDITION_TIMEOUT_ITEM_FMT = "%s, %s";
 
 		util::TString getConditionLabel(CallFwdCondition condition)
 		{
@@ -95,16 +94,6 @@ namespace CallSettings { namespace Controller {
 		util::TString getTimeoutLabel(CallFwdNoReplyTime noReplyTimeId)
 		{
 			return TIMEOUT_ITEM_FMT.format(getTimeoutDurationSec(noReplyTimeId));
-		}
-
-		util::TString getColoredTimeoutLabel(CallFwdNoReplyTime noReplyTimeId)
-		{
-			return ITEM_SUB_TEXT_COLOR_FMT.format(getTimeoutLabel(noReplyTimeId).getCStr());
-		}
-
-		util::TString getConditionSublabel(const util::TString &telNumber)
-		{
-			return ITEM_SUB_TEXT_COLOR_FMT.format(telNumber.translate());
 		}
 
 		util::TString getConditionTimeoutSublabel(const util::TString &telNumber, CallFwdNoReplyTime noReplyTimeId)
@@ -217,9 +206,11 @@ namespace CallSettings { namespace Controller {
 				}
 
 				m_pTimeoutItem = genlist->appendItem<DoubleTextListItem>(
-						"IDS_CST_BODY_WAITING_TIME", getColoredTimeoutLabel(m_noReplyTimeId));
+						"IDS_CST_BODY_WAITING_TIME", getTimeoutLabel(m_noReplyTimeId));
 
 				RETVM_IF(!m_pTimeoutItem, false, "Failed to create timeout item");
+
+				m_pTimeoutItem->setSubTextFormat(GenlistItem::getSubItemTextColorFmt());
 				m_pTimeoutItem->setCheckMode(CheckboxListItem::HIDDEN);
 				m_pTimeoutItem->setSelectHandler(ItemNotiHandler::wrap<
 						EditPopup, &EditPopup::onTimeoutItemSelect>(this));
@@ -395,7 +386,7 @@ namespace CallSettings { namespace Controller {
 			INF("noReplyTimeId: %d", noReplyTimeId);
 			Widget::destroy(m_pTimeoutPopup);
 			m_noReplyTimeId = static_cast<CallFwdNoReplyTime>(noReplyTimeId);
-			m_pTimeoutItem->setSubText(getColoredTimeoutLabel(m_noReplyTimeId));
+			m_pTimeoutItem->setSubText(getTimeoutLabel(m_noReplyTimeId));
 			updateEnableBtnState();
 		}
 
@@ -489,7 +480,8 @@ namespace CallSettings { namespace Controller {
 			m_pItem = gl.appendItem<DoubleTextListItem>(getConditionLabel(m_callFwdReqData.condition));
 			RETVM_IF(!m_pItem, false, "Item create failed!");
 
-			m_pItem->setCheckboxStyle(gui::Checkbox::CHECKBOX_SWITCHER);
+			m_pItem->setSubTextFormat(GenlistItem::getSubItemTextColorFmt());
+			m_pItem->setCheckboxStyle(Checkbox::CHECKBOX_SWITCHER);
 			m_pItem->setCheckMode(CheckboxListItem::SKIP_EVENTS);
 			m_pItem->setSelectHandler(ItemNotiHandler::wrap<
 					Item, &Item::onItemClick>(this));
@@ -576,11 +568,11 @@ namespace CallSettings { namespace Controller {
 				m_pItem->setCheckMode(CheckboxListItem::NORMAL);
 
 				if (m_callFwdReqData.telNumber.empty()) {
-					m_pItem->setSubText(getConditionSublabel("IDS_COM_BODY_UNKNOWN"));
+					m_pItem->setSubText("IDS_COM_BODY_UNKNOWN");
 				} else if (m_callFwdReqData.condition == TELEPHONY_CF_IF_NO_REPLY) {
 					m_pItem->setSubText(getConditionTimeoutSublabel(m_callFwdReqData.telNumber, m_callFwdReqData.waitTime));
 				} else {
-					m_pItem->setSubText(getConditionSublabel(util::TString(m_callFwdReqData.telNumber, false)));
+					m_pItem->setSubText(util::TString(m_callFwdReqData.telNumber, false));
 				}
 			} else {
 				m_pItem->setCheckState(false);

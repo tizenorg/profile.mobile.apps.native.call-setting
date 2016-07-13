@@ -37,7 +37,7 @@ namespace CallSettings { namespace View {
 		void setCancelClickHandler(gui::WidgetNotiHandler handler) { m_pCancelBtn->setClickHandler(handler); }
 		void setInputEventHandler(NotiHandler handler) { m_pEditfield->setInputEventHandler(handler); }
 		void setInputFilterHandler(gui::Editfield::InputFilterHandler handler) { m_pEditfield->setInputFilterHandler(handler); }
-		void setViewTitle(const char *titleText);
+		void setViewTitle(util::TString titleText);
 
 	private:
 		friend class BaseView;

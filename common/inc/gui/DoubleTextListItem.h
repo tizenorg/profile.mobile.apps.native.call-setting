@@ -23,6 +23,7 @@ namespace gui {
 	class DoubleTextListItem : public CheckboxListItem {
 	public:
 		void setSubText(util::TString subText);
+		void setSubTextFormat(util::TString subTextFormat);
 
 	protected:
 		DoubleTextListItem();
@@ -34,6 +35,7 @@ namespace gui {
 
 	protected:
 		util::TString m_subText;
+		util::TString m_subTextFormat;
 		bool m_isMultiline;
 
 	private:

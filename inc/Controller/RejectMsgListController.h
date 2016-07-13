@@ -52,9 +52,9 @@ namespace CallSettings { namespace Controller {
 		void changeViewToSelectMode();
 		void changeViewToDisplayMode();
 
-		gui::Button *createDeleteButton();
-		gui::Button *createCancelButton();
-		gui::CategoryListItem *createSelectAllItem();
+		void createDeleteButton();
+		void createCancelButton();
+		void createSelectAllItem();
 
 		void onDeleteButtonClick(gui::Widget &item);
 		void onCancelButtonClick(gui::Widget &item);
@@ -87,7 +87,7 @@ namespace CallSettings { namespace Controller {
 		View::GenlistView *m_pMsgListView;
 		gui::Button *m_pCancelBtn;
 		gui::Button *m_pDeleteBtn;
-		gui::CategoryListItem *m_pSelectAllItem;
+		gui::CheckboxListItem *m_pSelectAllItem;
 		gui::OptionMenuPopup *m_pMoreMenuPopup;
 
 		ViewMode m_viewMode;

@@ -42,6 +42,7 @@ namespace gui {
 		virtual Elm_Genlist_Item_Class *getItemClass();
 		void setSelectHandler(ItemNotiHandler handler);
 		void setSelectionMode(ItemSelectionMode mode);
+		static util::TString getSubItemTextColorFmt();
 
 	protected:
 		typedef std::function<Elm_Object_Item *(GenlistItem *item)> ItemAddMethod;
