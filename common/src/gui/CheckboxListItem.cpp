@@ -23,7 +23,7 @@ namespace gui {
 	CheckboxListItem::CheckboxListItem() :
 		m_pCheckbox(nullptr),
 		m_checkMode(NORMAL),
-		m_checkStyle(CHECKBOX_DEFAULT),
+		m_checkStyle(Checkbox::CHECKBOX_DEFAULT),
 		m_checkState(false)
 	{
 	}
@@ -46,7 +46,7 @@ namespace gui {
 		return m_checkState;
 	}
 
-	void CheckboxListItem::setCheckboxStyle(CheckboxStyle checkStyle)
+	void CheckboxListItem::setCheckboxStyle(Checkbox::CheckboxStyle checkStyle)
 	{
 		if (m_checkStyle != checkStyle) {
 			m_checkStyle = checkStyle;

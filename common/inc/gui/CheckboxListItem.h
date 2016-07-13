@@ -38,7 +38,7 @@ namespace gui {
 		bool getCheckState();
 		void setCheckMode(CheckMode mode);
 		CheckMode getCheckMode();
-		void setCheckboxStyle(CheckboxStyle checkStyle);
+		void setCheckboxStyle(Checkbox::CheckboxStyle checkStyle);
 		void setCheckHandler(ItemNotiHandler handler);
 
 	protected:
@@ -52,7 +52,7 @@ namespace gui {
 	protected:
 		Checkbox *m_pCheckbox;
 		CheckMode m_checkMode;
-		CheckboxStyle m_checkStyle;
+		Checkbox::CheckboxStyle m_checkStyle;
 		bool m_checkState;
 		ItemNotiHandler m_checkHandler;
 

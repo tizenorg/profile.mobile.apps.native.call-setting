@@ -489,7 +489,7 @@ namespace CallSettings { namespace Controller {
 			m_pItem = gl.appendItem<DoubleTextListItem>(getConditionLabel(m_callFwdReqData.condition));
 			RETVM_IF(!m_pItem, false, "Item create failed!");
 
-			m_pItem->setCheckboxStyle(CHECKBOX_SWITCHER);
+			m_pItem->setCheckboxStyle(gui::Checkbox::CHECKBOX_SWITCHER);
 			m_pItem->setCheckMode(CheckboxListItem::SKIP_EVENTS);
 			m_pItem->setSelectHandler(ItemNotiHandler::wrap<
 					Item, &Item::onItemClick>(this));

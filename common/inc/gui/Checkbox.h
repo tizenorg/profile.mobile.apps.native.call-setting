@@ -24,6 +24,13 @@ namespace gui {
 
 	class Checkbox : public Widget {
 	public:
+
+		typedef enum {
+			CHECKBOX_DEFAULT,
+			CHECKBOX_SWITCHER,
+			CHECKBOX_STAR,
+		} CheckboxStyle;
+
 		bool isChecked();
 		void setChecked(bool checkedState);
 		void setCheckHandler(NotiHandler handler);

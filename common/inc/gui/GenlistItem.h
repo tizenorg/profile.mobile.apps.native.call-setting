@@ -27,6 +27,18 @@ namespace gui {
 	class GenlistItem : public WidgetItem {
 	public:
 
+		typedef enum {
+			GL_PART_TYPE_TEXT = 1,
+			GL_PART_TYPE_CONTENT = 2,
+			GL_PART_TYPE_STATE = 4,
+		} GenlistPartType;
+
+		typedef enum {
+			GENLIST_ITEM_SELECT_MODE_ONCE, /*Item is selected only once, select callback calls only once*/
+			GENLIST_ITEM_SELECT_MODE_ALWAYS, /*Item selected callbacks will be called every time for click events*/
+			GENLIST_ITEM_SELECT_MODE_NONE, /*Item never be selected and no callback will be invoked*/
+		} ItemSelectionMode;
+
 		virtual Elm_Genlist_Item_Class *getItemClass();
 		void setSelectHandler(ItemNotiHandler handler);
 		void setSelectionMode(ItemSelectionMode mode);

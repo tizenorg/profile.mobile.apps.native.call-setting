@@ -51,16 +51,16 @@ namespace CallSettings { namespace View {
 
 
 		answerCategory->setCheckMode(gui::CheckboxListItem::HIDDEN);
-		answerCategory->setSelectionMode(GENLIST_ITEM_SELECT_MODE_NONE);
+		answerCategory->setSelectionMode(gui::GenlistItem::GENLIST_ITEM_SELECT_MODE_NONE);
 
-		m_pAnswerOption->setCheckboxStyle(CHECKBOX_SWITCHER);
+		m_pAnswerOption->setCheckboxStyle(gui::Checkbox::CHECKBOX_SWITCHER);
 		m_pAnswerOption->setCheckMode(gui::CategoryListItem::AUTO_CHECK);
 		m_pAnswerOption->setCheckHandler(ItemNotiHandler::wrap<AnswerView, &AnswerView::onOptionChecked>(this));
 
 		rejectCategory->setCheckMode(gui::CheckboxListItem::HIDDEN);
-		rejectCategory->setSelectionMode(GENLIST_ITEM_SELECT_MODE_NONE);
+		rejectCategory->setSelectionMode(gui::GenlistItem::GENLIST_ITEM_SELECT_MODE_NONE);
 
-		m_pRejectOption->setCheckboxStyle(CHECKBOX_SWITCHER);
+		m_pRejectOption->setCheckboxStyle(gui::Checkbox::CHECKBOX_SWITCHER);
 		m_pRejectOption->setCheckMode(gui::CategoryListItem::AUTO_CHECK);
 		m_pRejectOption->setCheckHandler(ItemNotiHandler::wrap<AnswerView, &AnswerView::onOptionChecked>(this));
 
