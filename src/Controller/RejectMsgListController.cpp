@@ -53,7 +53,9 @@ namespace CallSettings { namespace Controller {
 
 			m_pItem->setSelectHandler(nullptr);
 			m_pItem->setCheckHandler(nullptr);
-			WidgetItem::destroy(m_pItem);
+			if (!m_parent.m_isDestroying) {
+				WidgetItem::destroy(m_pItem);
+			}
 		}
 
 		StringKey getMsgKey() const
