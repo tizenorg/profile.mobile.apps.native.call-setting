@@ -28,6 +28,9 @@
 
 namespace CallSettings { namespace Controller {
 
+	/*
+	 * @brief Represent Call forwarding view controller
+	 */
 	class CallFwController : public gui::ViewController {
 	public:
 		virtual ~CallFwController();
@@ -40,20 +43,56 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 		CallFwController(Application &app, NotiHandler handler);
 
+		/*
+		 * @brief Initialization of CallFwController
+		 * @return true on success, otherwise false
+		 */
 		bool initialize();
 
+		/*
+		 * @brief Show pending popup widget
+		 */
 		void showPendingPopup();
+		/*
+		 * @brief Update forward options list
+		 */
 		void updateFwdOptions();
 
 		// Item events //
+		/*
+		 * @brief Called when Forward option item is ready for change forward condition state
+		 * @param[in]	item	Option item instance
+		 */
 		void onFwdOptionReady(Item *item);
+
+		/*
+		 * @brief Called when Forward option item request to change forward condition state
+		 * @param[in]	item	Option item instance
+		 */
 		void onFwdOptionChangeBegin(Item *item);
+
+		/*
+		 * @brief Called when request to change forward condition state completed
+		 * @param[in]	item	Option item instance
+		 */
 		void onFwdOptionChangeEnd(Item *item);
 
 		// Pending popup events
 
+		/*
+		 * @brief Callback for destroy pending popup widget
+		 */
 		void onPendingPopupDel();
+
+		/*
+		 * @brief Callback for pending popup block area clicked
+		 * @note Needed to deny popup hide by block area click as default popup behavior
+		 */
 		bool onPendingPopupBlock();
+		/*
+		 * @brief Callback for pending popup back key clicked
+		 * @note Back click on pending popup initiates view destroy
+		 */
 		bool onPendingPopupBack();
 
 		// gui::ViewController //

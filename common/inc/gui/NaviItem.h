@@ -23,23 +23,70 @@
 namespace gui {
 
 	class Widget;
+	/*
+	 * @brief Represents NaviframeItem instance
+	 */
 	class NaviItem : public WidgetItem {
 	public:
 		virtual ~NaviItem();
+
+		/*
+		 * @brief Show Naviframe title for current page
+		 */
 		void showTitle();
+
+		/*
+		 * @brief Hide Naviframe title for current page
+		 */
 		void hideTitle();
+
+		/*
+		 * @brief Set Naviframe page title
+		 * @param[in]	text	Title text
+		 */
 		void setTitleText(const util::TString &text);
 
+		/*
+		 * @brief Set Naviframe page content
+		 * @param[in]	content		Naviframe page content widget
+		 */
 		void setContent(const Widget &content);
+
+		/*
+		 * @brief Unset Naviframe page content
+		 */
 		void unsetContent();
 
+		/*
+		 * @brief Set content for left title button part
+		 * @param[in]	content		Content which will be placed into left title button part
+		 */
 		void setTitleLeftBtn(const Widget &content);
+
+		/*
+		 * @brief Unset content for left title button part
+		 */
 		void unsetTitleLeftBtn();
 
+		/*
+		 * @brief Set content for right title button part
+		 * @param[in]	content		Content which will be placed into left title button part
+		 */
 		void setTitleRightBtn(const Widget &content);
+
+		/*
+		 * @brief Unset content for right title button part
+		 */
 		void unsetTitleRightBtn();
 
+		/*
+		 * @brief Make visible software back button in naviframe page title
+		 */
 		void showBackButton();
+
+		/*
+		 * @brief Make invisible software back button in naviframe page title
+		 */
 		void hideBackButton();
 
 	private:

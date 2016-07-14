@@ -16,24 +16,59 @@
  */
 
 
-#ifndef _GUI_OPTIONMENUPOPUP_H_
-#define _GUI_OPTIONMENUPOPUP_H_
+#ifndef _GUI_OPTION_MENU_POPUP_H_
+#define _GUI_OPTION_MENU_POPUP_H_
 
 #include "Widget.h"
 
 namespace gui {
-
+	/*
+	 * @brief Represents More menu option popup widget
+	 */
 	class OptionMenuPopup : public Widget {
 	public:
+		/*
+		 * @brief insert new list item into more options menu
+		 * @param[in]	optionSelectHandler		Select option handler
+		 * @param[in]	text					Option item text
+		 * @param[in]	icon					Widget which represents option icon
+		 * @return true on success, otherwise false
+		 */
 		bool addItem(NotiHandler optionSelectHandler, const util::TString &text, const Widget *icon = nullptr);
+
+		/*
+		 * @brief Make visible more menu option popup
+		 */
 		void show();
+
+		/*
+		 * @brief Make invisible more menu option popup
+		 */
 		void hide();
 
 	protected:
 		OptionMenuPopup() {}
 		~OptionMenuPopup() {}
+
+		/*
+		 * @brief Option popup initialization
+		 * @param[in]	parent	Parent widget for opetion menu popup
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent);
+
+		/*
+		 * @brief Option item select callback
+		 * @param[in]	obj			Popup object
+		 * @param[in]	eventInfo	Callback event info data
+		 */
 		void onItemSelected(Evas_Object *obj, void *eventInfo);
+
+		/*
+		 * @brief Option popup dissmiss callback
+		 * @param[in]	obj			Popup object
+		 * @param[in]	eventInfo	Callback event info data
+		 */
 		void onPopupDismissed(Evas_Object *obj, void *eventInfo);
 
 	private:
@@ -41,4 +76,4 @@ namespace gui {
 		std::vector<std::pair<Elm_Object_Item *, NotiHandler>> m_itemSelectHandlers;
 	};
 }
-#endif /* OPTIONMENUPOPUP_H_ */
+#endif /* _GUI_OPTION_MENU_POPUP_H_ */

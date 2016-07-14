@@ -21,14 +21,34 @@
 #include "GenlistItem.h"
 
 namespace gui {
-
+	/*
+	 * @brief Represent Genlist item with one text line content only
+	 * Usually uses as some menu item
+	 */
 	class SimpleListItem : public GenlistItem {
 	public:
+
+		/*
+		 * @brief Set text
+		 * @param[in]	text		Text which will be set as text label in list item, may be translatable or not
+		 */
 		void setText(util::TString text);
+
+		/*
+		 * @brief Set text format which will be applied for text
+		 * @param[in]	textFormat		Text format for text
+		 */
 		void setTextFormat(util::TString textFormat);
 	protected:
 		SimpleListItem() {}
 		virtual ~SimpleListItem() {}
+
+		/*
+		 * @brief Initialize List item
+		 * @param[in]	text			Text which will be shown
+		 * @param[in]	selectMode		Selection mode of list item
+		 * @return	true on success, otherwise false
+		 */
 		bool initialize(ItemAddMethod createItem, util::TString text = "",
 				ItemSelectionMode selectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
 		virtual char *getText(const char *part) override;

@@ -23,13 +23,31 @@
 #include "ProcessingCircle.h"
 
 namespace gui {
-
+	/*
+	 * @brief Represents pending popup content with circle processing item and message text
+	 */
 	class PendingPopupContent : public Widget {
 	public:
+		/*
+		 * @brief Set popup message text
+		 * @param[in]	label	Popup text label
+		 */
 		void setLabel(const util::TString &label);
+
+		/*
+		 * @brief Set popup porcessing circle type
+		 * @param[in]	type	porcessing circle type
+		 */
 		void setStyle(ProcessingType type);
 
 	protected:
+		/*
+		 * @brief Popup content initialization
+		 * @param[in]	parent	popup content parent widget
+		 * @param[in]	label	Popup text label
+		 * @param[in]	type	porcessing circle type
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent, const util::TString &label, ProcessingType type = PROCESSING_TYPE_MID);
 
 	private:

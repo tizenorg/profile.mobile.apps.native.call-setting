@@ -15,25 +15,65 @@
  *
  */
 
-#ifndef _GUI_RADIO_POPUP_H_
-#define _GUI_RADIO_POPUP_H_
+#ifndef _GUI_RADIO_GROUP_H_
+#define _GUI_RADIO_GROUP_H_
 
 #include "Genlist.h"
 
 namespace gui {
 
+	/**
+	 * @brief RadioGroup click callback
+	 * @param[in] itemIndex	itemIndex of radio button which was clicked
+	 */
 	typedef util::Delegate <void(int itemIndex)> RadioSelectHandler;
+
+	/*
+	 * @brief Representation of Radiogroup widget. This widget contains of genlist with RadioOtionItem elements
+	 */
 	class RadioGroup : public Widget {
 	public:
+		/*
+		 * @brief	Set specific radio button in group selected
+		 * @param[in]	itemIndex	index of radio button to be selected
+		 */
 		void selectRadioItem(int itemIndex);
+
+		/*
+		 * @brief	Set radio button select callback
+		 * @param[in]	handler	radio button select event handler
+		 */
 		void setSelectedCallback(RadioSelectHandler handler) {m_radioSelectHandler = handler;}
+
+		/*
+		 * @brief Add new radio option item into list
+		 * @param[in]	text	Option item text
+		 * @param[in]	itemIndex	Option item index
+		 * @return	true on success, otherwise false
+		 */
 		bool addItem(util::TString text, int itemIndex);
 
 	protected:
 		RadioGroup();
-		~RadioGroup() {}
+		~RadioGroup() {};
+
+		/**
+		 * @brief Initialization of RadioGroup widget
+		 * @param[in]	parent		Button widget parent instance
+		 * @return	true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent);
+
+		/*
+		 * @brief Creation of genlist for RadioGroup widget
+		 * @return	true on success, otherwise false
+		 */
 		bool createRadioList();
+
+		/*
+		 * @brief RadioItem select callback
+		 * @param[in]	item	List item which dispatch select event
+		 */
 		void onRadioItemSelected(gui::WidgetItem &item);
 
 	private:
@@ -45,4 +85,4 @@ namespace gui {
 	};
 
 }
-#endif /* _GUI_LIST_POPUP_H_ */
+#endif /* _GUI_RADIO_GROUP_H_ */

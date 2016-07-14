@@ -21,20 +21,71 @@
 #include "Widget.h"
 
 namespace gui {
+	/*
+	 * @brief Represents Layout object instance
+	 */
 	class Layout : public Widget {
 
 	public:
+		/*
+		 * @brief Set widget as content of layout
+		 * @param[in]	swallowPart		Part name
+		 * @param[in]	content			Widget content instance
+		 * @return true on success, otherwise false
+		 */
 		bool setContent(const char *swallowPart, const Widget &content);
+
+		/*
+		 * @brief Unset widget from layout widget
+		 * @param[in]	swallowPart		Part name
+		 * @return true on success, otherwise false
+		 */
 		bool unsetContent(const char *swallowPart);
+
+		/*
+		 * @brief Setup theme for layout widget
+		 * @param[in]	className		Theme class name
+		 * @param[in]	groupName		Theme group name
+		 * @param[in]	styleName		Theme style name
+		 * @return true on success, otherwise false
+		 */
 		bool themeSet(const char *className, const char *groupName, const char *styleName);
+
+		/*
+		 * @brief Setup style for layout widget
+		 * @param[in]	edjFilePath		Path to edj file
+		 * @param[in]	groupName		Group name
+		 * @return true on success, otherwise false
+		 */
 		bool styleSet(const char *edjFilePath, const char *groupName);
+
+		/*
+		 * @brief Emit signal for layout content
+		 * @param[in]	signal		Signal name
+		 * @param[in]	source		Source name
+		 */
 		void emitSignal(const char *signal, const char *source);
 
 	private:
 		friend class Widget; // to be used in Widget::create
 		Layout() {}
 		virtual ~Layout() {}
+
+		/*
+		 * @brief Layout widget initialization
+		 * @param[in]	className		Theme class name
+		 * @param[in]	groupName		Theme group name
+		 * @param[in]	styleName		Theme style name
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent, const char *className, const char *groupName, const char *styleName);
+
+		/*
+		 * @brief Layout widget initialization
+		 * @param[in]	edjFilePath		Path to edj file
+		 * @param[in]	groupName		Group name
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent, const char *edjFilePath, const char *groupName);
 	};
 }

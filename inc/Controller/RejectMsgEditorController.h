@@ -25,6 +25,9 @@
 
 namespace CallSettings { namespace Controller {
 
+	/*
+	 * @brief Represents Reject Messages Editor View
+	 */
 	class RejectMsgEditorController : public gui::ViewController {
 	public:
 		virtual ~RejectMsgEditorController();
@@ -33,16 +36,75 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 
 		RejectMsgEditorController(Application &app, NotiHandler handler);
+
+		/*
+		 * @brief initialization of RejectMsgEditView in Create mode
+		 * @return true on success, otherwise false
+		 */
 		bool initialize();
+
+		/*
+		 * @brief initialization of RejectMsgEditView in Edit mode
+		 * @param[in]	editableMsgId	Reject message Id which will be modified
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(Model::StringKey editableMsgId);
+
+		/*
+		 * @brief RejectMsgEditView initialization is provided here
+		 */
 		bool initializeView();
 
+		/*
+		 * @brief Called when Done title button clicked.
+		 * @param[in]	sender		Done button widget
+		 */
 		void onDoneBtnClick(gui::Widget &sender);
+
+		/*
+		 * @brief Called when Cancel title button clicked.
+		 * @param[in]	sender		Cancel button widget
+		 */
 		void onCancelBtnClick(gui::Widget &sender);
+
+		/*
+		 * @brief Callback for input new text into entry
+		 * @note This callbacj is invoked after onInputFilterEvent() when text is already displayed in entry
+		 * Update inputted text characters count is provided here
+		 */
 		void onInputEvent();
+
+		/*
+		 * @brief Callback for input filter event. Called when user try to input text into entry before text is shown
+		 * @param[in]	msgText		Text which user try to input
+		 * @return true if text is valid or false otherwise
+		 * @note if return value is false text will not be placed into entry.
+		 * This callback needed for check SMS character count based on encoding
+		 */
 		bool onInputFilterEvent(std::string &msgText);
+
+		/*
+		 * @brief Update reject message text settings
+		 * @return true on success, otherwise false
+		 */
 		bool updateMsgSettings();
+
+		/*
+		 * @brief Check whether edited message is duplicated with other Reject messages or not
+		 * @param[in]	msg		Current editted message
+		 * @return	true if message is duolicated, otherwise false
+		 */
 		bool isMsgDuplicated(const std::string &msg);
+
+		/*
+		 * @brief Calculate SMS text length and max SMS text length based to encoding
+		 * @param[in]	smsText			Reject message SMS text
+		 * @param[out]	smsCharCount	SMS Characters count for current text encoding
+		 * @param[out]	smsMaxCount		SMS Max Characters count for current text encoding
+		 * @return true on success, otherwise false
+		 * @note SMS length depends on language text. Thus for English characters only max SMS length is 160 chars
+		 * For Macedonian language for example it is 140.
+		 */
 		static bool calculateSMSTextLength(const std::string &smsText, int &smsCharCount, int &smsMaxCount);
 
 	private:

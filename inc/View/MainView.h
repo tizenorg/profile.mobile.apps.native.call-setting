@@ -24,10 +24,27 @@
 
 namespace CallSettings { namespace View {
 
+	/*
+	 * @brief Represents Main view instance
+	 */
 	class MainView : public gui::BaseView {
 	public:
+		/*
+		 * @brief Set handler for click reject messages list item
+		 * @param[in]	handler		event handler
+		 */
 		void setRejectMsgHandler(NotiHandler handler) { m_rejectMsgClickHandler = handler;}
+
+		/*
+		 * @brief Set handler for click Answering/ending calls list item
+		 * @param[in]	handler		event handler
+		 */
 		void setCallAceptHandler(NotiHandler handler) { m_callAceptClickHandler = handler;}
+
+		/*
+		 * @brief Set handler for click More list item
+		 * @param[in]	handler		event handler
+		 */
 		void setMoreHandler(NotiHandler handler) { m_moreClickHandler = handler;}
 
 	private:
@@ -37,6 +54,11 @@ namespace CallSettings { namespace View {
 		virtual ~MainView();
 
 		bool initialize();
+
+		/*
+		 * @brief Callback for list click event
+		 * @param[in]	item	clicked list item
+		 */
 		void onOptionSelected(gui::WidgetItem &item);
 
 	private:

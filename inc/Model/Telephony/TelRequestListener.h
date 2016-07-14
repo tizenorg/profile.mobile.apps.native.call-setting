@@ -29,16 +29,35 @@ namespace CallSettings { namespace Model {
 	class IBaseTelRequestListener {
 	public:
 		virtual ~IBaseTelRequestListener(){}
+		/*
+		 * @brief Called when Telephony service start processing request
+		 * @param[in]	telephonyManager	Telephony manager instance
+		 * @param[in]	requestId			request id in TelephonyManager request que
+		 * @return true on success, otherwise false
+		 */
 		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId) = 0;
+
+		/*
+		 * @brief Called when Telephony manager no more processing request
+		 * This can be when request is completed, canceled or failed.
+		 */
 		virtual void onDetach() = 0;
 	};
 
+	/*
+	 * @brief Interface for Request listeners. Uses for get state of Telephony supplementary service option
+	 * When request is finished result code and option state data is provided to listener
+	 */
 	template <typename VALUE_TYPE>
 	class ITelRequestListener : public IBaseTelRequestListener {
 	public:
 		virtual void onRequestComplete(TelResultCode result, const VALUE_TYPE *value) = 0;
 	};
 
+	/*
+	 * @brief Interface for Simple request listeners. Uses for setup Telephony supplementary service option so only result code is
+	 * provided to listener
+	 */
 	class ISimpleTelRequestListener : public IBaseTelRequestListener {
 	public:
 		virtual void onRequestComplete(TelResultCode result) = 0;
@@ -50,6 +69,7 @@ namespace CallSettings { namespace Model {
 	public:
 		TelRequestListener(){}
 		virtual ~TelRequestListener(){}
+
 		virtual bool onAttach(ITelephonyManager *telephonyManager, int requestId);
 		virtual void onDetach();
 	};

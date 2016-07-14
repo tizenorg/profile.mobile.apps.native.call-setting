@@ -25,32 +25,89 @@
 #include "Path.h"
 
 namespace appfw {
-
+	/**
+	 *@brief Application life cycle controller
+	 */
 	class BaseApplication : private util::NonCopyable {
 	public:
 		BaseApplication();
 		virtual ~BaseApplication();
 
+		/**
+		 * @brief Run application main loop.
+		 * @param[in]	argc	argc parameter received in main()
+		 * @param[in]	argv	argv parameter received in main()
+		 */
 		int run(int argc, char *argv[]);
+
+		/**
+		 * @brief Terminate application.
+		 */
 		void terminate();
 
+		/**
+		 * @brief Provide System event manager instance
+		 */
 		SystemEventManager &getSystemEventManager();
+
+		/**
+		 * @brief Provide View manager instance
+		 */
 		gui::ViewManager &getViewManager();
 
 	protected:
+		/**
+		 * @brief Called when application is created
+		 * @return true on success, otherwise false
+		 */
 		virtual bool onAppCreate() = 0;
+
+		/**
+		 * @brief Called when application is terminated
+		 */
 		virtual void onAppTerminate() = 0;
+
+		/**
+		 * @brief Called when application receives App Control request
+		 * @param[in]	request		App Control request
+		 */
 		virtual void onAppControl(app_control_h request) {}
 
 	private:
+		/**
+		 * @brief Callback for application create event
+		 */
 		bool AppCreateCb();
+
+		/**
+		 * @brief Callback for application terminate event
+		 */
 		void AppTerminateCb();
+
+		/**
+		 * @brief Callback for application pause event
+		 */
 		void AppPauseCb();
+
+		/**
+		 * @brief Callback for application resume event
+		 */
 		void AppResumeCb();
+
+		/**
+		 * @brief Callback for application app control request event
+		 */
 		void AppControlCb(app_control_h request);
 
 	private:
+		/*
+		 * @brief Event manager instance
+		 */
 		SystemEventManager *m_pEventManager;
+
+		/*
+		 * @brief View manager instance
+		 */
 		gui::ViewManager *m_pViewManager;
 	};
 }

@@ -24,10 +24,28 @@
 
 namespace CallSettings { namespace View {
 
+	/*
+	 * @brief Represents Simple  view with genlist widget only.
+	 * Also is possible to show no contents layout
+	 */
 	class GenlistView : public gui::BaseView {
 	public:
+		/*
+		 * @brief Get instance of Genlist widget
+		 * @return	instance of genlist widget
+		 */
 		gui::Genlist &getGenlist();
+
+		/*
+		 * @brief Show not contents layout widget
+		 * @param[in]	mainText	main text in No content layout
+		 * @param[in]	helpText	sub text in No content layout
+		 */
 		void showEmptyView(util::TString mainText, util::TString helpText);
+
+		/*
+		 * @brief Show genlist widget and hide no contents layout
+		 */
 		void showListView();
 
 	protected:

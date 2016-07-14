@@ -22,6 +22,9 @@
 
 namespace CallSettings { namespace Model {
 
+	/*
+	 * @brief TelephonyManager Result codes
+	 */
 	typedef enum {
 		TELEPHONY_RES_SUCCESS,
 		TELEPHONY_RES_FAIL_NETWORK_API_FAILED,
@@ -34,6 +37,9 @@ namespace CallSettings { namespace Model {
 		TELEPHONY_RES_FAIL_UNKNOWN_ERROR,
 	} TelResultCode;
 
+	/*
+	 * @brief Telephony manager call types
+	 */
 	typedef enum {
 		TELEPHONY_CALLTYPE_VOICE,
 		TELEPHONY_CALLTYPE_VIDEO,
@@ -41,6 +47,9 @@ namespace CallSettings { namespace Model {
 		TELEPHONY_CALLTYPE_UNDEFINED,
 	} CallType;
 
+	/*
+	 * @brief Call forwarding condition types
+	 */
 	typedef enum {
 		TELEPHONY_CF_UNCONDITIONAL,
 		TELEPHONY_CF_IF_BUSY,
@@ -49,6 +58,9 @@ namespace CallSettings { namespace Model {
 		TELEPHONY_CF_IF_UNDEFINED,
 	} CallFwdCondition;
 
+	/*
+	 * @brief Time intervals for call forward when unreachable condition
+	 */
 	typedef enum {
 		TELEPHONY_CF_NO_REPLY_5_SEC,
 		TELEPHONY_CF_NO_REPLY_10_SEC,
@@ -59,19 +71,28 @@ namespace CallSettings { namespace Model {
 		TELEPHONY_CF_NO_REPLY_UNDEFINED,
 	} CallFwdNoReplyTime;
 
+	/*
+	 * @brief Call waiting modes
+	 */
 	typedef enum {
 		TELEPHONY_CW_MODE_ACTIVATE,
 		TELEPHONY_CW_MODE_DEACTIVATE,
 		TELEPHONY_CW_MODE_UNDEFINED,
 	} CallWaitingMode;
 
+	/*
+	 * @brief Call forwarding setting modes
+	 */
 	typedef enum {
-		TELEPHONY_CF_MODE_ACTIVATE,
-		TELEPHONY_CF_MODE_REGISTER,
-		TELEPHONY_CF_MODE_DEACTIVATE,
-		TELEPHONY_CF_MODE_UNDEFINED,
+		TELEPHONY_CF_MODE_ACTIVATE,		/**Call forwarding is active*/
+		TELEPHONY_CF_MODE_REGISTER,		/**Call forwarding registration state. Needed for save new settings*/
+		TELEPHONY_CF_MODE_DEACTIVATE,	/**Call forwarding is not set*/
+		TELEPHONY_CF_MODE_UNDEFINED,	/**Call forwarding state undefined*/
 	} CallForwardMode;
 
+	/*
+	 * @brief Sim card state types
+	 */
 	typedef enum {
 		TELEPHONY_SIMCARD_STATE_REMOVED,
 		TELEPHONY_SIMCARD_STATE_READY,
@@ -81,12 +102,18 @@ namespace CallSettings { namespace Model {
 		TELEPHONY_SIMCARD_STATE_UNKNOWN,
 	} SimCardState;
 
+	/*
+	 * @brief Sim slot types. Uses for multisim devices
+	 */
 	typedef enum {
 		TELEPHONY_SIM_SLOT_NONE,
 		TELEPHONY_SIM_SLOT_1,
 		TELEPHONY_SIM_SLOT_2,
 	} SimSlot;
 
+	/*
+	 * @brief call waiting setting data. Describes type and status of call waiting option
+	 */
 	struct CallWaitingReqData {
 		CallType callType;
 		CallWaitingMode mode;
@@ -94,12 +121,15 @@ namespace CallSettings { namespace Model {
 			mode(TELEPHONY_CW_MODE_UNDEFINED) {}
 	};
 
+	/*
+	 * @brief Call forward setting data. Describes call forward status and conditions settings
+	 */
 	struct CallFwdReqData {
-		CallType callType;
-		CallForwardMode mode;
-		CallFwdCondition condition;
-		std::string telNumber;
-		CallFwdNoReplyTime waitTime;
+		CallType callType;						/**Call type*/
+		CallForwardMode mode;					/**Mode for current call forward condition*/
+		CallFwdCondition condition;				/**Forward condition*/
+		std::string telNumber;					/**Telephone number on which call forwarding will be done*/
+		CallFwdNoReplyTime waitTime;			/**Timing related to TELEPHONY_CF_IF_NO_REPLY condition only */
 		CallFwdReqData() : callType(TELEPHONY_CALLTYPE_UNDEFINED),
 			mode(TELEPHONY_CF_MODE_UNDEFINED),
 			condition(TELEPHONY_CF_IF_UNDEFINED),
@@ -107,7 +137,14 @@ namespace CallSettings { namespace Model {
 			waitTime(TELEPHONY_CF_NO_REPLY_UNDEFINED) {}
 	};
 
+	/*
+	 * @brief String consist from allowed only symbols which can be used in telephone number for SS setup
+	 */
 	extern const std::string TELEPHONY_NUMBER_ALLOWED_SYMBOLS;
+
+	/*
+	 * @brief Max telephony number string length
+	 */
 	extern const int TELEPHONY_NUMBER_LENGTH_MAX;
 
 } }

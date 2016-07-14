@@ -22,8 +22,21 @@
 
 namespace appfw {
 
+	/*
+	 * @return Get application resource directory path
+	 */
 	const std::string &getResourceDir();
+
+	/**
+	 * @return Localization files directory path
+	 */
 	const std::string &getLocaleDir();
+
+	/**
+	 * @brief Get resource file path.
+	 * @param[in]	relativePath	File path relative to resource directory
+	 * @return Full file path
+	 */
 	std::string getResourcePath(const std::string &relativePath);
 }
 

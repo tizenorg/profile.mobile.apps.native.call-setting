@@ -21,18 +21,33 @@
 #include "Widget.h"
 
 namespace gui {
-
+	/*
+	 * @brief Processing circle widget type
+	 */
 	typedef enum {
 		PROCESSING_TYPE_SMALL,
 		PROCESSING_TYPE_MID,
 		PROCESSING_TYPE_LARGE,
 	} ProcessingType;
 
+	/*
+	 * @brief Represents Processing circle widget which used for GUI interpretation of heavy processes
+	 */
 	class ProcessingCircle : public Widget {
 	public:
+		/*
+		 * @brief Set style for processing circle widget
+		 * @param[in]	type	Circle widget type
+		 */
 		void setStyle(ProcessingType type);
 
 	protected:
+		/*
+		 * @brief Processing circle widget initialization
+		 * @param[in]	parent	Circle widget parent
+		 * @param[in]	type	Circle widget type
+		 * @return	true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent, ProcessingType type = PROCESSING_TYPE_MID);
 
 	private:

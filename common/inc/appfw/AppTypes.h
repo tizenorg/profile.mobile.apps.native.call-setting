@@ -23,6 +23,9 @@
 
 namespace appfw
 {
+	/**
+	 * @brief Basic System event types.
+	 */
 	typedef enum {
 		SYS_EVENT_LANGUAGE_CHANGE,
 		SYS_EVENT_REGION_FMT_CHANGE,
@@ -30,8 +33,10 @@ namespace appfw
 		SYS_EVENT_RESUME,
 	} SystemEvent;
 
+	/**
+	 * @brief System Event handler type which invokes in case of system event
+	 */
 	typedef util::Delegate<void(SystemEvent)> SystemEventHandler;
-	typedef util::CallbackAlt<void(app_event_info_h event_info)> AppEventCb;
 }
 
 #endif /* _APPFW_APPTYPES_H_ */

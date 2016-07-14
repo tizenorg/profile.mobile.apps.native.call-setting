@@ -23,24 +23,78 @@
 #include "NaviItem.h"
 
 namespace gui {
+
+	/*
+	 * @brief Represents instance of ViewManager
+	 */
 	class ViewManager {
 	public:
+		/*
+		 * @brief ViewManager instance creation
+		 * @return ViewManagerinstance
+		 */
 		static ViewManager *create();
+
+		/*
+		 * @brief Destroy view manager instance
+		 */
 		static void destroy(ViewManager *instance);
 
+		/*
+		 * @brief Setup edje theme for main window
+		 * @param[in]	themePath	Path to edje theme
+		 * @return true on success, otherwise false
+		 */
 		bool setupTheme(const std::string &themePath);
 
+		/*
+		 * @brief Fabric method for creation new View and provide view push into naviframe stack
+		 * @param[in]	showAnimation	Animation state for push view
+		 * @return	View instance pointer
+		 **/
 		template <class ViewType>
 		ViewType *pushView(bool showAnimation = true);
+
+		/*
+		 * @brief Pop view from naviframe stack
+		 * @return true on success otherwise false
+		 */
 		bool popView();
 
+		/*
+		 * @brief Check whether view is on top or not
+		 * @param[in]	view	View instance
+		 * @return true if view is top most, otherwise false
+		 */
 		bool isTopView(BaseView *view);
+
+		/*
+		 * @brief Register view event handler.
+		 * @param[in]	handler		View event handler
+		 * @return true on success otherwise false
+		 */
 		bool addViewEventHandler(ViewEventHandler handler);
+
+		/*
+		 * @brief Unregister view event handler.
+		 * @param[in]	handler		View event handler
+		 */
 		void removeViewEventHandler(ViewEventHandler handler);
 
+		/*
+		 * @return Get window evas object instance
+		 */
 		Evas_Object *getWindow();
+
+		/*
+		 * @return Get naviframe evas object instance
+		 */
 		Evas_Object *getNaviframe();
 
+		/*
+		 * @brief Show toast popup message on top most view
+		 * @param[in]	notiText	Notification text message
+		 */
 		void showToastNotification(util::TString notiText);
 
 	private:

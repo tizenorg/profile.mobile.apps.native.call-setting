@@ -22,23 +22,107 @@
 
 namespace CallSettings { namespace Model {
 
+	/*
+	 * Represents VCONF wrapper interface
+	 */
 	class ISettingsManager {
 	public:
 		virtual ~ISettingsManager(){}
 
+		/*
+		 * @brief Add callback for change Boolean VCONF preference
+		 * @param[in]	key			Boolean setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual SettingResultCode addPropertyHandler(BoolKey key, NotiHandler handler) = 0;
+
+		/*
+		 * @brief Add callback for change Int VCONF preference
+		 * @param[in]	key			Int setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual SettingResultCode addPropertyHandler(IntKey key, NotiHandler handler) = 0;
+
+		/*
+		 * @brief Add callback for change string VCONF preference
+		 * @param[in]	key			String setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual SettingResultCode addPropertyHandler(StringKey key, NotiHandler handler) = 0;
 
+		/*
+		 * @brief Remove callback for change Boolean VCONF preference
+		 * @param[in]	key			Boolean setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual void removePropertyHandler(BoolKey key, NotiHandler handler) = 0;
+
+		/*
+		 * @brief Remove callback for change Int VCONF preference
+		 * @param[in]	key			Int setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual void removePropertyHandler(IntKey key, NotiHandler handler) = 0;
+
+		/*
+		 * @brief Remove callback for change string VCONF preference
+		 * @param[in]	key			String setting key
+		 * @param[in]	handler		Change event handler
+		 * @return Result code
+		 */
 		virtual void removePropertyHandler(StringKey key, NotiHandler handler) = 0;
 
+		/*
+		 * @brief Set new value for int VCONF preference
+		 * @param[in]	key		int VCONF preference
+		 * @param[in]	value	New value of preference to be set
+		 * @return Result code
+		 */
 		virtual SettingResultCode setProperty(IntKey key, int value) = 0;
+
+		/*
+		 * @brief Get current value for int VCONF preference
+		 * @param[in]	key		int VCONF preference
+		 * @param[out]	value	Current value of preference
+		 * @return Result code
+		 */
 		virtual SettingResultCode getProperty(IntKey key, int &value) = 0;
+
+		/*
+		 * @brief Set new value for bool VCONF preference
+		 * @param[in]	key		bool VCONF preference
+		 * @param[in]	value	New value of preference to be set
+		 * @return Result code
+		 */
 		virtual SettingResultCode setProperty(BoolKey key, bool value) = 0;
+
+		/*
+		 * @brief Get current value for bool VCONF preference
+		 * @param[in]	key		bool VCONF preference
+		 * @param[out]	value	Current value of preference
+		 * @return Result code
+		 */
 		virtual SettingResultCode getProperty(BoolKey key, bool &value) = 0;
+
+		/*
+		 * @brief Set new value for string VCONF preference
+		 * @param[in]	key		string VCONF preference
+		 * @param[in]	value	New value of preference to be set
+		 * @return Result code
+		 */
 		virtual SettingResultCode setProperty(StringKey key, const std::string &value) = 0;
+
+		/*
+		 * @brief Get current value for string VCONF preference
+		 * @param[in]	key		string VCONF preference
+		 * @param[out]	value	Current value of preference
+		 * @return Result code
+		 */
 		virtual SettingResultCode getProperty(StringKey key, std::string &value) = 0;
 	};
 } }

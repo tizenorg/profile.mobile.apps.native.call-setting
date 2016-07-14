@@ -47,9 +47,9 @@ namespace gui {
 		return true;
 	}
 
-	void Checkbox::setCheckStyle(CheckboxStyle type)
+	void Checkbox::setCheckStyle(CheckboxStyle style)
 	{
-		switch (type) {
+		switch (style) {
 		case CHECKBOX_SWITCHER :
 			elm_object_style_set(m_pEvasObject, "on&off");
 			break;

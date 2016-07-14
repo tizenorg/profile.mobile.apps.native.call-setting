@@ -25,9 +25,20 @@
 
 namespace CallSettings { namespace View {
 
+	/*
+	 * @brief Represents Special genlist item widget for input phone number
+	 * It contains from editfield and contact button
+	 */
 	class PhoneEditListItem : public gui::GenlistItem {
 	public:
+		/*
+		 * @return Editfield widget instance from List item
+		 */
 		gui::Editfield &getEditfield();
+
+		/*
+		 * @return Contact button widget instance from List item
+		 */
 		gui::Button &getContactButton();
 
 		// GenlistItem //
@@ -41,9 +52,28 @@ namespace CallSettings { namespace View {
 
 		bool initialize(ItemAddMethod createItem);
 
+		/*
+		 * @brief Initialize List item layout
+		 * @param[in]	parent	Widget parent
+		 * @return true on success, otherwise false
+		 */
 		bool initItemLayout(const gui::Widget &parent);
+
+		/*
+		 * @brief Create editfield widget for phone number input with special type of SIP
+		 * @return Editfield instance
+		 */
 		gui::Editfield *createEditFiled();
+
+		/*
+		 * @brief Create Contacts button with special style
+		 * @return Contact button instance
+		 */
 		gui::Button *createContactButton();
+
+		/*
+		 * @brief Callback for item layout destroy
+		 */
 		void onItemLayoutDel();
 
 		// GenlistItem //

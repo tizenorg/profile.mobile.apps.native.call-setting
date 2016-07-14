@@ -22,31 +22,83 @@
 #include "Checkbox.h"
 
 namespace gui {
-
+	/*
+	 * @brief Represent Genlist item with single text line and checkbox widget
+	 */
 	class CheckboxListItem : public SimpleListItem {
 
 	public:
+		/*
+		 * @brief	Check mode. This mode determines behavior of checkbox widget in list item
+		 */
 		typedef enum {
-				NORMAL,
-				AUTO_CHECK,
-				SKIP_EVENTS,
-				PENDING,
-				HIDDEN,
+				NORMAL,			//In this mode checkbox widget click events and list item click events are independent
+				AUTO_CHECK,		//In this mode click by list item automatically perform click by checkbox and check event handler will be invoked
+				SKIP_EVENTS,	//In this mode checkbox does not handle click events, only list item is interactive
+				PENDING,		//In this mode pending circle is shown instead checkbox. This mode used when checkbox handle tooks too much time.
+				HIDDEN,			//In this mode checkbox does not shown
 		} CheckMode;
 
+		/*
+		 * @brief Set new state of checkbox
+		 * @param[in]	checkedState	Checkbox new check state which will be setted
+		 */
 		void setCheckState(bool state);
+
+		/*
+		 * @brief Get state of checkbox whether it is checked or not
+		 * @return	true if checkbox is checked, otherwise false
+		 */
 		bool getCheckState();
+
+		/*
+		 * @brief Set check mode for list item
+		 * @param[in]	mode	New check mode
+		 */
 		void setCheckMode(CheckMode mode);
+
+		/*
+		 * @return Get current check mode
+		 */
 		CheckMode getCheckMode();
+
+		/*
+		 * @brief Set checkbox style
+		 * @param[in]	checkStyle		checkbox style
+		 */
 		void setCheckboxStyle(Checkbox::CheckboxStyle checkStyle);
+
+		/*
+		 * @brief Set event handler for checkbox check event.
+		 * @param[in]	handler		Check event handler
+		 */
 		void setCheckHandler(ItemNotiHandler handler);
 
 	protected:
 		CheckboxListItem();
 		virtual ~CheckboxListItem();
+
+		/*
+		 * @brief Callback called when list item will be displayed on screen. List item content will be created here
+		 * @param[in]	genlist		Genlist object
+		 * @param[in]	part		Part name of list item
+		 * @return	Widget which will be placed in mentioned part in list item
+		 */
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) override;
+
+		/*
+		 * @brief Callback for checkbox check event
+		 */
 		void onCheckChanged();
+
+		/*
+		 * @brief Callback for checkbox destroy event
+		 */
 		void onCheckboxDestroyed();
+
+		/*
+		 * @brief Callback for list item select event
+		 */
 		virtual void onSelected() override;
 
 	protected:

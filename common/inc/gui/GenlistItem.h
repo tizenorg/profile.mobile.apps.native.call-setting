@@ -23,39 +23,109 @@
 namespace gui {
 
 	class Genlist;
-
+	/*
+	 * @brief Represents Genlist item onject
+	 */
 	class GenlistItem : public WidgetItem {
 	public:
-
+		/*
+		 * @brief List item part types
+		 */
 		typedef enum {
 			GL_PART_TYPE_TEXT = 1,
 			GL_PART_TYPE_CONTENT = 2,
 			GL_PART_TYPE_STATE = 4,
 		} GenlistPartType;
 
+		/*
+		 * @brief List item selection mode
+		 */
 		typedef enum {
-			GENLIST_ITEM_SELECT_MODE_ONCE, /*Item is selected only once, select callback calls only once*/
-			GENLIST_ITEM_SELECT_MODE_ALWAYS, /*Item selected callbacks will be called every time for click events*/
-			GENLIST_ITEM_SELECT_MODE_NONE, /*Item never be selected and no callback will be invoked*/
+			GENLIST_ITEM_SELECT_MODE_ONCE,		/**Item is selected only once, select callback calls only once*/
+			GENLIST_ITEM_SELECT_MODE_ALWAYS,	/**Item selected callbacks will be called every time for click events*/
+			GENLIST_ITEM_SELECT_MODE_NONE,		/**Item never be selected and no callback will be invoked*/
 		} ItemSelectionMode;
 
+		/*
+		 * @brief Provides ItemClass name for current ListItem widget
+		 * @return	Genlist item class pointer.
+		 */
 		virtual Elm_Genlist_Item_Class *getItemClass();
+
+		/*
+		 * @brief Set select event handler
+		 * @param[in]	handler		Event handler
+		 */
 		void setSelectHandler(ItemNotiHandler handler);
+
+		/*
+		 * @brief Set selection mode
+		 * @param[in]	mode	Selection mode
+		 */
 		void setSelectionMode(ItemSelectionMode mode);
 
 	protected:
+		/*
+		 * @brief Function wrapper type for item insertion method
+		 */
 		typedef std::function<Elm_Object_Item *(GenlistItem *item)> ItemAddMethod;
 
 	protected:
 		GenlistItem();
 		virtual ~GenlistItem();
+
+		/*
+		 * @brief Initialize List item
+		 * param[in]	createItem			Function wrapper for insetion List item into list. Is provided by Genlist class
+		 * param[in]	itemSelectMode		Item selection mode
+		 * @return	true on success, otherwise false
+		 */
 		bool initialize(ItemAddMethod createItem, ItemSelectionMode itemSelectMode = GENLIST_ITEM_SELECT_MODE_ALWAYS);
+
+		/*
+		 * @brief List item select callback
+		 */
 		virtual void onSelected();
+
+		/*
+		 * @brief Callback called when list item will be displayed on screen. List item text parts will be set here
+		 * @param[in]	genlist		Genlist object
+		 * @param[in]	part		Part name of list item
+		 * @return	Allocated text string
+		 */
 		virtual char *getText(const char *part) {return nullptr;}
+
+		/* @brief Callback called when list item will be displayed on screen. List item content will be created here
+		 * @param[in]	genlist		Genlist object
+		 * @param[in]	part		Part name of list item
+		 * @return	Widget which will be placed in mentioned part in list item
+		 */
 		virtual Evas_Object *getContent(Evas_Object *genlist, const char *part) {return nullptr;}
+
+		/*
+		 * @brief Callback for getting List item state
+		 * @param[in]	part	part name
+		 * @return List item state
+		 */
 		virtual Eina_Bool getState(const char *part) {return EINA_FALSE;}
+
+		/*
+		 * @brief Create new item class
+		 * @param[in]	style	Item class name
+		 * @return	New item class instance
+		 */
 		static Elm_Genlist_Item_Class createItemClass(const char *style = "default");
+
+		/*
+		 * @brief Update list item. All item content will be recreated and getContent() getText() callbacks will be invoked
+		 */
 		void update();
+
+		/*
+		 * @brief Update list item part.
+		 * @param[in]	parts		Parts name, symbol * may used to determine part name template
+		 * @param[in]	updateFlag	Flags to determine parts type @see GenlistPartType
+		 */
 		void update(const char *parts, int updateFlag);
 
 	private:
