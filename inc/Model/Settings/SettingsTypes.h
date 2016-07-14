@@ -22,6 +22,9 @@
 
 namespace CallSettings { namespace Model {
 
+	/*
+	 * @brief Settings Manager result code type
+	 */
 	typedef enum {
 		SETTINGS_RES_SUCCESS,
 		SETTINGS_RES_FAIL_KEY_UNKNOWN,
@@ -31,16 +34,25 @@ namespace CallSettings { namespace Model {
 		SETTINGS_RES_FAIL_UNKNOWN_ERROR,
 	} SettingResultCode;
 
+	/*
+	 * @brief Settings Manager Int preferences types
+	 */
 	typedef enum {
 		INT_KEY_SHOW_CALLER_ID = 0,
 		INT_KEY_REJECT_MSG_COUNT,
 	} IntKey;
 
+	/*
+	 * @brief Settings Manager Bool preferences types
+	 */
 	typedef enum {
 		BOOL_KEY_CALL_ANSWERING_BY_HOME_KEY = 10,
 		BOOL_KEY_CALL_ENDING_BY_POWER_KEY,
 	} BoolKey;
 
+	/*
+	 * @brief Settings Manager String preferences types
+	 */
 	typedef enum {
 		STRING_KEY_REJECT_MSG_ITEM_1 = 20,
 		STRING_KEY_REJECT_MSG_ITEM_2,

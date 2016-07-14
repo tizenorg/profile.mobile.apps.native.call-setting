@@ -21,10 +21,19 @@
 namespace CallSettings { namespace Model {
 
 	class ITelephonyManager;
-
+	/*
+	 * @brief Base class for representation Telephony request listener instance
+	 */
 	class BaseTelRequestListener {
 	public:
+		/*
+		 * @brief Cancel currently launched request which belongs to request listener instance
+		 */
 		void cancelRequest();
+
+		/*
+		 * @return true if request is attached to Telephony manager and processing, otherwise false
+		 */
 		bool isAttached();
 	protected:
 		BaseTelRequestListener();

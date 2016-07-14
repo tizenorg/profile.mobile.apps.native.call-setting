@@ -26,17 +26,41 @@
 
 namespace CallSettings {
 
+	/*
+	 * @brief Represents Call Settings application core instance
+	 */
 	class Application : public appfw::BaseApplication {
 	public:
 		Application();
 		virtual ~Application();
 
+		/*
+		 * @return Settings manager instance
+		 */
 		Model::ISettingsManager &getSettingsManager();
+
+		/*
+		 * @return Telephony manager instance
+		 */
 		Model::ITelephonyManager &getTelephonyManager();
 
 	private:
+
+		/*
+		 * @brief Called when application creates
+		 * @return true on success, otherwise false. If false returned applciation will be terminated
+		 */
 		virtual bool onAppCreate() override;
+
+		/*
+		 * @brief Called when application terminates. Resource release must be done here.
+		 */
 		virtual void onAppTerminate() override;
+
+		/*
+		 * @brief Called when root view controller request destroy him.
+		 * @note At this point application may terminate or create another root controller
+		 */
 		void onDestroyRequest();
 
 	private:

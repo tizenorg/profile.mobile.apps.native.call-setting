@@ -24,14 +24,43 @@
 
 namespace CallSettings { namespace View {
 
+	/*
+	 * @brief Represents Answer view instance
+	 */
 	class AnswerView : public gui::BaseView {
 	public:
+		/*
+		 * @brief Set handler for check answer option event
+		 * @param[in]	handler		event handler
+		 */
 		void setAnswerCheckHandler(NotiHandler handler) {m_answerCheckHandler = handler;}
+
+		/*
+		 * @brief Set handler for check reject option event
+		 * @param[in]	handler		event handler
+		 */
 		void setRejectCheckHandler(NotiHandler handler) {m_rejectCheckHandler = handler;}
 
+		/*
+		 * @return Answer option checkbox state
+		 */
 		bool getAnswerOptionState() { return m_pAnswerOption->getCheckState();}
+
+		/*
+		 * @return Reject option checkbox state
+		 */
 		bool getRejectOptionState() { return m_pRejectOption->getCheckState();}
+
+		/*
+		 * @brief Set checkbox state for answer option
+		 * @param[in]	checked		checkbox state
+		 */
 		void checkAnswerOption(bool checked) {m_pAnswerOption->setCheckState(checked);}
+
+		/*
+		 * @brief Set checkbox state for reject option
+		 * @param[in]	checked		checkbox state
+		 */
 		void checkRejectOption(bool checked) {m_pRejectOption->setCheckState(checked);}
 
 	private:
@@ -41,6 +70,10 @@ namespace CallSettings { namespace View {
 		virtual ~AnswerView();
 
 		bool initialize();
+		/*
+		 * @brief Callback for list option checkbox state changes
+		 * @param[in]	item	Caller item
+		 */
 		void onOptionChecked(gui::WidgetItem &item);
 
 	private:

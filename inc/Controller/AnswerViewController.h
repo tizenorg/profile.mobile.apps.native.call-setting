@@ -25,6 +25,9 @@
 
 namespace CallSettings { namespace Controller {
 
+	/*
+	 * @brief Represents Controller of Answering/Ending calls view
+	 */
 	class AnswerViewController : public gui::ViewController {
 	public:
 		virtual ~AnswerViewController();
@@ -33,16 +36,47 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 
 		AnswerViewController(Application &app, NotiHandler handler);
+
+		/*
+		 * @brief Called when view needs update for some reasons
+		 * @param[in] Update flags which describes update reason
+		 */
 		virtual void updateView(int updateFlag) override;
+
+		/*
+		 * @brief initialization of AnswerViewController
+		 * @return true on success, otherwise false
+		 */
 		bool initialize();
 
+		/*
+		 * @brief Called when checkbox of answer option is checked
+		 */
 		void onAnswerOptionCheck();
+
+		/*
+		 * @brief Called when checkbox of reject option is checked
+		 */
 		void onRejectOptionCheck();
-		void onAnswerItemClick();
-		void onRejectItemClick();
+
+		/*
+		 * @brief Called when answer option state changed. This callback is invoked by model
+		 */
 		void onAnswerOptionChanged();
+
+		/*
+		 * @brief Called when reject option state changed. This callback is invoked by model
+		 */
 		void onRejectOptionChanged();
+
+		/*
+		 * @brief Update answer option list item state
+		 */
 		void updateAnswerOption();
+
+		/*
+		 * @brief Update reject option list item state
+		 */
 		void updateRejectOption();
 
 	private:

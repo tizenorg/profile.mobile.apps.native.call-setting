@@ -26,17 +26,69 @@
 
 namespace CallSettings { namespace View {
 
+	/*
+	 * @brief Represents instrance of Reject message editor view
+	 */
 	class RejectMsgEditView : public gui::BaseView {
 	public:
+		/*
+		 * @brief Set current version of message text which will be edit into entry widget
+		 * @param[in]	text	Reject message text
+		 */
 		void setMsgText(const util::TString &text);
+
+		/*
+		 * @brief Get reject message text which is currently entered into editfield
+		 * @return Reject message text
+		 */
 		std::string getMsgText() {return m_pEditfield->getEntryRawText();}
+
+		/*
+		 * @brief Updates char counter label in editor view
+		 * @param[in]	inputCount	Count of inputed symbols
+		 * @param[in]	maxCount	Maximum count of symbols
+		 */
 		void updateInputCharCount(int inputCount, int maxCount);
+
+		/*
+		 * @brief Hide char counter label
+		 */
 		void hideInputCharCount();
+
+		/*
+		 * @brief Set active/disabled DONE button in title view
+		 * @param[in]	disableState	If true button will be disabled, otherwise enabled
+		 */
 		void setDisabledDoneBtn(bool disableState) { m_pDoneBtn->setDisabled(disableState);}
+
+		/*
+		 * @brief Set Done title button click handler
+		 * @param[in]	handler		click handler
+		 */
 		void setDoneClickHandler(gui::WidgetNotiHandler handler) { m_pDoneBtn->setClickHandler(handler);}
+
+		/*
+		 * @brief Set Cancel title button click handler
+		 * @param[in]	handler		click handler
+		 */
 		void setCancelClickHandler(gui::WidgetNotiHandler handler) { m_pCancelBtn->setClickHandler(handler); }
+
+		/*
+		 * @brief Set input event handler
+		 * @param[in]	handler		click handler
+		 */
 		void setInputEventHandler(NotiHandler handler) { m_pEditfield->setInputEventHandler(handler); }
+
+		/*
+		 * @brief Set input filter event handler
+		 * @param[in]	handler		click handler
+		 */
 		void setInputFilterHandler(gui::Editfield::InputFilterHandler handler) { m_pEditfield->setInputFilterHandler(handler); }
+
+		/*
+		 * @brief Set view title text
+		 * @param[in]	titleText	View Title text
+		 */
 		void setViewTitle(util::TString titleText);
 
 	private:

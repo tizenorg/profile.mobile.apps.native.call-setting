@@ -26,8 +26,15 @@
 
 namespace CallSettings { namespace View {
 
+
+	/*
+	 * @brief Represents More view instance
+	 */
 	class MoreView : public gui::BaseView {
 	public:
+		/*
+		 * @brief Caller id status type
+		 */
 		typedef enum {
 			CALLER_ID_STATUS_DEFAULT,
 			CALLER_ID_STATUS_SHOW,
@@ -35,18 +42,63 @@ namespace CallSettings { namespace View {
 		} CallerIdStatus;
 
 
+		/*
+		 * @brief Callback called when caller id new status changed in Caller Id settings popup
+		 */
 		typedef util::Delegate <void(CallerIdStatus)> CallerIdStatusChangeHandler;
 
-
+		/*
+		 * @brief Set caller id status text in caller id list item
+		 * @param[in]	value	caller id value
+		 */
 		void setCallerIdStatus(CallerIdStatus value);
+
+		/*
+		 * @brief Set handler for click caller id list item event
+		 * @param[in]	handler		event handler
+		 */
 		void setCallerIdClickHandler(NotiHandler handler) { m_callerIdClickHandeler = handler;}
+
+		/*
+		 * @brief Set handler for click call forwarding list item event
+		 * @param[in]	handler		event handler
+		 */
 		void setCallForwardClickHandler(NotiHandler handler) { m_callFwdClickHandler = handler;}
+
+		/*
+		 * @brief Set handler for check call waiting option checkbox
+		 * @param[in]	handler		event handler
+		 */
 		void setCallWaitingCheckHandler(NotiHandler handler) { m_callWaitingCheckHandler = handler;}
+
+		/*
+		 * @brief Show caller id option radiogroup popup
+		 * @param[in]	selectedValue		Value of caller Id which will be marked as current
+		 * @param[in]	statusHandler		Handler for option select event
+		 * @param[in]	popupHideHandler	Handler for popup hide event
+		 */
 		void showCallerIdPopup(CallerIdStatus selectedValue, CallerIdStatusChangeHandler statusHandler, NotiHandler popupHideHandler);
+
+		/*
+		 * @brief Hide caller is option setup popup
+		 */
 		void hideCallerIdPopup();
 
+		/*
+		 * @brief Set checkbox state in Call Waiting list item
+		 * @param[in]	checked		checkbox state, true if checked, otherwise false
+		 */
 		void setWaitingOptionChecked(bool checked) {m_pCallWaitingOption->setCheckState(checked);}
+
+		/*
+		 * @return true if Call waiting option is checked, otherwise false
+		 */
 		bool isWaitingOptionChecked() { return m_pCallWaitingOption->getCheckState();}
+
+		/*
+		 * @brief	Set waiting option checkbox into pending state
+		 * @param[in]	If true checkbox will be hide and pending circle will be shown, otherwise checkbox will be shown
+		 */
 		void setWaitingOptionPending(bool isPending);
 
 

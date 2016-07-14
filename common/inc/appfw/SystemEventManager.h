@@ -22,20 +22,49 @@
 
 namespace appfw {
 
+	/*
+	 * @brief Interface of system event dispatcher entity
+	 */
 	class ISystemEventDispatcher {
 		public:
 			virtual ~ISystemEventDispatcher() {}
+
+			/*
+			 * @brief Called when needed to dispatch application pause event to system event manager
+			 */
 			virtual void dispatchPauseEvent() = 0;
+
+			/*
+			 * @brief Called when needed to dispatch application resume event to system event manager
+			 */
 			virtual void dispatchResumeEvent() = 0;
 	};
 
+	/*
+	 * @brief Interface of system event provider entity
+	 */
 	class ISystemEventProvider {
 		public:
 			virtual ~ISystemEventProvider() {}
+
+			/*
+			 * @brief Subscribe for System events
+			 * @param[in]	handler		System event handler callback which will be invoked on system events
+			 * @see	SystemEvent
+			 */
 			virtual void addSystemEventHandler(SystemEventHandler handler) = 0;
+
+			/*
+			 * @brief Remove subscribe for System events
+			 * @param[in]	handler		System event handler callback which will be unsubscribe
+			 * @see	addSystemEventHandler()
+			 */
 			virtual void removeSystemEventHandler(SystemEventHandler handler) = 0;
 	};
 
+	/*
+	 * @brief Implementation of ISystemEventProvider and ISystemEventDispatcher.
+	 */
 	class SystemEventManager :
 		public ISystemEventDispatcher,
 		public ISystemEventProvider,
@@ -51,14 +80,50 @@ namespace appfw {
 			virtual void removeSystemEventHandler(SystemEventHandler handler) final;
 
 		private:
+			typedef util::CallbackAlt<void(app_event_info_h event_info)> AppEventCb;
+
+			/*
+			 * @brief Initialization of Event manager.
+			 * Called on create SystemEventManager entity.
+			 * Setup callbacks for system events is provided here
+			 */
 			void initialize();
+
+			/*
+			 * @brief Finalization of Event manager.
+			 * Called on destroy SystemEventManager entity.
+			 * Unset system callbacks for system events is provided here
+			 */
 			void finalize();
+
+			/*
+			 * @brief Language change callback. Invoked when system language was changed.
+			 * param[in]	event	application event handler
+			 */
 			void onLanguageChanged(app_event_info_h event);
+
+			/*
+			 * @brief Region format change callback. Invoked when system format was changed.
+			 * Change of system language change may also automatically cause changes of Region format so this callback
+			 * very often invokes after language change callback but it may be invoked separately when region settings changed.
+			 * param[in]	event	application event handler
+			 */
 			void onRegionFormatChanged(app_event_info_h event);
 
 		private:
+			/*
+			 * @brief Handler for language change callback
+			 */
 			app_event_handler_h m_pLanguageChange_h;
+
+			/*
+			 * @brief Handler for region format callback
+			 */
 			app_event_handler_h m_pRegionFmtChange_h;
+
+			/*
+			 * @brief Collection of handlers which are subscribed for events from EventManager.
+			 */
 			util::Delegation<void(SystemEvent)> m_SystemEventHandlers;
 	};
 }

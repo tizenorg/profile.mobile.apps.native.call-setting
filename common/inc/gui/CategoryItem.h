@@ -21,11 +21,19 @@
 #include "CheckboxListItem.h"
 
 namespace gui {
-
+	/*
+	 * @brief Represent Genlist item with group_index style.
+	 * Usually uses as some category label in list or top list item with specific information
+	 */
 	class CategoryListItem : public CheckboxListItem {
 	protected:
 		CategoryListItem() {}
 		virtual ~CategoryListItem() {}
+
+		/*
+		 * @brief Provides ItemClass name for current ListItem widget
+		 * @return	Genlist item class pointer.
+		 */
 		virtual Elm_Genlist_Item_Class *getItemClass() override;
 
 	private:

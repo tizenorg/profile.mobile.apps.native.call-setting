@@ -22,8 +22,15 @@
 
 namespace gui {
 
+	/**
+	 * @brief Represents Button widget instance
+	 */
 	class Button : public Widget {
 	public:
+		/**
+		 * @brief Set click event handler.
+		 * @param[in]	handler		Click handler which will be invoked on click event
+		 */
 		void setClickHandler(WidgetNotiHandler handler);
 
 	private:
@@ -31,7 +38,21 @@ namespace gui {
 
 		Button();
 		virtual ~Button();
+
+		/**
+		 * @brief Initialization of button is provided here.
+		 * @param[in]	parent		Button widget parent instance
+		 * @param[in]	style		Button style name
+		 * @param[in]	text		Button label, empty by default
+		 * @return	true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent, const char *style, const util::TString &text = "");
+
+		/*
+		 * @brief Button click callback
+		 * @param[in]	obj			Button evas object entity
+		 * @param[in]	event_info	Click callback event info data.
+		 */
 		void onButtonClick(Evas_Object *obj, void *event_info);
 
 	private:

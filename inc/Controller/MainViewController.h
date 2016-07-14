@@ -29,6 +29,9 @@
 
 namespace CallSettings { namespace Controller {
 
+	/*
+	 * @brief Represents Controller of Main view
+	 */
 	class MainViewController : public gui::ViewController {
 	protected:
 		virtual ~MainViewController();
@@ -37,17 +40,64 @@ namespace CallSettings { namespace Controller {
 		friend class ViewController;
 
 		MainViewController(Application &app, NotiHandler handler);
+
+		/*
+		 * @brief Called when view needs update for some reasons
+		 * @param[in] Update flags which describes update reason
+		 */
 		virtual void updateView(int updateFlag) override;
+
+		/*
+		 * @brief initialization of MainViewController
+		 * @return true on success, otherwise false
+		 */
 		bool initialize();
+
+		/*
+		 * @brief Called when Reject messages list item clicked
+		 */
 		void onRejectMsgClick();
+
+		/*
+		 * @brief Called when Answering/Ending call list item clicked
+		 */
 		void onCallAnsweringClick();
+
+		/*
+		 * @brief Called when More list item clicked
+		 */
 		void onMoreClick();
+
+		/*
+		 * @brief Called when Reject message view controller make destroy request
+		 */
 		void onRejectMsgControllerDestroy();
+
+		/*
+		 * @brief Called when Answering view controller make destroy request
+		 */
 		void onAnswerControllerDestroy();
+
+		/*
+		 * @brief Called when More view controller make destroy request
+		 */
 		void onMoreControllerDestroy();
 
+		/*
+		 * @brief Check whether SIM card is inserted and ready for work. In case of any issues toast message will be shown
+		 * @return true if SIM inserted and ready, otherwise false
+		 */
 		bool checkSimReadinessWithNoti();
+
+		/*
+		 * @brief Check whether SIM card is inserted and ready for work
+		 * @return true if SIM inserted and ready, otherwise false
+		 */
 		bool isSimReady();
+
+		/*
+		 * @brief Show SIM error toast message with needed error text based on SIM status
+		 */
 		void showSimErrorNoti();
 
 	private:

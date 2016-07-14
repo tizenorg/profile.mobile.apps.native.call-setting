@@ -23,18 +23,48 @@
 
 namespace gui {
 
+	/*
+	 * @brief Represents base class of controller Naviframe page view
+	 * All View Controllers are inherited from ViewController
+	 */
 	class ViewController : private util::NonCopyable {
 	public:
+		/*
+		 * @brief	Fabric method for creation View controller of type CONTROLLER_T
+		 * @param[in]	app			Application core instance
+		 * @param[in]	handler		Controller destroy handler. It is invoked when controller is destroying to notify parent controller
+		 * @param[in]	args		Variadic arguments for controller instance
+		 * @return	Pointer to new controller instance on success, otherwise false.
+		 */
 		template <typename CONTROLLER_T, typename APP_T, typename ...TYPE_ARGS>
 		static CONTROLLER_T *create(APP_T &app, NotiHandler handler, TYPE_ARGS&&... args);
 
 		virtual ~ViewController();
 
+		/*
+		 * @brief Add custom flags which will be passed to updateView function.
+		 * Thus each controller can add custom update flag which will be passed when controller update will be invoked.
+		 * @param[in]	flags	custom update flags
+		 * @see updateView()
+		 */
 		void addCustomUpdateFlags(int flags);
+		/*
+		 * @brief Remove custom update flags which was added.
+		 * @param[in]	flags	cusotm falgs
+		 */
 		void removeCustomUpdateFlags(int flags);
+
+		/*
+		 * @brief Check whether update flag is set
+		 * @param[in]	flags	flag to be checked
+		 * @return true if falg is set, otherwise false
+		 */
 		bool isUpdateFlagsSet(int flags) const;
 
 	protected:
+		/*
+		 * @brief Update flags. This flags are determine events which took place so that controller can provide needed update when updateView() is called
+		 */
 		typedef enum {
 			UF_INITIAL = 1,
 			UF_LANGUAGE = 2,
@@ -49,15 +79,61 @@ namespace gui {
 		} UpdateFlag;
 
 		ViewController (appfw::BaseApplication &app, NotiHandler destroyHandler);
+		/*
+		 * @brief Called when controller initiate the process of destroy. Calling this method notify parent for deleting current controller
+		 * Then parent controller can destroy it's child controller and destructor of current controller will be invoked
+		 */
 		void makeDestroyReqeuest();
+
+		/*
+		 * @brief Callback which is invoked when View becomes visible.
+		 * When this callback is called view is most commonly in transition state
+		 */
 		virtual void onShow() {}
+
+		/*
+		 * @brief Callback which is invoked when View becomes invisible.
+		 */
 		virtual void onHide() {}
+
+		/*
+		 * @brief Callback which is invoked when View needs update. This can be by different reason.
+		 * Update invokes only when view became visible.
+		 */
 		virtual void updateView(int updateFlag) {}
+
+		/*
+		 * @brief Callback which s invoked when View is ready for user interaction.
+		 * It is invoked when View finished transition and is ready for work
+		 */
 		virtual void onActivate() {}
+
+		/*
+		 * @brief Callback which s invoked when View becomes not ready for interaction but it is still visible.
+		 * It is invoked when current view became popping so that view is visible but not active any more.
+		 */
 		virtual void onDeactivate() {}
+
+		/*
+		 * @brief Callback for more menu hardware key press
+		 */
 		virtual void onMenuKeyPressed() {}
+
+		/*
+		 * @brief Callback for back hardware key press
+		 */
 		virtual void onBackKeyPressed();
+
+		/*
+		 * @brief Initialize View controller
+		 * @return true on success, otherwise false
+		 */
 		bool initialize();
+
+		/*
+		 * @brief Set view to belongs to Controller
+		 * @param[in]	view	View instance which will be attached to controller
+		 */
 		void setBaseView(BaseView *view);
 
 	protected:

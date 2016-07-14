@@ -23,23 +23,56 @@
 #include "GenlistItem.h"
 
 namespace gui {
+	/*
+	 * @brief Represent Genlist widget
+	 */
 	class Genlist : public Widget {
 	public:
+		/*
+		 * @brief Fabric function for append new List item to the end of list
+		 * @return ListItem instance
+		 */
 		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
 		GENLIST_ITEM_TYPE *appendItem(TYPE_ARGS&&... args);
 
+		/*
+		 * @brief Fabric function for append new List item to the top of list
+		 * @return ListItem instance
+		 */
 		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
 		GENLIST_ITEM_TYPE *prependItem(TYPE_ARGS&&... args);
 
+		/*
+		 * @brief Fabric function for append new List item after specific list
+		 * @param[in]	afterItem	List item anchor after which new one will be added
+		 * @return ListItem instance
+		 */
 		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
 		GENLIST_ITEM_TYPE *insertAfter(GenlistItem &afterItem, TYPE_ARGS&&... args);
 
+		/*
+		 * @brief Fabric function for append new List item before specific list
+		 * @param[in]	afterItem	List item anchor after which new one will be added
+		 * @return ListItem instance
+		 */
 		template <class GENLIST_ITEM_TYPE, typename... TYPE_ARGS>
 		GENLIST_ITEM_TYPE *insertBefore(GenlistItem &beforeItem, TYPE_ARGS&&... args);
 
+		/*
+		 * @briefUpdate genlist realized content
+		 */
 		void update();
+
+		/*
+		 * @brief Clear genlist content. All list items will be deleted
+		 */
 		void clear();
 
+		/*
+		 * @brief Set Homogeneous mode
+		 * @param[in] isHomogenModeEnabled	Enable homogenus mode so all items will have the same height, otherwise - disable homogenus mode
+		 * @note If list contains multiline items behavior will be undefined
+		 */
 		void setHomogeneousMode(bool isHomogenModeEnabled);
 		void setContentMinLimit(bool w, bool h);
 
@@ -48,8 +81,25 @@ namespace gui {
 
 		Genlist() {}
 		virtual ~Genlist() {}
+		/*
+		 * @brief Initialization of Genlist widget
+		 * @param[in]	parent	Genlist widget parent
+		 * @return true on success, otherwise false
+		 */
 		bool initialize(const Widget &parent);
+
+		/*
+		 * @brief Genlist item select callback
+		 * @param[in]	obj			Genlist object
+		 * @param[in]	eventInfo	Callback event info data
+		 */
 		void onItemSelected(Evas_Object *obj, void *eventInfo);
+
+		/*
+		 * @brief Pointer converter function
+		 * @param[in]	eventInfo	void data pointer
+		 * @return	Pointer to ListItem instance
+		 */
 		static GenlistItem *toGenlistItem(void *eventInfo);
 	};
 
